@@ -1,0 +1,42 @@
+{
+	".url": {
+		"SYNO.SDS._ThirdParty.App.BasicBackup": {
+			"type": "legacy",
+			"title": "Basic Backup",
+			"desc": "Analyzing log files",
+			"allUsers": false,
+			"allowMultiInstance": false,
+			"grantPrivilege": "all",
+			"advanceGrantPrivilege": true,
+			"configablePrivilege": true,
+			"icon": "images/icon_{0}.png",
+			"appWindow": "SYNO.SDS._ThirdParty.App.BasicBackup",
+			"texts": "texts",
+			"width": 992,
+			"height": 560,
+			"url": "/webman/3rdparty/BasicBackup/index.cgi",
+			"preloadTexts": [
+				"app:title",
+				"app:subtitle",
+				"app:permissions_true",
+				"app:permissions_false",
+				"app:autopilot_enabled",
+				"app:autopilot_disabled",
+				"app:autopilot_start",
+				"app:autopilot_stop_a",
+				"app:autopilot_stop_b",
+				"app:autopilot_stop_c",
+				"app:autopilot_stop_d",
+				"app:autopilot_alert_a",
+				"app:autopilot_alert_b",
+				"app:script_failed",
+				"app:job_failed",
+				"app:server_failed",
+				"app:target_failed",
+				"app:job_executed",
+				"app:job_successful",
+				"app:job_warning"
+				]
+		}
+	}
+}

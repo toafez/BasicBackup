@@ -1,0 +1,44 @@
+#!/bin/bash
+# Filename: lang_pilot_enu - coded in utf-8
+
+#						 Basic Backup
+#
+#        Copyright (C) 2022 by Tommes | License GNU GPLv3
+#         Member of the German Synology Community Forum
+#
+# Extract from  GPL3   https://www.gnu.org/licenses/gpl-3.0.html
+#                                     ...
+# This program is free software: you can redistribute it  and/or
+# modify it under the terms of the GNU General Public License as
+# published by the Free Software Foundation, either version 3 of
+# the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+#
+# See the GNU General Public License for more details.You should
+# have received a copy of the GNU General Public  License  along
+# with this program. If not, see http://www.gnu.org/licenses/  !
+
+txt_device_detected="External data carrier was detected. Device name"
+txt_device_failed="Device name could not be passed by udev! Abort..."
+txt_mountpoint_detected="Mount point in the file system"
+txt_mountpoint_failed="Mount failed!"
+txt_uuid_detected="Identification number (UUID)"
+txt_script="The Script"
+txt_script_localised="has been localised"
+txt_script_started="has been started."
+txt_script_run_through="has run through."
+# txt_script_not_executed="was not executed."
+txt_script_execution="during the execution of the script"
+txt_script_error_occurred="errors occurred!"
+txt_script_not_found="could not be found!"
+txt_script_not_executed="could not be executed!"
+txt_device_unmount="mount point has been disconnected"
+txt_device_ejected="External data carrier has been ejected"
+txt_device_not_ejected="External device could not be ejected"
+txt_device_only_unmount="External device was unmounted but could not be ejected"
+txt_device_not_found="External device could not be found"
+txt_device_not_unmount_ejected="External device could neither be unmounted nor ejected"
+txt_device_mounted_and_connected="The external USB/SATA disk remains mounted."

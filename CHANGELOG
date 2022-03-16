@@ -1,0 +1,141 @@
+Basic Backup Release Notes
+
+Version 0.6-100 vom 15.03.2022
+	- Der Status der App-Berechtigung in der Systemumbebung von Basic Backup wurde angepasst.  
+	- Bei der Auswertung, ob ein Auftrag aktuell ausgeführt wird oder nicht, wurden alle Aufträge, die mit dem selben Wortlaut begannen, als aktiv gekennzeichnet. Fehler wurde behoben.
+	- AutoPilot: Der Aufruf des Scriptes autopilot erfolgt nicht mehr über den Befehl bash.
+	- AutoPilot: Sollte beim Einstecken eines externen Datenträgers kein Gerätename aus der udev Regel übergeben werden, kein autopilot Script gefunden oder das autopilot Script nicht ausgeführt werden können, wird AutoPilot abgebrochen. Der externe Datenträger wird in diesem Fall nicht ausgeworfen, selbst wenn diese Option aktivert wurde.
+	- AutoPilot: Beim einstecken eines beliebigen externen Datenträgers auf dem sich aber kein autopilot Script befand, wurde fälschlicher Weise die optische- und akustische Signalausgabe ausgelöst, wenn diese Option aktivert war. Fehler wurde behoben. 
+
+Version 0.6-001 23.02.2022
+	- Bei der Umstellung des Sprachdateisystem wurde versäumt, die Hilfe-Dateien entsprechend anzupassen. Fehler wurde behoben.
+	
+	
+Version 0.6-000 vom 19.02.2022
+	- Upgrade der Bootstrap Icons von 1.7.2 nach 1.8.1
+	- Schriftgröße der GUI von 1 rem auf 0.9 rem umgestellt.
+	- Implementierung von USB/SATA-AutoPilot. Mit dieser Funktion kann nach dem anstecken eines externen Datenträgers eine Scriptdatei automatisch ausgeführt werden um z.B. einen Basic Backup Auftrag abzuarbeiten, oder um andere Befehle oder Scripte auszuführen. Nach dem das Script durchgelaufen ist, kann der externe Datenträger bei Bedarf wieder automatisch ausgeworden werden. Die AutoPilot Funktion ist somit vergleichbar mit der 3rdParty App "autorun". Das Ausführungsscript heißt aber nicht autorun sondern autopilot und muss ebenfalls im root Verzeichnis des externen Datenträgers abgelegt werden.
+	- Liegt das Datensicherungsziel auf einem extern angeschlossenen USB/SATA-Datenträger kann es passieren, das sich der ursprüngliche Einhängepunkt (Mountpoint) wie z.B. /volumeUSB1/usbshare beim nächsten anstecken nach z.B. /volumeUSB2/usbshare ändert. Das würde dazu führen, das die Datensicherung entweder abbricht oder die Daten auf einem falschen Datenträger abgelegt werden. Daher wurde eine Möglichkeit geschaffen, den Mountpoint anhand der Geräte UUID des externen Datenträgers zu identifizieren und gegebenfalls anzupassen, so das stets sichergestellt ist, das die Datensicherung im korrekten Ziel abgelegt wird.
+	- Liegen Datensicherungsquellen auf einem oder mehreren extern angeschlossenen USB/SATA-Datenträger(n) kann es ebenfalls passieren, das sich der ursprüngliche Einhängepunkt (Mountpoint) wie z.B. /volumeUSB1/usbshare beim nächsten einstecken nach z.B. /volumeUSB2/usbshare ändert. Im Gegensatz zum Datensicherungsziel können sich Datensicherungsquellen aber auf mehrere externe Datenträger verteilen. Die Identifizierung sowie Anpassung des jeweiligen Mountpoints ist somit sehr aufwendig und aktuell leider noch sehr fehlerbehaftet. Aus diesem Grunde habe ich einen Hinweis an den entsprechenden Stellen platziert um auf diesem Umstand aufmerksam zu machen. 
+	- Das Sprachdateisystem wurde umgestellt und in die Bereiche GUI, rsync-Script sowie AutoPilot-Script gruppiert.
+	- In den Auftragskonfigurationen fällt durch die Umstellung des Sprachdateisystems die Deklarierung der Sprachausgabe ( var[language] ) weg.
+	- Im Bereich [ Sichern und wiederherstellen der Datensicherungsaufträge ] konnte kein Zielordner angegeben werden. Fehler behoben.
+	- Viele kleinere und einige größere Detailverbesserungen, Fehlerbehebungen und Codebereinigungen vorgenommen.
+	
+Version 0.5-023 vom 25.01.2022 
+	- Bei der Auswertung, ob ein Auftrag aktuell ausgeführt wird oder nicht, wurde nach Teilzeichenketten im Auftragsnamen gesucht und nicht nach ganzen Wörten. Das hatte zur Folge, das ähnlich lautende Aufträge fälschlicherweise als aktiv gekennzeichnet wurden, obwohl sie inaktiv waren. Fehler wurde behoben.
+	- Endete der Pfad des Datensicherungsziels mit einem / (Slash) wurde die Datensicherung im root Ordner abgelegt. Fehler wurde behoben.
+	- In der Auftragsbearbeitung wurde die Bezeichnung "Datensicherungsziel" gegen "Freigegebener Ordner" und die Bezeichnung "Zielordner" gegen "Zielverzeichnis" ausgetauscht. Ebenfalls wurden die Info-Felder entsprechend umgeschrieben.
+	
+Version 0.5-000 vom 23.01.2022
+	- Mit der Version 0.5-000 verlässt Basic Backup die Betaphase und geht in eine Vorabversion über. Vorabversion deshalb, da die API immer noch eine Null als Hauptversionsnummer anführt und daher durchaus noch umfangreiche Änderungen erfolgen können. Ebenso können immer noch unentdeckte Fehler zu einem unerwünschten Fehlverhalten oder gar einem möglichen Datenverlust führen.
+	- Upgrade der Bootstrap Icons von 1.6.0 nach 1.7.2
+	- Allgemeine Anzeigefehler in der Auftragsbearbeitung behoben.
+	- Allgemeine Korrekturen an den Sprachdateien und Sprachvariabeln durchgeführt.
+	- Die Papierkorb Funktion hat zwischenzeitlich gelöschte Daten der Datensicherungsquelle(n) fälschlicherweise in den Ordner /@backup und nicht in den Ordner /@recycle des Datensicherungsziels verschoben. Das hatte zur Folge, das die Funktion "Inhalte des Papierkorbs löschen, die älter sind als..." nicht gegriffen hat. Bei der nächsten Ausführung des Datensicherungsauftrages werden die Daten ensprechend verschoben.
+	- Bei einer Angabe von 0 Tagen werden bei der Papierkorb-Funktion alle zwischenzeitlich gelöschten Daten aus den Datensicherungsquelle(n) auch im Datensicherungsziel unwiderruflich gelöscht. Andernfalls werden die zwischenzeitlich gelöschten Daten für die angegebene Zeit in Tagen in den Papierkorb, unter /@recycle des Zielordners verschoben.
+
+Version 0.4-000 Beta vom 29.12.2021
+	- Aufträge können nun lokal auf der DS gesichert und wiederhergestellt werden.
+	- Unstimmigkeiten der internen Versionsverwaltung zwischen Auftragsbearbeitung (GUI), Auftragskonfiguration (.config) und Auftragsausführung (rsync-Script) vorgenommen.
+	- Verständlichere Formulierung und Plazierung des Update Buttons, wenn nach einem Paket-Update Änderungen an der jeweiligen Auftragskonfiguration (.config) vorgenommen werden müssen.
+	- Umgestaltung des Hinweis Buttons. Der Text -Hinweis- wurde durch ein weißes -i- auf blauen Grund ersetzt.
+	- In den Hilfedateien zur Einrichtung einer SSH Verbindung wurden Hinweise zum Aktivieren des rsync-Dienstes für die lokale DiskStation als auch für Remote Server hinzugefügt.
+	- In der Auftragsbearbeitung wurde ein Hinweis hinzugefügt, wann die Angabe der MAC-Adresse erforderlich ist.
+	- In der Auftragsbearbeitung konnte als Zielordner ein einfacher Slash, ohne Angabe eines Ordners angegeben werden. Unter bestimmten Bedingungen erfolgte dadruch eine anschließende Datensicherung ins Wurzel- bzw. /root Verzeichnis von Linux. Das führte wiederum zu einem Überlauf der Systempartition. Fehler wurde behoben sowie Hinweise angepasst.
+	- Im rsync-Script wurde anstatt der Empfänger E-Mail Adresse, die E-Mail Adresse des Absenders verwendet.
+	- Im rsync-Script wurde der Shutdown nicht ausgelöst, da eine Umgebungsvariable nicht bzw. falsch gesetzt war.
+
+
+Version 0.3-100 Beta vom 14.11.2021
+	- Es wurde eine Auswahloption hinzugefügt um das E-Mail-Protokoll nur bei auftretenden Problemen versenden zu lassen.
+	- Beim Schließen des Popupfensters eines beliebigen Hilfeartikels über das X-Symbol musste das Programm teilweise neu gestartet werden. Fehler wurde behoben.
+	- Das Anzeigeformat der Popupfenster für die Hilfeartikel, das Systemprotokoll sowie für die Datensicherungsprotokolle wurde überarbeitet.
+	- Die Anzeige von Neuigkeiten, Updates und Hinweisen wurde überarbeitet.
+	- Kleinere Layout Anpassungen innerhalb des Auftragsformulars vorgenommen.
+
+
+Version 0.3-043 Beta vom 07.11.2021
+	- Der Text zum "Erweiteren der eingeschränkten Systemrechte" wurde nicht in englischer Sprache ausgegeben. Fehler wurde behoben.
+	- Der Hilfe Button bzw. das Hilfe Menu wurde nicht in englischer Sprache übersetzt. Fehler wurde behoben.
+	- Der Speichern Button am Ende der Auftragserstellung wurde nicht in englischer Sprache übersetzt. Fehler wurde behoben.
+	- In der Hilfe wurden zum Thema SSH-Verbindung einrichten einige Dinge korrigiert, so das z.B. wieder mit den Standard Dateinamen für die RSA-Schlüssel (id_rsa und id_rsa.pub) gearbeitet wird.
+	- In der Systemumgebung wurde der Status des Benutzer-Home-Dienstes hinzugefügt. Des Weiteren wurden entsprechende Informationen zum aktivieren des rsync-, SSH-, sowie des Benuter-Home-Dienstes hinzugefügt.
+	- Beim erstellen eines neuen Auftrags wurden die Daten eines bereits bestehenden Auftrages im Formular angezeigt. Fehler wurde behoben.
+	- Es wurde ein Hinweis im auftragsformular hinzugefügt, das man für den Shutdown eines Remote Servers root Rechte benötigt.
+	- Im Auftragsformular wurden die Punkte "Vor- und nach der Datensicherung den Remote Server..." verständlicher formuliert.
+	- Dem Auftragsformular wurde ein Formularfeld hinzugefügt, wo der Dateiname des zu verwendenden, lokal abgelegten privaten Schlüssels (id_rsa) angegeben werden kann. Damit verbunden wurde das rsync-Script um die Funktion erweitert, alternative Dateinamen des zu verwendenden privaten Schlüssels (id_rsa) zu verarbeiten.
+	- Im Auftragsformular kann neben der E-Mail Absenderadresse eine abweichende E-Mail Empfängeradresse angegeben werden. Die Formularfelder werden dabei automatisch mit den im DSM unter Hauptmenü > Systemsteuerung > Benachrichtigung > E-Mail hinterlegten Daten ausgefüllt. Damit verbunden wurde das rsync-Script um die Funktion erweitert, neben der Absenderadresse eine abweichende Emfängeradresse zu verarbeiten.
+	- Im Datensicherungsprotokoll wird jetzt ein Hinweis ausgegeben, ob eine E-Mail erfolgreich versendet wurde oder nicht.
+	- Im rsync-Script wurde an bestimmten Stellen der Zeitstempel aktualisiert, um den Fortschritt im Datensicherungsprotokoll aussagekräfitger darstellen zu können.
+
+
+Version 0.2-014 Beta vom 31.10.2021
+	Bugfixes
+	- Neben dem Befehl zum Ausführen eines Auftrags können nun diverse Optionsschalter wie z.B. --dry-run, -v, -vv oder auch -vvv an den Befehl angehangen werden.
+	- Als speziellen bzw. experimentellen Optionsschalter wurde ein Optionsschalter zum Verändern von rsync Zugriffsrechten im Ziel der Datensicherung hinzugefügt. Bedingt durch die eingeschränkten rsync Berechtigungen eines ausführenden SSH Benutzers, kann es vor allem bei einem Push Backup zu Zugriffsproblemen beim Schreiben von Ordnern (Verzeichnissen) und Dateien kommen.
+	- Teilweise wurde der Ordner /Versionsverlauf nicht erstellt, da im rsync-Script ein Slash doppelt angegeben war, da hieß es dann /Versionsverlauf//2021-10-…...
+	- Die initiale Sicherung der DSM-Systemkonfiguration wurde nach einem erneuten Durchlauf des Auftrages nicht mehr aktualisiert.
+
+	Änderungen bzw. Verbesserungen
+	- Auftragsnamen dürfen jetzt Leerzeichen enthalten.
+	- Ordnernamen zum Festlegen des Datensicherungsziel dürfen jetzt Leerzeichen enthalten.
+	- Ordnernamen für zwischenzeitlich gelöschte Daten innerhalb des Ordners /@backups werden nur noch mit Datum und Uhrzeit versehen, jedoch nicht mehr mit dem Namen des Auftrages.
+	- Alle Standardausgaben (stdout) sowie Standardfehlerausgaben (stderr) werden nun einheitlich im Terminal sowie im Datensicherungsprotokoll ausgegeben.
+	- Der Verzeichnisbaum zur Auswahl lokaler Quellordner wird jetzt immer komplett angezeigt.
+	- Das Versenden des Protokolls per E-Mail kann jetzt ein- oder ausgeschaltet werden.
+	- Müssen nach einen Paket-Update Aktualisierungen an den Auftragskonfigurationen durchgeführt werden, erscheint ein entsprechender Hinweis in der Auftragsübersicht.
+	- Dateiname zum Erweitern der Systemrechte von kickme_into_group.sh nach app_permissions.sh umbenannt.
+	- Rahmenbedingungen für den Beta-Betrieb auf CPHub angepasst, damit Basic Backup im DSM-Paketzentrum auftaucht.
+	- Package Icon von 72x72 wieder zurück auf 64x64 zurückgesetzt.
+
+
+Version 0.1-100 Beta vom 21.10.2021
+	- Start der ersten öffentlichen Beta Version von Basic Backup
+	- Basic Backup versteht sich als Fork, also als eine Abspaltung von Ultimate Backup und wurde eigens für die Verwendung unter DSM 7 entwickelt. Daher bietet Basic Backup auch weiterhin eine dateibasierte sowie ggf.
+	versionierte Datensicherung an. Mögliche Datensicherungsquellen und Ziele sind neben internen Volumes und extern an eine DiskStation angeschlossene USB/SATA-Datenträger auch über SSH verbundene, rsync fähige Remote Server. Bedingt durch den restriktiveren Aufbau von DSM 7 konnten einige Funktionen von Ultimate Backup jedoch nicht übernommen werden, andere Funktionen wurden wiederum bewusst weggelassen.
+	- Bootstrap 5.1.3 - The world’s most popular framework for building responsive, mobile-first sites, with jsDelivr and a template starter page
+	- Bootstrap Icons 1.6.0 - Free, high quality, open source icon library with over 1,300 icons.
+	- jQuery 3.6.0 - A fast, small, and feature-rich JavaScript library.
+
+	Was funktioniert noch genauso wie unter Ultimate Backup
+		- Ausführen dateibasierter Datensicherungen auf…
+		- …interne Volumes
+		- …extern angeschlossene USB/SATA-Laufwerke
+		- …eingebundene Remote Ordner über die File Station
+		- …eingehängte, verschlüsselte Ordner
+		- …von oder auf Remote Server im lokalen Netzwerk oder über das Internet.
+		- Erstellen, bearbeiten und löschen von Backup Aufträgen.
+		- Ausführen von Backup Aufträgen über den DSM Aufgabenplaner.
+		- Ausführen von Backup Aufträgen über das Terminal der lokalen DiskStation.
+		- Anzeige, welcher Auftrag grade ausgeführt wird.
+		- Sichern von zwischenzeitlich gelöschten Ordnern und Dateien, oder…
+		- …anlegen von Versionsständen, basierend auf der Verwendung von Hardlinks.
+		- Sichern der DSM-Systemkonfiguration (ausgenommen Pull-Backup)
+		- Optische- und akustische Signalausgabe.
+		- Ausgabe von DSM-Benachrichtigungen.
+		- Senden eines Datensicherungsprotokolls per E-Mail.
+
+	Was funktioniert nur noch eingeschränkt über die GUI
+		- Zugriff auf Unterordner von gemeinsamen bzw. freigegebenen Ordnern.
+		- Auswählen von Unterordnern zum festlegen lokaler Datensicherungsquellen.
+		- Auswählen von Unterordnern zum festlegen eines lokalen Datensicherungszieles.
+		- Der Zugriff auf o.a. Ordnerebenen ist nur möglich, wenn das Basic Backup Paket Mitglied in der Gruppe der Administratoren ist.
+		- Aktuell ist der Zugriff auf die Ordnerstruktur jedoch generell auf /volume1/share/folder beschränkt.
+
+	Was funktioniert überhaupt nicht mehr über die GUI
+		- Ausführen von Backup Aufträgen.
+		- Einhängen und trennen verschlüsselter Ordner.
+		- Senden von Ping-, WOL- und Shutdown Befehlen.
+		- Erstellen und Verwalten von SSH-Ordnerstrukturen.
+		- Durchführen eines Handshake sowie der Austausch des Public-Key.
+		- Gerätedaten von Remote Servern abfragen und anzeigen.
+		- Zugriff auf die Ordnerstruktur von Remote Servern.
+		- Anlegen und bearbeiten von Zeitplänen (cron).
+		- Automatisches Ausführen von Aufträgen beim Anschließen eines USB/SATA-Datenträgers (ehemals autostart).
+
+	Bekannte und noch zu lösende Probleme
+		- Während der Ausführung eines Push- und Pull-Backups über einen SSH-Benutzer mit eingeschränkten Rechten gehen die Besitz- und Gruppenrechte von Ordnern und Dateien der Quellen weitgehend verloren, da diese nur unter Verwendung des Root-Kontos unangetastet ins Ziel übertragen werden können. Bedingt durch den rsync-Optionsschalter --chmod=ugo=rwX werden während eines Push-Backups alle Ordner im Ziel auf -rwx---- oder auch 700, alle Dateien auf -rwxrwxrwx oder auch 777 gesetzt. Bei einem Pull-Backup greift dieser Optionsschalter zwar nicht, jedoch werden auch hier Ordner- und Dateirechte möglicherweise im ziel geändert.
+		- Es ist jedoch generell festzuhalten, das Datei- und Ordnerrechte im Ziel der Datensicherung nur noch bedingt erhalten bleiben, solange der Auftrag nicht über eine SSH Verbindung unter Verwendung des Root-Kontos abgewickelt wird.
+		- Implementieren der 3rdParty App autorun um Backup Basic Aufträge beim anschließen eines USB/SATA-Datenträgers automatisch auszuführen. Hier muss das rsync-Script noch entsprechend angepasst werden, da autorun einen Erfolg mit dem Exit-Code 100 quittiert, das rsync-Script hier aber 0 ausgibt.
+		- Das Sichern in- bzw. aus eingegangenen, verschlüsselten Ordnern über das rsync-Script heraus sollte technisch weiterhin möglich sein. Mir stellt sich nur die Frage, ob ich diese Funktion in Zukunft einbinden und supporten möchten.

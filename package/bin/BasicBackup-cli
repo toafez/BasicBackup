@@ -1,0 +1,2 @@
+#!/bin/sh
+/var/packages/BasicBackup/scripts/start-stop-status "$@"

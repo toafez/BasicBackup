@@ -1,0 +1,44 @@
+#!/bin/bash
+# Filename: lang_pilot_ger - coded in utf-8
+
+#						 Basic Backup
+#
+#        Copyright (C) 2022 by Tommes | License GNU GPLv3
+#         Member of the German Synology Community Forum
+#
+# Extract from  GPL3   https://www.gnu.org/licenses/gpl-3.0.html
+#                                     ...
+# This program is free software: you can redistribute it  and/or
+# modify it under the terms of the GNU General Public License as
+# published by the Free Software Foundation, either version 3 of
+# the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+#
+# See the GNU General Public License for more details.You should
+# have received a copy of the GNU General Public  License  along
+# with this program. If not, see http://www.gnu.org/licenses/  !
+
+txt_device_detected="Externer Datenträger wurde erkannt. Gerätename"
+txt_device_failed="Gerätename konnte von udev nicht übergeben werden! Abbruch..."
+txt_mountpoint_detected="Einhängepunkt im Dateisystem"
+txt_mountpoint_failed="Einhängen fehlgeschlagen!"
+txt_uuid_detected="Identifikationsnummer (UUID)"
+txt_script="Das Script"
+txt_script_localized="wurde lokalisiert"
+txt_script_started="wurde gestartet."
+txt_script_run_through="ist durchgelaufen."
+# txt_script_not_executed="wurde nicht ausgeführt."
+txt_script_execution="Während der Ausführung des Scripts"
+txt_script_error_occurred="sind Fehler aufgetreten!"
+txt_script_not_found="konnte nicht gefunden werden!"
+txt_script_not_executed="konnte nicht ausgeführt werden!"
+txt_device_unmount="Einhängepunkt wurde getrennt"
+txt_device_ejected="Externer Datenträger wurde ausgeworfen"
+txt_device_not_ejected="Externer Datenträger konnte nicht ausgeworfen werden"
+txt_device_only_unmount="Externer Datenträger wurde zwar getrennt, konnte aber nicht ausgeworfen werden"
+txt_device_not_found="Externer Datenträger konnte nicht gefunden werden"
+txt_device_not_unmount_ejected="Externer Datenträger konnte weder getrennt noch ausgeworfen werden"
+txt_device_mounted_and_connected="Der externe USB/SATA-Datenträger bleibt eingehängt."
