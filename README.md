@@ -92,6 +92,9 @@ Basic Backup ermöglicht eine GUI gestützte, dateibasierte Datensicherung auf G
 - Details zum Frontend entnehmen Sie bitte dem [Bootstrap Framework](https://getbootstrap.com/)
 - Details zu jQuery entnehmen Sie bitte der [jQuery API](https://api.jquery.com/)
 
+## Hilfe und Diskussion
+- Hilfe und Diskussion gerne über [Das deutsche Synology Support Forum](https://www.synology-forum.de/threads/basic-backup.117455/) 
+
 ## Lizenz
 Dieses Programm ist freie Software. Sie können es unter den Bedingungen der **GNU General Public License**, wie von der Free Software Foundation veröffentlicht, weitergeben und/oder modifizieren, entweder gemäß **Version 3** der Lizenz oder (nach Ihrer Option) jeder späteren Version.
 
