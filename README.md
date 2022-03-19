@@ -84,18 +84,18 @@ Basic Backup ermöglicht eine GUI gestützte, dateibasierte Datensicherung auf G
       - Speichern Sie anschließend die grade erstellet Textdatei über die Schaltfläche **Datei** > **Speichern unter...** wählen als Speicherort das **root Verzeichnis** des gewünschten externen Datenträgers an wie z.B. **/usbshare** und geben als Dateiname **autopilot** ohne Dateiendung an. Bestätigen Sie Ihre Eingaben durch drücken der Schaltfläche **Speichern**.
       - Werfen Sie den externen Datenträger über den DSM aus. Beim nächsten anstecken des externen Datenträgers wird der Inhalt der grade erstellten Scriptdatei ausgeführt.
 
-## Versionsgeschichte
+# Versionsgeschichte
 - Details zur Versionsgeschichte finden Sie in der Datei [CHANGELOG](CHANGELOG).
 
-## Entwickler-Information
+# Entwickler-Information
 - Details zum Backend entnehmen Sie bitte dem [Synology DSM 7.0 Developer Guide](https://help.synology.com/developer-guide/)
 - Details zum Frontend entnehmen Sie bitte dem [Bootstrap Framework](https://getbootstrap.com/)
 - Details zu jQuery entnehmen Sie bitte der [jQuery API](https://api.jquery.com/)
 
-## Hilfe und Diskussion
+# Hilfe und Diskussion
 - Hilfe und Diskussion gerne über [Das deutsche Synology Support Forum](https://www.synology-forum.de/threads/basic-backup.117455/) 
 
-## Lizenz
+# Lizenz
 Dieses Programm ist freie Software. Sie können es unter den Bedingungen der **GNU General Public License**, wie von der Free Software Foundation veröffentlicht, weitergeben und/oder modifizieren, entweder gemäß **Version 3** der Lizenz oder (nach Ihrer Option) jeder späteren Version.
 
 Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, daß es Ihnen von Nutzen sein wird, aber **OHNE IRGENDEINE GARANTIE**, sogar **ohne die implizite Garantie der MARKTREIFE oder der VERWENDBARKEIT FÜR EINEN BESTIMMTEN ZWECK**. Details finden Sie in der Datei [GNU General Public License](LICENSE).
