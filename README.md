@@ -6,6 +6,8 @@ Basic Backup ermöglicht eine GUI gestützte, dateibasierte Datensicherung auf G
 **Basic Backup** wurde speziell für die Verwendung auf **Synology NAS Systemen** entwickelt die das Betriebsystem **DiskStation Mangager 7** verwenden.
 
 # Installationshinweise
+Laden Sie sich die **jeweils aktuellste Version** von Basic Backup aus dem Bereich [Releases](https://github.com/toafez/BasicBackup/releases) herunter. Öffnen Sie anschließend im **DiskStation Manager (DSM)** das **Paket-Zentrum**, wählen oben rechts die Schaltfläche **Manuelle Installation** aus und folgen dem **Assistenten**, um das neue **Paket** bzw. die entsprechende **.spk-Datei** hochzuladen und zu installieren. Dieser Vorgang ist sowohl für eine Erstinstallation als auch für die Durchführung eines Updates identisch. 
+
   - ## Rsync-Dienst aktivieren
     Aktivieren Sie im Vorfeld bitte den **rsync-Dienst**. Zum aktivieren des rsync Dienstes gehen Sie zu **DSM-Hauptmenü** > **Systemsteuerung** > **Dateidienste** und wechseln dort in den Reiter > **rsync**. Aktiveren Sie die Checkbox **rsync Dienst aktivieren**. Als **SSH-Verschlüsselungsport** wird standardmäßig der **Port 22** verwendet, welchen Sie bei Bedarf anpassen können.
     
@@ -93,7 +95,7 @@ Basic Backup ermöglicht eine GUI gestützte, dateibasierte Datensicherung auf G
 - Details zu jQuery entnehmen Sie bitte der [jQuery API](https://api.jquery.com/)
 
 # Hilfe und Diskussion
-- Hilfe und Diskussion gerne über [Das deutsche Synology Support Forum](https://www.synology-forum.de/threads/basic-backup.117455/) 
+- Hilfe und Diskussion gerne über [Das deutsche Synology Support Forum](https://www.synology-forum.de/threads/basic-backup.117455/) oder über [heimnetz.de](https://forum.heimnetz.de/threads/basic-backup-3rdparty-app-fuer-synology-nas-dsm-7.485/)
 
 # Lizenz
 Dieses Programm ist freie Software. Sie können es unter den Bedingungen der **GNU General Public License**, wie von der Free Software Foundation veröffentlicht, weitergeben und/oder modifizieren, entweder gemäß **Version 3** der Lizenz oder (nach Ihrer Option) jeder späteren Version.
