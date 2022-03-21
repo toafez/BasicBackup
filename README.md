@@ -8,6 +8,8 @@ Basic Backup ermöglicht eine GUI gestützte, dateibasierte Datensicherung auf G
 # Installationshinweise
 Laden Sie sich die **jeweils aktuellste Version** von Basic Backup aus dem Bereich [Releases](https://github.com/toafez/BasicBackup/releases) herunter. Öffnen Sie anschließend im **DiskStation Manager (DSM)** das **Paket-Zentrum**, wählen oben rechts die Schaltfläche **Manuelle Installation** aus und folgen dem **Assistenten**, um das neue **Paket** bzw. die entsprechende **.spk-Datei** hochzuladen und zu installieren. Dieser Vorgang ist sowohl für eine Erstinstallation als auch für die Durchführung eines Updates identisch. 
 
+**Nach dem Start** von BasicBackup wird die lokal **installierte Version** mit der auf GitHub **verfügbaren Version** verglichen. Steht ein Update zur Verfügung, wird der Benutzer über die App darüber **informiert** und es wird ein entsprechender **Link** zu dem ensprechenden Release eingeblendet. Der Download sowie der anschließende Updatevorgang wurde bereits weiter oben erläutert. 
+
   - ## Rsync-Dienst aktivieren
     Aktivieren Sie im Vorfeld bitte den **rsync-Dienst**. Zum aktivieren des rsync Dienstes gehen Sie zu **DSM-Hauptmenü** > **Systemsteuerung** > **Dateidienste** und wechseln dort in den Reiter > **rsync**. Aktiveren Sie die Checkbox **rsync Dienst aktivieren**. Als **SSH-Verschlüsselungsport** wird standardmäßig der **Port 22** verwendet, welchen Sie bei Bedarf anpassen können.
     
