@@ -1,30 +1,20 @@
 
 | Feature |	Basic_Backup	| Hyper_Backup |
 | ------------- | ------------- | ------------------- |
+| **Allgemein** | |
 | Gesicherte Daten lassen sich über die GUI komfortabel wiederherstellen	| - | ✔️ |
 | Diverse Paketeinstellungen lassen sich über die GUI komfortabel sichern und wiederherstellen	 | - | ✔️ |
 | Speichern eines Versionsbackups (ggf. erschlüsselt) in eine Datenbankdatei | - | ✔️ |
 | Speichern eines Versionsbackup (unverschlüsselt) in Dateiform mittels Hardlinks | ✔️ | - |
 | Anfertigen eines detaillierten Datensicherungsprotokolls | ✔️ | - |
 | Optische- und/oder Akustische Signalausgabe über die LED’s bzw. den Lautsprecher des Synology NAS | ✔️ | - |
-| USB/SATA-Datenträger | Ein angeschlossener USB/SATA-Datenträger kann als Datensicherungsziel ausgewählt werden | ✔️ | ✔️ |
-Es lassen sich Datensicherungsquellen von einem USB/SATA-Datenträger auswählen.
-✔️​
-
--​
-Es kann eine lokale Datensicherung von einem USB/SATA-Datenträger auf einen weiteren USB/SATA-Datenträger ausgeführt werden.
-✔️​
-
--​
-Automatisches Ausführen eines Datensicherungsauftrages nach einstecken eines USB-/SATA-Datenträgers sowie ein abschließendes auswerfen des Datenträgers nach Beendigung der Datensicherung.
-✔️​
-
--​
-Remote Server		
-Lokal ausgewählte Datensicherungsquellen lassen sich auf einen Remote Server sichern. (Push Backup)
-✔️​
-
-✔️​
+| **USB/SATA-Datenträger** | | 
+| Ein angeschlossener USB/SATA-Datenträger kann als Datensicherungsziel ausgewählt werden | ✔️ | ✔️ |
+! Es lassen sich Datensicherungsquellen von einem USB/SATA-Datenträger auswählen. | ✔️ | - |
+! Es kann eine lokale Datensicherung von einem USB/SATA-Datenträger auf einen weiteren USB/SATA-Datenträger ausgeführt werden | ✔️ | - |
+! Automatisches Ausführen eines Datensicherungsauftrages nach einstecken eines USB-/SATA-Datenträgers sowie ein abschließendes auswerfen des Datenträgers nach Beendigung der Datensicherung | ✔️ | - |
+| **Remote Server** | |
+! Lokal ausgewählte Datensicherungsquellen lassen sich auf einen Remote Server sichern. (Push Backup) | ✔️ | ✔️ |
 Datensicherungsquellen, die sich auf einem Remote Server befinden, lassen sich auf das lokale Synology NAS sichern. (Pull Backup)
 ✔️​
 
