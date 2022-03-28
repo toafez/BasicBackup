@@ -1,31 +1,13 @@
 
 | Feature |	Basic_Backup	| Hyper_Backup |
-| ------------- | ------------- | ------------------- !
+| ------------- | ------------- | ------------------- |
 | Gesicherte Daten lassen sich über die GUI komfortabel wiederherstellen	| - | ✔️ |
 | Diverse Paketeinstellungen lassen sich über die GUI komfortabel sichern und wiederherstellen	 | - | ✔️ |
-
-
-Speichern eines Versionsbackups (ggf. erschlüsselt) in eine Datenbankdatei
--​
-
-✔️​
-Speichern eines Versionsbackup (unverschlüsselt) in Dateiform mittels Hardlinks
-✔️​
-
--​
-Anfertigen eines detaillierten Datensicherungsprotokolls
-✔️​
-
--​
-Optische- und/oder Akustische Signalausgabe über die LED’s bzw. den Lautsprecher des Synology NAS
-✔️​
-
--​
-USB/SATA-Datenträger		
-Ein angeschlossener USB/SATA-Datenträger kann als Datensicherungsziel ausgewählt werden
-✔️​
-
-✔️​
+| Speichern eines Versionsbackups (ggf. erschlüsselt) in eine Datenbankdatei | - | ✔️ |
+| Speichern eines Versionsbackup (unverschlüsselt) in Dateiform mittels Hardlinks | ✔️ | - |
+| Anfertigen eines detaillierten Datensicherungsprotokolls | ✔️ | - |
+| Optische- und/oder Akustische Signalausgabe über die LED’s bzw. den Lautsprecher des Synology NAS | ✔️ | - |
+| USB/SATA-Datenträger | Ein angeschlossener USB/SATA-Datenträger kann als Datensicherungsziel ausgewählt werden | ✔️ | ✔️ |
 Es lassen sich Datensicherungsquellen von einem USB/SATA-Datenträger auswählen.
 ✔️​
 
