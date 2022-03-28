@@ -1,8 +1,10 @@
 
-| Feature |	Basic_Backup	! Hyper_Backup |
+| Feature |	Basic_Backup	| Hyper_Backup |
+| ------------- | ------------- | ------------------- !
+| Gesicherte Daten lassen sich über die GUI komfortabel wiederherstellen	| - | ✔️ |
+| Diverse Paketeinstellungen lassen sich über die GUI komfortabel sichern und wiederherstellen	 | - | ✔️ |
 
-| Gesicherte Daten lassen sich über die GUI komfortabel wiederherstellen	| -​ | ✔️​ !
-! Diverse Paketeinstellungen lassen sich über die GUI komfortabel sichern und wiederherstellen	 ! -​ ! ✔️​ !
+
 Speichern eines Versionsbackups (ggf. erschlüsselt) in eine Datenbankdatei
 -​
 
