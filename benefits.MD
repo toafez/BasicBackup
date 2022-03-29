@@ -13,8 +13,8 @@
 | Die Wiederherstellung gesicherter Daten wird unterstützt	| 🔴 | 🟢 |
 | Das Sichern und Wiederherstellen bestimmter Anwendungen (Pakete) wird unterstützt	 | 🔴 | 🟢 |
 | **Nutzung von extern angeschlossenen USB/SATA-Datenträgern** |
-| Ein externer Datenträger kann als Datensicherungsziel ausgewählt werden | 🟢 | 🟢 |
-| Es lassen sich Datensicherungsquellen von einem externen Datenträger auswählen<br />***Anmerkung:** Das Sichern von externen Datenträgern kann evtl. fehlerbehaftet sein, da sich der Mountpoint des Gerätes ziwschenzeitlich ändern kann. Wird ein externer Datenträger als Datensicherungsziel angegeben, so kann dieser mittels seiner UUID anstatt seines Mountpoints identifiziert werden. Der Mountpoint wird in diesem Falle ggf. intern umgeleitet.* | 🟢 | 🔴 |
+| Ein externer Datenträger kann als Datensicherungsziel ausgewählt werden<br />***Anmerkung:** Wird unter Verwendung von Basic Backup ein externer Datenträger als Datensicherungsziel angegeben, so kann dieser mittels seiner UUID anstatt seines Mountpoints identifiziert werden. Der Mountpoint wird in diesem Falle ggf. intern an das richtige Gerät umgeleitet.* | 🟢 | 🟢 |
+| Es lassen sich Datensicherungsquellen von einem externen Datenträger auswählen<br />***Anmerkung:** Das Sichern von externen Datenträgern kann evtl. fehlerbehaftet sein, da sich der Mountpoint des Gerätes ziwschenzeitlich ändern kann. Eine Anpassung des Mountpoints durch Ermittlung der UUID ist in diesem Fall nicht vorgesehen.* | 🟢 | 🔴 |
 | Es kann eine lokale Datensicherung von einem externen Datenträger auf einen weiteren externen Datenträger erfolgen | 🟢 | 🔴 |
 | Automatisches Ausführen eines Datensicherungsauftrages nach einstecken eines externen Datenträgers sowie ein abschließendes auswerfen des Datenträgers nach Beendigung der Datensicherung | 🟢 | 🔴 |
 | **Nutzung von Remote Servern im LAN oder über das Internet** |
