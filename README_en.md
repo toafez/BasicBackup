@@ -1,4 +1,4 @@
-[Deutsche Fassung](https://github.com/toafez/BasicBackup/README.md)
+English | [Deutsch](https://github.com/toafez/BasicBackup/README.md)
 
 
 # ![Package icon](/package/ui/images/icon_24.png) Basic Backup - Paket for Synology NAS (DSM 7)
