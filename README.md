@@ -1,6 +1,6 @@
 
 # ![Package icon](/package/ui/images/icon_24.png) Basic Backup - Paket für Synology NAS (DSM 7)
-Basic Backup ermöglicht eine GUI gestützte, dateibasierte Datensicherung auf Grundlage von rsync, sowie ein Versionsbackup nach dem Generationenprinzip unter Verwendung von Hardlinks. Mögliche Datensicherungsquellen sowie Ziele sind neben internen Volumes und extern an eine DiskStation angeschlossene USB/SATA-Datenträger, auch über SSH verbundene, rsync fähige Remote Server. Über die integrierte USB/SATA-AutoPilot Funktion können sowohl Datensicherungsaufträge als auch sonstige Bash-Scripte automatisch beim Anschluss eines externen USB/SATA-Datenträgers ausgeführt und bei Bedarf im Anschluss wieder automatisch ausgeworfen werden.
+Basic Backup ermöglicht eine GUI gestützte, dateibasierte Datensicherung auf Grundlage von rsync, sowie ein Versionsbackup nach dem Generationenprinzip unter Verwendung von Hardlinks. Mögliche Datensicherungsquellen sowie Ziele sind neben internen Volumes und extern an eine Synology NAS angeschlossene USB/SATA-Datenträger, auch über SSH verbundene, rsync fähige Remote Server. Über die integrierte USB/SATA-AutoPilot Funktion können sowohl Datensicherungsaufträge als auch sonstige Bash-Scripte automatisch beim Anschluss eines externen USB/SATA-Datenträgers ausgeführt und bei Bedarf im Anschluss wieder automatisch ausgeworfen werden.
 
 # Systemvoraussetzungen
 **Basic Backup** wurde speziell für die Verwendung auf **Synology NAS Systemen** entwickelt die das Betriebsystem **DiskStation Mangager 7** verwenden.
@@ -14,17 +14,17 @@ Laden Sie sich die **jeweils aktuellste Version** von Basic Backup aus dem Berei
     Aktivieren Sie im Vorfeld bitte den **rsync-Dienst**. Zum aktivieren des rsync Dienstes gehen Sie zu **DSM-Hauptmenü** > **Systemsteuerung** > **Dateidienste** und wechseln dort in den Reiter > **rsync**. Aktiveren Sie die Checkbox **rsync Dienst aktivieren**. Als **SSH-Verschlüsselungsport** wird standardmäßig der **Port 22** verwendet, welchen Sie bei Bedarf anpassen können.
     
   - ## SSH Terminal-Dienst aktivieren (falls benötigt)
-    Aktivieren Sie im Vorfeld bitte auf Ihrer lokalen DiskStation als auch auf der Remote DiskStation den **SSH Terminal-Dienst**. Zum aktivieren des SSH Terminal-Dienstes gehen Sie zu **DSM-Hauptmenü** > **Systemsteuerung** > **Terminal & SNMP** und wechseln dort in den Reiter > **Terminal**. Aktiveren Sie die Checkbox **SSH-Dienst aktivieren**. Sollte es sich bei dem verwendeten **Remote Server** um ein anderes Gerät als eine Synology DiskStation handeln, stellen Sie bitte im Vorfeld sicher, das der **SSH-Dienst** aktiviert wurde.
+    Aktivieren Sie im Vorfeld bitte auf Ihrer lokalen Synology NAS als auch auf der Remote Synology NAS den **SSH Terminal-Dienst**. Zum aktivieren des SSH Terminal-Dienstes gehen Sie zu **DSM-Hauptmenü** > **Systemsteuerung** > **Terminal & SNMP** und wechseln dort in den Reiter > **Terminal**. Aktiveren Sie die Checkbox **SSH-Dienst aktivieren**. Sollte es sich bei dem verwendeten **Remote Server** um ein anderes Gerät als eine Synology NAS handeln, stellen Sie bitte im Vorfeld sicher, das der **SSH-Dienst** aktiviert wurde.
    
   - ## Benutzer-Home-Dienst aktivieren (falls SSH-Dienst aktiviert wurde)
-    Aktivieren Sie im Vorfeld bitte außerdem den **Benutzer-Home-Dienst**, da die benötigten SSH-Verbindungsdaten im entsprechenden Benutzer-Home-Ordner des angemeldeten SSH-Benutzers abgelegt werden. Zum aktivieren des Benutzer-Home-Dienstes gehen Sie zu **DSM-Hauptmenü** > **Systemsteuerung** > **Benutzer und Gruppe** und wechseln dort in den Reiter > **Erweitert**. Aktiveren Sie unter dem Menüpunkt **Benutzerbasis** die Checkbox **Benutzer-Home-Dienst aktiveren**. Sollte es sich bei dem verwendeten **Remote Server** um ein anderes Gerät als eine Synology DiskStation handeln, stellen Sie bitte im Vorfeld sicher, das ein entsprechender Benutzer-Home-Dienst aktivert wurde.
+    Aktivieren Sie im Vorfeld bitte außerdem den **Benutzer-Home-Dienst**, da die benötigten SSH-Verbindungsdaten im entsprechenden Benutzer-Home-Ordner des angemeldeten SSH-Benutzers abgelegt werden. Zum aktivieren des Benutzer-Home-Dienstes gehen Sie zu **DSM-Hauptmenü** > **Systemsteuerung** > **Benutzer und Gruppe** und wechseln dort in den Reiter > **Erweitert**. Aktiveren Sie unter dem Menüpunkt **Benutzerbasis** die Checkbox **Benutzer-Home-Dienst aktiveren**. Sollte es sich bei dem verwendeten **Remote Server** um ein anderes Gerät als eine Synology NAS handeln, stellen Sie bitte im Vorfeld sicher, das ein entsprechender Benutzer-Home-Dienst aktivert wurde.
 
   - ## App-Berechtigung erweitern
     Unter DSM 7 wird eine 3rd_Party Anwendung wie Basic Backup (im folgenden App genannt) mit stark eingeschränkten Benutzer- und Gruppenrechten ausgestattet. Dies hat u.a. zur Folge, das systemnahe Befehle nicht ausgeführt werden können. Für den reibungslosen Betrieb von Basic Backup werden jedoch erweiterte Systemrechte benötigt um z.B. auf die Ordnerstuktur der "freigegebenen Ordner" zugreifen zu können. Zum erweitern der App-Berechtigungen muss Basic Backup in die Gruppe der Administratoren aufgenommen werden, was jedoch nur durch den Benutzer selbst durchgeführt werden kann. Die nachfolgende Anleitung beschreibt diesen Vorgang.
 
     - ### Erweitern der App-Berechtigungen über die Konsole
 
-      - Melden Sie sich als Benutzer **root** auf der Konsole Ihrer DiskStation an.
+      - Melden Sie sich als Benutzer **root** auf der Konsole Ihrer Synology NAS an.
       - Befehl zum erweitern der App-Berechtigungen
 
         `/usr/syno/synoman/webman/3rdparty/BasicBackup/app_permissions.sh`
@@ -48,7 +48,7 @@ Laden Sie sich die **jeweils aktuellste Version** von Basic Backup aus dem Berei
     
     - ### USB/SATA-AutoPilot über die Konsole aktivieren/deaktivieren
 
-      - Melden Sie sich als Benutzer **root** auf der Konsole Ihrer DiskStation an.
+      - Melden Sie sich als Benutzer **root** auf der Konsole Ihrer Synology NAS an.
       - Befehl zum **Aktivieren** der USB/SATA-AutoPilot Funktion
 
         `/usr/syno/synoman/webman/3rdparty/BasicBackup/app_permissions.sh "autopilot start"`
