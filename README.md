@@ -3,7 +3,7 @@
 # ![Package icon](/package/ui/images/icon_24.png) Basic Backup - Paket für Synology NAS (DSM 7)
 Basic Backup ermöglicht eine GUI gestützte, dateibasierte Datensicherung auf Grundlage von rsync, sowie ein Versionsbackup nach dem Generationenprinzip unter Verwendung von Hardlinks. Mögliche Datensicherungsquellen sowie Ziele sind neben internen Volumes und extern an eine Synology NAS angeschlossene USB/SATA-Datenträger, auch über SSH verbundene, rsync fähige Remote Server. Über die integrierte USB/SATA-AutoPilot Funktion können sowohl Datensicherungsaufträge als auch sonstige Bash-Scripte automatisch beim Anschluss eines externen USB/SATA-Datenträgers ausgeführt und bei Bedarf im Anschluss wieder automatisch ausgeworfen werden.
 
-  - _**Das könnte Sie auch interessieren:** [Unterschiede zwischen Basic Backup und Hyper Backup](PROS_AND_CONS.md)_
+  - _**Das könnte dich auch interessieren:** [Unterschiede zwischen Basic Backup und Hyper Backup](PROS_AND_CONS.md)_
   
 # Systemvoraussetzungen
 **Basic Backup** wurde speziell für die Verwendung auf **Synology NAS Systemen** entwickelt die das Betriebsystem **DiskStation Mangager 7** verwenden.
