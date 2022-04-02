@@ -1,3 +1,5 @@
+👈 [Back to README_en.md](README_en.md)
+
 # Advantages and disadvantages of Basic Backup
 On a Synology NAS system, Hyper Backup usually takes care of the comprehensive backup of shared folders, packages and LUNs. Basic Backup is therefore an alternative - or supplementary - backup software, which differs from Hyper Backup to a greater or lesser extent in its range of functions and mode of operation. The main differences and the associated advantages and disadvantages of both systems are summarised in the table below.  
 
