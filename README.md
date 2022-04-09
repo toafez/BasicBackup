@@ -88,7 +88,11 @@ Laden Sie sich die **jeweils aktuellste Version** von Basic Backup aus dem Berei
         bash /usr/syno/synoman/webman/3rdparty/BasicBackup/rsync.sh --job-name="TASKNAME"
         ```
         
-      - Speichern Sie anschließend die grade erstellet Textdatei über die Schaltfläche **Datei** > **Speichern unter...** wählen als Speicherort das **root Verzeichnis** des gewünschten externen Datenträgers an wie z.B. **/usbshare** und geben als Dateiname **autopilot** ohne Dateiendung an. Bestätigen Sie Ihre Eingaben durch drücken der Schaltfläche **Speichern**.
+      - Speichern Sie anschließend die grade erstellet Textdatei über die Schaltfläche **Datei** > **Speichern unter...** wählen als Speicherort das **root Verzeichnis** des gewünschten externen Datenträgers, wie z.B. **/usbshare** aus und geben als Dateiname **autopilot** ohne Dateiendung an. Bestätigen Sie Ihre Eingaben durch drücken der Schaltfläche **Speichern**.
+      - Um sicherzustellen, das die Datei autopilot das Attribut **Ausführen** besitzt, öffnen Sie die **File Station** und wechseln auf den externen Datenträger, auf dem sich die Datei autopilot befindet. Rufen Sie durch einen Rechtsklick auf die Datei autopilot das **Kontextmenü** auf und wählen dort den Punkt **Eigenschaften** aus. 
+        - Werden Ihnen im Reiter **Berechtigung** mehrere Checkboxen angeboten, worüber Sie die _**Lese-, Schreib- und Ausführberechtigung**_ für _**Besitzer, Gruppe und Sonstige**_ festlegen können, dann stellen Sie sicher, das **alle** Checkboxen angehakt sind. Speichern Sie mögliche Änderungen im Anschluss über die Schaltfläche **Speichern**.
+        
+        - Werden Ihnen im Reiter **Berechtigung** die grade genannten Checkboxen nicht angeboten, dann erstellen Sie über die Schaltfläche **Erstellen** eine neue Berechtigung. Wählen Sie aus dem Auswahlmenü unter dem Punkt **Benutzer oder Gruppe**, _**Everyone**_ und unter dem Punkt **Typ**, _**Zulassen**_ aus. Haken Sie unter dem Punkt **Berechtigungen** alle Checkboxen für _**Administration, Lesen**_ und _**Schreiben**_ an und klicken auf die Schaltfläche **Fertig**. Speichern Sie Ihre Änderungen im Anschluss über die Schaltfläche **Speichern**. 
       - Werfen Sie den externen Datenträger über den DSM aus. Beim nächsten anstecken des externen Datenträgers wird der Inhalt der grade erstellten Scriptdatei ausgeführt.
 
 # Versionsgeschichte
