@@ -802,7 +802,7 @@ echo '
 						"${set_keyvalue}" "${post_request}" "var[target]" "${var[target]}"
 
 						# Wenn localshare = externer Datenträger, dann bestimme UUID.
-						if [[ "${var[localshare]}" == /volumeUSB[[:digit:]]/usbshare* ]] || [[ "${var[localshare]}" == /volumeSATA/satashare* ]]; then
+						if [[ "${var[localshare]}" == /volumeUSB[[:digit:]]/usbshare* ]] || [[ "${var[localshare]}" == /volumeSATA[[:digit:]]/satashare* ]]; then
 							mountpoint=$(mount)
 							mountpoint=$(echo "${mountpoint}" | grep " on ${var[localshare]} " | awk '{ print $1 }')
 							device="${mountpoint}"
