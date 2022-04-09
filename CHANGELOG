@@ -2,7 +2,8 @@ Basic Backup Release Notes
 
 Version 0.6-300 (Release noch im Aufbau)
 	- Hilfetexte erweitert, die Beschreiben, wie man die Datei autopilot über die GUI ausführbar machen kann.
-
+	- UUID eines SATA-Datenträgers wurde nicht ausgelesen. Fehler wurde behoben.
+	
 	
 Version 0.6-200 vom 18.03.2022
 	- Basic Backup wird ab sofort als Repository auf GitHub angeboten. Zu diesem Zweck wurden einige interne App-Einstellungen angepasst.
