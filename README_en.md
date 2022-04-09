@@ -88,7 +88,11 @@ Download the **most recent version** of Basic Backup from the [Releases](https:/
         bash /usr/syno/synoman/webman/3rdparty/BasicBackup/rsync.sh --job-name="TASKNAME"
         ```
         
-      - Then save the text file you just created using the **File** button > **Save as...** select the **root directory** of the desired external data carrier as the storage location, e.g. **/usbshare** and enter **autopilot** as the file name without the file extension. Confirm your entries by pressing the **Save** button.
+      - Then save the text file you just created using the **File** button > **Save as...** select the **root directory** of the desired external data carrier, such as **/usbshare**, as the storage location and enter **autopilot** as the file name without the file extension. Confirm your entries by pressing the **Save** button.
+      - To ensure that the file autopilot has the attribute **Execute**, open the **File Station** and change to the external data carrier on which the file autopilot is located. Right-click on the autopilot file to open the **Context Menu** and select **Properties**. 
+        - If you are offered several checkboxes in the **Permission** tab, which you can use to define the _**read, write and execute permission**_ for _**Owner, Group and Other**_, then make sure that **all** the checkboxes are ticked. Save any changes afterwards using the **Save** button.
+        
+        - If the checkboxes just mentioned are not offered in the **Authorisation** tab, then create a new authorisation using the **Create** button. Select _**Everyone**_ from the drop-down menu under **User or Group** and _**Allow**_ under **Type**. Under the item **Permissions**, tick all the checkboxes for _**Administration, Read**_ and _**Write**_ and click on the **Done** button. Save your changes by clicking on the **Save** button. 
       - Eject the external data carrier via the DSM. The next time the external data carrier is plugged in, the contents of the script file just created will be executed.
 
 # Version history
