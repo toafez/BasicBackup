@@ -265,6 +265,14 @@ if [[ "${get[page]}" == "autoconfig" && "${get[section]}" == "start" ]]; then
 											</li>
 											<li>'${txt_pilot_ext_gui_step_4}'</li>
 											<li>'${txt_pilot_ext_gui_step_5}'</li>
+												<br />
+												<ul>
+													<li>'${txt_pilot_ext_gui_step_6}'</li>
+													<br />
+													<li>'${txt_pilot_ext_gui_step_7}'</li>
+												</ul>
+												<br />
+											<li>'${txt_pilot_ext_gui_step_8}'</li>
 										</ol>
 									</div>
 								</div>
