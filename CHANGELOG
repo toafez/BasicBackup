@@ -1,8 +1,13 @@
 Basic Backup Release Notes
 
+Version 0.6-300 (Release noch im Aufbau)
+	- Hilfetexte erweitert, die Beschreiben, wie man die Datei autopilot über die GUI ausführbar machen kann.
+
+	
 Version 0.6-200 vom 18.03.2022
 	- Basic Backup wird ab sofort als Repository auf GitHub angeboten. Zu diesem Zweck wurden einige interne App-Einstellungen angepasst.
 	- App Versions Check implementiert. Es wird anhand der INFO Datei geprüft, ob auf GitHub eine neue Version von Basic Backup verfügbar ist. 
+
 
 Version 0.6-100 vom 15.03.2022
 	- Der Status der App-Berechtigung in der Systemumbebung von Basic Backup wurde angepasst.  
@@ -10,6 +15,7 @@ Version 0.6-100 vom 15.03.2022
 	- AutoPilot: Der Aufruf des Scriptes autopilot erfolgt nicht mehr über den Befehl bash.
 	- AutoPilot: Sollte beim Einstecken eines externen Datenträgers kein Gerätename aus der udev Regel übergeben werden, kein autopilot Script gefunden oder das autopilot Script nicht ausgeführt werden können, wird AutoPilot abgebrochen. Der externe Datenträger wird in diesem Fall nicht ausgeworfen, selbst wenn diese Option aktivert wurde.
 	- AutoPilot: Beim einstecken eines beliebigen externen Datenträgers auf dem sich aber kein autopilot Script befand, wurde fälschlicher Weise die optische- und akustische Signalausgabe ausgelöst, wenn diese Option aktivert war. Fehler wurde behoben. 
+
 
 Version 0.6-001 23.02.2022
 	- Bei der Umstellung des Sprachdateisystem wurde versäumt, die Hilfe-Dateien entsprechend anzupassen. Fehler wurde behoben.
@@ -25,11 +31,13 @@ Version 0.6-000 vom 19.02.2022
 	- In den Auftragskonfigurationen fällt durch die Umstellung des Sprachdateisystems die Deklarierung der Sprachausgabe ( var[language] ) weg.
 	- Im Bereich [ Sichern und wiederherstellen der Datensicherungsaufträge ] konnte kein Zielordner angegeben werden. Fehler behoben.
 	- Viele kleinere und einige größere Detailverbesserungen, Fehlerbehebungen und Codebereinigungen vorgenommen.
+
 	
 Version 0.5-023 vom 25.01.2022 
 	- Bei der Auswertung, ob ein Auftrag aktuell ausgeführt wird oder nicht, wurde nach Teilzeichenketten im Auftragsnamen gesucht und nicht nach ganzen Wörten. Das hatte zur Folge, das ähnlich lautende Aufträge fälschlicherweise als aktiv gekennzeichnet wurden, obwohl sie inaktiv waren. Fehler wurde behoben.
 	- Endete der Pfad des Datensicherungsziels mit einem / (Slash) wurde die Datensicherung im root Ordner abgelegt. Fehler wurde behoben.
 	- In der Auftragsbearbeitung wurde die Bezeichnung "Datensicherungsziel" gegen "Freigegebener Ordner" und die Bezeichnung "Zielordner" gegen "Zielverzeichnis" ausgetauscht. Ebenfalls wurden die Info-Felder entsprechend umgeschrieben.
+
 	
 Version 0.5-000 vom 23.01.2022
 	- Mit der Version 0.5-000 verlässt Basic Backup die Betaphase und geht in eine Vorabversion über. Vorabversion deshalb, da die API immer noch eine Null als Hauptversionsnummer anführt und daher durchaus noch umfangreiche Änderungen erfolgen können. Ebenso können immer noch unentdeckte Fehler zu einem unerwünschten Fehlverhalten oder gar einem möglichen Datenverlust führen.
@@ -38,6 +46,7 @@ Version 0.5-000 vom 23.01.2022
 	- Allgemeine Korrekturen an den Sprachdateien und Sprachvariabeln durchgeführt.
 	- Die Papierkorb Funktion hat zwischenzeitlich gelöschte Daten der Datensicherungsquelle(n) fälschlicherweise in den Ordner /@backup und nicht in den Ordner /@recycle des Datensicherungsziels verschoben. Das hatte zur Folge, das die Funktion "Inhalte des Papierkorbs löschen, die älter sind als..." nicht gegriffen hat. Bei der nächsten Ausführung des Datensicherungsauftrages werden die Daten ensprechend verschoben.
 	- Bei einer Angabe von 0 Tagen werden bei der Papierkorb-Funktion alle zwischenzeitlich gelöschten Daten aus den Datensicherungsquelle(n) auch im Datensicherungsziel unwiderruflich gelöscht. Andernfalls werden die zwischenzeitlich gelöschten Daten für die angegebene Zeit in Tagen in den Papierkorb, unter /@recycle des Zielordners verschoben.
+
 
 Version 0.4-000 Beta vom 29.12.2021
 	- Aufträge können nun lokal auf der DS gesichert und wiederhergestellt werden.
