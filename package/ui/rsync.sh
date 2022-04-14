@@ -1,6 +1,6 @@
 #!/bin/bash
 # Filename: rsync.sh - coded in utf-8
-script_version="0.6-000"
+script_version="0.6-300"
 
 #						 Basic Backup
 #
@@ -348,6 +348,9 @@ if [[ ${exit_code} -eq 0 ]]; then
 			connect_server
 
 			if [[ "${is_connected}" == "true" ]]; then
+				if [ -n "${verbose}" ]; then
+					${ssh} ${verbose} exit | tee -a "${script_log}"
+				fi
 				echo "${txt_server_connection_true}" | tee -a "${script_log}"
 				exit_code=0
 			else

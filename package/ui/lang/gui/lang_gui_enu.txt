@@ -133,11 +133,14 @@
 	txt_bash_code_note="The following commands can be used to run the job from the <span class=\"text-primary\">DSM task scheduler</span> or from your DiskStation's terminal as <strong>root</strong>."
 	#txt_bash_code_regular="Command to execute the order"
 	txt_bash_code_option="Option switches attachable to the command".
-	txt_bash_code_jobname="<span class=\"text-success\">default option</span>: Name of the job to be executed in quotes."
-	txt_bash_code_dryrun="Simulates only what would happen without copying or synchronizing data."
-	txt_bash_code_v="Information which files will be transferred. Short summary at the end."
-	txt_bash_code_vv="Information which files are skipped. Extended summary at the end."
-	txt_bash_code_vv="Information to debug rsync. Very extensive summary at the end."
+	txt_bash_code_jobname="<span class=\"text-success\">default option</span>: Name of the job to be executed in quotes."^
+	txt_bash_code_dryrun="Rsync only simulates what would happen without copying or synchronising data."
+	txt_bash_code_rsync_v="Short rsync log, which files are transferred."
+	txt_bash_code_rsync_vv="Extended rsync log, which files are skipped."
+	txt_bash_code_rsync_vv="Very extensive rsync log for debugging."
+	txt_bash_code_ssh_v="Short SSH connection log (debugging mode 1) is executed."
+	txt_bash_code_ssh_vv="Extended SSH connection protocol (debugging mode 2) is executed."
+	txt_bash_code_ssh_vv="Very extensive SSH connection protocol (debugging mode 3) is executed."
 	txt_bash_code_perms="<span class=\"text-danger\">Expert mode</span>: Change the rsync access rights of folders (directories) and files. <br />Spelling: <span class=\"text-danger\">--chmod=ugo=rwx</span> or also <span class=\"text-danger\">--chmod=\"ugo=rwx\"</span>. You can get more information about handling access rights (chmod) in connection with rsync on relevant pages on the Internet."
 	txt_bash_code_perms_push="Experimental, in case permissions problems occur during a <span class=\"text-danger\">push packup</span>."
 

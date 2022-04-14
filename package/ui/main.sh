@@ -558,12 +558,30 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 															<dd class="col-sm-9 mb-0"><small>'${txt_bash_code_jobname}'</small></dd>
 															<dt class="col-sm-3"><small class="font-monospace pe-4">-n </small><small class="font-monospace">--dry-run</small></dt>
 															<dd class="col-sm-9 mb-0"><small>'${txt_bash_code_dryrun}'</small></dd>
-															<dt class="col-sm-3"><small class="font-monospace pe-4">-v </small><small class="font-monospace">--verbose</small></dt>
-															<dd class="col-sm-9 mb-0"><small>'${txt_bash_code_v}'</small></dd>
+															<dt class="col-sm-3"><small class="font-monospace pe-4">-v </small></dt>
+															<dd class="col-sm-9 mb-0">
+																<small>'${txt_bash_code_rsync_v}'</small>'
+																if [ -n "${var[sshpull]}" ] || [ -n "${var[sshpush]}" ]; then
+																	echo '<br /><small>'${txt_bash_code_ssh_v}'</small>'
+																fi
+																echo '
+															</dd>
 															<dt class="col-sm-3"><small class="font-monospace pe-4">-vv</small></dt>
-															<dd class="col-sm-9 mb-0"><small>'${txt_bash_code_vv}'</small></dd>
+															<dd class="col-sm-9 mb-0">
+																<small>'${txt_bash_code_rsync_vv}'</small>'
+																if [ -n "${var[sshpull]}" ] || [ -n "${var[sshpush]}" ]; then
+																	echo '<br /><small>'${txt_bash_code_ssh_vv}'</small>'
+																fi
+																echo '
+															</dd>
 															<dt class="col-sm-3"><small class="font-monospace pe-4">-vvv</small></dt>
-															<dd class="col-sm-9 mb-0"><small>'${txt_bash_code_vvv}'</small></dd>
+															<dd class="col-sm-9 mb-0">
+																<small>'${txt_bash_code_rsync_vvv}'</small>'
+																if [ -n "${var[sshpull]}" ] || [ -n "${var[sshpush]}" ]; then
+																	echo '<br /><small>'${txt_bash_code_ssh_vvv}'</small>'
+																fi
+																echo '
+															</dd>
 															<dt class="col-sm-3"><small class="font-monospace pe-4">-c= </small><small class="font-monospace">--chmod=</small></dt>
 															<dd class="col-sm-9 mb-0"><small>'${txt_bash_code_perms}'</small></dd>'
 															if [ -n "${var[sshpush]}" ]; then

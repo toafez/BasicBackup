@@ -3,6 +3,7 @@ Basic Backup Release Notes
 Version 0.6-300 (Release noch im Aufbau)
 	- Hilfetexte erweitert, die Beschreiben, wie man die Datei autopilot über die GUI ausführbar machen kann.
 	- UUID eines SATA-Datenträgers wurde nicht ausgelesen. Fehler wurde behoben.
+	- Über die Optionsschalter -v, -vv sowie -vvv werden neben den erweiterten rsync Protokollen nun auch SSH Verbindungsprotokolle für den Debugging Mode 1, 2 und 3 ausgegeben. 
 	
 	
 Version 0.6-200 vom 18.03.2022
