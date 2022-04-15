@@ -349,7 +349,7 @@ if [[ ${exit_code} -eq 0 ]]; then
 
 			if [[ "${is_connected}" == "true" ]]; then
 				if [ -n "${verbose}" ]; then
-					${ssh} ${verbose} exit | tee -a "${script_log}"
+					${ssh} ${verbose} logout > >(tee -a "${script_log}") 2>&1
 				fi
 				echo "${txt_server_connection_true}" | tee -a "${script_log}"
 				exit_code=0
