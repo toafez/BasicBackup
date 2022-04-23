@@ -56,6 +56,7 @@
 	txt_link_help_ssh_remote="<strong>Schritt 2:</strong> SSH auf einem Remote Server einrichten"
 	txt_link_help_ssh_rsa="<strong>Schritt 3:</strong> SSH Handshake und RSA Austausch"
 	txt_link_help_version="Versionierte Datensicherung mit Hardlinks"
+	txt_link_help_permissions="Erweitern bzw. beschränken der App-Berechtigung"
 
 	# App group membership
 	txt_app_group_member="App-Gruppenmitgliedschaft"
@@ -63,23 +64,8 @@
 
 	# Notes - group membership
 	txt_group_status="App Berechtigungsstatus"
-	txt_group_status_true="${app_title} ist Mitglied in der Gruppe der Administratoren und verfügt somit über die nötigen Berechtigungen"
-	txt_group_status_false="${app_title} ist aktuell kein Mitglied in der Gruppe der Administratoren und verfügt somit nur über eingeschränkte App-Berechtigungen. Zum erweiteren der App-Berechtigungen (die App ${app_title} wird nachfolgend der Gruppe der Administratoren hinzugefügt) führen Sie bitte nachfolgende Schritte aus..."
-	#txt_group_limited_1="Hinweis: ${app_title} verfügt aktuell nur über eingeschränkte Systemrechte, da die App kein Mitglied in der Gruppe der Administratoren ist."
-	#txt_group_limited_2="Zum erweiteren der Systemrechte (die App ${app_title} wird nachfolgend der Gruppe der Administratoren hinzugefügt) führen Sie bitte nachfolgende Schritte aus..."
-	txt_group_console="Erweitern der App-Berechtigungen über die Konsole"
-	txt_group_console_step_1="Melden Sie sich als Benutzer <span class=\"text-danger fst-italic\">root</span> auf der Konsole Ihrer DiskStation an."
-	txt_group_console_step_2="Befehl zum erweiteren der App-Berechtigungen"
-	txt_group_taskmanager="Erweitern der App-Berechtigungen über den Aufgabenplaner"
-	txt_group_step_1="Im DSM unter <span class=\"text-danger fst-italic\">Hauptmenü</span> > <span class=\"text-danger fst-italic\">Systemsteuerung</span> den <span class=\"text-danger fst-italic\">Aufgabenplaner</span> öffnen."
-	txt_group_step_2="Im Aufgabenplaner über die Schaltfläche <span class=\"text-danger fst-italic\">Erstellen</span> > <span class=\"text-danger fst-italic\">Geplante Aufgabe</span> > <span class=\"text-danger fst-italic\">Benutzerdefiniertes Script</span> auswählen."
-	txt_group_step_3="In dem nun geöffneten Pop-up-Fenster im Reiter <span class=\"text-danger fst-italic\">Allgemein</span> > <span class=\"text-danger fst-italic\">Allgemeine Einstellungen</span> der Aufgabe einen Namen geben und als Benutzer <span class=\"text-danger fst-italic\">root</span> auswählen. Außerdem den Haken bei <span class=\"text-danger fst-italic\">Aktiviert</span> entfernen."
-	txt_group_step_4="Im Reiter <span class=\"text-danger fst-italic\">Aufgabeneinstellungen</span> > <span class=\"text-danger fst-italic\">Befehl ausführen</span> > <span class=\"text-danger fst-italic\">Benutzerdefiniertes Script</span> nachfolgenden Befehl in das Textfeld einfügen..."
-	txt_group_step_5="/usr/syno/synoman/webman/3rdparty/${app_name}/app_permissions.sh"
-	txt_group_step_6="Eingaben mit <span class=\"text-danger fst-italic\">OK</span> speichern und die anschließende Warnmeldung ebenfalls mit <span class=\"text-danger fst-italic\">OK</span> bestätigen."
-	txt_group_step_7="Die grade erstellte Aufgabe in der Übersicht des Aufgabenplaners <span class=\"text-danger fst-italic\">markieren</span>, jedoch <span class=\"text-decoration-underline\">nicht</span> aktivieren (die Zeile sollte nach dem markieren blau hinterlegt sein)."
-	txt_group_step_8="Führen Sie die Aufgabe durch Betätigen Sie Schaltfläche <span class=\"text-danger fst-italic\">Ausführen</span> einmalig aus."
-	txt_group_step_9="Wenn alles geklappt hat, sollte dieser Text nach dem Neustart von ${app_title} nicht mehr erscheinen. Falls doch, wiederholen Sie bitte den Vorgang, oder wenden Sie sich an den Developer dieser App."
+	txt_group_status_true="${app_title} verfügt über erweiterte Systemberechtigungen"
+	txt_group_status_false="${app_title} verfügt nur über eingeschränkte Berechtigungen. Zum erweiteren der Berechtigungen lesen Sie bitte diese Anleitung: "
 
 # main.sh
 # --------------------------------------------------------------

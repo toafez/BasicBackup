@@ -1,8 +1,6 @@
 [app]
 title	=	"Basic Backup"
 subtitle	=	"USB/SATA-AutoPilot"
-permissions_true	=	"Basic Backup wurde erfolgreich in die Gruppe der Administratoren aufgenommen und verfügt nun über erweiterte Systemrechte."
-permissions_false	=	"Das erweitern der Systemrechte ist fehlgeschlagen! Basic Backup konnte nicht in die Gruppe der Administratoren aufgenommen werden."
 autopilot_enabled	=	"Die USB/SATA-AutoPilot Funktion zur automatischen Scriptausführung beim Anschluss externer Datenträger wurde aktiviert."
 autopilot_disabled	=	"Die USB/SATA-AutoPilot Funktion wurde deaktiviert."
 autopilot_start	=	"Externer Datenträger wurde erkannt. Scriptdatei [ {0}/autopilot ] wird ausgeführt..."
@@ -19,3 +17,8 @@ target_failed	=	"Datensicherung abgebrochen! Der Zielordner konnte nicht erstell
 job_executed	=	"Der Datensicherungsauftrag [ {0} ] wird ausgeführt..."
 job_successful	=	"Der Datensicherungsauftrag [ {0} ] wurde erfolgreich abgeschlossen."
 job_warning		=	"Der Datensicherungsauftrag [ {0} ] wurde mit Fehlern abgeschlossen. Nähere Angaben entnehmen Sie bitte dem Datensicherungsprotokoll."
+adduser_true	= 	"Ausführung erfolgreich. Basic Backup wurde der Gruppe [ administrators ] hinzugefügt um erweiterte Systemzugriffe zu ermöglichen."
+adduser_exists	=	"Vorgang abgebrochen. Basic Backup ist bereits Mitglied der Gruppe [ administrators ]."
+deluser_true	= 	"Ausführung erfolgreich. Basic Backup wurde aus der Gruppe [ administrators ] entfernt wurdurch Zugriffe auf das System eingeschränkt wurden."
+deluser_notexist	=	"Vorgang abgebrochen. Basic Backup ist kein Mitglied der Gruppe [ administrators ]."
+groupuser_error	=	"Ein Fehler ist aufgetreten. Überprüfen Sie Ihre Eingaben und führen den Vorgang erneut aus."

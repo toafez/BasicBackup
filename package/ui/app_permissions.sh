@@ -25,50 +25,81 @@
 
 app="BasicBackup"
 
+# Funktion: Benutzer einer Gruppe hinzufügen oder entfernen
+# --------------------------------------------------------------
+# Aufruf: synogroupuser "[adduser or deluser]" "GROUP" "USER"
+function synogroupuser()
+{
+	oldIFS=${IFS}
+	IFS=$'\n'
+	query=${1}
+	group=${2}
+	user=${3}
+	userlist=$(synogroup --get ${group} | grep -E '^[0-9]*:'| sed -e 's/^[0-9]*:\[\(.*\)\]/\1/')
+	updatelist=()
+	for i in ${userlist}; do
+		if [[ "${query}" == "adduser" ]]; then
+			[[ "${i}" != "${user}" ]] && updatelist+=(${i})
+			[[ "${i}" == "${user}" ]] && userexists="true"
+		elif [[ "${query}" == "deluser" ]]; then
+			[[ "${i}" != "${user}" ]] && updatelist+=(${i})
+			[[ "${i}" == "${user}" ]] && userexists="true"
+		else
+			synodsmnotify -c SYNO.SDS._ThirdParty.App.${app} @administrators ${app}:app:title ${app}:app:groupuser_error
+			exit 1
+		fi
+	done
+
+	if [[ -z "${userexists}" && "${query}" == "adduser" ]]; then
+		updatelist+=(${user})
+		synogroup --member ${group} ${updatelist[@]}
+		synodsmnotify -c SYNO.SDS._ThirdParty.App.${app} @administrators ${app}:app:title ${app}:app:adduser_true
+	elif [[ -n "${userexists}" && "${query}" == "adduser" ]]; then
+		synodsmnotify -c SYNO.SDS._ThirdParty.App.${app} @administrators ${app}:app:title ${app}:app:adduser_exists
+		exit 2
+	elif [[ -n "${userexists}" && "${query}" == "deluser" ]]; then
+		synogroup --member ${group} ${updatelist[@]}
+		synodsmnotify -c SYNO.SDS._ThirdParty.App.${app} @administrators ${app}:app:title ${app}:app:deluser_true
+	elif [[ -z "${userexists}" && "${query}" == "deluser" ]]; then
+		synodsmnotify -c SYNO.SDS._ThirdParty.App.${app} @administrators ${app}:app:title ${app}:app:deluser_notexist
+		exit 3
+	fi
+
+	IFS=${oldIFS}
+}
+
 # Set App permissions
-# ---------------------------------------------------------------------
+# --------------------------------------------------------------
 
 	# Prüfe ob Version min. DSM 7 entspricht
-	# -----------------------------------------------------------------
+	# ----------------------------------------------------------
 	if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 
-		if [ -z "${1}" ]; then
-
-			# Füge den Benutzer BasicBackup der Gruppe administrators hinzu
-			# ---------------------------------------------------------------------
-			if ! cat /etc/group | grep ^administrators | grep -q BasicBackup ; then
-				sed -i "/^administrators:/ s/$/,BasicBackup/" /etc/group
-			fi
-
-			# Gib eine DSM-Benachrichtung über Erfolg bzw. Misserfolg aus
-			# ---------------------------------------------------------------------
-			if cat /etc/group | grep ^administrators | grep -q BasicBackup ; then
-				synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:title "${app}":app:permissions_true
-			else
-				synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:title "${app}":app:permissions_false
-			fi
+		# Basic Backup der Grupp administrators hinzufügen
+		if [[ "${1}" == "adduser" ]]; then
+			synogroupuser "adduser" "administrators" "BasicBackup"
 		fi
 
-		if [ -n "${1}" ]; then
+		# Basic Backup aus der Gruppe administrators entfernen
+		if [[ "${1}" == "deluser" ]]; then
+			synogroupuser "deluser" "administrators" "BasicBackup"
+		fi
 
-			# autopilot einschalten
-			# ---------------------------------------------------------------------
-			if [[ "${1}" == "autopilot start" ]] && [ ! -f /usr/lib/udev/rules.d/99-autopilot.rules ]; then
-				cp /var/packages/BasicBackup/target/ui/modules/autopilot.rules /usr/lib/udev/rules.d/99-autopilot.rules
-				chmod 644 /usr/lib/udev/rules.d/99-autopilot.rules
-				/usr/bin/udevadm control --reload-rules
+		# Autopilot einschalten
+		if [[ "${1}" == "autopilot start" ]] && [ ! -f /usr/lib/udev/rules.d/99-autopilot.rules ]; then
+			cp /var/packages/BasicBackup/target/ui/modules/autopilot.rules /usr/lib/udev/rules.d/99-autopilot.rules
+			chmod 644 /usr/lib/udev/rules.d/99-autopilot.rules
+			/usr/bin/udevadm control --reload-rules
 
-				synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_enabled
-			fi
+			synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_enabled
+		fi
 
-			# autopilot ausschalten
-			# ---------------------------------------------------------------------
-			if [[ "${1}" == "autopilot stop" ]] && [ -f /usr/lib/udev/rules.d/99-autopilot.rules ]; then
-				rm -f /usr/lib/udev/rules.d/99-autopilot.rules
-				/usr/bin/udevadm control --reload-rules
+		# Autopilot ausschalten
+		if [[ "${1}" == "autopilot stop" ]] && [ -f /usr/lib/udev/rules.d/99-autopilot.rules ]; then
+			rm -f /usr/lib/udev/rules.d/99-autopilot.rules
+			/usr/bin/udevadm control --reload-rules
 
-				synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_disabled
-			fi
+			synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_disabled
 		fi
 
 	fi

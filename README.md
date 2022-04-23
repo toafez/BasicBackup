@@ -25,14 +25,18 @@ Laden Sie sich die **jeweils aktuellste Version** von Basic Backup aus dem Berei
   - ## App-Berechtigung erweitern
     Unter DSM 7 wird eine 3rd_Party Anwendung wie Basic Backup (im folgenden App genannt) mit stark eingeschränkten Benutzer- und Gruppenrechten ausgestattet. Dies hat u.a. zur Folge, das systemnahe Befehle nicht ausgeführt werden können. Für den reibungslosen Betrieb von Basic Backup werden jedoch erweiterte Systemrechte benötigt um z.B. auf die Ordnerstuktur der "freigegebenen Ordner" zugreifen zu können. Zum erweitern der App-Berechtigungen muss Basic Backup in die Gruppe der Administratoren aufgenommen werden, was jedoch nur durch den Benutzer selbst durchgeführt werden kann. Die nachfolgende Anleitung beschreibt diesen Vorgang.
 
-    - ### Erweitern der App-Berechtigungen über die Konsole
+    - #### Erweitern bzw. beschränken der App-Berechtigungen über die Konsole
 
       - Melden Sie sich als Benutzer **root** auf der Konsole Ihrer Synology NAS an.
       - Befehl zum erweitern der App-Berechtigungen
 
-        `/usr/syno/synoman/webman/3rdparty/BasicBackup/app_permissions.sh`
+        `/usr/syno/synoman/webman/3rdparty/BasicBackup/app_permissions.sh "adduser"`
+
+      - Befehl zum beschränken der App-Berechtigungen
+
+        `/usr/syno/synoman/webman/3rdparty/BasicBackup/app_permissions.sh "deluser"`
  
-    - ### Erweitern der App-Berechtigungen über den Aufgabenplaner
+    - #### Erweitern bzw. beschränken der App-Berechtigungen über den Aufgabenplaner
 
       - Im **DSM** unter **Hauptmenü** > **Systemsteuerung** den **Aufgabenplaner** öffnen.
       - Im **Aufgabenplaner** über die Schaltfläche **Erstellen** > **Geplante Aufgabe** > **Benutzerdefiniertes Script** auswählen.
@@ -40,7 +44,11 @@ Laden Sie sich die **jeweils aktuellste Version** von Basic Backup aus dem Berei
       - Im Reiter **Aufgabeneinstellungen** > **Befehl ausführen** > **Benutzerdefiniertes Script** nachfolgenden Befehl in das Textfeld einfügen...
       - Befehl zum erweitern der App-Berechtigungen
 
-        `/usr/syno/synoman/webman/3rdparty/BasicBackup/app_permissions.sh`
+        `/usr/syno/synoman/webman/3rdparty/BasicBackup/app_permissions.sh "adduser"`
+
+      - Befehl zum beschränken der App-Berechtigungen
+
+        `/usr/syno/synoman/webman/3rdparty/BasicBackup/app_permissions.sh "deluser"`
    
       - Eingaben mit **OK** speichern und die anschließende Warnmeldung ebenfalls mit **OK** bestätigen.
       - Die grade erstellte Aufgabe in der Übersicht des Aufgabenplaners markieren, jedoch **nicht** aktivieren (die Zeile sollte nach dem markieren blau hinterlegt sein).

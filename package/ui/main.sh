@@ -284,39 +284,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 												<li class="text-success">'${txt_group_status_true}'</li>'
 											else
 												echo '
-												<li class="text-danger pb-2">'${txt_group_status_false}'</li>
-												<li><strong>'${txt_group_console}'</strong></li>
-													<ol>
-														<li>'${txt_group_console_step_1}'
-															<ul class="list-unstyled ps-3 pt-2">
-																<li>'${txt_group_console_step_2}'</li>
-																<li>
-																	<small>
-																		<pre class="text-dark p-1 border border-1 rounded bg-white">'${txt_group_step_5}'</pre>
-																	</small>
-																</li>
-															</ul>
-														</li>
-													</ol>
-												<li><strong>'${txt_group_taskmanager}'</strong></li>
-													<ol>
-														<li>'${txt_group_step_1}'</li>
-														<li>'${txt_group_step_2}'</li>
-														<li>'${txt_group_step_3}'</li>
-														<li>'${txt_group_step_4}'</li>
-															<ul class="list-unstyled ps-3 pt-2">
-																<li>'${txt_group_console_step_2}'</li>
-																<li>
-																	<small>
-																		<pre class="text-dark p-1 border border-1 rounded bg-white">'${txt_group_step_5}'</pre>
-																	</small>
-																</li>
-															</ul>
-														<li>'${txt_group_step_6}'</li>
-														<li>'${txt_group_step_7}'</li>
-														<li>'${txt_group_step_8}'</li>
-														<li>'${txt_group_step_9}'</li>
-													</ol>'
+												<li class="text-danger pb-2">'${txt_group_status_false}' <a href="#help-permissions" class="text-info text-decoration-none" data-bs-toggle="modal" data-bs-target="#help-permissions">'${txt_link_help_permissions}'</a></li>'
 											fi
 											echo '
 										</ul>

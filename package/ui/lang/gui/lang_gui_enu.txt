@@ -56,6 +56,7 @@
 	txt_link_help_ssh_remote="<strong>Step 2:</strong> Set up SSH on a remote server"
 	txt_link_help_ssh_rsa="<strong>Step 3:</strong> SSH Handshake and RSA Exchange"
 	txt_link_help_version="Versioned Backup with Hardlinks"
+	txt_link_help_permissions="Extend or restrict the app permission"
 
 	# App group membership
 	txt_app_group_member="App group membership"
@@ -63,23 +64,8 @@
 
 	# Notes - group membership
 	txt_group_status="App Permission Status"
-	txt_group_status_true="${app_title} is a member of the administrators group and thus has the necessary permissions"
-	txt_group_status_false="${app_title} is currently not a member of the administrators group and thus has limited app permissions. To extend the app permissions (the app ${app_title} will be added to the administrators group below), please perform the following steps..."
-	#txt_group_limited_1="Note: ${app_name} currently has only limited system rights, as the app is not a member of the administrators' group."
-	#txt_group_limited_2="To extend the system rights (the ${app_name} app is subsequently added to the administrators' group), please follow the steps below..."
-	txt_group_console="Extend app permissions via the console"
-	txt_group_console_step_1="Log in as user <span class=\"text-danger fst-italic\">root</span> on your DiskStation's console."
-	txt_group_console_step_2="Command to extend the app permissions"
-	txt_group_taskmanager="Extend App Permissions via Task Scheduler"
-	txt_group_step_1="In the DSM under <span class=\"text-danger fst-italic\">Main menu</span> > <span class=\"text-danger fst-italic\">Control Panel</span> open the <span class=\"text-danger fst-italic\">Task Scheduler</span>."
-	txt_group_step_2="In the task planner via the <span class=\"text-danger fst-italic\">Create button</span> > <span class=\"text-danger fst-italic\">Select scheduled task</span> > <span class=\"text-danger fst-italic\">Custom script</span>."
-	txt_group_step_3="In the pop-up window that now opens, in the <span class=\"text-danger fst-italic\">General</span> > <span class=\"text-danger fst-italic\">General settings</span> tab , give the task a name and select <span class=\"text-danger fst-italic\">root</span> as the user. Also remove the checkmark from<span class=\"text-danger fst-italic\">Enabled</span>."
-	txt_group_step_4="In the <span class=\"text-danger fst-italic\">Task setting tab</span> > <span class=\"text-danger fst-italic\">Execute command</span> > <span class=\"text-danger fst-italic\">Paste custom script</span> the following command into the text field..."
-	txt_group_step_5="/usr/syno/synoman/webman/3rdparty/${app_name}/app_permissions.sh"
-	txt_group_step_6="Save entries with <span class=\"text-danger fst-italic\">OK</span> and confirm the subsequent warning message also with <span class=\"text-danger fst-italic\">OK</span>."
-	txt_group_step_7="The just created task in the overview of the task planner <span class=\"text-danger fst-italic\">mark</span>, but <span class=\"text-decoration-underline\">do not</span> activate (the line should be highlighted in blue after marking)."
-	txt_group_step_8="Execute the task by pressing button <span class=\"text-danger fst-italic\">Run</span> once."
-	txt_group_step_9="If everything worked, this text should no longer appear after restarting ${app_name}. If it does, please repeat the process or contact the developer of this app."
+	txt_group_status_true="${app_title} has extended system permissions"
+	txt_group_status_false="${app_title} only has limited permissions. To extend the permissions, please read these instructions:"
 
 # main.sh
 # --------------------------------------------------------------
