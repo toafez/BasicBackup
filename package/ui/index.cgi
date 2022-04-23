@@ -36,8 +36,8 @@ job_version="0.6-000"
 
 	app_name="BasicBackup"
 	app_title="Basic Backup"
-	app_home=$(echo /volume*/@appstore/${app_name}/ui)
-	app_link=$(echo /webman/3rdparty/${app_name})
+	app_home="/volume*/@appstore/${app_name}/ui"
+	app_link="/webman/3rdparty/${app_name}"
 	[ ! -d "${app_home}" ] && exit
 
 	# Zurücksetzten möglicher Zugangsberechtigungen
@@ -45,7 +45,7 @@ job_version="0.6-000"
 
 	# Version des rsync-Scriptes anpassen (job_version = script_version)
 	rsync_script="${app_home}/rsync.sh"
-	script_version=$(cat "${rsync_script}" | grep script_version | cut -d '"' -f2)
+	script_version=$(grep script_version "${rsync_script}" | cut -d '"' -f2)
 
 	if dpkg --compare-versions ${job_version} gt ${script_version}; then
 		sed -i 's/script_version.*$/script_version="'${job_version}'"/' ${rsync_script}
@@ -62,22 +62,22 @@ job_version="0.6-000"
 		syno_login=$(/usr/syno/synoman/webman/login.cgi)
 
 		# SynoToken ( nur bei eingeschaltetem Schutz gegen Cross-Site Request Forgery Attacken )
-		if echo ${syno_login} | grep -q SynoToken ; then
-			syno_token=$(echo "${syno_login}" | grep SynoToken | cut -d ":" -f2 | cut -d '"' -f2)
+		if grep -q SynoToken <<< "${syno_login}"; then
+			syno_token=$(grep SynoToken <<< "${syno_login}" | cut -d ":" -f2 | cut -d '"' -f2)
 		fi
 		if [ -n "${syno_token}" ]; then
 			[ -z ${QUERY_STRING} ] && QUERY_STRING="SynoToken=${syno_token}" || QUERY_STRING="${QUERY_STRING}&SynoToken=${syno_token}"
 		fi
 
 		# Login Berechtigung ( result=success )
-		if echo ${syno_login} | grep -q result ; then
-			login_result=$(echo "${syno_login}" | grep result | cut -d ":" -f2 | cut -d '"' -f2)
+		if grep -q result <<< "${syno_login}"; then
+			login_result=$(grep result <<< "${syno_login}" | cut -d ":" -f2 | cut -d '"' -f2)
 		fi
 		[[ ${login_result} != "success" ]] && { echo 'Access denied'; exit; }
 
 		# Login erfolgreich ( success=true )
-		if echo ${syno_login} | grep -q success ; then
-			login_success=$(echo "${syno_login}" | grep success | cut -d "," -f3 | grep success | cut -d ":" -f2 | cut -d " " -f2 )
+		if grep -q success <<< "${syno_login}"; then
+			login_success=$(grep success <<< "${syno_login}" | cut -d "," -f3 | grep success | cut -d ":" -f2 | cut -d " " -f2 )
 		fi
 		[[ ${login_success} != "true" ]] && { echo 'Access denied'; exit; }
 
@@ -110,8 +110,8 @@ job_version="0.6-000"
 
 		if [ -f "${app_home}/modules/synowebapi" ]; then
 			rar_data=$($app_home/modules/synowebapi --exec api=SYNO.Core.Desktop.Initdata method=get version=1 runner="$syno_user" | jq '.data.AppPrivilege')
-			syno_privilege=$(echo "${rar_data}" | grep "SYNO.SDS._ThirdParty.App.${app_name}" | cut -d ":" -f2 | cut -d '"' -f2)
-			if echo "${syno_privilege}" | grep -q "true"; then
+			syno_privilege=$(grep "SYNO.SDS._ThirdParty.App.${app_name}" "${rar_data}" | cut -d ":" -f2 | cut -d '"' -f2)
+			if grep -q "true" <<< "${syno_privilege}"; then
 				is_authenticated="yes"
 			else
 				is_authenticated="no"
