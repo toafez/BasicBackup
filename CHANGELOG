@@ -1,5 +1,14 @@
 Basic Backup Release Notes
 
+
+Version 0.6-400 vom 24.04.2022
+	- Ändern der Art und Weise, wie Basic Backup einer Gruppe hinzugefügt werden kann, um Ordner-, Datei- und Systemrechte zu erweitern (App-Berechtigungen). 
+	- Die App-Berechtigungen können ab sofort, falls gewünscht, wieder entzogen werden. Basic Backup wird dabei aus der entsprechenden Gruppe entfernt.
+	- Die Beschreibung zum erweitern bzw. beschränken der App-Berechtigungen wurde in die interne Hilfe verschoben. 
+	- Die Beschreibung zum (de)-aktivieren der USB/SATA-Autopilot Funktion wurde in die interne Hilfe verschoben. 
+	- Die Beschreibung zum einrichten eines externen USB/SATA-Datenträgers für AutoPilot wurde in die interne Hilfe kopiert. 
+
+
 Version 0.6-300 vom 15.04.2022
 	- Es wurde der Vorgang beschrieben, wie man über die File Station der "autopilot" Datei das Attribut "ausführbar" vergeben kann.
 	- UUID eines SATA-Datenträgers wurde nicht ausgelesen. Fehler wurde behoben.
