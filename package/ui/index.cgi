@@ -335,6 +335,7 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 													<li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#help-ssh-rsa">'${txt_link_help_ssh_rsa}'</button></li>
 													<li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#help-versioning">'${txt_link_help_version}'</button></li>
 													<li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#help-permissions">'${txt_link_help_permissions}'</button></li>
+													<li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#help-autopilot">'${txt_link_help_autopilot}'</button></li>
 												</ul>
 											</li>
 										</ul>
@@ -374,6 +375,7 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 						help_modal "ssh-rsa" "${txt_link_help_ssh_rsa}"
 						help_modal "versioning" "${txt_link_help_version}"
 						help_modal "permissions" "${txt_link_help_permissions}"
+						help_modal "autopilot" "${txt_link_help_autopilot}"
 
 						# Hinweis Badges
 						# --------------------------------------------------------------

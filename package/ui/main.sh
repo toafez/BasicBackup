@@ -179,49 +179,9 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 											<span class="float-end">
 												<a href="index.cgi?page=view&section=autopilot&file=${usr_logfiles}/autopilot.log" title="'${txt_link_autopilotlog}'"><i class="bi bi-journal-text text-dark"></i></a>&nbsp;
 												<a href="index.cgi?page=autoconfig&section=start" title="'${txt_pilot_settings}'"><i class="bi bi-gear-fill text-dark"></i></a>&nbsp;
-												<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#collapsePilot" role="button" aria-expanded="false" aria-controls="collapsePilot">
-													'${note}'
-												</a>
 											</span>
-											<div class="collapse" id="collapsePilot">
-												<div class="card card-body">
-													<ul class="list-unstyled ps-4">
-														<li><strong>'${txt_pilot_switch_console_deactive}'</strong></li>
-															<ol>
-																<li>'${txt_pilot_console_step_1}'
-																	<ul class="list-unstyled ps-3 pt-2">
-																		<li>'${txt_pilot_console_step_3}'</li>
-																		<li>
-																			<small>
-																				<pre class="text-dark p-1 border border-1 rounded bg-white">/usr/syno/synoman/webman/3rdparty/BasicBackup/app_permissions.sh "autopilot stop"</pre>
-																			</small>
-																		</li>
-																	</ul>
-																</li>
-															</ol>
-														<li><strong>'${txt_pilot_switch_taskmanager_deactive}'</strong></li>
-															<ol>
-																<li>'${txt_group_step_1}'</li>
-																<li>'${txt_group_step_2}'</li>
-																<li>'${txt_group_step_3}'</li>
-																<li>'${txt_group_step_4}'</li>
-																	<ul class="list-unstyled ps-3 pt-2">
-																		<li>'${txt_pilot_console_step_3}'</li>
-																		<li>
-																			<small>
-																				<pre class="text-dark p-1 border border-1 rounded bg-white">/usr/syno/synoman/webman/3rdparty/BasicBackup/app_permissions.sh "autopilot stop"</pre>
-																			</small>
-																		</li>
-																	</ul>
-																<li>'${txt_group_step_6}'</li>
-																<li>'${txt_group_step_7}'</li>
-																<li>'${txt_group_step_8}'</li>
-															</ol>
-													</ul>
-												</div>
-											</div>
 											<ul class="list-unstyled ps-4">
-												<li class="text-success">'${txt_autopilot_service}' '${txt_is_active}'</li>
+												<li class="text-success">'${txt_autopilot_service}' '${txt_is_active}'. <a href="#help-autopilot" class="text-danger text-decoration-none" data-bs-toggle="modal" data-bs-target="#help-autopilot">'${txt_button_deactivate}'</a></li>
 											</ul>
 										</li>
 									</ul>'
@@ -231,38 +191,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 									<ul class="list-unstyled">
 										<li class="text-dark list-style-square">'${txt_autopilot_status}'
 											<ul class="list-unstyled ps-4">
-												<li class="text-danger pb-2">'${txt_autopilot_service}' '${txt_is_inactive}'</li>
-												<li><strong>'${txt_pilot_switch_console_active}'</strong></li>
-													<ol>
-														<li>'${txt_pilot_console_step_1}'
-															<ul class="list-unstyled ps-3 pt-2">
-																<li>'${txt_pilot_console_step_2}'</li>
-																<li>
-																	<small>
-																		<pre class="text-dark p-1 border border-1 rounded bg-white">/usr/syno/synoman/webman/3rdparty/BasicBackup/app_permissions.sh "autopilot start"</pre>
-																	</small>
-																</li>
-															</ul>
-														</li>
-													</ol>
-												<li><strong>'${txt_pilot_switch_taskmanager_active}'</strong></li>
-													<ol>
-														<li>'${txt_group_step_1}'</li>
-														<li>'${txt_group_step_2}'</li>
-														<li>'${txt_group_step_3}'</li>
-														<li>'${txt_group_step_4}'</li>
-															<ul class="list-unstyled ps-3 pt-2">
-																<li>'${txt_pilot_console_step_2}'</li>
-																<li>
-																	<small>
-																		<pre class="text-dark p-1 border border-1 rounded bg-white">/usr/syno/synoman/webman/3rdparty/BasicBackup/app_permissions.sh "autopilot start"</pre>
-																	</small>
-																</li>
-															</ul>
-														<li>'${txt_group_step_6}'</li>
-														<li>'${txt_group_step_7}'</li>
-														<li>'${txt_group_step_8}'</li>
-													</ol>
+												<li class="text-danger pb-2">'${txt_autopilot_service}' '${txt_is_inactive}'. <a href="#help-autopilot" class="text-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#help-autopilot">'${txt_button_activate}'</a></li>
 											</ul>
 										</li>
 									</ul>'
@@ -281,10 +210,10 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 										<ul class="list-unstyled ps-4">'
 											if cat /etc/group | grep ^administrators | grep -q ${app_name} ; then
 												echo '
-												<li class="text-success">'${txt_group_status_true}'</li>'
+												<li class="text-success">'${txt_group_status_true}'. <a href="#help-permissions" class="text-danger text-decoration-none" data-bs-toggle="modal" data-bs-target="#help-permissions">'${txt_button_restrict_permission}'</a></li>'
 											else
 												echo '
-												<li class="text-danger pb-2">'${txt_group_status_false}' <a href="#help-permissions" class="text-info text-decoration-none" data-bs-toggle="modal" data-bs-target="#help-permissions">'${txt_link_help_permissions}'</a></li>'
+												<li class="text-danger pb-2">'${txt_group_status_false}' <a href="#help-permissions" class="text-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#help-permissions">'${txt_button_extend_permission}'</a></li>'
 											fi
 											echo '
 										</ul>

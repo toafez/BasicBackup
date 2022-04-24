@@ -41,6 +41,10 @@
 	txt_button_delete_now="Delete now"
 	txt_button_restore="Restore"
 	txt_button_secure="Secure"
+	txt_button_activate="Activate?"
+	txt_button_deactivate="Deactivate?"
+	txt_button_extend_permission="Extend permission?"
+	txt_button_restrict_permission="Restrict permission?"
 
 	txt_popup_input_error="Input error!"
 	txt_popup_delete_conf="Deletion confirmation!"
@@ -57,6 +61,7 @@
 	txt_link_help_ssh_rsa="<strong>Step 3:</strong> SSH Handshake and RSA Exchange"
 	txt_link_help_version="Versioned Backup with Hardlinks"
 	txt_link_help_permissions="Extend or restrict the app permission"
+	txt_link_help_autopilot="USB/SATA-AutoPilot (de)-aktivieren"
 
 	# App group membership
 	txt_app_group_member="App group membership"
@@ -65,7 +70,7 @@
 	# Notes - group membership
 	txt_group_status="App Permission Status"
 	txt_group_status_true="${app_title} has extended system permissions"
-	txt_group_status_false="${app_title} only has limited permissions. To extend the permissions, please read these instructions:"
+	txt_group_status_false="${app_title} only has limited permissions."
 
 # main.sh
 # --------------------------------------------------------------
@@ -323,17 +328,6 @@
 	txt_pilot_disconnect_auto="always eject automatically"
 	txt_pilot_disconnect_manual="manually eject by an exit 100 script statement"
 	txt_pilot_signal="Trigger visual as well as audible signals on your DiskStation via USB/SATA AutoPilot function"
-
-	#txt_pilot_switching_settings="Enable or disable USB/SATA AutoPilot"
-	txt_pilot_switch_console="Activate or deactivate USB/SATA AutoPilot via the console"
-	txt_pilot_switch_console_active="Activate USB/SATA AutoPilot via the console"
-	txt_pilot_switch_console_deactive="Disable USB/SATA AutoPilot via the console"
-	txt_pilot_console_step_1="Log in as user <span class=\"text-danger fst-italic\">root</span> on the console of your DiskStation."
-	txt_pilot_console_step_2="Command to enable the USB/SATA AutoPilot function"
-	txt_pilot_console_step_3="Command to disable the USB/SATA AutoPilot function"
-	txt_pilot_switch_taskmanager="To enable/disable USB/SATA AutoPilot via task scheduler"
-	txt_pilot_switch_taskmanager_active="Enable USB/SATA AutoPilot via the Task Scheduler".
-	txt_pilot_switch_taskmanager_deactive="Disable USB/SATA AutoPilot via the Task Scheduler"
 
 	txt_pilot_external_setting="Set up an external disk for USB/SATA AutoPilot"
 	txt_pilot_external_console="Set up external disk via console".
