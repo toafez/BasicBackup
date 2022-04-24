@@ -63,7 +63,8 @@ job_version="0.6-000"
 
 		# SynoToken ( nur bei eingeschaltetem Schutz gegen Cross-Site Request Forgery Attacken )
 		if grep -q SynoToken <<< "${syno_login}"; then
-			syno_token=$(grep SynoToken <<< "${syno_login}" | cut -d ":" -f2 | cut -d '"' -f2)
+			syno_token=$(grep SynoToken << "${syno_login}" | cut -d ":" -f2 | cut -d '"' -f2)
+			#syno_token=$(grep SynoToken <<< "${syno_login}" | sed -E 's/(.+):(.+)\"(.+)/\3/') # an alternate way to extract the token without a second pipe not sure whether you like it
 		fi
 		if [ -n "${syno_token}" ]; then
 			[ -z ${QUERY_STRING} ] && QUERY_STRING="SynoToken=${syno_token}" || QUERY_STRING="${QUERY_STRING}&SynoToken=${syno_token}"
