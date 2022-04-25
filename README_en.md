@@ -25,14 +25,18 @@ Download the **most recent version** of Basic Backup from the [Releases](https:/
   - ## Extend App Permission
     Under DSM 7, a 3rd_Party application such as Basic Backup (referred to as App in the following) is provided with highly restricted user and group rights. Among other things, this means that system-related commands cannot be executed. For the smooth operation of Basic Backup, however, extended system rights are required, e.g. to be able to access the folder structure of the "shared folders". To extend the app permissions, Basic Backup must be added to the administrators' group, but this can only be done by the user himself. The following instructions describe this process.
 
-    - ### Extending app permissions via the console
+    - #### Extending or restricting app permissions via the console
 
       - Log in to the console of your Synology NAS as user **root**.
       - Command to extend app permissions
 
-        `/usr/syno/synoman/webman/3rdparty/BasicBackup/app_permissions.sh`
+        `/usr/syno/synoman/webman/3rdparty/BasicBackup/app_permissions.sh "adduser"`
+
+      - Command to restrict app permissions
+
+        `/usr/syno/synoman/webman/3rdparty/BasicBackup/app_permissions.sh "deluser"`
  
-    - ### Extending app permissions via the task scheduler
+    - #### Extend or restrict app permissions via the task planner
 
       - Open the **Task Scheduler** in **DSM** under **Main Menu** > **Control Panel**.
       - In the **Task Scheduler**, select **Create** > **Scheduled Task** > **Custom Script** via the button.
@@ -40,7 +44,11 @@ Download the **most recent version** of Basic Backup from the [Releases](https:/
       - In the **Task Settings** tab > **Execute Command** > **Custom Script**, insert the following command into the text field...
       - Command to extend the app permissions
 
-        `/usr/syno/synoman/webman/3rdparty/BasicBackup/app_permissions.sh`
+        `/usr/syno/synoman/webman/3rdparty/BasicBackup/app_permissions.sh "adduser"`
+
+      - Command to restrict app permissions
+
+        `/usr/syno/synoman/webman/3rdparty/BasicBackup/app_permissions.sh "deluser"`
    
       - Save the entries with **OK** and confirm the subsequent warning message with **OK**.
       - Mark the task you have just created in the overview of the task planner, but **do not** activate it (the line should be highlighted in blue after marking).

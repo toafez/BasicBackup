@@ -41,6 +41,10 @@
 	txt_button_delete_now="Jetzt löschen"
 	txt_button_restore="Wiederherstellen"
 	txt_button_secure="Sichern"
+	txt_button_activate="Aktivieren?"
+	txt_button_deactivate="Deaktivieren?"
+	txt_button_extend_permission="Berechtigungen erweitern?"
+	txt_button_restrict_permission="Berechtigungen beschränken?"
 
 	txt_popup_input_error="Eingabefehler!"
 	txt_popup_delete_conf="Löschbestätigung!"
@@ -52,10 +56,13 @@
 	txt_link_settings="Systemeinstellungen"
 	txt_link_recovery="Sichern und wiederherstellen"
 	txt_link_autopilot="USB/SATA-AutoPilot"
-	txt_link_help_ssh_local="<strong>Schritt 1:</strong> SSH auf dieser DiskStation einrichten"
-	txt_link_help_ssh_remote="<strong>Schritt 2:</strong> SSH auf einem Remote Server einrichten"
-	txt_link_help_ssh_rsa="<strong>Schritt 3:</strong> SSH Handshake und RSA Austausch"
-	txt_link_help_version="Versionierte Datensicherung mit Hardlinks"
+	txt_link_help_ssh_local="<strong>SSH:</strong> 1. SSH auf dieser DiskStation einrichten"
+	txt_link_help_ssh_remote="<strong>SSH:</strong> 2. SSH auf einem Remote Server einrichten"
+	txt_link_help_ssh_rsa="<strong>SSH:</strong> 3. SSH Handshake und RSA Austausch"
+	txt_link_help_version="<strong>Rsync:</strong> Versionierte Datensicherung mit Hardlinks"
+	txt_link_help_permissions="<strong>System:</strong> Erweitern bzw. beschränken der App-Berechtigung"
+	txt_link_help_autopilot="<strong>AutoPilot:</strong> USB/SATA-AutoPilot Funktion (de)-aktivieren"
+	txt_link_help_external_storage="<strong>AutoPilot:</strong> Externen Datenträger für AutoPilot einrichten"
 
 	# App group membership
 	txt_app_group_member="App-Gruppenmitgliedschaft"
@@ -63,24 +70,9 @@
 
 	# Notes - group membership
 	txt_group_status="App Berechtigungsstatus"
-	txt_group_status_true="${app_title} ist Mitglied in der Gruppe der Administratoren und verfügt somit über die nötigen Berechtigungen"
-	txt_group_status_false="${app_title} ist aktuell kein Mitglied in der Gruppe der Administratoren und verfügt somit nur über eingeschränkte App-Berechtigungen. Zum erweiteren der App-Berechtigungen (die App ${app_title} wird nachfolgend der Gruppe der Administratoren hinzugefügt) führen Sie bitte nachfolgende Schritte aus..."
-	#txt_group_limited_1="Hinweis: ${app_title} verfügt aktuell nur über eingeschränkte Systemrechte, da die App kein Mitglied in der Gruppe der Administratoren ist."
-	#txt_group_limited_2="Zum erweiteren der Systemrechte (die App ${app_title} wird nachfolgend der Gruppe der Administratoren hinzugefügt) führen Sie bitte nachfolgende Schritte aus..."
-	txt_group_console="Erweitern der App-Berechtigungen über die Konsole"
-	txt_group_console_step_1="Melden Sie sich als Benutzer <span class=\"text-danger fst-italic\">root</span> auf der Konsole Ihrer DiskStation an."
-	txt_group_console_step_2="Befehl zum erweiteren der App-Berechtigungen"
-	txt_group_taskmanager="Erweitern der App-Berechtigungen über den Aufgabenplaner"
-	txt_group_step_1="Im DSM unter <span class=\"text-danger fst-italic\">Hauptmenü</span> > <span class=\"text-danger fst-italic\">Systemsteuerung</span> den <span class=\"text-danger fst-italic\">Aufgabenplaner</span> öffnen."
-	txt_group_step_2="Im Aufgabenplaner über die Schaltfläche <span class=\"text-danger fst-italic\">Erstellen</span> > <span class=\"text-danger fst-italic\">Geplante Aufgabe</span> > <span class=\"text-danger fst-italic\">Benutzerdefiniertes Script</span> auswählen."
-	txt_group_step_3="In dem nun geöffneten Pop-up-Fenster im Reiter <span class=\"text-danger fst-italic\">Allgemein</span> > <span class=\"text-danger fst-italic\">Allgemeine Einstellungen</span> der Aufgabe einen Namen geben und als Benutzer <span class=\"text-danger fst-italic\">root</span> auswählen. Außerdem den Haken bei <span class=\"text-danger fst-italic\">Aktiviert</span> entfernen."
-	txt_group_step_4="Im Reiter <span class=\"text-danger fst-italic\">Aufgabeneinstellungen</span> > <span class=\"text-danger fst-italic\">Befehl ausführen</span> > <span class=\"text-danger fst-italic\">Benutzerdefiniertes Script</span> nachfolgenden Befehl in das Textfeld einfügen..."
-	txt_group_step_5="/usr/syno/synoman/webman/3rdparty/${app_name}/app_permissions.sh"
-	txt_group_step_6="Eingaben mit <span class=\"text-danger fst-italic\">OK</span> speichern und die anschließende Warnmeldung ebenfalls mit <span class=\"text-danger fst-italic\">OK</span> bestätigen."
-	txt_group_step_7="Die grade erstellte Aufgabe in der Übersicht des Aufgabenplaners <span class=\"text-danger fst-italic\">markieren</span>, jedoch <span class=\"text-decoration-underline\">nicht</span> aktivieren (die Zeile sollte nach dem markieren blau hinterlegt sein)."
-	txt_group_step_8="Führen Sie die Aufgabe durch Betätigen Sie Schaltfläche <span class=\"text-danger fst-italic\">Ausführen</span> einmalig aus."
-	txt_group_step_9="Wenn alles geklappt hat, sollte dieser Text nach dem Neustart von ${app_title} nicht mehr erscheinen. Falls doch, wiederholen Sie bitte den Vorgang, oder wenden Sie sich an den Developer dieser App."
-
+	txt_group_status_true="${app_title} verfügt über erweiterte Systemberechtigungen"
+	txt_group_status_false="${app_title} verfügt nur über eingeschränkte Berechtigungen."
+	
 # main.sh
 # --------------------------------------------------------------
 	txt_system_title="Systemumgebung"
@@ -337,17 +329,6 @@
 	txt_pilot_disconnect_auto="immer automatisch auswerfen"
 	txt_pilot_disconnect_manual="manuell durch eine exit 100 Script Anweisung auswerfen"
 	txt_pilot_signal="Optische sowie akustische Signale an Ihrer DiskStation über die USB/SATA-AutoPilot Funktion auslösen"
-
-	#txt_pilot_switching_settings="USB/SATA-AutoPilot aktivieren bzw. deaktivieren"
-	txt_pilot_switch_console="USB/SATA-AutoPilot über die Konsole aktivieren bzw. deaktivieren"
-	txt_pilot_switch_console_active="USB/SATA-AutoPilot über die Konsole aktivieren"
-	txt_pilot_switch_console_deactive="USB/SATA-AutoPilot über die Konsole deaktivieren"
-	txt_pilot_console_step_1="Melden Sie sich als Benutzer <span class=\"text-danger fst-italic\">root</span> auf der Konsole Ihrer DiskStation an."
-	txt_pilot_console_step_2="Befehl zum Aktivieren der USB/SATA-AutoPilot Funktion"
-	txt_pilot_console_step_3="Befehl zum Deaktivieren der USB/SATA-AutoPilot Funktion"
-	txt_pilot_switch_taskmanager="USB/SATA-AutoPilot über den Aufgabenplaner aktivieren bzw. deaktivieren"
-	txt_pilot_switch_taskmanager_active="USB/SATA-AutoPilot über den Aufgabenplaner aktivieren"
-	txt_pilot_switch_taskmanager_deactive="USB/SATA-AutoPilot über den Aufgabenplaner deaktivieren"
 
 	txt_pilot_external_setting="Einen externen Datenträger für USB/SATA-AutoPilot einrichten"
 	txt_pilot_external_console="Externen Datenträger über die Konsole einrichten"
