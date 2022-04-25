@@ -36,7 +36,7 @@ job_version="0.6-000"
 
 	app_name="BasicBackup"
 	app_title="Basic Backup"
-	app_home="/volume*/@appstore/${app_name}/ui"
+	app_home=$(echo /volume*/@appstore/${app_name}/ui)
 	app_link="/webman/3rdparty/${app_name}"
 	[ ! -d "${app_home}" ] && exit
 
