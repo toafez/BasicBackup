@@ -472,8 +472,8 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 					<!-- container -->
 				</article>
 
-				<!-- Einbinden von bootstrap JavaScript 5.1.3 -->
-				<script src="template/bootstrap/js/bootstrap.min.js"></script>
+				<!-- Einbinden von bootstrap JavaScript 5.2.2 -->
+				<script src="template/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 				<!-- Einbinden von JavaScript bzw. jQuery Funktionen im HTML body  -->
 				<script src="template/js/body-functions.js"></script>'
