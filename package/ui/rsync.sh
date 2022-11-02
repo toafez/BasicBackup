@@ -1,6 +1,6 @@
 #!/bin/bash
 # Filename: rsync.sh - coded in utf-8
-script_version="0.6-300"
+script_version="0.7-000"
 
 #						 Basic Backup
 #
@@ -1001,7 +1001,15 @@ if [[ "${var[sendemail]}" == "true" ]] || [[ "${var[sendemail]}" == "problem" ]]
 			echo "Subject: ${txt_email_success}" >> "${email_log}"
 			echo "" >> "${email_log}"
 			cat "${script_log}" >> "${email_log}"
-			ssmtp "${var[emailto]}" < "${email_log}"
+			if [ -n ${verbose} ]; then
+				echo "" | tee -a "${script_log}"
+				echo "Start SMTP Debug Mode..." | tee -a "${script_log}"
+				ssmtp ${verbose} "${var[emailto]}" < "${email_log}" > >(tee -a "${script_log}") 2>&1
+				echo "...close SMTP debug mode" | tee -a "${script_log}"
+				echo "" | tee -a "${script_log}"
+			else
+				ssmtp "${var[emailto]}" < "${email_log}"
+			fi
 			exit_ssmtp=${?}
 
 		# Send e-mail in case of problems (sendemail = true or problem)
@@ -1009,7 +1017,15 @@ if [[ "${var[sendemail]}" == "true" ]] || [[ "${var[sendemail]}" == "problem" ]]
 			echo "Subject: ${txt_email_warning}" >> "${email_log}"
 			echo "" >> "${email_log}"
 			cat "${script_log}" >> "${email_log}"
-			ssmtp "${var[emailto]}" < "${email_log}"
+			if [ -n ${verbose} ]; then
+				echo "" | tee -a "${script_log}"
+				echo "Start SMTP Debug Mode..." | tee -a "${script_log}"
+				ssmtp ${verbose} "${var[emailto]}" < "${email_log}" > >(tee -a "${script_log}") 2>&1
+				echo "...close SMTP debug mode" | tee -a "${script_log}"
+				echo "" | tee -a "${script_log}"
+			else
+				ssmtp "${var[emailto]}" < "${email_log}"
+			fi
 			exit_ssmtp=${?}
 		fi
 
