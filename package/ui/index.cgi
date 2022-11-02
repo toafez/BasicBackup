@@ -1,6 +1,6 @@
 #!/bin/bash
 # Filename: index.cgi - coded in utf-8
-app_version="0.6-300"
+app_version="0.6-500"
 job_version="0.6-000"
 
 #						 Basic Backup
