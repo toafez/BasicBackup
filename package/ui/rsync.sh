@@ -273,7 +273,7 @@ if [[ ${exit_code} -eq 0 ]]; then
 	#---------------------------------------------------------------------
 
 	# Notification that backup job starts
-	echo "Basic Backup - Script Version ${jobconfig_version}" | tee -a "${script_log}"
+	echo "Basic Backup - Script Version: ${script_version}, Job Version: ${jobconfig_version}" | tee -a "${script_log}"
 	echo "${txt_line_separator}" | tee -a "${script_log}"
 	echo "$(timestamp) - ${txt_backupjob_starts}" | tee -a "${script_log}"
 	echo "${txt_line_separator}" | tee -a "${script_log}"
