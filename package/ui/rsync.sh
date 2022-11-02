@@ -1001,7 +1001,7 @@ if [[ "${var[sendemail]}" == "true" ]] || [[ "${var[sendemail]}" == "problem" ]]
 			echo "Subject: ${txt_email_success}" >> "${email_log}"
 			echo "" >> "${email_log}"
 			cat "${script_log}" >> "${email_log}"
-			if [ -n ${verbose} ]; then
+			if [ -n "${verbose}" ]; then
 				echo "" | tee -a "${script_log}"
 				echo "Start SMTP Debug Mode..." | tee -a "${script_log}"
 				ssmtp ${verbose} "${var[emailto]}" < "${email_log}" > >(tee -a "${script_log}") 2>&1
@@ -1017,7 +1017,7 @@ if [[ "${var[sendemail]}" == "true" ]] || [[ "${var[sendemail]}" == "problem" ]]
 			echo "Subject: ${txt_email_warning}" >> "${email_log}"
 			echo "" >> "${email_log}"
 			cat "${script_log}" >> "${email_log}"
-			if [ -n ${verbose} ]; then
+			if [ -n "${verbose}" ]; then
 				echo "" | tee -a "${script_log}"
 				echo "Start SMTP Debug Mode..." | tee -a "${script_log}"
 				ssmtp ${verbose} "${var[emailto]}" < "${email_log}" > >(tee -a "${script_log}") 2>&1
