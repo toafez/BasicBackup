@@ -1,0 +1,352 @@
+#!/bin/bash
+# Filename: lang_enu - coded in utf-8
+
+#						 Basic Backup
+#
+#        Copyright (C) 2023 by Tommes | License GNU GPLv3
+#         Member of the German Synology Community Forum
+#
+# Extract from  GPL3   https://www.gnu.org/licenses/gpl-3.0.html
+#                                     ...
+# This program is free software: you can redistribute it  and/or
+# modify it under the terms of the GNU General Public License as
+# published by the Free Software Foundation, either version 3 of
+# the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+#
+# See the GNU General Public License for more details.You should
+# have received a copy of the GNU General Public  License  along
+# with this program. If not, see http://www.gnu.org/licenses/  !
+
+
+# Globale Sprachvariablen
+# --------------------------------------------------------------
+	#txtAppTitle="Basic Backup für DSM 7"
+	txt_alert_only_admin="Access to the contents of ${app_title} is only permitted to users from the administrators group."
+	txt_update_available="<span class=\"text-danger\">A new update is available on GitHub.</span></br >Please update your Backup Basic version ${local_version} to version"
+
+	txt_link_note="Note"
+	txt_link_refresh="Refresh page"
+
+	txt_button_Continue="More"
+	txt_button_Back="Back"
+	txt_button_Cancel="Cancel"
+	txt_button_understood="Understood"
+	txt_button_Close="Close"
+	txt_button_Save="Save"
+	txt_button_delete="Delete"
+	txt_button_delete_now="Delete now"
+	txt_button_restore="Restore"
+	txt_button_secure="Secure"
+	txt_button_activate="Activate?"
+	txt_button_deactivate="Deactivate?"
+	txt_button_extend_permission="Extend permission?"
+	txt_button_restrict_permission="Restrict permission?"
+
+	txt_popup_input_error="Input error!"
+	txt_popup_delete_conf="Deletion confirmation!"
+
+# index.cgi
+# --------------------------------------------------------------
+	txt_link_new_job="New job"
+	txt_link_help="Help"
+	txt_link_settings="System Settings"
+	txt_link_recovery="Backup and Restore"
+	txt_link_autopilot="USB/SATA AutoPilot"
+	txt_link_help_ssh_local="<strong>SSH:</strong> 1. Set up SSH on this DiskStation"
+	txt_link_help_ssh_remote="<strong>SSH:</strong> 2. Set up SSH on a remote server"
+	txt_link_help_ssh_rsa="<strong>SSH:</strong> 3. SSH Handshake and RSA Exchange"
+	txt_link_help_version="<strong>Rsync:</strong> Versioned Backup with Hardlinks"
+	txt_link_help_permissions="<strong>System:</strong> Extend or restrict the app permission"
+	txt_link_help_autopilot="<strong>AutoPilot:</strong> USB/SATA AutoPilot function (de)-activate"
+	txt_link_help_external_storage="<strong>AutoPilot:</strong> Set up external storage for AutoPilot"
+
+	# App group membership
+	txt_app_group_member="App group membership"
+	txt_app_user_member="The App user <span class=\"text-success\">${app_name}</span> is a member of the following groups :"
+
+	# Notes - group membership
+	txt_group_status="App Permission Status"
+	txt_group_status_true="${app_title} has extended system permissions"
+	txt_group_status_false="${app_title} only has limited permissions."
+
+# main.sh
+# --------------------------------------------------------------
+	txt_system_title="System Environment"
+	txt_label_logfiles="Log files"
+	txt_link_system="System"
+	txt_link_systemlog="System Log"
+	txt_link_autopilot="AutoPilot"
+	txt_link_usbautopilot="USB/SATA-AutoPilot"
+	txt_view_autopilotlog="USB/SATA-AutoPilot Log"
+
+	txt_autopilot_status="AutoPilot Status"
+	txt_autopilot_service="The USB/SATA AutoPilot function is"
+	txt_rsync_status="Rsync Status"
+	txt_rsync_service="The rsync service is"
+	txt_rsync_port="and uses the SSH encryption port"
+	#txt_rsync_account="The rsync account is"
+	txt_rsync_info="To <strong>enable the rsync service</strong> go to <strong>DSM main menu > Control Panel > File Services</strong> and change there to the tab <strong>> rsync</strong>. Enable the <strong>rsync service checkbox</strong>. By default, port 22 is used as SSH encryption port, which you can adjust if necessary."
+
+	txt_ssh_status="SSH Status"
+	txt_ssh_service="The SSH terminal service is"
+	txt_ssh_port="and is using the SSH port"
+	txt_ssh_info="If you do not perform backup jobs to or from remote servers, you can leave the SSH terminal service <strong>disabled</strong>. Otherwise, the SSH terminal service must be enabled in advance. To <strong>enable the SSH Terminal service</strong> go to <strong>DSM Main Menu > Control Panel > Terminal & SNMP</strong> and change to the <strong>>Terminal</strong> tab there. Activate the checkbox <strong>Enable SSH service</strong>. If the remote server to be connected is also a Synology DiskStation, the SSH terminal service must also be enabled there in advance. For all other rsync compatible remote servers it has to be checked in each individual case if and how the SSH terminal service has to be activated."
+
+	txt_userhome_status="User Home Status"
+	txt_userhome_service="The user home service is"
+	txt_userhome_info="If you do not perform backup jobs to or from remote servers, you can leave the user home service <strong>disabled</strong>. Otherwise, both the SSH Terminal service and the User Home service must be enabled in advance, as the required SSH connection data will be stored in the corresponding User Home folder. To <strong>enable the User Home service</strong> go to <strong>DSM Main Menu > Control Panel > Users and Group</strong> and change to the <strong>>Advanced</strong> tab there. Under the menu item <strong>User Base</strong>, activate the checkbox <strong>Enable User Home Service</strong>. If the remote server to be connected is also a Synology DiskStation, the User Home Service must also be enabled there in advance. For all other rsync compatible remote servers it has to be checked in each individual case if and how the user home service has to be activated."
+
+	txt_is_active="activated"
+	txt_is_inactive="disabled"
+
+	txt_backupjob_runs="runs..."
+	txt_update_job="Update available"
+	txt_update_job_run="Run update"
+	txt_update_job_info="To update your job configuration, please click on this button. Go through all the configuration settings and look for possible changes or extensions and adapt them to your needs if necessary. At the end of the configuration, click the [ Save ] button to apply the changes."
+
+	txt_backup_log_title="Data Backup Log"
+	txt_edit_job_title="Edit Job"
+	txt_local_diskstation="Local DiskStation"
+	txt_remote_pushserver="Push backup to remote server"
+	txt_remote_pullserver="Pull backup from remote server"
+	txt_backup_sources="Backup Source(s)"
+	txt_backup_target="Backup Target(s)"
+	txt_versioning="Versioning"
+	txt_versions="days, saved data is kept in the version history"
+	txt_recycling="Recycle bin"
+	txt_recycle_inactive="The recycle bin function is not available when versioning."
+	txt_recycle_false="The retention of data deleted in the meantime has been deactivated."
+	txt_recycle_true="days, data deleted in the meantime is kept in the <span class=\"text-secondary\">/@recycle</span> folder."
+
+	txt_bash_code_note="The following commands can be used to run the job from the <span class=\"text-primary\">DSM task scheduler</span> or from your DiskStation's terminal as <strong>root</strong>."
+	#txt_bash_code_regular="Command to execute the order"
+	txt_bash_code_option="Option switches attachable to the command".
+	txt_bash_code_jobname="<span class=\"text-success\">default option</span>: Name of the job to be executed in quotes."^
+	txt_bash_code_dryrun="Rsync only simulates what would happen without copying or synchronising data."
+	txt_bash_code_rsync_v="Short rsync log, which files are transferred."
+	txt_bash_code_rsync_vv="Extended rsync log, which files are skipped."
+	txt_bash_code_rsync_vv="Very extensive rsync log for debugging."
+	txt_bash_code_ssh_v="Short SSH connection log (debugging mode 1) is executed."
+	txt_bash_code_ssh_vv="Extended SSH connection protocol (debugging mode 2) is executed."
+	txt_bash_code_ssh_vv="Very extensive SSH connection protocol (debugging mode 3) is executed."
+	txt_bash_code_perms="<span class=\"text-danger\">Expert mode</span>: Change the rsync access rights of folders (directories) and files. <br />Spelling: <span class=\"text-danger\">--chmod=ugo=rwx</span> or also <span class=\"text-danger\">--chmod=\"ugo=rwx\"</span>. You can get more information about handling access rights (chmod) in connection with rsync on relevant pages on the Internet."
+	txt_bash_code_perms_push="Experimental, in case permissions problems occur during a <span class=\"text-danger\">push packup</span>."
+
+	txt_job_step_title="Command to execute the job via the DSM task planner"
+	txt_job_step_1="In the DSM <span class=\"text-danger\">main menu</span>, select the <span class=\"text-danger\">Control Panel</span> and then open the <span class=\"text-danger\">Task Scheduler</span>."
+	txt_job_step_2="Create a new <span class=\"text-danger\">scheduled task</span> using the <span class=\"text-danger\">Create</span> button and then select a <span class=\"text-danger\">user-defined script</span>."
+	txt_job_step_3="In the <span class=\"text-danger\">General</span> tab, give the task a unique <span class=\"text-danger\">name</span>, select as <span class=\"text-danger\">user: <span class=\"text-danger\">root</span></span>. If you want the job to be triggered automatically afterwards, check Enabled, otherwise uncheck it."
+	txt_job_step_4="If desired, you can create a schedule via the corresponding tab. Otherwise skip the Schedule tab and go straight to the <span class=\"text-danger\">Task Settings</span> tab. In the text box below, please paste the command below, followed by other possible radio buttons...."
+	txt_job_step_5="Finish your entries with <span class=\"text-danger\">OK</span> and confirm the following warning message also with <span class=\"text-danger\">OK</span>."
+	txt_job_step_6="If necessary, you can manually execute the task you just created via the <span class=\"text-danger\">Task Scheduler</span>. To do this, select the task with the mouse and then press the <span class=\"text-danger\">Execute</span> button to manually execute the task once."
+
+	txt_popup_delete_job="Do you really want to delete the backup job<br /><strong>$(urldecode ${get[jobname]})</strong><br />?"
+	txt_popup_delete_systemlog="Should the contents of the log really be deleted?"
+
+# view.sh
+# --------------------------------------------------------------
+	txt_view_system_log="System Log"
+	txt_view_logfile="Data Backup Log"
+	txt_view_autopilot_log="USB/SATA-AutoPilot Log"
+	txt_view_file_not_found="No log entries available!"
+	txt_button_system_log_download="Download log"
+	txt_button_system_log_delete="Delete Log"
+
+# jobedit.sh
+# --------------------------------------------------------------
+	txt_language_label="Output language"
+	txt_note_mountpoint="<span class=\"text-danger\">Important note:</span> The mount point of this external data carrier is variable and may well change during a later reconnection. Therefore, please make sure in advance that the current mount point of this data carrier corresponds to the stored mount point of the data backup job."
+
+	# Page 1
+	txt_job_title="Job"
+	txt_job_edit="edit"
+	txt_job_create="create"
+	txt_job_select="select"
+
+	txt_jobname_label="Job or script name".
+	txt_jobname_format="Permitted characters - and _ as well as spaces"
+	txt_jobname_regex="^[0-9a-zA-Z _-]+$"
+
+	txt_sendemail_label="Email Notification"
+	txt_sendemail_true="Always send protocol"
+	txt_sendemail_problem="Send protocol only in case of problems".
+	txt_sendemail_format="true/false/problem"
+
+	txt_email_label="Eail"
+	txt_emailfrom_label="Sender address"
+	txt_emailto_label="Recipient address"
+	txt_emailfrom_format="example@domain.com"
+	txt_emailfrom_note="The email address of the sender must be the same as the sender address specified in the DSM under <span class=\"text-blue\">Main Menu > Control Panel > Notification > Email</span>. Otherwise, no email or backup log will be delivered."
+
+	txt_signal_label_optical="Optical signal output via LED"
+	txt_signal_optical_note="Activating the visual signal output provides visual feedback on the status of the currently executed backup job. At the beginning of the backup, the status LED of your Synology DiskStation changes from green to orange. After completion, the status LED changes from orange to green again."
+	txt_signal_label_acoustical="Acoustic signal output via loudspeaker"
+	txt_signal_acoustical_note="By activating the acoustic signal output, you receive visual feedback on the status of the currently executed backup job. A beep will sound from the speaker of your Synology DiskStation when the backup starts. When the backup is finished, you will hear another beep. If any problems occur during the backup, a triple beep will sound as feedback."
+	txt_signal_opt_true="On"
+	txt_signal_opt_false="Off"
+	txt_signal_format="true/false"
+
+	# Page 2
+	txt_popup_jobname_excists="The job or script name already exists.<br />Please use a different name."
+	txt_target_title="Backup Target"
+
+	# Page 2a
+	txt_targetserver_label="Target Server"
+	txt_targetserver_opt="Please select a target server"
+	txt_targetserver_opt_local="Local DiskStation"
+	txt_targetserver_opt_remote="Remote rsync server (Push Backup)"
+
+	# Page 2b
+	txt_backuptarget_label="Backup target"
+	txt_localshare_label="Shared folder"
+	txt_localshare_opt=""
+	txt_localuuid_label="Set UUID of backup destination if it is an ext. USB/SATA volume"
+	txt_uuidcheck_label="If the shared folder is a USB/SATA disk..."
+	txt_uuidcheck_opt_true="Identify mount point by device UUID and adjust if necessary"
+	txt_uuidcheck_label_script="Adjust the mount point of the backup destination if it is a USB/SATA disk"
+	txt_uuidcheck_opt_false="Do not adjust mount point even if it has changed in the meantime"
+
+	txt_localfolder_label="Target directory"
+	txt_localfolder_note="A target directory must be specified, headed by a <span class=\"text-blue\">/</span> (slash). The use of further subdirectories is possible. If the target directory does not exist, it will be created during the first backup. Invalid characters in file or directory names are <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
+	txt_localfolder_format="z.B. /Basic Backup/My first backup"
+	txt_localfolder_regex="^\/([a-zA-Z0-9 _\-\/]+)+$"
+
+	txt_remotetarget_label="Target directory"
+	txt_remotetarget_note="A target directory must be specified, headed by a <span class=\"text-blue\">/</span> (Slash). The use of further subdirectories is possible. If the target directory is on a Synology DiskStation, the desired shared folder must also be specified, e.g. <span class=\"text-blue\">/volume1/NetBackup</span>. If the target directory does not exist, it will be created during the first backup. Invalid characters in file or directory names are <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
+	txt_remotetarget_format="z.B. /volume1/NetBackup/My first backup"
+	txt_remotetarget_regex="^\/([a-zA-Z0-9 _\-\/]+)+$"
+
+	# Page 2b and page 3b
+	txt_sshbuild_note="Hints for setting up an SSH connection"
+	txt_ssh_label_user="SSH Username"
+	txt_ssh_format_user="e.g. root"
+
+	txt_ssh_label_address="Remote Server Address".
+	txt_ssh_format_address="URL or IPv4 Server Address"
+	txt_ssh_script_sshpush="Remote server is backup destination, then sshpush"
+	txt_ssh_script_sshpull="Remote server is backup source, then sshpull"
+
+	txt_ssh_label_port="SSH Port"
+	txt_ssh_format_port="e.g. Port 22"
+
+	txt_ssh_label_mac="MAC Address"
+	txt_ssh_format_mac="e.g. 3D:F2:C9:A6:B3:4F"
+	txt_ssh_info_mac="The MAC address only needs to be specified if the remote server is to be shut down automatically after the backup."
+	txt_ssh_regex_mac="^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$"
+
+	txt_privatekey_label="Filename of the locally stored private key to be used"
+	txt_privatekey_note="If no alternative file name for the private key has been specified, the default name <strong>id_rsa</strong> is used. Invalid characters in file or folder names are <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
+	txt_privatekey_format="e.g. /root/.ssh/id_rsa"
+	txt_privatekey_regex="^[0-9a-zA-Z _-]+$"
+
+	txt_remoteserver_script_before="Before backup: Wake on LAN in seconds (60/120/180 seconds or false)"
+	txt_remoteserver_label_before="Before backup the remote server..."
+	txt_remoteserver_opt_wakeup_no="... do not start automatically via WOL"
+	txt_remoteserver_opt_wakeup_60="... start and wait 60 sec. until the server is ready"
+	txt_remoteserver_opt_wakeup_120="... start and wait 120 sec. until the server is ready"
+	txt_remoteserver_opt_wakeup_180="... start and wait 180 sec. until the server is ready"
+
+	txt_remoteserver_script_after="After backup: shutdown (false/always/success)"
+	txt_remoteserver_label_after="After backup the remote server..."
+	txt_remoteserver_shutdown_note="Root rights are required to shut down a remote server!"
+	txt_remoteserver_opt_shutdown_no="... not shut down automatically"
+	txt_remoteserver_opt_shutdown_always="... always shut down"
+	txt_remoteserver_opt_shutdown_success="... shutdown only if data backup is successful"
+
+	# Seite 3a
+	txt_sources_title="Backup source(s)"
+	txt_sources_notes="Each source directory must begin with a <span class=\"text-blue\">/</span> (Slash). The use of further subdirectories is possible. If the source directory is on a Synology DiskStation, the desired shared folder must also be specified, e.g.  <span class=\"text-blue\">/volume1/music</span> oder auch <span class=\"text-blue\">/volume1/music/Compilations</span>. Furthermore, individual source directories must be separated from each other by a <span class=\"text-danger\">&</span>, as shown in the example entry. Invalid characters in file or directory names are <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
+
+	txt_sourceserver_label="Source Server"
+	txt_sourceserver_opt="Please select a source server"
+	txt_sourceserver_opt_local="Local DiskStation"
+	txt_sourceserver_opt_remote="Remote rsync-Server (Pull Backup)"
+
+	# Page 3b
+	txt_sources_label="Data Backup Source(s)"
+	txt_sources_label_info="Separate paths with a &".
+	txt_sources_format="z.B. /volume1/music/Compilations & /volume1/photo/General & /volume2/video/Series"
+	txt_sources_regex="^\/([a-zA-Z0-9 _\-\/&]+)+$"
+	txt_sources_rights="Basic Backup currently has only limited system rights, as the app is not a member of the administrators' group. As a result, only shared folders can be selected at this point, but not associated subfolders. To extend the system rights, please follow the instructions on the <a href=\"index.cgi?page=jobedit&section=reset\" class=\"text-primary text-decoration-none\">start page</a> of Basic Backup."
+
+	# Page 4
+	txt_popup_select_source="Please select at least one source folder".
+	txt_rsync_title="Rsync Behaviour"
+
+	txt_syncopt_label="rsync option switch"
+	txt_syncopt_format="e.g. -ahR"
+
+	txt_recycle_label="Delete contents of the recycle bin /@recycle that are older than..."
+	txt_recycle_note="If 0 days is specified, all data deleted in the meantime from the backup source(s) will also be irrevocably deleted in the backup destination. Otherwise, the data deleted in the meantime will be moved to the recycle bin under /@recycle of the destination folder for the specified time in days."
+	txt_recycle_format="e.g. 90 days"
+	txt_days="days"
+
+	txt_versioning_label="Versioning"
+	txt_versioning_note="In contrast to a synchronised backup, a versioned backup stores all changes made to the source since the last backup in a separate folder in the destination named after the date and time of the current backup."
+	txt_versioning_opt_true="On"
+	txt_versioning_opt_false="Off"
+	txt_versioning_format="true/false"
+	txt_versions_label="Delete version histories that are older than..."
+	txt_versions_format="Min. 2, max. 365 versions"
+
+	txt_exclude_label="Exclude samples from backup"
+
+	# Page 5
+	txt_save_title_edit="save..."
+	txt_save_title_new="Save Backup Job..."
+	txt_save_note_true="The data backup job has been created."
+	txt_save_note_edit="The changes to the data shear job have been applied."
+	txt_save_note_failed="A problem has occurred! The data shear job could not be created."
+
+# system.sh
+# --------------------------------------------------------------
+	txt_import_export_title="Backing up and restoring the backup jobs"
+	txt_import_export_info="<span class=\"text-dark\">Notes</span><br />All backup jobs are always backed up. Beim wiederherstellen werden bereits existierende Aufträge nur dann im Ziel überschrieben, wenn diese neueren Datums sind. Furthermore, it must be ensured that the storage location is specified <strong>without</strong> the path /usersettings/backupjobs when restoring."
+	txt_targetpath_label="Backup path"
+	txt_targetpath_info="Shared folder"
+	txt_targetlocation_label="Location"
+	txt_folderpath_label="Folder"
+	txt_folderpath_format_path="/folder (without specifying the /usersettings folder)"
+	txt_error_occurred_note="An error has occurred"
+	txt_export_true_note="The backup jobs have been exported"
+	txt_import_true_note="The backup jobs have been imported"
+	txt_export_false_note="The backup jobs could not be exported"
+	txt_import_false_note="The backup jobs could not be imported"
+	txt_folder_not_create_info="The location could not be created"
+	txt_folder_not_found_info="The folder for the backup jobs could not be found"
+	txt_share_not_found_note="The shared folder could not be found"
+
+# autoconfig.sh
+# --------------------------------------------------------------
+	txt_pilot_settings="Set USB/SATA AutoPilot settings"
+	txt_pilot_connect="After connecting the external disk automatically run the AutoPilot script file"
+	txt_pilot_disconnect="After executing the AutoPilot script file, the external disk..."
+	txt_pilot_disconnect_never="never eject"
+	txt_pilot_disconnect_auto="always eject automatically"
+	txt_pilot_disconnect_manual="manually eject by an exit 100 script statement"
+	txt_pilot_signal="Trigger visual as well as audible signals on your DiskStation via USB/SATA AutoPilot function"
+
+	txt_pilot_external_setting="Set up an external disk for USB/SATA AutoPilot"
+	txt_pilot_external_console="Set up external disk via console".
+	txt_pilot_ext_console_step_1="Log in as user <span class=\"text-danger fst-italic\">root</span> on the console of your DiskStation."
+	txt_pilot_ext_console_step_2="Change to the root directory of the external data carrier for which you want to set up the AutoPilot function e.g. ..."
+	txt_pilot_ext_console_step_3="Create a new script file named <span class=\"text-danger fst-italic\">autopilot</span> and adjust the file permissions to make the script file executable."
+	txt_pilot_ext_console_step_4="There are several ways to fill the script file with content. One of them would be to use the <span class=\"text-danger fst-italic\">cat</span> command. An example..."
+	txt_pilot_ext_console_step_5="If you would like to run a Basic Backup job when you plug in the external disk, first run the command <span class=\"text-danger fst-italic\">cat</span>."
+	txt_pilot_ext_console_step_6="... and paste the following content, replacing <span class=\"text-danger fst-italic\">TASKNAME</span> with the job name you want. Example:"
+	txt_pilot_ext_console_step_7="Finally, press the Return key followed by the CTRL + D key combination to save the contents."
+	txt_pilot_ext_console_step_8="Eject the external disk via the DSM. The next time the external disk is plugged in, the contents of the script file just created will be executed."
+
+	txt_pilot_external_gui="Set up external disk via the DSM"
+	txt_pilot_ext_gui_step_1="Via the DSM Package Center, install the <span class=\"text-danger fst-italic\">Text Editor</span> package offered by Synology."
+	txt_pilot_ext_gui_step_2="Start the text editor and create a new text file via the <span class=\"text-danger fst-italic\">File</span> > <span class=\"text-danger fst-italic\">New</span> button."
+	txt_pilot_ext_gui_step_3="If you would like to run a Basic Backup job when you plug in the external disk, then insert the following content, replacing <span class=\"text-danger fst-italic\">TASKNAME</span> with the job name you want. Example:"
+	txt_pilot_ext_gui_step_4="Then <span class=\"text-danger fst-italic\">save</span> the text file you just created using the <span class=\"text-danger fst-italic\">Save as...</pan> button. Select the root directory of the desired external data carrier as the storage location, e.g. /usbshare, and enter <span class=\"text-danger fst-italic\">autopilot</span> without file extension as the file name. Confirm your entries by pressing the <span class=\"text-danger fst-italic\">Save</span> button."
+	txt_pilot_ext_gui_step_5="To ensure that the autopilot file has the <span class=\"text-danger fst-italic\">Execute</span> attribute, open <span class=\"text-danger fst-italic\">File Station</span> and change to the external data carrier on which the autopilot file is located. Right-click on the autopilot file to open the <span class=\"text-danger fst-italic\">context menu</span> and select Properties."
+	txt_pilot_ext_gui_step_6="If you are offered several check boxes on the <span class=\"text-danger fst-italic\">Permission</span> tab with which you can set the <span class=\"text-danger fst-italic\">read, write and execute</span> permission for <span class=\"text-danger fst-italic\">owner, group and others</span>, then make sure that <span class=\"text-danger fst-italic\">all</span> check boxes are activated. Then <span class=\"text-danger fst-italic\">save</span> all changes via the Save button."
+	txt_pilot_ext_gui_step_7="If the check boxes just mentioned are not offered on the <span class=\"text-danger fst-italic\">Permission</span> tab, create a new permission via the <span class=\"text-danger fst-italic\">Create</span> button. In the drop-down menu, under the item <span class=\"text-danger fst-italic\">User or Group</span>, select the option Everyone and under the item <span class=\"text-danger fst-italic\">Type</span>, select the option Allow. Under the item <span class=\"text-danger fst-italic\">Permissions</span>, activate all check boxes for <span class=\"text-danger fst-italic\">Administration, Read and Write</span> and click the <span class=\"text-danger fst-italic\">Done</span> button. Save your changes by clicking on the <span class=\"text-danger fst-italic\">Save</span> button."
+	txt_pilot_ext_gui_step_8="Eject the external data medium via the DSM. The next time the external data medium is plugged in, the contents of the script file just created are executed."
