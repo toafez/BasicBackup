@@ -1,15 +1,17 @@
 Basic Backup Release Notes
 
-Version 0.7-100 vom
+Version 0.7-000 vom 15.02.2023
 
     - Update Bootstrap Framework auf 5.2.3
     - Update Bootstrap JavaScript auf 5.2.3
     - Update Bootsrap Icons auf 1.10.3
     - Update jQuery auf 3.6.3
+    - Installscripte überarbeitet
+    - Hinweis in der Hilfe ergänzt, das bei falsch gestzten Gruppen- und Ordnerrechten des eigenen Benutzer-Home-Ordners, eine SSH-Verbindung scheitern kann.
+    - Kleinere Fehler und Unstimmigkeiten im Quellcode bereinigt.
     - Es wurden diverse Anpassungen an der Paketstruktur vorgenommen, um Basic Backup zukünftig vollständig über das [ Synology Package Framework ] verwalten zu können.
     - Bedingt durch diese Anpassungen lässt sich nun das GitHub Repository von Basic Backup problemlos in das [ Synology Toolkit ] clonen, bearbeiten sowie neu packen, ohne irgendwelche Änderungen an der Paketstruktur vornehmen zu  müssen.
     - Die interne Überprüfung der Benutzer Privilegien wurde deaktivert, da diese Funktion für den Betrieb von Basic Backup nicht relevant ist. 
-    - Kleinere Fehler und Unstimmigkeiten im Quellcode bereinigt.
 
 
 Version 0.6-500 vom 02.11.2022

@@ -63,6 +63,11 @@ if [ "${gui_lang}" == "ger" ]; then
 					Nach erfolgreicher Anmeldung sollte das Terminal ungefähr so aussehen.
 				</p>
 				<pre class="shadow-none p-2 mb-1 bg-light rounded"><span class="text-success">user@RemoteServer</span>:<span class="text-primary">~</span>$</pre>
+				<p class="mt-3">
+					<div class="alert alert-danger" role="alert">
+						<strong>Hinweis:</strong> Handelt es sich bei dem Remote Server um ein Synology NAS kann es vorkommen, <strong>das der eigene Benutzer-Home-Ordner ~/ die falsche Gruppen- und Benutzerrechte</strong> (chmod 777 bzw. drwxrwxrwx) aufweist. Ist dies der Fall, wird ein künftiger SSH-Verbindungsversuch womöglich scheitern. Prüfen Sie daher die Gruppen- und Benutzerrechte und ändern diese gegebenenfalls auf <strong>chmod 755 bzw. drwxr-xr-x</strong>. Verwenden Sie dafür den Befehl <strong>sudo chmod 755 /var/services/homes/[USERNAME]</strong>
+					</div>
+				</p>
 			</div>
 			<h4 class="mt-4">SSH-Ordnerstruktur erstellen</h4>
 			<div class="ps-4">
@@ -146,6 +151,11 @@ else
 					After successful login, the terminal should look something like this.
 				</p>
 				<pre class="shadow-none p-2 mb-1 bg-light rounded"><span class="text-success">user@RemoteServer</span>:<span class="text-primary">~</span>$</pre>
+				<p class="mt-3">
+					<div class="alert alert-danger" role="alert">
+						<strong>Note:</strong> If the remote server is a Synology NAS, it is possible that <strong>its own home folder ~/ has the wrong group and user permissions</strong> (chmod 777 or drwxrwxrwx). If this is the case, a future SSH connection attempt may fail. Therefore, check the group and user permissions and change them to <strong>chmod 755 or drwxr-xr-x</strong> if necessary. To do this, use the command <strong>sudo chmod 755 /var/services/homes/[USERNAME]</strong>
+					</div>
+				</p>
 			</div>
 			<h4 class="mt-4">Create SSH folder structure</h4>
 			<div class="ps-4">

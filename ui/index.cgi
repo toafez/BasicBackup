@@ -1,7 +1,7 @@
 #!/bin/bash
 # Filename: index.cgi - coded in utf-8
-app_version="0.6-500"
-job_version="0.6-000"
+app_version="0.7-000"
+job_version="0.6-500"
 
 #						 Basic Backup
 #
@@ -38,6 +38,7 @@ job_version="0.6-000"
 	app_title="Basic Backup"
 	app_home=$(echo /volume*/@appstore/${app_name}/ui)
 	app_link=$(echo /webman/3rdparty/${app_name})
+    app_version=$(cat "/var/packages/${app_name}/INFO" | grep ^version | cut -d '"' -f2)
 	[ ! -d "${app_home}" ] && exit
 
 	# Zurücksetzten möglicher Zugangsberechtigungen
@@ -50,7 +51,6 @@ job_version="0.6-000"
 	if dpkg --compare-versions ${job_version} gt ${script_version}; then
 		sed -i 's/script_version.*$/script_version="'${job_version}'"/' ${rsync_script}
 	fi
-
 # App Authentifizierung auswerten
 # --------------------------------------------------------------
 	# Zum auswerten des SynoToken, REQUEST_METHOD auf GET ändern

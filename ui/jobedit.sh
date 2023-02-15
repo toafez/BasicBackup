@@ -1411,7 +1411,7 @@ echo '
 						echo "# Filename: ${var[jobname]}.config - coded in utf-8" >> "${scripttarget}"
 						echo "jobconfig_version=\"${job_version}\"" >> "${scripttarget}"
 						echo "" >> "${scripttarget}"
-						echo "#						 Basic Backup" >> "${scripttarget}"
+						echo "#                        Basic Backup" >> "${scripttarget}"
 						echo "#" >> "${scripttarget}"
 						echo "#        Copyright (C) 2023 by Tommes | License GNU GPLv3" >> "${scripttarget}"
 						echo "#         Member of the German Synology Community Forum" >> "${scripttarget}"

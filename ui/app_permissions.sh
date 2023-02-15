@@ -1,5 +1,5 @@
 #!/bin/sh
-# Filename: kickme_into_group.sh - coded in utf-8
+# Filename: app_permissions.sh - coded in utf-8
 # call: /usr/syno/synoman/webman/3rdparty/BasicBackup/app_permissions.sh
 
 
