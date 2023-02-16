@@ -1,5 +1,13 @@
 Basic Backup Release Notes
 
+Noch nicht als Release veröffentlichte Version 0.7-
+    - Es wurde ein Problem behoben, bei dem die Ordner "Hauptversion" und/oder "Versionsverlauf" teils nicht erstellt wurden.
+    - Der interne Versionsvergleich zwischen App, Auftrag und rsync-Skript, zum Anzeigen möglicher Updates wurde vereinfacht.
+
+    - Fixed an issue where the MainVersion and/or VersionHistory folders were sometimes not created.
+    - The internal version comparison between app, job and rsync script, to show possible updates has been simplified.
+
+
 Version 0.7-000 vom 15.02.2023
 
     - Update Bootstrap Framework auf 5.2.3
