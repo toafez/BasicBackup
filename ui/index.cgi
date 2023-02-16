@@ -1,9 +1,8 @@
 #!/bin/bash
 # Filename: index.cgi - coded in utf-8
-app_version="0.7-000"
-job_version="0.7-000"
 
-#						 Basic Backup
+
+#						Basic Backup
 #
 #        Copyright (C) 2023 by Tommes | License GNU GPLv3
 #         Member of the German Synology Community Forum
@@ -38,19 +37,25 @@ job_version="0.7-000"
 	app_title="Basic Backup"
 	app_home=$(echo /volume*/@appstore/${app_name}/ui)
 	app_link=$(echo /webman/3rdparty/${app_name})
-    app_version=$(cat "/var/packages/${app_name}/INFO" | grep ^version | cut -d '"' -f2)
 	[ ! -d "${app_home}" ] && exit
 
 	# Zurücksetzten möglicher Zugangsberechtigungen
 	unset syno_login rar_data syno_privilege syno_token syno_user user_exist is_admin is_authenticated
 
-	# Version des rsync-Scriptes anpassen (job_version = script_version)
-	rsync_script="${app_home}/rsync.sh"
-	script_version=$(cat "${rsync_script}" | grep script_version | cut -d '"' -f2)
+	# Version der Basic Backup App aus der Datei INFO.sh auslesen
+	app_version=$(cat "/var/packages/${app_name}/INFO" | grep ^version | cut -d '"' -f2)
 
+	# Version des rsync-Scriptes aus der Datei script.sh auslesen
+	script_version=$(cat "${app_home}/rsync.sh" | grep ^script_version | cut -d '"' -f2)
+
+	# Version der Auftragsbearbeitung aus der Datei jobedit.sh auslesen
+	job_version=$(cat "${app_home}/jobedit.sh" | grep ^job_version | cut -d '"' -f2)
+
+	# Versionsvergleich ziwschen Auftragsbearbeitung und rsync-Script anstellen
 	if dpkg --compare-versions ${job_version} gt ${script_version}; then
 		sed -i 's/script_version.*$/script_version="'${job_version}'"/' ${rsync_script}
 	fi
+
 # App Authentifizierung auswerten
 # --------------------------------------------------------------
 	# Zum auswerten des SynoToken, REQUEST_METHOD auf GET ändern

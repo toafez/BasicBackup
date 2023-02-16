@@ -1,8 +1,8 @@
 #!/bin/bash
 # Filename: rsync.sh - coded in utf-8
-script_version="0.7-000"
+script_version="0.7-005"
 
-#						 Basic Backup
+#						Basic Backup
 #
 #        Copyright (C) 2023 by Tommes | License GNU GPLv3
 #         Member of the German Synology Community Forum
@@ -528,6 +528,9 @@ if [[ ${exit_code} -eq 0 ]]; then
 		if [ "${var[target]:${#var[target]}-1:1}" != "/" ]; then
 			target="${var[target]}/${txt_main_version}/"
 			history="${var[target]}/${txt_version_history}/"
+		else
+			target="${var[target]}${txt_main_version}/"
+			history="${var[target]}${txt_version_history}/"
 		fi
 	fi
 

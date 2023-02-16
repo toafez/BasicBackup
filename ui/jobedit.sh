@@ -1,7 +1,8 @@
 #!/bin/bash
 # Filename: jobedit.sh - coded in utf-8
+job_version="0.7-000"
 
-#						 Basic Backup
+#						Basic Backup
 #
 #        Copyright (C) 2023 by Tommes | License GNU GPLv3
 #         Member of the German Synology Community Forum
