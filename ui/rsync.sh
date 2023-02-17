@@ -1,6 +1,6 @@
 #!/bin/bash
 # Filename: rsync.sh - coded in utf-8
-script_version="0.7-010"
+script_version="0.7-035"
 
 #						Basic Backup
 #
@@ -8,7 +8,7 @@ script_version="0.7-010"
 #         Member of the German Synology Community Forum
 #
 # Extract from  GPL3   https://www.gnu.org/licenses/gpl-3.0.html
-#                                     ...
+#							...
 # This program is free software: you can redistribute it  and/or
 # modify it under the terms of the GNU General Public License as
 # published by the Free Software Foundation, either version 3 of
@@ -123,12 +123,8 @@ function connect_server ()
 function shutdown_server ()
 {
 	if [[ "${is_online}" == "true" ]]; then
-		#${ssh} "/sbin/shutdown -h now"
 		${ssh} "/sbin/shutdown -k -h now"
-		exit_shutdown=${?}
-		echo 'Shutdown Exit-Code:' ${exit_shutdown}''
-
-		if [[ ${exit_shutdown} -eq 0 ]]; then
+		if [[ ${?} -eq 0 ]]; then
 			echo "${txt_server_shutdown_true}" | tee -a "${script_log}"
 			is_shutdown="true"
 			exit_code=0
@@ -138,13 +134,11 @@ function shutdown_server ()
 			exit_code=1
 			#exit
 		fi
-		unset exit_shutdown
 	fi
 }
 
-# Let's beginn...
-
-
+### Let's beginn...
+#
 # ------------------------------------------------------------------------
 # Define Enviroment
 # ------------------------------------------------------------------------
@@ -212,7 +206,6 @@ for i in "$@" ; do
     esac
 done
 
-
 # Loading language file
 if [ -f "${dir}/modules/parse_language.sh" ]; then
 	source "${dir}/modules/parse_language.sh"
@@ -244,12 +237,9 @@ if [[ ${exit_code} -eq 0 ]]; then
 	script_log="${logpath}/${jobname}.log"
 	system_log="${logpath}/BasicBackup.history"
 	email_log="${dir}/temp/email.log"
-	# owner=$(ls -l "${script_log}" | awk '{print $3}')
-	# group=$(ls -l "${script_log}" | awk '{print $4}')
 
 	if [ ! -d "${logpath}" ]; then
 		mkdir -p -m 0777 "${logpath}"
-		#chown "${app}":"${app}" "${logpath}"
 	fi
 
 	if [ -d "${logpath}" ]; then
@@ -259,12 +249,10 @@ if [[ ${exit_code} -eq 0 ]]; then
 		if [ ! -f "${script_log}" ]; then
 			touch "${script_log}"
 			chmod 0777 "${script_log}"
-			#chown "${app}":"${app}" "${script_log}"
 		fi
 		if [ ! -f "${system_log}" ]; then
 			touch "${system_log}"
 			chmod 0777 "${system_log}"
-			#chown "${app}":"${app}" "${system_log}"
 		fi
 	fi
 
@@ -438,7 +426,6 @@ if [[ ${exit_code} -eq 0 ]]; then
 		[[ "${no_uuid_found}" == "true" && "${uuid_found}" == "true" ]] && exit_code=0
 		[[ "${no_uuid_found}" == "true" && -z "${uuid_found}" ]] && exit_code=1; exit_uuid=1
 
-
 		if [ ! -d "${var[target]}" ] && [[ ${exit_code} -eq 0 ]]; then
 			mkdir -p "${var[target]}"
 			exit_mkdir=${?}
@@ -488,8 +475,6 @@ if [[ ${exit_code} -eq 0 ]]; then
 	# Configure RSync options
 	#---------------------------------------------------------------------
 	dirdate=$(date "+%Y-%m-%d_%Hh-%Mm-%Ss")
-	#syncopt="${var[syncopt]}"
-	#logstat="--stats"
 	excluded="--delete-excluded --exclude=@eaDir/*** --exclude=@Logfiles/*** --exclude=#recycle/*** --exclude=#snapshot/*** --exclude=.DS_Store/***"
 
 	#---------------------------------------------------------------------
@@ -521,7 +506,6 @@ if [[ ${exit_code} -eq 0 ]]; then
 	# Switch off @recycle with versioning and set target path
 	# --------------------------------------------------------------------
 	if [[ -n "${var[versioning]}" ]] && [[ "${var[versioning]}" == "true" ]]; then
-		#backup=""
 
 		# Make sure that the target path ends with a slash after version folder
 		# ----------------------------------------------------------------
@@ -698,13 +682,9 @@ if [[ ${exit_code} -eq 0 ]]; then
 				# If the folder exists, then execute the find command
 				if [ -d "${target%/*}/@recycle" ]; then
 					find "${target%/*}/@recycle/"* -maxdepth 0 -type d -mtime +${var[recycle]} -print0 | xargs -0 rm -r 2>/dev/null
-					exit_find=${?}
-
-					# If all commands have been executed, then report
-					if [[ ${exit_find} -eq 0 ]]; then
+					if [[ ${?} -eq 0 ]]; then
 						echo "${txt_recycle_delete}" | tee -a "${script_log}"
 					fi
-					unset exit_find
 				fi
 			fi
 
@@ -719,13 +699,9 @@ if [[ ${exit_code} -eq 0 ]]; then
 				# If the remote folder exists, then execute the find command
 				if ${ssh} test -d "'${at_recycle}'"; then
 					${ssh} "find '${at_recycle}' -maxdepth 0 -type d -mtime +${var[recycle]} -print0 | xargs -0 rm -r" 2>/dev/null
-					exit_find=${?}
-
-					# If all commands have been executed, then report
-					if [[ ${exit_find} -eq 0 ]]; then
+					if [[ ${?} -eq 0 ]]; then
 						echo "${txt_recycle_delete}" | tee -a "${script_log}"
 					fi
-					unset exit_find
 				fi
 			fi
 		fi
@@ -765,7 +741,6 @@ if [[ ${exit_code} -eq 0 ]]; then
 				cp "${backupjob}" "${target%/*}"/@configs
 				exit_cp=${?}
 			fi
-
 		fi
 
 		# If all commands have been executed, then report
@@ -890,13 +865,9 @@ if [[ ${exit_code} -eq 0 ]]; then
 			# If the folder exists, then execute the find command
 			if [ -d "${history}" ]; then
 				find "${history}/"* -maxdepth 0 -type d -mtime +${var[versions]} -print0 | xargs -0 rm -r 2>/dev/null
-				exit_find=${?}
-
-				# If all commands have been executed, then report
-				if [[ ${exit_find} -eq 0 ]]; then
+				if [[ ${?} -eq 0 ]]; then
 					echo "${txt_version_history_delete}" | tee -a "${script_log}"
 				fi
-				unset exit_find
 			fi
 		fi
 
@@ -911,16 +882,12 @@ if [[ ${exit_code} -eq 0 ]]; then
 			# If the remote folder exists, then execute the find command
 			if ${ssh} test -d "'${at_history}'"; then
 				${ssh} "find '${at_history}'/* -maxdepth 0 -type d -mtime +${var[versions]} -print0 | xargs -0 rm -r" 2>/dev/null
-				exit_find=${?}
-
-				# If all commands have been executed, then report
-				if [[ ${exit_find} -eq 0 ]]; then
+				Verify that a new entry in the version history is correctly
+				if [[ ${?} -eq 0 ]]; then
 					echo "${txt_version_history_delete}" | tee -a "${script_log}"
 				fi
-				unset exit_find
 			fi
 		fi
-
 	fi
 fi
 
