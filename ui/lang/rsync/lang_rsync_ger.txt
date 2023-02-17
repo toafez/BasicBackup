@@ -119,6 +119,7 @@ txt_main_version="Hauptversion"
 txt_version_history="Versionsverlauf"
 
 txt_version_history_create="Hinweis: Ein neuer Eintrag wurde dem Versionsverlauf hinzugefuegt."
+txt_version_history_failed="Hinweis: Das Hinzufügen eines weiteren Eintrages im Versionsverlauf ist fehlgeschlagen."
 txt_version_history_delete="Hinweis: Daten aus dem Ordner Versionsverlauf, die aelter als ${var[versions]} Tage alt waren, wurden geloescht."
 
 txt_email_success="Basic Backup - ${jobname} erfolgreich"

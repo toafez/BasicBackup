@@ -1,6 +1,6 @@
 #!/bin/bash
 # Filename: rsync.sh - coded in utf-8
-script_version="0.7-005"
+script_version="0.7-010"
 
 #						Basic Backup
 #
@@ -816,6 +816,7 @@ if [[ ${exit_code} -eq 0 ]]; then
 		rm -rf "/tmp/@configs"
 	fi
 fi
+
 # --------------------------------------------------------------------
 # Create version of the current data set when versioning is on
 # --------------------------------------------------------------------
@@ -830,20 +831,20 @@ if [[ ${exit_code} -eq 0 ]]; then
 			# Check if the folder exists, otherwise create it
 			if [ ! -d "${history}" ]; then
 				mkdir -p -m 0755 "${history}"
-				exit_mkdir=${?}
+				if [[ ${?} -ne 0 ]]; then
+					echo "${txt_version_history_failed}" | tee -a "${script_log}"
+				fi
 			fi
 
 			# If the folder exists, then execute the cp command
 			if [ -d "${history}" ]; then
 				cp -al "${target}/" "${history}/${dirdate}"
-				exit_cp=${?}
+				if [[ ${?} -eq 0 ]]; then
+					echo "${txt_version_history_create}" | tee -a "${script_log}"
+				else
+					echo "${txt_version_history_failed}" | tee -a "${script_log}"
+				fi
 			fi
-
-			# If all commands have been executed, then report
-			if [[ ${exit_mkdir} -eq 0 ]] || [[ ${exit_cp} -eq 0 ]]; then
-				echo "${txt_version_history_create}" | tee -a "${script_log}"
-			fi
-			unset exit_mkdir exit_cp
 		fi
 
 		# ----------------------------------------------------------------
@@ -855,23 +856,22 @@ if [[ ${exit_code} -eq 0 ]]; then
 			at_history=$(echo ${history} | sed -e 's/ /\ /g')
 
 			# Check if the remote folder exists, otherwise create it
-				if ${ssh} test ! -d "'${at_history}'"; then
-					${ssh} "mkdir -p -m 0755 '${at_history}'"
-					exit_mkdir=${?}
+			if ${ssh} test ! -d "'${at_history}'"; then
+				${ssh} "mkdir -p -m 0755 '${at_history}'"
+				if [[ ${?} -ne 0 ]]; then
+					echo "${txt_version_history_failed}" | tee -a "${script_log}"
 				fi
+			fi
 
 			# If the remote folder exists, then execute the cp command
 			if ${ssh} test -d "'${at_history}'"; then
 				${ssh} "cp -al '${target}'/ '${at_history}'${dirdate}"
-				exit_cp=${?}
+				if [[ ${?} -eq 0 ]]; then
+					echo "${txt_version_history_create}" | tee -a "${script_log}"
+				else
+					echo "${txt_version_history_failed}" | tee -a "${script_log}"
+				fi
 			fi
-
-
-			# If all commands have been executed, then report
-			if [[ ${exit_mkdir} -eq 0 ]] || [[ ${exit_cp} -eq 0 ]]; then
-				echo "${txt_version_history_create}" | tee -a "${script_log}"
-			fi
-			unset exit_mkdir exit_cp
 		fi
 	fi
 fi

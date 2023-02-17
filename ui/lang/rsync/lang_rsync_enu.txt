@@ -119,6 +119,7 @@ txt_main_version="MainVersion"
 txt_version_history="VersionHistory"
 
 txt_version_history_create="Note: A new entry has been added to the version history."
+txt_version_history_failed="Note: Adding another entry in the version history failed."
 txt_version_history_delete="Note: Data from the Version History folder older than ${var[versions]} days was deleted."
 
 txt_email_success="Basic Backup - ${jobname} successful"
