@@ -218,6 +218,9 @@ else
 	exit
 fi
 
+# Read version of Basic Backup App from INFO file
+app_version=$(cat "/var/packages/${app}/INFO" | grep ^version | cut -d '"' -f2)
+
 # ------------------------------------------------------------------------
 #  Set timestamp, create log files and output notification
 # ------------------------------------------------------------------------
@@ -261,7 +264,7 @@ if [[ ${exit_code} -eq 0 ]]; then
 	#---------------------------------------------------------------------
 
 	# Notification that backup job starts
-	echo "Basic Backup - Script Version: ${script_version}, Job Version: ${jobconfig_version}" | tee -a "${script_log}"
+	echo "Basic Backup Version: ${app_version} | Script Version: ${script_version} | Job Version: ${jobconfig_version}" | tee -a "${script_log}"
 	echo "${txt_line_separator}" | tee -a "${script_log}"
 	echo "$(timestamp) - ${txt_backupjob_starts}" | tee -a "${script_log}"
 	echo "${txt_line_separator}" | tee -a "${script_log}"
@@ -533,7 +536,8 @@ if [[ ${exit_code} -eq 0 ]]; then
 		# ----------------------------------------------------------------
 		echo "" | tee -a "${script_log}"
 		echo "${txt_line_separator}" | tee -a "${script_log}"
-		echo "$(timestamp) - ${txt_rsync_loop_log} ${source}" | tee -a "${script_log}"
+		echo "$(timestamp) - ${txt_rsync_loop_log}..." | tee -a "${script_log}"
+		echo "➜ ${source}" | tee -a "${script_log}"
 		echo "${txt_line_separator}" | tee -a "${script_log}"
 
 		# If the connectiontype is local

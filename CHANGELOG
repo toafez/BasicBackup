@@ -1,16 +1,11 @@
 Basic Backup Release Notes
 
-Noch nicht als Release veröffentlichte Version 0.7-
+Version 0.7-035 vom 17.02.2023
 
     - Es wurde ein Problem behoben, bei dem die Ordner "Hauptversion" und/oder "Versionsverlauf" teils nicht erstellt wurden.
     - Sollte das Anlegen eines neuen Eintrages im Versionsverlauf fehlschlagen, wird eine Meldung im Protokoll ausgegeben.
-    - Weitere Code Bereinigungen im rsync-Script vorgenommen.
     - Der interne Versionsvergleich zwischen App, Auftrag und rsync-Skript, zum Anzeigen möglicher Updates wurde vereinfacht.
-
-    - Fixed an issue where the MainVersion and/or VersionHistory folders were sometimes not created.
-    - If the creation of a new entry in the version history fails, a message is displayed in the log.
-    - Made further code cleanups in the rsync script.
-    - The internal version comparison between app, job and rsync script, to show possible updates has been simplified.
+    - Weitere Code Bereinigungen im rsync-Script sowie Ergänzungen in den Sprachdateien vorgenommen.
 
 
 Version 0.7-000 vom 15.02.2023
