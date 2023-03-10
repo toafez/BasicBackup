@@ -261,6 +261,8 @@
 	txt_sources_title="Backup source(s)"
 	txt_sources_notes="Each source directory must begin with a <span class=\"text-blue\">/</span> (Slash). The use of further subdirectories is possible. If the source directory is on a Synology DiskStation, the desired shared folder must also be specified, e.g.  <span class=\"text-blue\">/volume1/music</span> oder auch <span class=\"text-blue\">/volume1/music/Compilations</span>. Furthermore, individual source directories must be separated from each other by a <span class=\"text-danger\">&</span>, as shown in the example entry. Invalid characters in file or directory names are <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
 
+    txt_uuid_error="<strong>Warning:</strong> No valid UUID format could be determined, so the option - ${txt_uuidcheck_opt_true} - has been disabled again."
+
 	txt_sourceserver_label="Source Server"
 	txt_sourceserver_opt="Please select a source server"
 	txt_sourceserver_opt_local="Local DiskStation"

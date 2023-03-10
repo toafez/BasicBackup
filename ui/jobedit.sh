@@ -602,14 +602,13 @@ echo '
 								<div class="row g-3 mb-3">
 									<div class="col">
 										<label for="uuidcheck" class="form-label text-secondary">'${txt_uuidcheck_label}' '${new}'</label>
-										<select id="uuidcheck" name="uuidcheck" class="form-select form-select-sm">
-											<option value="" selected></option>'
+										<select id="uuidcheck" name="uuidcheck" class="form-select form-select-sm">'
+											echo -n '<option value="false"'; \
+											[[ "${var[uuidcheck]}" == "false" || -z "${var[uuidcheck]}" ]] && echo -n ' selected>' || echo -n '>'
+											echo ''${txt_uuidcheck_opt_false}'</option>'
 											echo -n '<option value="true"'; \
 											[[ "${var[uuidcheck]}" == "true" ]] && echo -n ' selected>' || echo -n '>'
 											echo ''${txt_uuidcheck_opt_true}'</option>'
-											echo -n '<option value="false"'; \
-											[[ "${var[uuidcheck]}" == "false" ]] && echo -n ' selected>' || echo -n '>'
-											echo ''${txt_uuidcheck_opt_false}'</option>'
 											echo '
 										</select>'
 
@@ -807,10 +806,32 @@ echo '
 							mountpoint=$(mount)
 							mountpoint=$(echo "${mountpoint}" | grep " on ${var[localshare]} " | awk '{ print $1 }')
 							device="${mountpoint}"
-							uuid=$(blkid -s UUID -o value ${device})
-							label=$(blkid -s LABEL -o value ${device})
-							type=$(blkid -s TYPE -o value ${device})
-							"${set_keyvalue}" "${post_request}" "var[uuid]" "${uuid}"
+							[ -f "${post_request}" ] && source "${post_request}"
+							if [[ "${var[uuidcheck]}" == "true" ]]; then
+								uuid=$(blkid -s UUID -o value ${device})
+								label=$(blkid -s LABEL -o value ${device})
+								type=$(blkid -s TYPE -o value ${device})
+
+								# Check 128 bit UUID
+								if [[ "${uuid}" =~ ^\{?[A-F0-9a-f]{8}-[A-F0-9a-f]{4}-[A-F0-9a-f]{4}-[A-F0-9a-f]{4}-[A-F0-9a-f]{12}\}?$ ]]; then
+									"${set_keyvalue}" "${post_request}" "var[uuid]" "${uuid}"
+								# Check 32 bit VSN
+								elif [[ "${uuid}" =~ ^\{?[A-F0-9a-f]{4}-[A-F0-9a-f]{4}\}?$ ]]; then
+									"${set_keyvalue}" "${post_request}" "var[uuid]" "${uuid}"
+								# Check 64 bit SN
+								elif [[ "${uuid}" =~ ^\{?[A-F0-9a-f]{16}\}?$ ]]; then
+									"${set_keyvalue}" "${post_request}" "var[uuid]" "${uuid}"
+								# Check 32 bit SN
+								elif [[ "${uuid}" =~ ^\{?[A-F0-9a-f]{8}\}?$ ]]; then
+									"${set_keyvalue}" "${post_request}" "var[uuid]" "${uuid}"
+								else
+									"${set_keyvalue}" "${post_request}" "var[uuid]" ""
+									"${set_keyvalue}" "${post_request}" "var[uuidcheck]" "false"
+									uuid_error="true"
+								fi
+
+								# "${set_keyvalue}" "${post_request}" "var[uuid]" "${uuid}"
+							fi
 						else
 							"${set_keyvalue}" "${post_request}" "var[uuid]" ""
 						fi
@@ -828,6 +849,16 @@ echo '
 						</div>
 					</div>
 					<div class="card-body">'
+						if [[ "${uuid_error}" == "true" ]]; then
+							unset uuid_format_error
+							echo '
+							<div class="row g-3 mt-2">
+								<div class="col">'
+									echo '<p class="text-danger">'${txt_uuid_error}'</p>'
+									echo '
+								</div>
+							</div>'
+						fi
 						# Datensicherungsquelle(n)
 						# ...
 						if [[ "${var[targetserver]}" == "local" ]]; then
@@ -1554,4 +1585,5 @@ echo '
 	<!-- col -->
 </div>
 <!-- row -->'
+
 

@@ -1,12 +1,21 @@
 Basic Backup Release Notes
 
-Version 0.7-... in progress
-    - App-Beschreibung in ../ui/config korrigiert
-    - Wert type=legacy nach type=url in der ../ui/config geändert, da die App unter DSM 7.2 aktuell nur in einem neuen Tab geöffnet werden kann.
+Version 0.7-... im Aufbau
+    - App-Beschreibung in der Systemdatei ../ui/config korrigiert
+    - Wert type=legacy nach type=url in der Systemdatei ../ui/config geändert, da die App unter DSM 7.2 aktuell nur in einem neuen Tab geöffnet werden kann.
+    - Während der Auftragserstellung bzw. Bearbeitung wurde eine Funktion eingebaut um die UUID externer Datenträger auf eine gültige Formatierung hin zu überprüfen.
+      UUID-Format: 128-Bit-Hexadezimalzahl mit 32 Ziffern im Format 8-4-4-4-12 bzw. xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+      VSN Format: 32-Bit-Hexadezimalzahl mit 8 Ziffern im Format 4-4 bzw. xxxx-xxxx
+      Generiertes SN Format: 32 bzw. 64 Bit Hexadezimalzahl mit 8 bzw.16 Stellen im Format 8 xxxxxxxx bzw. 16 xxxxxxxxxxxxxxxx
+      
 
-
-    - App description in ../ui/config corrected
-    - Changed value type=legacy to type=url in ../ui/config, because the app can currently only be opened in a new tab under DSM 7.2
+Version 0.7-... under construction
+    - App description in system file ../ui/config corrected
+    - Changed value type=legacy to type=url in system file ../ui/config, because the app can currently only be opened in a new tab under DSM 7.2
+    - During job creation or editing, a function has been added to check the UUID of external media for valid formatting.
+      UUID format: 128-bit hexadecimal number with 32 digits in the format 8-4-4-12 or xxxxxxxx-xxxx-xxxx-xxxxxxxxxxxxxx
+      VSN format: 32-bit hexadecimal number with 8 digits in the format 4-4 or xxxx-xxxx
+      Generated SN format: 32 resp. 64 bit hexadecimal number with 8 resp.16 digits in the format 8 xxxxxx resp. 16 xxxxxxxxxxxx
 
 Version 0.7-035 vom 17.02.2023
 

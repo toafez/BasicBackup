@@ -261,6 +261,8 @@
 	txt_sources_title="Datensicherungsquelle(n)"
 	txt_sources_notes="Jedes Quellverzeichnis muss mit einem <span class=\"text-blue\">/</span> (Slash) beginnen. Die Verwendung weiterer Unterverzeichnisse ist möglich. Befindet sich das Quellverzeichnis auf einer Synology DiskStation, so muss zusätzlich noch der gewünschte freigegebene Ordner angegeben werden wie z.B. <span class=\"text-blue\">/volume1/music</span> oder auch <span class=\"text-blue\">/volume1/music/Compilations</span>. Des Weiteren müssen einzelne Quellverzeichnisse durch ein <span class=\"text-danger\">&</span> voneinander getrennt werden, wie im Beispieleintrag dargestellt. Ungültige Zeichen in Datei- oder Verzeichnisnamen sind <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
 
+    txt_uuid_error="<strong>Warnung:</strong> Es konnte kein gültiges UUID Format ermittelt werden, weshalb die Option - ${txt_uuidcheck_opt_true} - wieder deaktiviert wurde."
+
 	txt_sourceserver_label="Quellserver"
 	txt_sourceserver_opt="Bitte wählen Sie einen Quellserver aus"
 	txt_sourceserver_opt_local="Lokale DiskStation"
