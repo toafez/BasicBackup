@@ -1,7 +1,6 @@
 #!/bin/bash
 # Filename: index.cgi - coded in utf-8
 
-
 #						Basic Backup
 #
 #        Copyright (C) 2023 by Tommes | License GNU GPLv3
@@ -268,8 +267,8 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 			<!-- Einbinden von bootstrap Icons 1.10.3 -->
 			<link rel="stylesheet" href="template/bootstrap/font/bootstrap-icons.css" />
 
-			<!-- Einbinden von jQuery 3.6.3 -->
-			<script src="template/jquery/jquery-3.6.3.min.js"></script>
+			<!-- Einbinden von jQuery 3.6.4 -->
+			<script src="template/jquery/jquery-3.6.4.min.js"></script>
 
 			<!-- Einbinden von JavaScript bzw. jQuery Funktionen im HTML Header  -->
 			<script src="template/js/head-functions.js"></script>

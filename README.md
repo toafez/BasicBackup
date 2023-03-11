@@ -94,6 +94,7 @@ Laden Sie sich die **jeweils aktuellste Version** von Basic Backup aus dem Berei
         ```
         #!/bin/bash
         bash /usr/syno/synoman/webman/3rdparty/BasicBackup/rsync.sh --job-name="TASKNAME"
+        exit ${?}
         ```
         
       - Speichern Sie anschließend die grade erstellet Textdatei über die Schaltfläche **Datei** > **Speichern unter...** wählen als Speicherort das **root Verzeichnis** des gewünschten externen Datenträgers, wie z.B. **/usbshare** aus und geben als Dateiname **autopilot** ohne Dateiendung an. Bestätigen Sie Ihre Eingaben durch drücken der Schaltfläche **Speichern**.

@@ -94,6 +94,7 @@ Download the **most recent version** of Basic Backup from the [Releases](https:/
         ```
         #!/bin/bash
         bash /usr/syno/synoman/webman/3rdparty/BasicBackup/rsync.sh --job-name="TASKNAME"
+        exit ${?}
         ```
         
       - Then save the text file you just created using the **File** button > **Save as...** select the **root directory** of the desired external data carrier, such as **/usbshare**, as the storage location and enter **autopilot** as the file name without the file extension. Confirm your entries by pressing the **Save** button.
