@@ -264,7 +264,12 @@ if [[ ${exit_code} -eq 0 ]]; then
 	#---------------------------------------------------------------------
 
 	# Notification that backup job starts
-	echo "Basic Backup Version: ${app_version} | Script Version: ${script_version} | Job Version: ${jobconfig_version}" | tee -a "${script_log}"
+	dsm_version=$(synogetkeyvalue /etc.defaults/VERSION productversion)
+	dsm_build=$(synogetkeyvalue /etc.defaults/VERSION buildnumber)
+	dsm_update=$(synogetkeyvalue /etc.defaults/VERSION nano)
+	[[ -n "${dsm_update}" ]] && dsm_update="Update ${dsm_update}" || dsm_update=""
+	echo DSM $dsm_version-$dsm_build Update $dsm_update 
+	echo "Basic Backup Version: ${app_version} | Script Version: ${script_version} | Job Version: ${jobconfig_version} | DSM Version: ${dsm_version}-${dsm_build} ${dsm_update}" | tee -a "${script_log}"
 	echo "${txt_line_separator}" | tee -a "${script_log}"
 	echo "$(timestamp) - ${txt_backupjob_starts}" | tee -a "${script_log}"
 	echo "${txt_line_separator}" | tee -a "${script_log}"
