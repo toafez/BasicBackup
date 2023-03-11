@@ -76,6 +76,7 @@
 # main.sh
 # --------------------------------------------------------------
 	txt_system_title="System Environment"
+    txt_label_logfile="Log file"
 	txt_label_logfiles="Log files"
 	txt_link_system="System"
 	txt_link_systemlog="System Log"

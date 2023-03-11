@@ -76,6 +76,7 @@
 # main.sh
 # --------------------------------------------------------------
 	txt_system_title="Systemumgebung"
+    txt_label_logfile="Protokoll"
 	txt_label_logfiles="Protokolle"
 	txt_link_system="System"
 	txt_link_systemlog="Systemprotokoll"

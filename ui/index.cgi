@@ -308,6 +308,16 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 
 											<li class="nav-item dropdown">
 												<a class="nav-link dropdown-toggle" href="#" id="navDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+													'${txt_label_logfiles}'
+												</a>
+												<ul class="dropdown-menu dropdown-menu-sm-end" aria-labelledby="navDropdown">
+													<li><a class="dropdown-item" href="index.cgi?page=view&section=systemlog&file='${usr_systemlog}'">'${txt_link_systemlog}'</a></li>
+													<li><a class="dropdown-item" href="index.cgi?page=view&section=autopilot&file=${usr_logfiles}/autopilot.log">'${txt_link_autopilot}' '${txt_label_logfile}'</a></li>
+												</ul>
+											</li>
+
+											<li class="nav-item dropdown">
+												<a class="nav-link dropdown-toggle" href="#" id="navDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 													'${txt_link_settings}'
 												</a>
 												<ul class="dropdown-menu dropdown-menu-sm-end" aria-labelledby="navDropdown">

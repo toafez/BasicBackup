@@ -80,7 +80,6 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 							echo '&nbsp;'${txt_system_title}'
 						</a>
 						<div class="float-end">
-							<a href="index.cgi?page=view&section=systemlog&file='${usr_systemlog}'" title="'${txt_link_systemlog}'"><i class="bi bi-journal-text text-dark"></i></a>&nbsp;
 							<a href="index.cgi?page=main&section=reset" title="'${txt_link_refresh}'"><i class="bi bi-arrow-repeat text-dark"></i></a>
 						</div>
 					</div>
@@ -177,8 +176,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 									<ul class="list-unstyled">
 										<li class="text-dark list-style-square">'${txt_autopilot_status}'&nbsp;
 											<span class="float-end">
-												<a href="index.cgi?page=view&section=autopilot&file=${usr_logfiles}/autopilot.log" title="'${txt_link_autopilotlog}'"><i class="bi bi-journal-text text-dark"></i></a>&nbsp;
-												<a href="index.cgi?page=autoconfig&section=start" title="'${txt_pilot_settings}'"><i class="bi bi-gear-fill text-dark"></i></a>&nbsp;
+												<a href="index.cgi?page=autoconfig&section=start" title="'${txt_pilot_settings}'"><i class="bi bi-gear-fill text-dark"></i></a>&nbsp;&nbsp;
 											</span>
 											<ul class="list-unstyled ps-4">
 												<li class="text-success">'${txt_autopilot_service}' '${txt_is_active}'. <a href="#help-autopilot" class="text-danger text-decoration-none" data-bs-toggle="modal" data-bs-target="#help-autopilot">'${txt_button_deactivate}'</a></li>
