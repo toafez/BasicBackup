@@ -72,7 +72,7 @@ txt_target_folder_new_mnt="Neuer Einhängepunkt"
 txt_target_folder_mountpoint_match="Der Einhängepunkt und die Geräte UUID stimmen überein."
 txt_target_folder_localized="Der Einhängepunkt des USB/SATA-Datenträgers wurde lokalisiert."
 txt_target_folder_nolocalized="Der Einhängepunkt des USB/SATA-Datenträgers konnte nicht lokalsiert werden!"
-txt_target_folder_mountpoint_false="WARNUNG: Die Geräte UUID konnte keinem, lokal angeschlossenen USB/SATA-Datenträger zugeordnet werden!"
+txt_target_folder_mountpoint_false="WARNUNG: Die Geräte UUID konnte keinen, lokal angeschlossenen USB/SATA-Datenträger zugeordnet werden!"
 txt_target_folder_true="Das Datensicherungsziel wurde lokalisiert."
 txt_target_folder_false="WARNUNG: Der Zielordner konnte nicht erstellt werden."
 

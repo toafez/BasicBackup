@@ -269,8 +269,8 @@ if [[ ${exit_code} -eq 0 ]]; then
 	dsm_update=$(synogetkeyvalue /etc.defaults/VERSION nano)
 	[[ -n "${dsm_update}" ]] && dsm_update="Update ${dsm_update}" || dsm_update=""
 	echo "Basic Backup GUI Version: ${app_version}" | tee -a "${script_log}"
-	echo "Basic Backup rsync-Script Version: ${script_version}" | tee -a "${script_log}"
 	echo "Basic Backup job config Version: ${jobconfig_version}" | tee -a "${script_log}"
+	echo "Basic Backup rsync-Script Version: ${script_version}" | tee -a "${script_log}"
 	echo "DiskStation Manager Version: ${dsm_version}-${dsm_build} ${dsm_update}" | tee -a "${script_log}"
 	echo "${txt_line_separator}" | tee -a "${script_log}"
 	echo "$(timestamp) - ${txt_backupjob_starts}" | tee -a "${script_log}"
@@ -1028,5 +1028,10 @@ if [[ "${var[sendemail]}" == "true" ]] || [[ "${var[sendemail]}" == "problem" ]]
 	fi
 fi
 
-unset exit_code
-exit
+if [[ "${exit_code}" -eq 0 ]]; then
+	exit
+elif [[ "${exit_code}" -ne 0 ]]; then
+	exit 1
+elif [[ "${exit_mountpoint}" -ne 0 ]]; then
+	exit 2
+fi

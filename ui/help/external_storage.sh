@@ -67,7 +67,7 @@ if [ "${gui_lang}" == "ger" ]; then
 									</small>
 									'${txt_pilot_ext_console_step_6}'<br /><br />
 									<small>
-										<pre class="text-dark p-1 border border-1 rounded bg-light">#!/bin/bash<br />bash /usr/syno/synoman/webman/3rdparty/BasicBackup/rsync.sh --job-name="<span class="text-danger fst-italic">TASKNAME</span>"</pre>
+										<pre class="text-dark p-1 border border-1 rounded bg-light">#!/bin/bash<br />bash /usr/syno/synoman/webman/3rdparty/BasicBackup/rsync.sh --job-name="<span class="text-danger fst-italic">TASKNAME</span>"<br />exit ${?}</pre>
 									</small>
 									'${txt_pilot_ext_console_step_7}'
 								</li>
@@ -90,7 +90,7 @@ if [ "${gui_lang}" == "ger" ]; then
 							<ul class="list-unstyled ps-3">
 								<li>
 									<small>
-										<pre class="text-dark p-1 border border-1 rounded bg-light">#!/bin/bash<br />bash /usr/syno/synoman/webman/3rdparty/BasicBackup/rsync.sh --job-name="<span class="text-danger fst-italic">TASKNAME</span>"</pre>
+										<pre class="text-dark p-1 border border-1 rounded bg-light">#!/bin/bash<br />bash /usr/syno/synoman/webman/3rdparty/BasicBackup/rsync.sh --job-name="<span class="text-danger fst-italic">TASKNAME</span>"<br />exit ${?}</pre>
 									</small>
 								</li>
 							</ul>
@@ -154,7 +154,7 @@ else
 									</small>
 									'${txt_pilot_ext_console_step_6}'<br /><br />
 									<small>
-										<pre class="text-dark p-1 border border-1 rounded bg-light">#!/bin/bash<br />bash /usr/syno/synoman/webman/3rdparty/BasicBackup/rsync.sh --job-name="<span class="text-danger fst-italic">TASKNAME</span>"</pre>
+										<pre class="text-dark p-1 border border-1 rounded bg-light">#!/bin/bash<br />bash /usr/syno/synoman/webman/3rdparty/BasicBackup/rsync.sh --job-name="<span class="text-danger fst-italic">TASKNAME</span>"<br />exit ${?}</pre>
 									</small>
 									'${txt_pilot_ext_console_step_7}'
 								</li>
@@ -177,7 +177,7 @@ else
 							<ul class="list-unstyled ps-3">
 								<li>
 									<small>
-										<pre class="text-dark p-1 border border-1 rounded bg-light">#!/bin/bash<br />bash /usr/syno/synoman/webman/3rdparty/BasicBackup/rsync.sh --job-name="<span class="text-danger fst-italic">TASKNAME</span>"</pre>
+										<pre class="text-dark p-1 border border-1 rounded bg-light">#!/bin/bash<br />bash /usr/syno/synoman/webman/3rdparty/BasicBackup/rsync.sh --job-name="<span class="text-danger fst-italic">TASKNAME</span>"<br />exit ${?}</pre>
 									</small>
 								</li>
 							</ul>

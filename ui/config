@@ -9,6 +9,8 @@
 			"allUsers": false,
 			"grantPrivilege": "all",
 			"advanceGrantPrivilege": true,
+            "appWindow": "SYNO.SDS._ThirdParty.App.BasicBackup",
+			"texts": "texts",
 			"preloadTexts": [
 				"app:title",
 				"app:subtitle",
