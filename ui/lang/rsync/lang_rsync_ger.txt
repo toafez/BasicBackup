@@ -35,7 +35,7 @@ txt_backupjob_false="Datensicherungsauftrag abgebrochen! Die Auftragskonfigurati
 
 # Connection type settings
 txt_backupjob_success="Der Datensicherungsauftrag ${jobname} ist nun abgeschlossen."
-txt_backupjob_warning="Der Datensicherungsauftrag ${jobname} ist nun abgeschlossen. Waehrend der Ausfuehrung sind jedoch Fehler aufgetreten."
+txt_backupjob_warning="WARNUNG: Der Datensicherungsauftrag ${jobname} wurde fehlerhaft ausgeführt oder abgebrochen."
 txt_connectiontype_local="Der Verbindungstyp ist eine lokale Sicherung"
 txt_connectiontype_push="Es wird ein Push-Backup durchgefuehrt. Verbindung wird geprueft..."
 txt_connectiontype_pull="Es wird ein Pull-Backup durchgefuehrt. Verbindung wird geprueft..."
@@ -64,17 +64,17 @@ txt_server_connection_false="Datensicherungsauftrag abgebrochen! Die Verbindung 
 
 # Create target folder on local machine or remote server
 txt_target_folder_on_usb="Das Datensicherungsziel befindet sich auf einem lokal angeschlossenen USB/SATA-Datenträger."
-txt_target_folder_check_uuid="Der Einhängepunkt des USB/SATA-Datenträgers wird anhand der Geräte UUID überprüft."
-txt_target_folder_nocheck_uuid="Der Einhängepunkt des USB/SATA-Datenträgers wird überprüft."
-txt_target_folder_mountpoint_changed="Der Einhängepunkt des USB/SATA-Datenträgers hat sich geändert."
+txt_target_folder_check_uuid="Der Einhängepunkt des USB/SATA-Datenträgers wird anhand seiner Geräte UUID überprüft..."
+txt_target_folder_check_mountpoint="Der Einhängepunkt des USB/SATA-Datenträgers wird überprüft..."
+txt_target_folder_mountpoint_changed="Der Einhängepunkt des USB/SATA-Datenträgers hat sich geändert!"
 txt_target_folder_org_mnt="Usprünglicher Einhängepunkt"
 txt_target_folder_new_mnt="Neuer Einhängepunkt"
-txt_target_folder_checked="Der Einhängepunkt stimmt mit der Geräte UUID überein."
-txt_target_folder_localized="Der Einhängepunkt des USB/SATA-Datenträgers wurde lokalisiert"
-txt_target_folder_nolocalized="Der Einhängepunkt des USB/SATA-Datenträgers konnte nicht lokalsiert werden."
-txt_target_folder_uuid_notmatch="Die Geräte UUID konnte keinem USB/SATA-Datenträger zugeordnet werden."
+txt_target_folder_mountpoint_match="Der Einhängepunkt und die Geräte UUID stimmen überein."
+txt_target_folder_localized="Der Einhängepunkt des USB/SATA-Datenträgers wurde lokalisiert."
+txt_target_folder_nolocalized="Der Einhängepunkt des USB/SATA-Datenträgers konnte nicht lokalsiert werden!"
+txt_target_folder_mountpoint_false="WARNUNG: Die Geräte UUID konnte keinem, lokal angeschlossenen USB/SATA-Datenträger zugeordnet werden!"
 txt_target_folder_true="Das Datensicherungsziel wurde lokalisiert."
-txt_target_folder_false="Datensicherungsauftrag abgebrochen! Der Zielordner konnte nicht erstellt werden."
+txt_target_folder_false="WARNUNG: Der Zielordner konnte nicht erstellt werden."
 
 # Start rsync data backup...
 txt_rsync_loop_starts="Start der rsync-Datensicherung..."

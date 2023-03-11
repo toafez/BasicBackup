@@ -1,6 +1,6 @@
 #!/bin/bash
 # Filename: rsync.sh - coded in utf-8
-script_version="0.7-035"
+script_version="0.7-085"
 
 #						Basic Backup
 #
@@ -399,12 +399,13 @@ if [[ ${exit_code} -eq 0 ]]; then
 								echo "${txt_target_folder_mountpoint_changed}" | tee -a "${script_log}"
 								echo "${txt_target_folder_org_mnt} [ ${old_mountpoint} ]" | tee -a "${script_log}"
 								echo "${txt_target_folder_new_mnt} [ ${new_mountpoint} ]" | tee -a "${script_log}"
+								exit_mountpoint=0
 							else
-								echo "${txt_target_folder_checked}" | tee -a "${script_log}"
+								echo "${txt_target_folder_mountpoint_match}" | tee -a "${script_log}"
+								exit_mountpoint=0
 							fi
-							uuid_found="true"
 						else
-							no_uuid_found="true"
+							exit_mountpoint=1
 						fi
 
 					done <<< "$( find ${volume}/* -maxdepth 0 -type d ! -path '*/lost\+found' ! -path '*/\@*' ! -path '*/\$RECYCLE.BIN' ! -path '*/Repair' ! -path '*/System Volume Information' )"
@@ -414,20 +415,17 @@ if [[ ${exit_code} -eq 0 ]]; then
 				# Split the original var[target] into volume
 				mountpoint=$(echo "${var[target]}" | cut -d'/' -f1-3)
 
-				echo "${txt_target_folder_nocheck_uuid}"
+				echo "${txt_target_folder_check_mountpoint}" | tee -a "${script_log}"
 
 				if [ -d "${mountpoint}" ]; then
-					echo "${txt_target_folder_localized} [ ${mountpoint} ]"
-					exit_code=0
+					echo "${txt_target_folder_localized} [ ${mountpoint} ]" | tee -a "${script_log}"
+					exit_mountpoint=0
 				else
-					echo "${txt_target_folder_nolocalized}"
-					exit_code=1
+					echo "${txt_target_folder_nolocalized}" | tee -a "${script_log}"
+					exit_mountpoint=1
 				fi
 			fi
 		fi
-
-		[[ "${no_uuid_found}" == "true" && "${uuid_found}" == "true" ]] && exit_code=0
-		[[ "${no_uuid_found}" == "true" && -z "${uuid_found}" ]] && exit_code=1; exit_uuid=1
 
 		if [ ! -d "${var[target]}" ] && [[ ${exit_code} -eq 0 ]]; then
 			mkdir -p "${var[target]}"
@@ -448,15 +446,18 @@ if [[ ${exit_code} -eq 0 ]]; then
 	fi
 
 	# If the target folder has been created correctly
-	if [[ ${exit_mkdir} -eq 0 ]] && [[ ${exit_code} -eq 0 ]]; then
+	if [[ ${exit_mkdir} -eq 0 ]] && [[ ${exit_code} -eq 0 ]] && [[ ${exit_mountpoint} -eq 0 ]]; then
 		echo "${txt_target_folder_true}" | tee -a "${script_log}"
 		exit_code=0
 	else
-		if [[ "${exit_uuid}" == "1" ]]; then
-			echo "${txt_target_folder_uuid_notmatch}"
+		if [[ ${exit_mountpoint} -ne 0 ]]; then
+			echo "${txt_target_folder_mountpoint_false}" | tee -a "${script_log}"
+			echo "$(timestamp) - [ ${jobname} ] ${txt_target_folder_mountpoint_false}" >> "${system_log}"
 		fi
-		echo "${txt_target_folder_false}" | tee -a "${script_log}"
-		echo "$(timestamp) - [ ${jobname} ] ${txt_target_folder_false}" >> "${system_log}"
+		if [[ ${exit_mkdir} -ne 0 ]]; then
+			echo "${txt_target_folder_false}" | tee -a "${script_log}"
+			echo "$(timestamp) - [ ${jobname} ] ${txt_target_folder_false}" >> "${system_log}"
+		fi
 		synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:title "${app}":app:target_failed
 		exit_code=1
 	fi

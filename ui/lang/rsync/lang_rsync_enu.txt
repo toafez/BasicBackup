@@ -35,7 +35,7 @@ txt_backupjob_false="Backup job aborted! The job configuration could not be read
 
 # Connection type settings
 txt_backupjob_success="The backup job ${jobname} is now complete."
-txt_backupjob_warning="The backup job ${jobname} is now completed. However, errors occurred during the execution."
+txt_backupjob_warning="WARNING: The backup job ${jobname} was executed incorrectly or aborted."
 txt_connectiontype_local="The connection type is a local backup"
 txt_connectiontype_push="A push backup is carried out. Check connection..."
 txt_connectiontype_pull="A pull backup is carried out. Check connection..."
@@ -64,17 +64,17 @@ txt_server_connection_false="Backup job aborted! The connection to the remote se
 
 # Create target folder on local machine or remote server
 txt_target_folder_on_usb="The backup destination is on a locally connected USB/SATA disk."
-txt_target_folder_check_uuid="The mount point of the USB/SATA disk is checked against the device UUID."
-txt_target_folder_nocheck_uuid="The mount point of the USB/SATA volume is checked."
-txt_target_folder_mountpoint_changed="The mount point of the USB/SATA volume has changed."
+txt_target_folder_check_uuid="The mount point of the USB/SATA volume is checked against its device UUID..."
+txt_target_folder_check_mountpoint="The mount point of the USB/SATA volume is checked..."
+txt_target_folder_mountpoint_changed="The mount point of the USB/SATA volume has changed!"
 txt_target_folder_org_mnt="Original mount point"
 txt_target_folder_new_mnt="New Mount Point"
-txt_target_folder_checked="The mount point matches the device UUID."
+txt_target_folder_mountpoint_match="The mount point and the device UUID match."
 txt_target_folder_localized="The mount point of the USB/SATA volume has been localized."
-txt_target_folder_nolocalized="The mount point of the USB/SATA volume could not be located."
-txt_target_folder_uuid_notmatch="The device UUID could not be mapped to a USB/SATA volume."
+txt_target_folder_nolocalized="The mount point of the USB/SATA volume could not be located!"
+txt_target_folder_mountpoint_false="WARNING: The device UUID could not be assigned to a locally connected USB/SATA volume!"
 txt_target_folder_true="The backup target has been located."
-txt_target_folder_false="Backup job aborted! The target folder could not be created."
+txt_target_folder_false="WARNING: The target folder could not be created."
 
 # Start rsync data backup...
 txt_rsync_loop_starts="Start rsync data backup..."
