@@ -1,7 +1,7 @@
 #!/bin/bash
 # Filename: lang_enu - coded in utf-8
 
-#						 Basic Backup
+#                       Basic Backup
 #
 #        Copyright (C) 2023 by Tommes | License GNU GPLv3
 #         Member of the German Synology Community Forum
@@ -125,8 +125,8 @@
 
 	txt_bash_code_note="The following commands can be used to run the job from the <span class=\"text-primary\">DSM task scheduler</span> or from your DiskStation's terminal as <strong>root</strong>."
 	#txt_bash_code_regular="Command to execute the order"
-	txt_bash_code_option="Option switches attachable to the command".
-	txt_bash_code_jobname="<span class=\"text-success\">default option</span>: Name of the job to be executed in quotes."^
+	txt_bash_code_option="Option switches attachable to the command"
+	txt_bash_code_jobname="<span class=\"text-success\">default option</span>: Name of the job to be executed in quotes."
 	txt_bash_code_dryrun="Rsync only simulates what would happen without copying or synchronising data."
 	txt_bash_code_rsync_v="Short rsync log, which files are transferred."
 	txt_bash_code_rsync_vv="Extended rsync log, which files are skipped."
@@ -168,13 +168,13 @@
 	txt_job_create="create"
 	txt_job_select="select"
 
-	txt_jobname_label="Job or script name".
+	txt_jobname_label="Job or script name"
 	txt_jobname_format="Permitted characters - and _ as well as spaces"
 	txt_jobname_regex="^[0-9a-zA-Z _-]+$"
 
 	txt_sendemail_label="Email Notification"
 	txt_sendemail_true="Always send protocol"
-	txt_sendemail_problem="Send protocol only in case of problems".
+	txt_sendemail_problem="Send protocol only in case of problems"
 	txt_sendemail_format="true/false/problem"
 
 	txt_email_label="Eail"
@@ -226,7 +226,7 @@
 	txt_ssh_label_user="SSH Username"
 	txt_ssh_format_user="e.g. root"
 
-	txt_ssh_label_address="Remote Server Address".
+	txt_ssh_label_address="Remote Server Address"
 	txt_ssh_format_address="URL or IPv4 Server Address"
 	txt_ssh_script_sshpush="Remote server is backup destination, then sshpush"
 	txt_ssh_script_sshpull="Remote server is backup source, then sshpull"
@@ -271,13 +271,13 @@
 
 	# Page 3b
 	txt_sources_label="Data Backup Source(s)"
-	txt_sources_label_info="Separate paths with a &".
+	txt_sources_label_info="Separate paths with a &"
 	txt_sources_format="z.B. /volume1/music/Compilations & /volume1/photo/General & /volume2/video/Series"
 	txt_sources_regex="^\/([a-zA-Z0-9 _\-\/&]+)+$"
 	txt_sources_rights="Basic Backup currently has only limited system rights, as the app is not a member of the administrators' group. As a result, only shared folders can be selected at this point, but not associated subfolders. To extend the system rights, please follow the instructions on the <a href=\"index.cgi?page=jobedit&section=reset\" class=\"text-primary text-decoration-none\">start page</a> of Basic Backup."
 
 	# Page 4
-	txt_popup_select_source="Please select at least one source folder".
+	txt_popup_select_source="Please select at least one source folder"
 	txt_rsync_title="Rsync Behaviour"
 
 	txt_syncopt_label="rsync option switch"
@@ -329,12 +329,12 @@
 	txt_pilot_connect="After connecting the external disk automatically run the AutoPilot script file"
 	txt_pilot_disconnect="After executing the AutoPilot script file, the external disk..."
 	txt_pilot_disconnect_never="never eject"
-	txt_pilot_disconnect_auto="always eject automatically"
-	txt_pilot_disconnect_manual="manually eject by an exit 100 script statement"
+	txt_pilot_disconnect_auto="eject only if all task(s) have been processed without errors"
+	txt_pilot_disconnect_manual="always eject if the task is terminated manually by an \"exit 100\" statement manually"
 	txt_pilot_signal="Trigger visual as well as audible signals on your DiskStation via USB/SATA AutoPilot function"
 
 	txt_pilot_external_setting="Set up an external disk for USB/SATA AutoPilot"
-	txt_pilot_external_console="Set up external disk via console".
+	txt_pilot_external_console="Set up external disk via console"
 	txt_pilot_ext_console_step_1="Log in as user <span class=\"text-danger fst-italic\">root</span> on the console of your DiskStation."
 	txt_pilot_ext_console_step_2="Change to the root directory of the external data carrier for which you want to set up the AutoPilot function e.g. ..."
 	txt_pilot_ext_console_step_3="Create a new script file named <span class=\"text-danger fst-italic\">autopilot</span> and adjust the file permissions to make the script file executable."

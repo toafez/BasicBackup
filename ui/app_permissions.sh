@@ -3,7 +3,7 @@
 # call: /usr/syno/synoman/webman/3rdparty/BasicBackup/app_permissions.sh
 
 
-#						 Basic Backup
+#                       Basic Backup
 #
 #        Copyright (C) 2023 by Tommes | License GNU GPLv3
 #         Member of the German Synology Community Forum

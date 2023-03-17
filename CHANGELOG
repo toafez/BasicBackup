@@ -1,9 +1,40 @@
 Basic Backup Release Notes
 
+
+Version 0.7-200 vom 17.03.2023
+
+ - Deutsch
+    - Die AutoPilot Funktion wurde nochmal komplett überarbeitet und größtenteils umgeschrieben. Daraus haben sich nachfolgende Änderungen bzw. Verbesserungen ergeben.
+    - Nach dem einstecken eines ext. Datenträgers tritt das AutoPilot Protokoll erst in Aktion, wenn ein AutoPilot Script gefunden wurde.
+    - Das AutoPilot Script kann sich dabei im jeweiligen Hauptordner aller eingehängten Partitionen eines ext. Datenträgers befinden.
+    - Sollte das lokalisierte AutoPilot Script nicht über die benötigen Rechte zum Ausführen verfügen, wird eine Fehlermeldung ins Protokoll geschrieben sowie eine DSM-Benachrichtigung ausgegeben. 
+    - Ein ext. Datenträger wird nur noch dann ausgeworfen, wenn alle Aufgabe(n) fehlerfrei abgearbeitet wurde(n) und die entsprechende Option in der AutoPilot Konfiguration ausgewählt wurde. Ansonsten wird eine entsprechende Meldung ins Protokoll geschrieben sowie eine DSM-Benachrichtigung ausgegeben.
+    - Wird eine Aufgabe durch eine "exit 100" Anweisung manuell beendet, wird das Auswerfen des ext. Datenträger nur dann eingeleitet, wenn im Vorfeld alle Partitionen getrennt werden konnten. Ansonsten wird eine entsprechende Meldung ins Protokoll geschrieben sowie eine DSM-Benachrichtigung ausgegeben.
+    - Ein ext. Datenträger wird nur noch dann ausgeworfen, wenn im Vorfeld alle eingehängten Partitionen ordnungsgemäß getrennt werden konnten. Ansonsten wird eine Fehlermeldung ins Protokoll geschrieben und eine DSM-Benachrichtigung ausgegeben, das der ext. Datenträger nicht ausgeworfen werden konnte.
+    - Der Aufbau und die Ausgabe von AutoPilot Protokolleinträgen und die damit verbundenen Sprachdateien, wurden optimiert.
+    - Die Ausgabe von Informationen und Warnungen über die DSM-Benachrichtigungen und die damit verbundenen Sprachdateien, wurden optimiert.
+    - Allgemeine Fehler und Probleme bei der Ermittlung und Verarbeitung zum einhängen und trennen von ext. Datenträgern behoben.
+    - Weitere allgemeine sowie spezielle Fehlerbereinigungen, Codeoptimierungen und Designanpassungen vorgenommen.
+    - Mein besonderer Dank gilt dem Benutzer @luddi (aus dem deutschen Synology Support Forum), der mich bei der o.a. Umsetzung tatkräftig mit konstruktiver Kritik und Feedback, vor allem aber mit ein paar netten Codeschnipseln und RegEx Auswüchsen unterstützt hat. Vielen Dank dafür
+
+ - Englisch
+    - The AutoPilot function has been completely revised and rewritten for the most part. This has resulted in the following changes and improvements.
+    - After inserting an ext. data medium, the AutoPilot protocol only goes into action when an AutoPilot script has been found.
+    - The AutoPilot script can be located in the respective main folder of all mounted partitions of an ext. data medium.
+    - If the localized AutoPilot script does not have the necessary rights to run, an error message is written to the log and a DSM notification is issued. 
+    - An ext. data carrier will only be ejected if all task(s) have been processed without errors and the corresponding option has been selected in the AutoPilot configuration. Otherwise, a corresponding message is written to the log and a DSM notification is output.
+    - If a task is terminated manually by an "exit 100" statement, the ejection of the ext. data medium is only initiated if all partitions could be separated beforehand. Otherwise, a corresponding message is written to the log and a DSM notification is issued.
+    - An ext. volume is only ejected if all mounted partitions could be properly unmounted beforehand. Otherwise, an error message is written to the log and a DSM notification is issued that the ext. volume could not be ejected.
+    - The structure and output of AutoPilot log entries and the associated language files have been optimized.
+    - The output of information and warnings about the DSM notifications and the associated language files have been optimized.
+    - General bugs and problems with the detection and processing for mounting and unmounting ext. disks have been fixed.
+    - Other general as well as specific bug fixes, code optimizations and design adjustments made.
+    - Special thanks to the user @luddi (from the German Synology Support Forum), who supported me with constructive criticism and feedback, but most of all with some nice code snippets and regex outgrowths. Many thanks for that
+
 Version 0.7-085 vom 11.03.2023
 
  - Deutsch
-     -Update jQuery auf 3.6.4
+    - Update jQuery auf 3.6.4
     - Verwendete DSM Versionnummer dem Auftragsprotokoll hinzugefügt.
     - Der Menüleiste den Reiter Protokolle hinzugefügt, um den Zugriff auf das System- und AutoPilot-Protokoll zu erleicherten. 
     - App-Beschreibung in der Systemdatei ../ui/config korrigiert

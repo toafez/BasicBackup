@@ -1,7 +1,7 @@
 #!/bin/bash
 # Filename: autopilot.sh - coded in utf-8
 
-#						 Basic Backup
+#                       Basic Backup
 #
 #        Copyright (C) 2023 by Tommes | License GNU GPLv3
 #         Member of the German Synology Community Forum
@@ -24,225 +24,223 @@
 # --------------------------------------------------------------
 # Define Enviroment
 # --------------------------------------------------------------
-	PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/syno/bin:/usr/syno/sbin
-	app="BasicBackup"
-	dir="$(echo `dirname ${0}`)"
-	scriptname="autopilot"
-	logpath="${dir}/usersettings/logfiles"
-	logfile="${scriptname}.log"
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/syno/bin:/usr/syno/sbin
+app="BasicBackup"
+dir="$(echo `dirname ${0}`)"
+scriptname="$(echo `basename ${0%.*}`)"
+logpath="${dir}/usersettings/logfiles"
+logfile="${scriptname}.log"
 
-	# Create logfile
-	# ----------------------------------------------------------
-	if [ ! -d "${logpath}" ]; then
-		mkdir -p -m 0777 "${logpath}"
+# Create logfile
+# ----------------------------------------------------------
+if [ ! -d "${logpath}" ]; then
+	mkdir -p -m 0777 "${logpath}"
+fi
+if [ -d "${logpath}" ]; then
+	if [ ! -f "${logpath}/${logfile}" ]; then
+		touch "${logpath}/${logfile}"
+		chmod 0777 "${logpath}/${logfile}"
+		chown "${app}":"${app}" "${logpath}/${logfile}"
 	fi
-	if [ -d "${logpath}" ]; then
-		if [ ! -f "${logpath}/${logfile}" ]; then
-			touch "${logpath}/${logfile}"
-			chmod 0777 "${logpath}/${logfile}"
-			chown "${app}":"${app}" "${logpath}/${logfile}"
-		fi
-	fi
-	log="${logpath}/${logfile}"
+fi
+log="${logpath}/${logfile}"
 
-	# Load configuration settings
-	# ----------------------------------------------------------
-	[ -f "${dir}/usersettings/system/${scriptname}.config" ] && source "${dir}/usersettings/system/${scriptname}.config"
+# Load configuration settings
+# ----------------------------------------------------------
+[ -f "${dir}/usersettings/system/${scriptname}.config" ] && source "${dir}/usersettings/system/${scriptname}.config"
 
-	# Load language settings
-	# ----------------------------------------------------------
-	[ -f "${dir}/modules/parse_language.sh" ] && source "${dir}/modules/parse_language.sh" || exit
-	language "PILOT"
+# Load language settings
+# ----------------------------------------------------------
+[ -f "${dir}/modules/parse_language.sh" ] && source "${dir}/modules/parse_language.sh" || exit
+language "PILOT"
 
-	# Set timestamp
-	# ----------------------------------------------------------
-	function timestamp()
-	{
-		date +"%Y-%m-%d %H:%M:%S"
-	}
+# Set timestamp
+# ----------------------------------------------------------
+function timestamp()
+{
+	date +"%Y-%m-%d %H:%M:%S"
+}
 
-	# Optical and acoustic signal output
-	# ----------------------------------------------------------
-	function signal_start()
-	{
-		# Short beep
-		echo 2 > /dev/ttyS1
-		# Status LED orange on
-		echo : > /dev/ttyS1
-	}
+# Optical and acoustic signal output
+# ----------------------------------------------------------
+function signal_start()
+{
+	# Short beep
+	echo 2 > /dev/ttyS1
+	# Status LED orange on
+	echo : > /dev/ttyS1
+}
 
-	function signal_stop()
-	{
-		# Short beep
-		echo 2 > /dev/ttyS1
-		# Status LED green on
-		echo 8 > /dev/ttyS1
-	}
+function signal_stop()
+{
+	# Short beep
+	echo 2 > /dev/ttyS1
+	# Status LED green on
+	echo 8 > /dev/ttyS1
+}
 
-	function signal_warning()
-	{
-		# Short beep
-		echo 2 > /dev/ttyS1
-		# Short beep
-		echo 2 > /dev/ttyS1
-		# Short beep
-		echo 2 > /dev/ttyS1
-		# Status LED green on
-		echo 8 > /dev/ttyS1
-	}
-
-	function signal_error()
-	{
-		# Long beep
-		echo 3 > /dev/ttyS1
-		exit 1
-	}
+function signal_warning()
+{
+	# Short beep
+	echo 2 > /dev/ttyS1
+	# Short beep
+	echo 2 > /dev/ttyS1
+	# Short beep
+	echo 2 > /dev/ttyS1
+	# Status LED green on
+	echo 8 > /dev/ttyS1
+}
 
 # --------------------------------------------------------------
-# Mount and unmount external devices
+# Set parameters for disk and device
 # --------------------------------------------------------------
-	# ${1} is the passed device name %k from the udev rule
-	if [ -z "${1}" ]; then
-		echo "$(timestamp) ${txt_device_failed}" >> "${log}"
-		echo "# ---" >> "${log}"
-		exit 1
-	fi
+# ${1} is the passed parameter for the device %k, e.g. "usb1p1" from the udev rule
+par=$(echo "${1}")
 
-	# Mount (connect) external USB devices
-	# ----------------------------------------------------------
-	if [[ "${connect}" == "true" ]]; then
+if [ -z "${par}" ]; then
+	exit 1
+else
+	# If ${par} starts with /dev/, then delete /dev/
+	par=$(echo "${par}" | sed 's:^/dev/::')
 
-		# Searching for mount paths
-		counter=0
-		mountpoint=""
-		while ([ -z "${mountpoint}" ] && [ ${counter} -lt 20 ]); do
-			mountpoint=$(mount 2>&1 | grep "/dev/$1" | cut -d ' ' -f3)
-			((counter++))
-			sleep 2
-		done
+	# If ${par} has a device name like "usb1p1", then get the disk name from it, e.g. "usb1"
+	disk=$(echo "${par}" | sed 's:p.*$::')
 
-		# If no mount paths were found
-		if [ -z "${mountpoint}" ]; then
-			echo "$(timestamp) ${txt_mountpoint_failed}" >> "${log}"
-			[[ "${signal}" == "true" ]] && signal_error
-		fi
+	# Set device path to determine the mountpoint
+	device="/dev/${par}"
 
-		# When mount paths have been found
+	# Searching for mount points
+	counter=0
+	mountpoint=""
+	while ([ -z "${mountpoint}" ] && [ ${counter} -lt 20 ]); do
+		mountpoint=$(mount 2>&1 | grep "$device" | cut -d ' ' -f3)
+		((counter++))
+		sleep 2
+	done
+fi
+
+# Mount (connect) external USB devices
+# ----------------------------------------------------------
+if [[ "${connect}" == "true" ]] && [ -n "${mountpoint}" ]; then
+
+	# Search autopilot script...
+	if [ -f "${mountpoint}/${scriptname}" ]; then
+		echo "" >> "${log}"
+		echo "${txt_line_separator}"  >> "${log}"
+		echo "$(timestamp) - ${txt_autopilot_starts}" >> "${log}"
+		echo "${txt_line_separator}" >> "${log}"
+		uuid=$(blkid -s UUID -o value ${device})
+		echo "${txt_ext_detected}" >> "${log}"
+		echo "${txt_disk_detected}: ${disk}" >> "${log}"
+		echo "${txt_device_detected}: ${device}" >> "${log}"
+		echo "${txt_uuid_detected}: ${uuid}" >> "${log}"
+		echo "${txt_mountpoint}: ${mountpoint}" >> "${log}"
+		echo "${txt_autopilot_script_search}" >> "${log}"
+		echo "" >> "${log}"
+		echo "${txt_autopilot_script_found}" >> "${log}"
+
+		# If autopilot script is executable
 		if [ -x "${mountpoint}/${scriptname}" ]; then
-			uuid=$(blkid -s UUID -o value ${DEVNAME})
-			serialnr=$(cat /proc/sys/kernel/syno_serial)
-			echo "$(timestamp) ${txt_device_detected} ${DEVNAME}" >> "${log}"
-			echo "$(timestamp) ${DEVNAME} - ${txt_mountpoint_detected} ${mountpoint}" >> "${log}"
-			echo "$(timestamp) ${DEVNAME} - ${txt_uuid_detected} ${uuid}" >> "${log}"
-			# udevadm info ${DEVNAME} >> "${log}"
-			echo "$(timestamp) ${DEVNAME} - ${txt_script} ${mountpoint}/${scriptname} ${txt_script_localized}" >> "${log}"
-			echo "$(timestamp) ${DEVNAME} - ${txt_script} ${mountpoint}/${scriptname} ${txt_script_started}" >> "${log}"
-
+			echo "" >> "${log}"
+			echo "${txt_please_wait}" >> "${log}"
+			echo "" >> "${log}"
 			[[ "${signal}" == "true" ]] && signal_start
 			synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_start "${mountpoint}"
+
+			# Execute autopilot script
 			sleep 5
 			${mountpoint}/${scriptname}
 			exit_script=${?}
 			sleep 5
-			if [[ ${exit_script} -eq 0 || ${exit_script} -eq 100 ]]; then
-				echo "$(timestamp) ${DEVNAME} - ${txt_script} ${mountpoint}/${scriptname} ${txt_script_run_through}" >> "${log}"
-			else
-				echo "$(timestamp) ${DEVNAME} - ${txt_script_execution} ${mountpoint}/${scriptname} ${txt_script_error_occurred} Exit-Code: ${exit_script}" >> "${log}"
-			fi
-		else
-			if [ -f "${mountpoint}/${scriptname}" ]; then
-				echo "$(timestamp) ${DEVNAME} - ${txt_script} ${mountpoint}/${scriptname} ${txt_script_not_executed}" >> "${log}"
-				echo "$(timestamp) ${DEVNAME} - ${txt_device_mounted_and_connected}" >> "${log}"
-				echo "# ---" >> "${log}"
-				[[ "${signal}" == "true" ]] && signal_error
-			else
-				echo "$(timestamp) ${DEVNAME} - ${txt_script} ${mountpoint}/${scriptname} ${txt_script_not_found}" >> "${log}"
-				echo "$(timestamp) ${DEVNAME} - ${txt_device_mounted_and_connected}" >> "${log}"
-				echo "# ---" >> "${log}"
-				exit
-			fi
-		fi
 
-		# Unmount (disconnect) external USB devices
-		# ------------------------------------------------------
-		if [[ "${disconnect}" == "auto" ]] || [[ "${disconnect}" == "manual" && ${exit_script} -eq 100 ]]; then
+			# If autoilot was executed successfully (the exit code is 0 or was manually instructed with 100)
+			if [[ ${exit_script} -eq 0 ]] || [[ ${exit_script} -eq 100 ]]; then
+				[[ ${exit_script} -eq 0 ]] && echo "${txt_autopilot_script_success}" >> "${log}"
+				[[ ${exit_script} -eq 100 ]] && echo "${txt_autopilot_script_warning}" >> "${log}"
+				echo "" >> "${log}"
 
-			# Unmount external device
-			sync
-			umount ${mountpoint}
-			exit_umount=${?}
+				# Initiating disk ejection
+				if [[ "${disconnect}" == "auto" ]] || [[ "${disconnect}" == "manual" ]]; then
 
-			# If the external device has been unmount
-			if [[ ${exit_umount} -eq 0 ]]; then
-				echo "$(timestamp) ${DEVNAME} - ${txt_device_unmount} ${mountpoint}" >> "${log}"
-				eject_mount=$(echo $1 | sed "s/[0-9]//")
+					# Write RAM buffer back to disk, unmount devices and delete paths
+					while read line; do
 
-				# # Disconnect external device if mount point was found
-				if [ -f "/sys/block/${eject_mount}/device/delete" ]; then
-					echo 1 > "/sys/block/${eject_mount}/device/delete"
-					exit_eject=${?}
-					sleep 5
+						# Write RAM buffer back to disk
+						sync
 
-					# If the external device has been disconnected
-					if [[ ${exit_eject} -eq 0 ]]; then
-						# Remove external USB file system
-						rmdir "${mountpoint}"
-						exit_rmdir=${?}
+						# Unmount device
+						umount ${line}
+						sleep 3
 
-						# If the file system has been removed
-						if [[ ${exit_rmdir} -eq 0 ]]; then
-							echo "$(timestamp) ${txt_device_ejected} (${DEVNAME})" >> "${log}"
-							if [[ ${exit_script} -eq 0 || ${exit_script} -eq 100 ]]; then
-								[[ "${signal}" == "true" ]] && signal_stop
-								synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_stop_a "${mountpoint}"
-							else
-								[[ "${signal}" == "true" ]] && signal_warning
-								synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_stop_b "${mountpoint}"
+						# If umount exit code is 0
+						if [[ "${?}" -eq 0 ]]; then
+							# Delete paths
+							if [ -d "${line}" ]; then
+								# rmdir -p --ignore-fail-on-non-empty ${line}
+								rmdir ${line}
+								if [ ! -d "${line}" ]; then
+									echo "${txt_the_mountpoint} ${line} ${txt_disconnected}" >> "${log}"
+									exit_umount=0
+								else
+									echo "${txt_the_mountpoint_warning} ${line} ${txt_not_disconnected}" >> "${log}"
+									exit_umount=1
+								fi
 							fi
 						else
-							echo "$(timestamp) ${txt_device_not_ejected} (${DEVNAME}). Exit-Code: ${exit_rmdir}" >> "${log}"
+							exit_umount=${?}
+						fi
+						sleep 3
+					done <<< $(mount 2>&1 | grep "$disk" | cut -d ' ' -f3)
+
+					# Eject disk
+					if [ -f "/sys/block/${disk}/device/delete" ] && [[ "${exit_umount}" -eq 0 ]]; then
+						echo 1 > "/sys/block/${disk}/device/delete"
+						exit_eject=${?}
+						sleep 3
+
+						# If disk has been ejected
+						if [[ ${exit_eject} -eq 0 ]]; then
+							echo "${txt_disk_ejected}" >> "${log}"
+							[[ "${signal}" == "true" ]] && signal_stop
+							synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_stop_a "${mountpoint}"
+						else
+							# WARNING: Disk could not be ejected.
+							echo "${txt_disk_not_ejected}" >> "${log}"
+							echo "➜ ${txt_backupjob_exit}: eject ${exit_eject}" >> "${log}"
 							[[ "${signal}" == "true" ]] && signal_warning
-							if [[ ${exit_script} -eq 0 || ${exit_script} -eq 100 ]]; then
-								synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_alert_a "${mountpoint}"
-							else
-								synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_alert_b "${mountpoint}"
-							fi
+							synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_warning_a "${mountpoint}"
 						fi
-					else
-						echo "$(timestamp) ${txt_device_only_unmount} (${DEVNAME}) Exit-Code: eject ${exit_eject}" >> "${log}"
+					else 
+						# WARNING: Disk could not be ejected.
+						echo "${txt_disk_not_ejected}" >> "${log}"
 						[[ "${signal}" == "true" ]] && signal_warning
-						if [[ ${exit_script} -eq 0 || ${exit_script} -eq 100 ]]; then
-							synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_alert_a "${mountpoint}"
-						else
-							synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_alert_b "${mountpoint}"
-						fi
+						synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_warning_a "${mountpoint}"
 					fi
 				else
-					echo "$(timestamp) ${txt_device_not_found} (${DEVNAME})" >> "${log}"
-					[[ "${signal}" == "true" ]] && signal_warning
-					if [[ ${exit_script} -eq 0 || ${exit_script} -eq 100 ]]; then
-						synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_alert_a "${mountpoint}"
-					else
-						synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_alert_b "${mountpoint}"
-					fi
+					# NOTE: Disk remains mounted
+					echo "${txt_disk_was_not_ejected}" >> "${log}"
+					[[ "${signal}" == "true" ]] && signal_stop
+					synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_stop_b "${mountpoint}"
 				fi
 			else
-				echo "$(timestamp) ${txt_device_not_unmount_ejected} (${DEVNAME}). Exit-Code: umount ${exit_umount}" >> "${log}"
+				# WARNING: Errors occurred during execution!
+				[[ ${exit_script} -ne 100 ]] && echo "${txt_backupjob_warning}" >> "${log}"
+				echo "➜ ${txt_backupjob_exit}: ${exit_script}" >> "${log}"
+				echo "" >> "${log}"
+				echo "${txt_disk_was_not_ejected}" >> "${log}"
 				[[ "${signal}" == "true" ]] && signal_warning
-				if [[ ${exit_script} -eq 0 || ${exit_script} -eq 100 ]]; then
-					synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_alert_a "${mountpoint}"
-				else
-					synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_alert_b "${mountpoint}"
-				fi
+				synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_warning_b "${mountpoint}"
 			fi
 		else
-			echo "$(timestamp) ${txt_device_mounted_and_connected} (${DEVNAME})" >> "${log}"
-			[[ "${signal}" == "true" ]] && signal_stop
-			if [[ ${exit_script} -eq 0 || ${exit_script} -eq 100 ]]; then
-				synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_stop_c "${mountpoint}"
-			else
-				synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_stop_d "${mountpoint}"
-			fi
+			# WARNING: The autoilot script could not be executed!
+			echo "${txt_script_not_executed}" >> "${log}"
+			echo "➜ ${txt_script_check_rights}" >> "${log}"
+			[[ "${signal}" == "true" ]] && signal_warning
+			synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_warning_c "${mountpoint}"
 		fi
-		echo "# ---" >> "${log}"
+
+		echo "${txt_line_separator}"  >> "${log}"
+		echo "$(timestamp) ${txt_autopilot_ends}" >> "${log}"
+		echo "${txt_line_separator}" >> "${log}"
 	fi
+fi

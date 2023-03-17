@@ -1,8 +1,8 @@
 #!/bin/bash
 # Filename: rsync.sh - coded in utf-8
-script_version="0.7-085"
+script_version="0.7-200"
 
-#						Basic Backup
+#                       Basic Backup
 #
 #        Copyright (C) 2023 by Tommes | License GNU GPLv3
 #         Member of the German Synology Community Forum
