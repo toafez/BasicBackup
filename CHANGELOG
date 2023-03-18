@@ -1,5 +1,19 @@
 Basic Backup Release Notes
 
+Version 0.7-210 vom 18.03.2023
+
+ - Deutsch
+    - Das Trennen und Auswerfen, ext. Datenträger wird nun durch den von Synology eigens bereitgestellten Befehl synousbdisk übernommen. 
+    - Nach der Ausführung von synousbdisk wird dessen Systemrückmeldung im AutoPilot-Protokoll angezeigt, wie z.B. „Unmount USB device usb1 succeeded.“, sollte das Auswerfen erfolgreich gewesen sein.
+    - Einlaufende Exit Error Codes, die beim fehlerhaften Ausführen des AutoPilot-Scriptes auftreten können, werden ebenfalls im AutoPilot-Protokoll angezeigt.
+    - Die mit AutoPilot verbundenen Sprachdateien, wurden optimiert.
+
+ - Englisch
+    - The unmounting and ejecting, ext. disks is now handled by Synology's own synousbdisk command. 
+    - After synousbdisk is executed, its system feedback is displayed in the AutoPilot log, such as "Unmount USB device usb1 succeeded.", should the ejection have been successful.
+    - Incoming exit error codes that may occur when the AutoPilot script runs incorrectly are also displayed in the AutoPilot log.
+    - The language files associated with AutoPilot, have been optimized.
+
 
 Version 0.7-200 vom 17.03.2023
 

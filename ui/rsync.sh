@@ -1,6 +1,6 @@
 #!/bin/bash
 # Filename: rsync.sh - coded in utf-8
-script_version="0.7-200"
+script_version="0.7-210"
 
 #                       Basic Backup
 #

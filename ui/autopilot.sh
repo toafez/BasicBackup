@@ -148,10 +148,8 @@ if [[ "${connect}" == "true" ]] && [ -n "${mountpoint}" ]; then
 			synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_start "${mountpoint}"
 
 			# Execute autopilot script
-			sleep 5
 			${mountpoint}/${scriptname}
 			exit_script=${?}
-			sleep 5
 
 			# If autoilot was executed successfully (the exit code is 0 or was manually instructed with 100)
 			if [[ ${exit_script} -eq 0 ]] || [[ ${exit_script} -eq 100 ]]; then
@@ -162,72 +160,55 @@ if [[ "${connect}" == "true" ]] && [ -n "${mountpoint}" ]; then
 				# Initiating disk ejection
 				if [[ "${disconnect}" == "auto" ]] || [[ "${disconnect}" == "manual" ]]; then
 
-					# Write RAM buffer back to disk, unmount devices and delete paths
-					while read line; do
+					# Remove disk from the GUI list
+					cp /tmp/usbtab /tmp/usbtab.old
+					grep -v "${disk}" /tmp/usbtab.old > /tmp/usbtab
+					rm -f /tmp/usbtab.old
 
-						# Write RAM buffer back to disk
-						sync
+					# Write RAM buffer back to disk
+					sync
+					sleep 5
 
-						# Unmount device
-						umount ${line}
-						sleep 3
+					# Uncommented Synology command, but cleaning up always sounds good ;o)
+					# /usr/syno/bin/synousbdisk -rcclean
+					# sleep 5
 
-						# If umount exit code is 0
-						if [[ "${?}" -eq 0 ]]; then
-							# Delete paths
-							if [ -d "${line}" ]; then
-								# rmdir -p --ignore-fail-on-non-empty ${line}
-								rmdir ${line}
-								if [ ! -d "${line}" ]; then
-									echo "${txt_the_mountpoint} ${line} ${txt_disconnected}" >> "${log}"
-									exit_umount=0
-								else
-									echo "${txt_the_mountpoint_warning} ${line} ${txt_not_disconnected}" >> "${log}"
-									exit_umount=1
-								fi
-							fi
-						else
-							exit_umount=${?}
-						fi
-						sleep 3
-					done <<< $(mount 2>&1 | grep "$disk" | cut -d ' ' -f3)
+					# Unmount disk
+					unmount_disk=$(/usr/syno/bin/synousbdisk -umount "${disk}")
+					echo "${txt_disk_is_ejected}" >> "${log}"
+					echo "${txt_system_response}:~# ${unmount_disk}" >> "${log}"
+					sleep 10
 
-					# Eject disk
-					if [ -f "/sys/block/${disk}/device/delete" ] && [[ "${exit_umount}" -eq 0 ]]; then
-						echo 1 > "/sys/block/${disk}/device/delete"
-						exit_eject=${?}
-						sleep 3
+					# Check if unmount was successful
+					unmount_check=$(/usr/syno/bin/synousbdisk -enum | grep "$disk")
 
-						# If disk has been ejected
-						if [[ ${exit_eject} -eq 0 ]]; then
-							echo "${txt_disk_ejected}" >> "${log}"
-							[[ "${signal}" == "true" ]] && signal_stop
-							synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_stop_a "${mountpoint}"
-						else
-							# WARNING: Disk could not be ejected.
-							echo "${txt_disk_not_ejected}" >> "${log}"
-							echo "➜ ${txt_backupjob_exit}: eject ${exit_eject}" >> "${log}"
-							[[ "${signal}" == "true" ]] && signal_warning
-							synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_warning_a "${mountpoint}"
-						fi
-					else 
+					# If disk has been ejected
+					if [ -z "${unmount_check}" ]; then
+
+						# Delete block device
+						[ -f "/sys/block/${disk}/device/delete" ] && echo 1 > "/sys/block/${disk}/device/delete"
+
+						echo "${txt_disk_was_ejected}" >> "${log}"
+						[[ "${signal}" == "true" ]] && signal_stop
+						synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_stop_a "${mountpoint}"
+					else
 						# WARNING: Disk could not be ejected.
-						echo "${txt_disk_not_ejected}" >> "${log}"
+						echo "${txt_disk_could_not_be_ejected}" >> "${log}"
+						echo "${txt_system_response}:~# ${umount_check}" >> "${log}"
 						[[ "${signal}" == "true" ]] && signal_warning
 						synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_warning_a "${mountpoint}"
 					fi
 				else
 					# NOTE: Disk remains mounted
-					echo "${txt_disk_was_not_ejected}" >> "${log}"
+					echo "${txt_disk_remains_mount}" >> "${log}"
 					[[ "${signal}" == "true" ]] && signal_stop
 					synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_stop_b "${mountpoint}"
 				fi
 			else
 				# WARNING: Errors occurred during execution!
 				[[ ${exit_script} -ne 100 ]] && echo "${txt_backupjob_warning}" >> "${log}"
-				echo "➜ ${txt_backupjob_exit}: ${exit_script}" >> "${log}"
-				echo "" >> "${log}"
-				echo "${txt_disk_was_not_ejected}" >> "${log}"
+				echo "${txt_exit_code_error}:~# ${exit_script}" >> "${log}"
+				echo "${txt_disk_remains_mount}" >> "${log}"
 				[[ "${signal}" == "true" ]] && signal_warning
 				synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_warning_b "${mountpoint}"
 			fi
@@ -238,7 +219,6 @@ if [[ "${connect}" == "true" ]] && [ -n "${mountpoint}" ]; then
 			[[ "${signal}" == "true" ]] && signal_warning
 			synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_warning_c "${mountpoint}"
 		fi
-
 		echo "${txt_line_separator}"  >> "${log}"
 		echo "$(timestamp) ${txt_autopilot_ends}" >> "${log}"
 		echo "${txt_line_separator}" >> "${log}"
