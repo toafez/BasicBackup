@@ -45,7 +45,7 @@ function synogroupuser()
 			[[ "${i}" != "${user}" ]] && updatelist+=(${i})
 			[[ "${i}" == "${user}" ]] && userexists="true"
 		else
-			synodsmnotify -c SYNO.SDS._ThirdParty.App.${app} @administrators ${app}:app:title ${app}:app:groupuser_error
+			synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:title ${app}:app:groupuser_error
 			exit 1
 		fi
 	done
@@ -53,15 +53,15 @@ function synogroupuser()
 	if [[ -z "${userexists}" && "${query}" == "adduser" ]]; then
 		updatelist+=(${user})
 		synogroup --member ${group} ${updatelist[@]}
-		synodsmnotify -c SYNO.SDS._ThirdParty.App.${app} @administrators ${app}:app:title ${app}:app:adduser_true
+		synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:title ${app}:app:adduser_true
 	elif [[ -n "${userexists}" && "${query}" == "adduser" ]]; then
-		synodsmnotify -c SYNO.SDS._ThirdParty.App.${app} @administrators ${app}:app:title ${app}:app:adduser_exists
+		synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:title ${app}:app:adduser_exists
 		exit 2
 	elif [[ -n "${userexists}" && "${query}" == "deluser" ]]; then
 		synogroup --member ${group} ${updatelist[@]}
-		synodsmnotify -c SYNO.SDS._ThirdParty.App.${app} @administrators ${app}:app:title ${app}:app:deluser_true
+		synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:title ${app}:app:deluser_true
 	elif [[ -z "${userexists}" && "${query}" == "deluser" ]]; then
-		synodsmnotify -c SYNO.SDS._ThirdParty.App.${app} @administrators ${app}:app:title ${app}:app:deluser_notexist
+		synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:title ${app}:app:deluser_notexist
 		exit 3
 	fi
 
@@ -91,7 +91,7 @@ function synogroupuser()
 			chmod 644 /usr/lib/udev/rules.d/99-autopilot.rules
 			/usr/bin/udevadm control --reload-rules
 
-			synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_enabled
+			synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_enabled
 		fi
 
 		# Autopilot ausschalten
@@ -99,7 +99,7 @@ function synogroupuser()
 			rm -f /usr/lib/udev/rules.d/99-autopilot.rules
 			/usr/bin/udevadm control --reload-rules
 
-			synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_disabled
+			synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_disabled
 		fi
 
 	fi

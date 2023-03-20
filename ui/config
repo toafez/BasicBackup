@@ -1,16 +1,19 @@
 {
-	".url": {
-		"SYNO.SDS._ThirdParty.App.BasicBackup": {
-			"title": "Basic Backup",
+	"BasicBackup.js": {
+		"SYNO.SDS.BasicBackup.Application": {
+			"type": "app",
+			"title": "BasicBackup",
+			"appWindow": "SYNO.SDS.BasicBackup.MainWindow",
 			"desc": "File-based rsync backup with optional versioning",
-			"icon": "images/icon_{0}.png",
-			"type": "url",
-			"url": "/webman/3rdparty/BasicBackup/index.cgi",
-			"allUsers": false,
+			"icon": "images\/icon_{0}.png",
+			"allowMultiInstance": false,
+			"allowStandalone": true,
+			"allowSharing": true,
+			"allUsers": true,
 			"grantPrivilege": "all",
 			"advanceGrantPrivilege": true,
-            "appWindow": "SYNO.SDS._ThirdParty.App.BasicBackup",
 			"texts": "texts",
+			"depend": ["SYNO.SDS.BasicBackup.MainWindow"],
 			"preloadTexts": [
 				"app:title",
 				"app:subtitle",
@@ -21,9 +24,10 @@
 				"app:autopilot_start",
 				"app:autopilot_stop_a",
 				"app:autopilot_stop_b",
-				"app:autopilot_warning_a",
-				"app:autopilot_warning_b",
-				"app:autopilot_warning_c",
+				"app:autopilot_stop_c",
+				"app:autopilot_stop_d",
+				"app:autopilot_alert_a",
+				"app:autopilot_alert_b",
 				"app:script_failed",
 				"app:job_failed",
 				"app:server_failed",
@@ -32,6 +36,14 @@
 				"app:job_successful",
 				"app:job_warning"
 				]
-		}
+		},
+		"SYNO.SDS.BasicBackup.MainWindow": {
+			"type": "lib",
+			"title": "BasicBackup",
+			"icon": "images\/icon_{0}.png",	
+			"texts": "texts",
+			"depend": ["SYNO.SDS.BasicBackup.Utils"]
+		},
+		"SYNO.SDS.BasicBackup.Utils": []
 	}
 }

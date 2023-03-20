@@ -1,6 +1,6 @@
 #!/bin/bash
 # Filename: rsync.sh - coded in utf-8
-script_version="0.7-210"
+script_version="0.7-250"
 
 #                       Basic Backup
 #
@@ -50,7 +50,7 @@ function ping_server ()
 		else
 			echo "${txt_server_ping_false}" | tee -a "${script_log}"
 			echo "$(timestamp) - [ ${jobname} ] ${txt_server_ping_false}" >> "${system_log}"
-			synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:title "${app}":app:server_failed
+			synodsmnotify -c SYNO.SDS.${app}.Application @administrators "${app}":app:title "${app}":app:server_failed
 			#exit
 		fi
 		is_online="false"
@@ -90,7 +90,7 @@ function wakeup_server ()
 		else
 			echo "${txt_server_wakeup_false}" | tee -a "${script_log}"
 			echo "$(timestamp) - [ ${jobname} ] ${txt_server_wakeup_false}" >> "${system_log}"
-			synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:title "${app}":app:server_failed
+			synodsmnotify -c SYNO.SDS.${app}.Application @administrators "${app}":app:title "${app}":app:server_failed
 			exit_code=1
 			#exit
 		fi
@@ -111,7 +111,7 @@ function connect_server ()
 	else
 		echo "${txt_server_disconnected}" | tee -a "${script_log}"
 		echo "$(timestamp) - [ ${jobname} ] ${txt_server_disconnected}" >> "${system_log}"
-		synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:title "${app}":app:server_failed
+		synodsmnotify -c SYNO.SDS.${app}.Application @administrators "${app}":app:title "${app}":app:server_failed
 		exit_code=1
 		#exit
 	fi
@@ -164,7 +164,7 @@ clear
 # ------------------------------------------------------------------------
 if [ "${whoami}" != "root" ]; then
 	echo "${txt_root_failed}"
-	synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:title "${app}":app:script_failed
+	synodsmnotify -c SYNO.SDS.${app}.Application @administrators "${app}":app:title "${app}":app:script_failed
 	exit_code=1
 	exit
 fi
@@ -181,7 +181,7 @@ for i in "$@" ; do
 			source "${backupjob}"
 			exit_code=0
 		else
-			synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:title "${app}":app:job_failed
+			synodsmnotify -c SYNO.SDS.${app}.Application @administrators "${app}":app:title "${app}":app:job_failed
 			echo "${txt_backupjob_false}"
 			exit_code=1
 			exit 1
@@ -213,7 +213,7 @@ if [ -f "${dir}/modules/parse_language.sh" ]; then
 	exit_code=0
 else
 	echo "${txt_backupjob_false}"
-	synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:title "${app}":app:job_failed
+	synodsmnotify -c SYNO.SDS.${app}.Application @administrators "${app}":app:title "${app}":app:job_failed
 	exit_code=1
 	exit
 fi
@@ -354,7 +354,7 @@ if [[ ${exit_code} -eq 0 ]]; then
 			else
 				echo "${txt_server_connection_false}" | tee -a "${script_log}"
 				echo "$(timestamp) - [ ${jobname} ] ${txt_server_connection_false}" >> "${system_log}"
-				synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:title "${app}":app:server_failed
+				synodsmnotify -c SYNO.SDS.${app}.Application @administrators "${app}":app:title "${app}":app:server_failed
 				exit_code=1
 			fi
 		fi
@@ -465,7 +465,7 @@ if [[ ${exit_code} -eq 0 ]]; then
 			echo "${txt_target_folder_false}" | tee -a "${script_log}"
 			echo "$(timestamp) - [ ${jobname} ] ${txt_target_folder_false}" >> "${system_log}"
 		fi
-		synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:title "${app}":app:target_failed
+		synodsmnotify -c SYNO.SDS.${app}.Application @administrators "${app}":app:title "${app}":app:target_failed
 		exit_code=1
 	fi
 	unset exit_mkdir
@@ -480,7 +480,7 @@ if [[ ${exit_code} -eq 0 ]]; then
 	# Notification that rsync data backup starts...
 	#---------------------------------------------------------------------
 	echo "${txt_rsync_loop_starts}" | tee -a "${script_log}"
-	synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:title "${app}":app:job_executed "${jobname}"
+	synodsmnotify -c SYNO.SDS.${app}.Application @administrators "${app}":app:title "${app}":app:job_executed "${jobname}"
 
 	#---------------------------------------------------------------------
 	# Configure RSync options
@@ -959,13 +959,13 @@ if [[ "${exit_code}" -eq 0 ]]; then
 	echo "${txt_line_separator}" | tee -a "${script_log}"
 	echo "$(timestamp) - ${txt_backupjob_success}" | tee -a "${script_log}"
 	echo "$(timestamp) - [ ${jobname} ] ${txt_backupjob_success}" >> "${system_log}"
-	synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:title "${app}":app:job_successful "${jobname}"
+	synodsmnotify -c SYNO.SDS.${app}.Application @administrators "${app}":app:title "${app}":app:job_successful "${jobname}"
 else
 	# Notification that the backup job contained errors
 	echo "${txt_line_separator}" | tee -a "${script_log}"
 	echo "$(timestamp) - ${txt_backupjob_warning}" | tee -a "${script_log}"
 	echo "$(timestamp) - [ ${jobname} ] ${txt_backupjob_warning}" >> "${system_log}"
-	synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:title "${app}":app:job_warning "${jobname}"
+	synodsmnotify -c SYNO.SDS.${app}.Application @administrators "${app}":app:title "${app}":app:job_warning "${jobname}"
 fi
 
 # --------------------------------------------------------------------

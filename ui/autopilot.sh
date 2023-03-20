@@ -145,7 +145,7 @@ if [[ "${connect}" == "true" ]] && [ -n "${mountpoint}" ]; then
 			echo "${txt_please_wait}" >> "${log}"
 			echo "" >> "${log}"
 			[[ "${signal}" == "true" ]] && signal_start
-			synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_start "${mountpoint}"
+			synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_start "${mountpoint}"
 
 			# Execute autopilot script
 			${mountpoint}/${scriptname}
@@ -190,19 +190,19 @@ if [[ "${connect}" == "true" ]] && [ -n "${mountpoint}" ]; then
 
 						echo "${txt_disk_was_ejected}" >> "${log}"
 						[[ "${signal}" == "true" ]] && signal_stop
-						synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_stop_a "${mountpoint}"
+						synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_stop_a "${mountpoint}"
 					else
 						# WARNING: Disk could not be ejected.
 						echo "${txt_disk_could_not_be_ejected}" >> "${log}"
 						echo "${txt_system_response}:~# ${umount_check}" >> "${log}"
 						[[ "${signal}" == "true" ]] && signal_warning
-						synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_warning_a "${mountpoint}"
+						synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_warning_a "${mountpoint}"
 					fi
 				else
 					# NOTE: Disk remains mounted
 					echo "${txt_disk_remains_mount}" >> "${log}"
 					[[ "${signal}" == "true" ]] && signal_stop
-					synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_stop_b "${mountpoint}"
+					synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_stop_b "${mountpoint}"
 				fi
 			else
 				# WARNING: Errors occurred during execution!
@@ -210,14 +210,14 @@ if [[ "${connect}" == "true" ]] && [ -n "${mountpoint}" ]; then
 				echo "${txt_exit_code_error}:~# ${exit_script}" >> "${log}"
 				echo "${txt_disk_remains_mount}" >> "${log}"
 				[[ "${signal}" == "true" ]] && signal_warning
-				synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_warning_b "${mountpoint}"
+				synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_warning_b "${mountpoint}"
 			fi
 		else
 			# WARNING: The autoilot script could not be executed!
 			echo "${txt_script_not_executed}" >> "${log}"
 			echo "➜ ${txt_script_check_rights}" >> "${log}"
 			[[ "${signal}" == "true" ]] && signal_warning
-			synodsmnotify -c SYNO.SDS._ThirdParty.App."${app}" @administrators "${app}":app:subtitle "${app}":app:autopilot_warning_c "${mountpoint}"
+			synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_warning_c "${mountpoint}"
 		fi
 		echo "${txt_line_separator}"  >> "${log}"
 		echo "$(timestamp) ${txt_autopilot_ends}" >> "${log}"
