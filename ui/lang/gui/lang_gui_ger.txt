@@ -104,6 +104,9 @@
 	txt_is_active="aktiviert"
 	txt_is_inactive="deaktiviert"
 
+	txt_source_shares="Freigegebene Ordner"
+	txt_target_share="Freigegebener Ordner"
+
 	txt_backupjob_runs="läuft..."
 	txt_update_job="Update verfügbar"
 	txt_update_job_run="Update ausführen"
@@ -112,16 +115,18 @@
 	txt_backup_log_title="Datensicherungsprotokoll"
 	txt_edit_job_title="Auftrag bearbeiten"
 	txt_local_diskstation="Lokale DiskStation"
+	txt_remote_diskstation="Remote DiskStation"
+	txt_remote_server="Remote rsync-Server"
 	txt_remote_pushserver="Push Backup zum Remote Server"
 	txt_remote_pullserver="Pull Backup vom Remote Server"
-	txt_backup_sources="Datensicherungsquelle(n)"
+	txt_backup_sources="Datensicherungsquelle"
 	txt_backup_target="Datensicherungsziel"
 	txt_versioning="Versionierung"
 	txt_versions="Tage werden gesicherte Daten im Versionsverlauf aufbewahrt"
 	txt_recycling="Papierkorb"
 	txt_recycle_inactive="Die Papierkorb Funktion steht bei einer Versionierung nicht zur Verfügung."
 	txt_recycle_false="Die Aufbewahrung zwischenzeitlich gelöschter Daten wurde deaktiviert."
-	txt_recycle_true="Tage werden zwischenzeitlich gelöschte Daten im Ordner <span class=\"text-secondary\">/@recycle</span> aufbewahrt."
+	txt_recycle_true="Tage werden zwischenzeitlich gelöschte Daten im Ordner /@recycle aufbewahrt."
 
 	txt_bash_code_note="Mit folgenden Befehlen lässt sich der Auftrag über den <span class=\"text-primary\">DSM Aufgabenplaner</span> oder über das Terminal Ihrer DiskStation als <strong>root</strong> ausführen."
 	#txt_bash_code_regular="Befehl zum ausführen des Auftrages"
@@ -353,3 +358,4 @@
 	txt_pilot_ext_gui_step_6="Werden Ihnen im Reiter <span class=\"text-danger fst-italic\">Berechtigung</span> mehrere Checkboxen angeboten, worüber Sie die <span class=\"text-danger fst-italic\">Lese-, Schreib- und Ausführberechtigung</span> für <span class=\"text-danger fst-italic\">Besitzer, Gruppe und Sonstige</span> festlegen können, dann stellen Sie sicher, das <span class=\"text-danger fst-italic\">alle</span> Checkboxen angehakt sind. Speichern Sie mögliche Änderungen im Anschluss über die Schaltfläche <span class=\"text-danger fst-italic\">Speichern</span>."
 	txt_pilot_ext_gui_step_7="Werden Ihnen im Reiter <span class=\"text-danger fst-italic\">Berechtigung</span> die grade genannten Checkboxen nicht angeboten, dann erstellen Sie über die Schaltfläche <span class=\"text-danger fst-italic\">Erstellen</span> eine neue Berechtigung. Wählen Sie aus dem Auswahlmenü unter dem Punkt <span class=\"text-danger fst-italic\">Benutzer oder Gruppe</span>, Everyone und unter dem Punkt <span class=\"text-danger fst-italic\">Typ</span>, Zulassen aus. Haken Sie unter dem Punkt <span class=\"text-danger fst-italic\">Berechtigungen</span> alle Checkboxen für <span class=\"text-danger fst-italic\">Administration, Lesen und Schreiben</span> an und klicken auf die Schaltfläche <span class=\"text-danger fst-italic\">Fertig</span>. Speichern Sie Ihre Änderungen im Anschluss über die Schaltfläche <span class=\"text-danger fst-italic\">Speichern</span>."
 	txt_pilot_ext_gui_step_8="Werfen Sie den externen Datenträger über den DSM aus. Beim nächsten anstecken des externen Datenträgers wird der Inhalt der grade erstellten Scriptdatei ausgeführt."
+

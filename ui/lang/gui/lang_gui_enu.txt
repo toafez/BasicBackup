@@ -104,6 +104,9 @@
 	txt_is_active="activated"
 	txt_is_inactive="disabled"
 
+	txt_source_shares="Shared folders"
+	txt_target_share="Shared folder"
+
 	txt_backupjob_runs="runs..."
 	txt_update_job="Update available"
 	txt_update_job_run="Run update"
@@ -112,10 +115,13 @@
 	txt_backup_log_title="Data Backup Log"
 	txt_edit_job_title="Edit Job"
 	txt_local_diskstation="Local DiskStation"
+	txt_remote_diskstation="Remote DiskStation"
+	txt_remote_server="Remote rsync-Server"
+	txt_local_diskstation="Local DiskStation"
 	txt_remote_pushserver="Push backup to remote server"
 	txt_remote_pullserver="Pull backup from remote server"
-	txt_backup_sources="Backup Source(s)"
-	txt_backup_target="Backup Target(s)"
+	txt_backup_sources="Backup Source"
+	txt_backup_target="Backup Target"
 	txt_versioning="Versioning"
 	txt_versions="days, saved data is kept in the version history"
 	txt_recycling="Recycle bin"
@@ -353,3 +359,4 @@
 	txt_pilot_ext_gui_step_6="If you are offered several check boxes on the <span class=\"text-danger fst-italic\">Permission</span> tab with which you can set the <span class=\"text-danger fst-italic\">read, write and execute</span> permission for <span class=\"text-danger fst-italic\">owner, group and others</span>, then make sure that <span class=\"text-danger fst-italic\">all</span> check boxes are activated. Then <span class=\"text-danger fst-italic\">save</span> all changes via the Save button."
 	txt_pilot_ext_gui_step_7="If the check boxes just mentioned are not offered on the <span class=\"text-danger fst-italic\">Permission</span> tab, create a new permission via the <span class=\"text-danger fst-italic\">Create</span> button. In the drop-down menu, under the item <span class=\"text-danger fst-italic\">User or Group</span>, select the option Everyone and under the item <span class=\"text-danger fst-italic\">Type</span>, select the option Allow. Under the item <span class=\"text-danger fst-italic\">Permissions</span>, activate all check boxes for <span class=\"text-danger fst-italic\">Administration, Read and Write</span> and click the <span class=\"text-danger fst-italic\">Done</span> button. Save your changes by clicking on the <span class=\"text-danger fst-italic\">Save</span> button."
 	txt_pilot_ext_gui_step_8="Eject the external data medium via the DSM. The next time the external data medium is plugged in, the contents of the script file just created are executed."
+

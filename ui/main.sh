@@ -111,11 +111,6 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 											if [[ "${rsyncd_status}" == "enabled" ]]; then
 												echo '
 												<li class="text-success">'${txt_rsync_service}' '${txt_is_active}' '${txt_rsync_port}' '${rsync_port_check}'</li>'
-												#if [[ "${rsync_account_check}" == "yes" ]]; then
-												#	echo '<li class="text-secondary">'${txt_rsync_account}' '${txt_is_active}'</li>'
-												#else
-												#	echo '<li class="text-secondary">'${txt_rsync_account}' '${txt_is_inactive}'</li>'
-												#fi
 											else
 												echo '
 												<li class="text-danger">'${txt_rsync_service}' '${txt_is_inactive}'</li>
@@ -199,6 +194,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 						</div>
 						<div class="row">
 							<div class="col">'
+
 								# Hinweis, das nur eingeschränkte Benutzerrechte vorhanden
 								# --------------------------------------------------------------
 								#if cat /etc/group | grep ^administrators | grep -q ${app_name} ; then
@@ -216,9 +212,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 											echo '
 										</ul>
 									</li>
-								</ul>'
-
-								echo '
+								</ul>
 							</div>
 						</div>
 					</div>
@@ -238,28 +232,6 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 				backupjob=$(echo "${backupconfig##*/}")
 				backupjob=$(echo "${backupjob%.*}")
 				logfile="${usr_logfiles}/${backupjob}.log"
-
-				# Einstellungen der Verbindungsart
-				# ------------------------------------------------------------------------
-
-				# Local settings
-				if [ -z "${var[sshpush]}" ] && [ -z "${var[sshpull]}" ]; then
-					sourceserver="${txt_local_diskstation}"
-					targetserver="${txt_local_diskstation}"
-				fi
-
-				# Push settings
-				if [ -n "${var[sshpush]}" ] && [ -z "${var[sshpull]}" ]; then
-					sourceserver="${txt_local_diskstation}"
-					targetserver="${txt_remote_pushserver} ${var[sshpush]}"
-				fi
-
-				# Pull settings
-				if [ -z "${var[sshpush]}" ] && [ -n "${var[sshpull]}" ]; then
-					sourceserver="${txt_remote_pullserver} ${var[sshpull]}"
-					targetserver="${txt_local_diskstation}"
-					serveraddress="${var[sshpull]}"
-				fi
 
 				# Überprüfen der Auftragsversionsstände
 				# ------------------------------------------------------------------------
@@ -334,165 +306,234 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 					<div id="collapse'${id}'" class="accordion-collapse collapse" aria-labelledby="heading'${id}'" data-bs-parent="#main-accordion">
 						<div class="accordion-body">
 							<div class="card-body bg-light">
-								<div class="row">
-									<div class="col-sm-12">'
+								<div class="row">'
 
-										# Datensicherungsquelle(n)
-										# --------------------------------------------------------------
+									# Datensicherungsquelle
+									# --------------------------------------------------------------
+									function backup_sources()
+									{
 										echo '
-										<ul class="list-unstyled">
-											<li class="text-dark list-style-square">'${txt_backup_sources}'
-												<ul class="list-unstyled ps-4">
-													<li class="text-success">'${sourceserver}'</li>'
-													IFS='&'
-													read -r -a sources <<< "${var[sources]}"
-													IFS="${backupIFS}"
-													for source in "${sources[@]}"; do
-														source=$(echo "${source}" | sed 's/^[ \t]*//;s/[ \t]*$//')
-														echo '<li class="text-secondary">'${source}'</li>'
-													done
-													unset source
-													echo '
-
-												</ul>
-											</li>
+										<span>'${txt_source_shares}'</span>
+										<ul class="list-unstyled ps-3">'
+											IFS='&'
+											read -r -a sources <<< "${var[sources]}"
+											IFS="${backupIFS}"
+											for source in "${sources[@]}"; do
+												source=$(echo "${source}" | sed 's/^[ \t]*//;s/[ \t]*$//')
+												echo '<li class="text-secondary">'${source}'</li>'
+											done
+											unset source
+											echo '
 										</ul>'
+									}
 
-										# Datensicherungsziel
-										# --------------------------------------------------------------
+									# Datensicherungsziel
+									# --------------------------------------------------------------
+									function backup_target()
+									{
 										echo '
-										<ul class="list-unstyled">
-											<li class="text-dark list-style-square">'${txt_backup_target}'
-												<ul class="list-unstyled ps-4">
-													<li class="text-success">'${targetserver}'</li>
-													<li class="text-secondary">'${var[target]}'</li>
-												</ul>
-											</li>
+										<span>'${txt_target_share}'</span>
+										<ul class="list-unstyled ps-3">
+											<li class="text-secondary">'${var[target]}'</li>
 										</ul>'
+									}
 
-										# Versionierung
-										# --------------------------------------------------------------
+									# Versionierung
+									# --------------------------------------------------------------
+									function target_versioning()
+									{
 										echo '
-										<ul class="list-unstyled">
-											<li class="text-dark list-style-square">'${txt_versioning}'
-												<ul class="list-unstyled ps-4">'
-													if [[ "${var[versioning]}" == "true" ]]; then
-														echo '<li class="text-success">'${var[versions]}' '${txt_versions}'</li>'
-													else
-														echo '<li class="text-danger">'${txt_versioning}' '${txt_is_inactive}'</li>'
-													fi
-													echo '
-												</ul>
-											</li>
+										<span>'${txt_versioning}'</span>
+										<ul class="list-unstyled ps-3">'
+											if [[ "${var[versioning]}" == "true" ]]; then
+												echo '<li class="text-secondary">'${var[versions]}' '${txt_versions}'</li>'
+											else
+												echo '<li class="text-danger">'${txt_versioning}' '${txt_is_inactive}'</li>'
+											fi
+											echo '
 										</ul>'
+									}
 
-										# Papierkorb Funktion
-										# --------------------------------------------------------------
+									# Papierkorb Funktion
+									# --------------------------------------------------------------
+									function target_recycle()
+									{
 										echo '
-										<ul class="list-unstyled">
-											<li class="text-dark list-style-square">'${txt_recycling}'
-												<ul class="list-unstyled ps-4">'
-													if [[ "${var[versioning]}" == "true" ]]; then
-														echo '<li class="text-danger">'${txt_recycle_inactive}'</li>'
-													else
-														if [[ "${var[recycle]}" -eq 0 ]]; then
-															echo '<li class="text-danger">'${txt_recycle_false}'</li>'
-														else
-															echo '<li class="text-success">'${var[recycle]}' '${txt_recycle_true}'</li>'
-														fi
-													fi
-													echo '
-												</ul>
-											</li>
+										<span>'${txt_recycling}'</span>
+										<ul class="list-unstyled ps-3">'
+											if [[ "${var[versioning]}" == "true" ]]; then
+												echo '<li class="text-danger">'${txt_recycle_inactive}'</li>'
+											else
+												if [[ "${var[recycle]}" -eq 0 ]]; then
+													echo '<li class="text-danger">'${txt_recycle_false}'</li>'
+												else
+													echo '<li class="text-secondary">'${var[recycle]}' '${txt_recycle_true}'</li>'
+												fi
+											fi
+											echo '
 										</ul>'
+									}
 
-										# Befehl zum ausführen des Auftrages über den DSM-Aufgabenplaner
-										# --------------------------------------------------------------
+									# Quell-Server
+									# --------------------------------------------------------------
+									echo '
+									<div class="col-sm-6 ps-4 pt-3">'
+										if [ -z "${var[sshpush]}" ] && [ -z "${var[sshpull]}" ]; then
+											echo '
+											<span class="fs-5">'${txt_backup_sources}'</span>
+											<ul class="list-unstyled ps-3">
+												<li class="text-success">'${txt_local_diskstation}'</li>
+											</ul>'
+											 backup_sources
+										elif [ -n "${var[sshpush]}" ]; then
+											echo '
+											<span class="fs-5">'${txt_backup_sources}'</span>
+											<ul class="list-unstyled ps-3">
+												<li class="text-success">'${txt_local_diskstation}'</li>
+											</ul>'
+											backup_sources
+										elif [ -n "${var[sshpull]}" ]; then 
+											echo '
+											<span class="fs-5">'${txt_backup_target}'</span>
+											<ul class="list-unstyled ps-3">
+												<li class="text-success">'${txt_local_diskstation}'</li>
+											</ul>'
+											backup_target
+											target_versioning
+											target_recycle
+										fi
 										echo '
-										<ul class="list-unstyled">
-											<li class="text-dark list-style-square">'${txt_job_step_title}'
-												<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#collapseJob" role="button" aria-expanded="false" aria-controls="collapseJob">
-													'${note}'
-												</a>'
+									</div>'
 
-												# Hinweise zum ausführen des Auftrages über den DSM-Aufgabenplaner
-												# --------------------------------------------------------------
-												echo '
-												<div class="collapse" id="collapseJob">
-													<div class="card card-body">
-														<ul class="text-secondary" style="list-style-type: none">
-															<li>
-																<ol>
-																	<li><small>'${txt_job_step_1}'</small></li>
-																	<li><small>'${txt_job_step_2}'</small></li>
-																	<li><small>'${txt_job_step_3}'</small></li>
-																	<li><small>'${txt_job_step_4}'</small></li>
-																	<li><small>'${txt_job_step_5}'</small></li>
-																	<li><small>'${txt_job_step_6}'</small></li>
-																</ol>
-															</li>
-														</ul>
-													</div><br />
-												</div>'
-
-												# An den Befehl anhängbare Optionsschalter
-												# --------------------------------------------------------------
-												echo '
-												<ul class="list-unstyled ps-4">
-													<li class="text-success pb-2"><br />
-														<pre class="text-dark p-2 border border-1 rounded bg-white">'
-															echo -n 'bash /usr/syno/synoman'${app_link}'/rsync.sh <span class="text-success">--job-name="<span class="text-dark">'${backupjob}'</span>"</span>'; \
-															[ -n "${var[sshpush]}" ] && echo -n '<span class="text-danger"> --chmod=ugo=rwX</span></pre>' || echo -n '</pre>'
-															echo -n '
-														</pre>
-													</li>
-													<li>
-														<span class="text-dark">'${txt_bash_code_option}'</span>
-														<dl class="row text-secondary">
-															<dt class="col-sm-3"><small class="font-monospace text-success pe-4">-j=</small><small class="font-monospace text-success">--job-name=</small></dt>
-															<dd class="col-sm-9 mb-0"><small>'${txt_bash_code_jobname}'</small></dd>
-															<dt class="col-sm-3"><small class="font-monospace pe-4">-n </small><small class="font-monospace">--dry-run</small></dt>
-															<dd class="col-sm-9 mb-0"><small>'${txt_bash_code_dryrun}'</small></dd>
-															<dt class="col-sm-3"><small class="font-monospace pe-4">-v </small></dt>
-															<dd class="col-sm-9 mb-0">
-																<small>'${txt_bash_code_rsync_v}'</small>'
-																if [ -n "${var[sshpull]}" ] || [ -n "${var[sshpush]}" ]; then
-																	echo '<br /><small>'${txt_bash_code_ssh_v}'</small>'
-																fi
-																echo '
-															</dd>
-															<dt class="col-sm-3"><small class="font-monospace pe-4">-vv</small></dt>
-															<dd class="col-sm-9 mb-0">
-																<small>'${txt_bash_code_rsync_vv}'</small>'
-																if [ -n "${var[sshpull]}" ] || [ -n "${var[sshpush]}" ]; then
-																	echo '<br /><small>'${txt_bash_code_ssh_vv}'</small>'
-																fi
-																echo '
-															</dd>
-															<dt class="col-sm-3"><small class="font-monospace pe-4">-vvv</small></dt>
-															<dd class="col-sm-9 mb-0">
-																<small>'${txt_bash_code_rsync_vvv}'</small>'
-																if [ -n "${var[sshpull]}" ] || [ -n "${var[sshpush]}" ]; then
-																	echo '<br /><small>'${txt_bash_code_ssh_vvv}'</small>'
-																fi
-																echo '
-															</dd>
-															<dt class="col-sm-3"><small class="font-monospace pe-4">-c= </small><small class="font-monospace">--chmod=</small></dt>
-															<dd class="col-sm-9 mb-0"><small>'${txt_bash_code_perms}'</small></dd>'
-															if [ -n "${var[sshpush]}" ]; then
-																echo '
-																<dt class="col-sm-3"><small class="font-monospace pe-4">&nbsp;&nbsp;&nbsp;</small><small class="font-monospace text-danger">--chmod=ugo=rwX</small></dt>
-																<dd class="col-sm-9 mb-0"><small>'${txt_bash_code_perms_push}'</small></dd>'
-															fi
-															echo '
-														</dl>
-													</li>
-												</ul>
-											</li>
-										</ul>'
+									# Ziel-Server
+									# --------------------------------------------------------------
+									echo '
+									<div class="col-sm-6 pe-4 pt-3">'
+										if [ -z "${var[sshpush]}" ] && [ -z "${var[sshpull]}" ]; then
+											echo '
+											<span class="fs-5">'${txt_backup_target}'</span>
+											<ul class="list-unstyled ps-3">
+												<li class="text-success">'${txt_local_diskstation}'</li>
+											</ul>'
+											backup_target
+											target_versioning
+											target_recycle
+										elif [ -n "${var[sshpush]}" ] && [[ "${var[target]}" == /volume* ]]; then
+											echo '
+											<span class="fs-5">'${txt_backup_target}'</span>
+											<ul class="list-unstyled ps-3">
+												<li class="text-success">'${txt_remote_diskstation}'</li>
+											</ul>'
+											backup_target
+											target_versioning
+											target_recycle
+										elif [ -n "${var[sshpull]}" ] && [[ "${var[sources]}" == */volume* ]]; then
+											echo '
+											<span class="fs-5">'${txt_backup_sources}'</span>
+											<ul class="list-unstyled ps-3">
+												<li class="text-success">'${txt_remote_diskstation}'</li>
+											</ul>'
+											backup_sources
+										else
+											echo '
+											<span class="fs-5">'${txt_backup_target}'</span>
+											<ul class="list-unstyled ps-3">
+												<li class="text-success">'${txt_remote_server}'</li>
+											</ul>'
+											backup_target
+											target_versioning
+											target_recycle
+										fi
 										echo '
-									</div>
+									</div>'
+									echo '
 								</div>
+								<div class="col-sm-12 ps-3 pt-3 pe-3">'
+									
+									# Befehl zum ausführen des Auftrages
+									# --------------------------------------------------------------
+									echo '
+									<span>'${txt_job_step_title}'
+										<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#collapseJob" role="button" aria-expanded="false" aria-controls="collapseJob">
+											'${note}'
+										</a>
+									</span>'
+
+									# Hinweise zum ausführen des Auftrages über den DSM-Aufgabenplaner
+									# --------------------------------------------------------------
+									echo '
+									<div class="collapse ps-3" id="collapseJob">
+										<div class="card card-body ps-1">
+											<ol class="text-secondary">
+												<li><small>'${txt_job_step_1}'</small></li>
+												<li><small>'${txt_job_step_2}'</small></li>
+												<li><small>'${txt_job_step_3}'</small></li>
+												<li><small>'${txt_job_step_4}'</small></li>
+												<li><small>'${txt_job_step_5}'</small></li>
+												<li><small>'${txt_job_step_6}'</small></li>
+											</ol>
+										</div><br />
+									</div>
+									<div class="form-group ps-3">'
+
+										# Befehl
+										# --------------------------------------------------------------
+										codeblock_1=$(echo 'bash /usr/syno/synoman'${app_link}'/rsync.sh --job-name="'${backupjob}'"')
+										codeblock_2=$([ -n "${var[sshpush]}" ] && echo '--chmod=ugo=rwX')
+
+										echo '
+										<div class="me-3">
+											<textarea class="form-control" style="font-family: Consolas,monaco,monospace; font-size: 0.9rem;" rows="2" readonly>'${codeblock_1}' '${codeblock_2}'</textarea>
+											<br />
+										</div>
+									</div>'
+
+									# Optionsschalter
+									# --------------------------------------------------------------
+									echo '
+									<span>'${txt_bash_code_option}'</span>
+									<div class="card card-body ms-3 me-3">
+										<dl class="row text-secondary">
+											<dt class="col-sm-3"><small class="font-monospace text-success pe-4">-j=</small><small class="font-monospace text-success">--job-name=</small></dt>
+											<dd class="col-sm-9 mb-0"><small>'${txt_bash_code_jobname}'</small></dd>
+											<dt class="col-sm-3"><small class="font-monospace pe-4">-n </small><small class="font-monospace">--dry-run</small></dt>
+											<dd class="col-sm-9 mb-0"><small>'${txt_bash_code_dryrun}'</small></dd>
+											<dt class="col-sm-3"><small class="font-monospace pe-4">-v </small></dt>
+											<dd class="col-sm-9 mb-0">
+												<small>'${txt_bash_code_rsync_v}'</small>'
+												if [ -n "${var[sshpull]}" ] || [ -n "${var[sshpush]}" ]; then
+													echo '<br /><small>'${txt_bash_code_ssh_v}'</small>'
+												fi
+												echo '
+											</dd>
+											<dt class="col-sm-3"><small class="font-monospace pe-4">-vv</small></dt>
+											<dd class="col-sm-9 mb-0">
+												<small>'${txt_bash_code_rsync_vv}'</small>'
+												if [ -n "${var[sshpull]}" ] || [ -n "${var[sshpush]}" ]; then
+													echo '<br /><small>'${txt_bash_code_ssh_vv}'</small>'
+												fi
+												echo '
+											</dd>
+											<dt class="col-sm-3"><small class="font-monospace pe-4">-vvv</small></dt>
+											<dd class="col-sm-9 mb-0">
+												<small>'${txt_bash_code_rsync_vvv}'</small>'
+												if [ -n "${var[sshpull]}" ] || [ -n "${var[sshpush]}" ]; then
+													echo '<br /><small>'${txt_bash_code_ssh_vvv}'</small>'
+												fi
+												echo '
+											</dd>
+											<dt class="col-sm-3"><small class="font-monospace pe-4">-c= </small><small class="font-monospace">--chmod=</small></dt>
+											<dd class="col-sm-9 mb-0"><small>'${txt_bash_code_perms}'</small></dd>'
+											if [ -n "${var[sshpush]}" ]; then
+												echo '
+												<dt class="col-sm-3"><small class="font-monospace pe-4">&nbsp;&nbsp;&nbsp;</small><small class="font-monospace text-danger">--chmod=ugo=rwX</small></dt>
+												<dd class="col-sm-9 mb-0"><small>'${txt_bash_code_perms_push}'</small></dd>'
+											fi
+											echo '
+										</dl>
+									</div>	
+								</div>
+								<p>&nbsp;</p>
 							</div>
 						</div>
 					</div>
