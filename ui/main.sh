@@ -462,7 +462,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 									# Hinweise zum ausführen des Auftrages über den DSM-Aufgabenplaner
 									# --------------------------------------------------------------
 									echo '
-									<div class="collapse ps-3" id="collapseJob">
+									<div class="collapse ps-3 me-3" id="collapseJob">
 										<div class="card card-body ps-1">
 											<ol class="text-secondary">
 												<li><small>'${txt_job_step_1}'</small></li>
