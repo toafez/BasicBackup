@@ -135,6 +135,10 @@
 	usr_settings="${app_home}/usersettings"
 	[ ! -d "${usr_settings}" ] && mkdir -p -m 755 "${usr_settings}"
 
+	# Ordner für eCryptfs Schlüsseldateien einrichten
+	usr_secrets="${usr_settings}/.secrets"
+	[ ! -d "${usr_secrets}" ] && mkdir -p -m 700 "${usr_secrets}"
+
 	# Ordner für Backupaufträge einrichten
 	usr_backupjobs="${usr_settings}/backupjobs"
 	[ ! -d "${usr_backupjobs}" ] && mkdir -p -m 755 "${usr_backupjobs}"
