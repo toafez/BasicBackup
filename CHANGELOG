@@ -3,10 +3,14 @@ Basic Backup Release Notes
 Version 0.7-
 
  - Deutsch
+    - Update Bootstrap Framework auf 5.3.0
+    - Update Bootstrap JavaScript auf 5.3.0
     - In der Auftragsübersicht wurde das aufklappbare Menü eines jeden Auftrages neu formatiert.  
 
  - Englisch
-    - - In the job overview, the drop-down menu of each job has been reformatted.
+    - Update Bootstrap Framework to 5.3.0
+    - Update Bootstrap JavaScript to 5.3.0
+    - In the job overview, the drop-down menu of each job has been reformatted.
 
 
 Version 0.7-250 vom 20.03.2023
