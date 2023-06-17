@@ -7,6 +7,7 @@ Version 0.7-
     - Update Bootstrap JavaScript auf 5.3.0
     - Update Bootsrap Icons auf 1.10.5
     - Update jQuery auf 3.7.0
+    - Kleinere Codeoptimierungen in der BasicBackup.js vorgenommen.
     - In der Auftragsübersicht wurde das aufklappbare Menü eines jeden Auftrages neu formatiert.  
 
  - Englisch
@@ -14,6 +15,7 @@ Version 0.7-
     - Update Bootstrap JavaScript to 5.3.0
     - Update Bootsrap Icons to 1.10.5
     - Update jQuery to 3.7.0
+    - Made minor code optimizations in BasicBackup.js
     - In the job overview, the drop-down menu of each job has been reformatted.
 
 
