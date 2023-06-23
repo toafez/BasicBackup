@@ -25,7 +25,6 @@
 # Globale Sprachvariablen
 # --------------------------------------------------------------
 	#txtAppTitle="Basic Backup für DSM 7"
-	txt_alert_only_admin="Der Zugriff auf die Inhalte von ${app_title} ist nur Benutzern aus der Gruppe der Administratoren gestattet."
 	txt_update_available="<span class=\"text-danger\">Ein neues Update ist auf GitHub verfügbar.</span></br >Bitte aktualisiere deine Backup Basic Version ${local_version} auf die Version"
 
 	txt_link_note="Hinweis"
