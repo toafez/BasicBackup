@@ -1430,7 +1430,6 @@ echo '
 						if [ ! -f "${logtarget}" ]; then
 							touch "${logtarget}"
 							chmod 0755 "${logtarget}"
-							#chown "${syno_user}":"${app_name}" "${logtarget}"
 						fi
 
 						# Konfigurationsdatei erstellen
@@ -1557,7 +1556,6 @@ echo '
 						#"${set_keyvalue}" "${scripttarget}" "var[exclude]" "${var[exclude]}"
 
 						chmod 0755 ${scripttarget}
-						#chown ${syno_user}:${app_name} ${var[scripttarget]}
 
 
 						if [ ! -f "${scripttarget}" ]; then
