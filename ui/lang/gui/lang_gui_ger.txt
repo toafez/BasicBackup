@@ -77,8 +77,8 @@
 # debug.sh
 # --------------------------------------------------------------
 	txt_debug_title="Debug-Modus - Optionen zur Fehleranalyse"
-	txt_debug_mode_on="Debug-Modus einschalten"
-	txt_debug_mode_off="Debug-Modus ausschalten"
+	txt_debug_mode_on="Debugging Konsole einschalten"
+	txt_debug_mode_off="Debugging Konsole ausschalten"
 	txt_debug_membership="Gruppenmitgliedschaft(en) der App"
 	txt_debug_requests="GET & POST Anfragemethoden"
 	txt_debug_get="GET Request Methode"
