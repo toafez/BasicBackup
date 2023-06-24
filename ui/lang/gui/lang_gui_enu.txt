@@ -25,6 +25,7 @@
 # Globale Sprachvariablen
 # --------------------------------------------------------------
 	#txtAppTitle="Basic Backup für DSM 7"
+	txt_alert_only_admin="Access to the contents of ${app_title} is only permitted to users from the administrators group."
 	txt_update_available="<span class=\"text-danger\">A new update is available on GitHub.</span></br >Please update your Backup Basic version ${local_version} to version"
 
 	txt_link_note="Note"
@@ -55,6 +56,7 @@
 	txt_link_settings="System Settings"
 	txt_link_recovery="Backup and Restore"
 	txt_link_autopilot="USB/SATA AutoPilot"
+	txt_link_debug="Debug mode"
 	txt_link_help_ssh_local="<strong>SSH:</strong> 1. Set up SSH on this DiskStation"
 	txt_link_help_ssh_remote="<strong>SSH:</strong> 2. Set up SSH on a remote server"
 	txt_link_help_ssh_rsa="<strong>SSH:</strong> 3. SSH Handshake and RSA Exchange"
@@ -71,6 +73,17 @@
 	txt_group_status="App Permission Status"
 	txt_group_status_true="${app_title} has extended system permissions"
 	txt_group_status_false="${app_title} only has limited permissions."
+
+# debug.sh
+# --------------------------------------------------------------
+	txt_debug_title="Debug Mode - Error Analysis Options"
+	txt_debug_mode_on="Enable debug mode".
+	txt_debug_mode_off="Disable debug mode"
+	txt_debug_membership="Group membership(s) of the app"
+	txt_debug_requests="GET & POST request methods"
+	txt_debug_get="GET Request Method"
+	txt_debug_post="POST Request Method"
+	txt_debug_global="Global Environment Variables"
 
 # main.sh
 # --------------------------------------------------------------

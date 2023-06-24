@@ -21,12 +21,6 @@
 # have received a copy of the GNU General Public  License  along
 # with this program. If not, see http://www.gnu.org/licenses/  !
 
-# Debug - Error analysis options
-# --------------------------------------------------------------
-# Basic Backup mit rechter Maustaste im neuen Fenster öffnen
-#
-# Optionen ein: index.cgi?page=debug&section=start&expert=on
-# Optionen aus: index.cgi?page=debug&section=start&expert=off
 
 # System initiieren
 # --------------------------------------------------------------
@@ -121,7 +115,6 @@
 	if [ ! -f "${usr_systemlog}" ]; then
 		touch "${usr_systemlog}"
 		chmod 777 "${usr_systemlog}"
-		chown "${app_name}":"${app_name}" "${usr_systemlog}"
 	fi
 
 	# Konfigurationsdatei für Debug Modus einrichten
@@ -129,7 +122,6 @@
 	if [ ! -f "${usr_debugfile}" ]; then
 		touch "${usr_debugfile}"
 		chmod 777 "${usr_debugfile}"
-		chown "${app_name}":"${app_name}" "${usr_debugfile}"
 	fi
 	[ -f "${usr_debugfile}" ] && source "${usr_debugfile}"
 
@@ -138,7 +130,6 @@
 	if [ ! -f "${usr_autoconfig}" ]; then
 		touch "${usr_autoconfig}"
 		chmod 777 "${usr_autoconfig}"
-		chown "${app_name}":"${app_name}" "${usr_autoconfig}"
 	fi
 	[ -f "${usr_autoconfig}" ] && source "${usr_autoconfig}"
 
@@ -283,6 +274,7 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 											<ul class="dropdown-menu dropdown-menu-sm-end" aria-labelledby="navDropdown">
 												<li><a class="dropdown-item" href="index.cgi?page=autoconfig&section=start">'${txt_link_usbautopilot}'</a></li>
 												<li><a class="dropdown-item" href="index.cgi?page=recovery&section=start">'${txt_link_recovery}'</a></li>
+												<li><a class="dropdown-item" href="index.cgi?page=debug&section=start">'${txt_link_debug}'</a></li>
 											</ul>
 										</li>
 
@@ -357,65 +349,77 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 							echo 'Page '${get[page]}''${var[page]}'.sh not found!'
 						fi
 
-						# Debug - HTTP GET und POST Anfragen
-						if [[ "$http_requests" == "on" ]]; then
+						# Debugging
+						if [[ "${debugging}" == "on" ]]; then
 							echo '
-							<div class="row">
-								<div class="col">
-									<strong>GET requests</strong>
-									<pre>'; cat ${get_request}; echo '</pre>
-									<strong>POST requests</strong>
-									<pre>'; cat ${post_request}; echo '</pre>
+							<p>&nbsp;</p>
+							<div class="card mb-3">
+								<div class="card-header">
+									<i class="bi-icon bi-bug text-secondary float-start" style="cursor: help;" title="Debug"></i>
+									<span class="text-secondary">&nbsp;&nbsp;<b>Debug</b></span>
 								</div>
-							</div>'
-						fi
+								<div class="card-body pb-0">'
+									if [ -z "${group_membership}" ] && [ -z "${http_requests}" ] && [ -z "${global_enviroment}"]; then
+										echo "<p>Bitte wählen Sie eine oder mehrere Debug Optionen aus der Liste aus!</p>"
+									fi
 
-						# Debug - Lokale Umgebung
-						if [[ "$local_enviroment" == "on" ]]; then
-							echo '
-							<div class="row">
-								<div class="col">
-									<strong>Local Enviroment</strong><br />
-									login_result='${login_result}'<br />
-									login_success='${login_success}'<br />
-								</div>
-							</div>
-							<br />'
-						fi
+									# Gruppenmitgliedschaften der App
+									if [[ "${group_membership}" == "on" ]]; then
+										echo '
+										<ul class="list-unstyled">
+											<li class="text-dark list-style-square"><strong>'${txt_debug_membership}'</strong>
+												<ul class="list-unstyled ps-3">'
+													if cat /etc/group | grep ^${app_name} | grep -q ${app_name} ; then
+														echo ''${app_name}'<br />'
+													fi
+													if cat /etc/group | grep ^system | grep -q ${app_name} ; then
+														echo 'system<br />'
+													fi
+													if cat /etc/group | grep ^administrators | grep -q ${app_name} ; then
+														echo 'administrators<br />'
+													fi
+													if cat /etc/group | grep ^log | grep -q ${app_name} ; then
+														echo 'log<br />'
+													fi
+													echo '
+												</ul>
+											</li>
+										</ul>'
+									fi
 
-						# Debug - Gruppenmitgliedschaften der App
-						if [[ "$group_membership" == "on" ]]; then
-							echo '
-							<div class="row">
-								<div class="col">
-									<strong>Group membership</strong></br />'
-									if cat /etc/group | grep ^${app_name} | grep -q ${app_name} ; then
-										echo ''${app_name}'<br />'
+									# GET und POST Requests
+									if [[ "${http_requests}" == "on" ]]; then
+										echo '
+										<ul class="list-unstyled">
+											<li class="text-dark list-style-square"><strong>'${txt_debug_get}'</strong>
+												<ul class="list-unstyled ps-3">
+													<pre>'; cat ${get_request}; echo '</pre>
+												</ul>
+											</li>
+											<li class="text-dark list-style-square"><strong>'${txt_debug_post}'</strong>
+												<ul class="list-unstyled ps-3">
+													<pre>'; cat ${post_request}; echo '</pre>
+												</ul>
+											</li>
+										</ul>'
 									fi
-									if cat /etc/group | grep ^system | grep -q ${app_name} ; then
-										echo 'system<br />'
-									fi
-									if cat /etc/group | grep ^administrators | grep -q ${app_name} ; then
-										echo 'administrators<br />'
-									fi
-									if cat /etc/group | grep ^log | grep -q ${app_name} ; then
-										echo 'log<br />'
+
+									# Globale Umgebung
+									if [[ "${global_enviroment}" == "on" ]]; then
+										echo '
+										<ul class="list-unstyled">
+											<li class="text-dark list-style-square"><strong>'${txt_debug_global}'</strong>
+												<ul class="list-unstyled ps-3">
+													<pre>'; (set -o posix ; set | sed '/txt.*/d;'); echo '</pre>
+												</ul>
+											</li>
+										</ul>'
 									fi
 									echo '
 								</div>
+								<!-- card-body -->
 							</div>
-							<br />'
-						fi
-
-						# Debug - Globale Umgebung
-						if [[ "$global_enviroment" == "on" ]]; then
-							echo '
-							<div class="row">
-								<div class="col">
-									<strong>Global Enviroment</strong>
-									<pre>'; (set -o posix ; set | sed '/txt.*/d;'); echo '</pre>
-								</div>
-							</div>'
+							<!-- card -->'
 						fi
 					echo '
 				</div>
