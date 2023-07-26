@@ -4,17 +4,17 @@ Version 0.7-450 vom 26.07.2023
 
  - Deutsch
 	- Update Bootstrap Framework auf 5.3.1
-    - Update Bootstrap JavaScript auf 5.3.1
+	- Update Bootstrap JavaScript auf 5.3.1
 	- Befindet sich das Datensicherungsziel in einem, über den DSM erstellten verschlüsselten Ordner, wird während der Auftragsausführung überprüft, ob dieser angehängt ist oder nicht. Sollte der verschlüsselte Ordner getrennt sein, wird der Auftrag abgebrochen.
 	- Wird ein Pull- oder Pushbackup von oder zu einem Remote-Server ausgeführt, wird im Aufklappmenü des Auftrages die URL bzw. die IP-Adresse des Remote-Servers angezeigt. 
-    - Weitere kleinere Fehler behoben 
+	- Weitere kleinere Fehler behoben 
 
 - Englisch
-    - Update Bootstrap Framework to 5.3.1
-    - Update Bootstrap JavaScript to 5.3.1
+	- Update Bootstrap Framework to 5.3.1
+	- Update Bootstrap JavaScript to 5.3.1
 	- If the backup target is located in an encrypted folder created by the DSM, it is checked during the job execution whether this folder is attached or not. If the encrypted folder is disconnected, the job will be aborted.
 	- If a pullbackup or pushbackup is performed from or to a remote server, the URL or IP address of the remote server is displayed in the job pop-up menu. 
-    - Other minor bugs fixed
+	- Other minor bugs fixed
 
 
 Version 0.7-400 vom 24.06.2023
