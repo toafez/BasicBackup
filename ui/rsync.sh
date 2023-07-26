@@ -1,6 +1,6 @@
 #!/bin/bash
 # Filename: rsync.sh - coded in utf-8
-script_version="0.7-250"
+script_version="0.7-450"
 
 #                       Basic Backup
 #
@@ -50,7 +50,7 @@ function ping_server ()
 		else
 			echo "${txt_server_ping_false}" | tee -a "${script_log}"
 			echo "$(timestamp) - [ ${jobname} ] ${txt_server_ping_false}" >> "${system_log}"
-			synodsmnotify -c SYNO.SDS.${app}.Application @administrators "${app}":app:title "${app}":app:server_failed
+			synodsmnotify -c SYNO.SDS."${app}".Application @administrators "${app}":app:title "${app}":app:server_failed
 			#exit
 		fi
 		is_online="false"
@@ -90,7 +90,7 @@ function wakeup_server ()
 		else
 			echo "${txt_server_wakeup_false}" | tee -a "${script_log}"
 			echo "$(timestamp) - [ ${jobname} ] ${txt_server_wakeup_false}" >> "${system_log}"
-			synodsmnotify -c SYNO.SDS.${app}.Application @administrators "${app}":app:title "${app}":app:server_failed
+			synodsmnotify -c SYNO.SDS."${app}".Application @administrators "${app}":app:title "${app}":app:server_failed
 			exit_code=1
 			#exit
 		fi
@@ -111,7 +111,7 @@ function connect_server ()
 	else
 		echo "${txt_server_disconnected}" | tee -a "${script_log}"
 		echo "$(timestamp) - [ ${jobname} ] ${txt_server_disconnected}" >> "${system_log}"
-		synodsmnotify -c SYNO.SDS.${app}.Application @administrators "${app}":app:title "${app}":app:server_failed
+		synodsmnotify -c SYNO.SDS."${app}".Application @administrators "${app}":app:title "${app}":app:server_failed
 		exit_code=1
 		#exit
 	fi
@@ -164,7 +164,7 @@ clear
 # ------------------------------------------------------------------------
 if [ "${whoami}" != "root" ]; then
 	echo "${txt_root_failed}"
-	synodsmnotify -c SYNO.SDS.${app}.Application @administrators "${app}":app:title "${app}":app:script_failed
+	synodsmnotify -c SYNO.SDS."${app}".Application @administrators "${app}":app:title "${app}":app:script_failed
 	exit_code=1
 	exit
 fi
@@ -181,7 +181,7 @@ for i in "$@" ; do
 			source "${backupjob}"
 			exit_code=0
 		else
-			synodsmnotify -c SYNO.SDS.${app}.Application @administrators "${app}":app:title "${app}":app:job_failed
+			synodsmnotify -c SYNO.SDS."${app}".Application @administrators "${app}":app:title "${app}":app:job_failed
 			echo "${txt_backupjob_false}"
 			exit_code=1
 			exit 1
@@ -213,7 +213,7 @@ if [ -f "${dir}/modules/parse_language.sh" ]; then
 	exit_code=0
 else
 	echo "${txt_backupjob_false}"
-	synodsmnotify -c SYNO.SDS.${app}.Application @administrators "${app}":app:title "${app}":app:job_failed
+	synodsmnotify -c SYNO.SDS."${app}".Application @administrators "${app}":app:title "${app}":app:job_failed
 	exit_code=1
 	exit
 fi
@@ -354,7 +354,7 @@ if [[ ${exit_code} -eq 0 ]]; then
 			else
 				echo "${txt_server_connection_false}" | tee -a "${script_log}"
 				echo "$(timestamp) - [ ${jobname} ] ${txt_server_connection_false}" >> "${system_log}"
-				synodsmnotify -c SYNO.SDS.${app}.Application @administrators "${app}":app:title "${app}":app:server_failed
+				synodsmnotify -c SYNO.SDS."${app}".Application @administrators "${app}":app:title "${app}":app:server_failed
 				exit_code=1
 			fi
 		fi
@@ -367,19 +367,22 @@ fi
 # ------------------------------------------------------------------------
 if [[ ${exit_code} -eq 0 ]]; then
 
+	# Escape white spaces with backslash from ${var[target]} and rename variable
+	target=$(echo ${var[target]} | sed -e 's/ /\ /g')
+
 	# If the connectiontype is local or sshpull
 	if [[ "${connectiontype}" == "local" ]] || [[ "${connectiontype}" == "sshpull" ]]; then
 
 		# If the backup destination is on a USB data carrier, check the mount point and adjust it if necessary
-		if [[ "${var[target]}" == /volumeUSB*/usbshare* ]] || [[ "${var[target]}" == /volumeSATA*/satashare* ]]; then
+		if [[ "${target}" == /volumeUSB*/usbshare* ]] || [[ "${target}" == /volumeSATA*/satashare* ]]; then
 			echo "${txt_target_folder_on_usb}" | tee -a "${script_log}"
 
 			if [[ "${var[uuidcheck]}" == "true" ]]; then
 				echo "${txt_target_folder_check_uuid}" | tee -a "${script_log}"
 
-				# Split the original var[target] into volume and share
-				old_mountpoint=$(echo "${var[target]}" | cut -d'/' -f1-3)
-				targetfolder=$(echo "${var[target]}" | cut -d'/' -f4-)
+				# Split the original ${target} into volume and share
+				old_mountpoint=$(echo "${target}" | cut -d'/' -f1-3)
+				targetfolder=$(echo "${target}" | cut -d'/' -f4-)
 
 				# Evaluates the mount points of all connected USB data carriers
 				mnts=( /volumeUSB* /volumeSATA* )
@@ -402,7 +405,7 @@ if [[ ${exit_code} -eq 0 ]]; then
 						# If the original UUID matches the determined UUID, set the determined mount point if necessary
 						if [[ "${uuid}" == "${var[uuid]}" ]]; then
 							if [[ "${old_mountpoint}" != "${new_mountpoint}" ]]; then
-								var[target]="${new_mountpoint}/${targetfolder}"
+								target="${new_mountpoint}/${targetfolder}"
 								echo "${txt_target_folder_mountpoint_changed}" | tee -a "${script_log}"
 								echo "${txt_target_folder_org_mnt} [ ${old_mountpoint} ]" | tee -a "${script_log}"
 								echo "${txt_target_folder_new_mnt} [ ${new_mountpoint} ]" | tee -a "${script_log}"
@@ -419,8 +422,8 @@ if [[ ${exit_code} -eq 0 ]]; then
 				done <<< "$( find "${mnts[@]}" -maxdepth 0 -type d 2>/dev/null )"
 				unset volume share old_mountpoint targetfolder new_mountpoint mountpoint device uuid label type
 			else
-				# Split the original var[target] into volume
-				mountpoint=$(echo "${var[target]}" | cut -d'/' -f1-3)
+				# Extract mountpoint from ${target}
+				mountpoint=$(echo "${target}" | cut -d'/' -f1-3)
 
 				echo "${txt_target_folder_check_mountpoint}" | tee -a "${script_log}"
 
@@ -434,17 +437,39 @@ if [[ ${exit_code} -eq 0 ]]; then
 			fi
 		fi
 
-		if [ ! -d "${var[target]}" ] && [[ ${exit_code} -eq 0 ]]; then
-			mkdir -p "${var[target]}"
-			exit_mkdir=${?}
+		# Extract volume label and shared folder name from ${target}
+		shared_folder=$(echo "${target}" | cut -d'/' -f1-3)
+
+		# Generate an encrypted share name from ${shared_folder} 
+		encrypted_shared_folder=$(echo "${shared_folder}" | sed 's/\/\([^/]*\)$/\/@\1/' | sed 's/\\//g;s/$/@/')
+
+		# Check if an encrypted target folder exists
+		if [ -d "${encrypted_shared_folder}" ]; then
+			echo "${txt_target_folder_crypt_check}" | tee -a "${script_log}"
+
+			# Check if the encrypted target folder is already mounted
+        	if [[ "$(/bin/mount -t ecryptfs | grep "${shared_folder}" | wc -c)" -ne 0 ]]; then
+				echo "${txt_target_folder_crypt_mount}" | tee -a "${script_log}"
+				exit_crypt=1
+			else
+				echo "${txt_target_folder_crypt_unmount}" | tee -a "${script_log}"
+				exit_crypt=2
+			fi
+		else
+			exit_crypt=0
 		fi
+
+		if [ ! -d "${target}" ] && [[ ${exit_crypt} -eq 0 ]] && [[ ${exit_code} -eq 0 ]]; then
+			mkdir -p "${target}"
+			exit_mkdir=${?}
+		elif [[ ${exit_crypt} -eq 2 ]]; then
+			exit_mkdir=1
+		fi
+
 	fi
 
 	# If the connectiontype is sshpush
 	if [[ "${connectiontype}" == "sshpush" ]]; then
-
-		# Escape white spaces with backslash
-		target=$(echo ${var[target]} | sed -e 's/ /\ /g')
 
 		if ${ssh} test ! -d "'${target}'"; then
 			${ssh} "mkdir -p -m u+X '${target}'"
@@ -461,14 +486,18 @@ if [[ ${exit_code} -eq 0 ]]; then
 			echo "${txt_target_folder_mountpoint_false}" | tee -a "${script_log}"
 			echo "$(timestamp) - [ ${jobname} ] ${txt_target_folder_mountpoint_false}" >> "${system_log}"
 		fi
+		if [[ ${exit_crypt} -eq 2 ]]; then
+			echo "${txt_target_folder_crypt_false}" | tee -a "${script_log}"
+			echo "$(timestamp) - [ ${jobname} ] ${txt_target_folder_false}" >> "${system_log}"
+		fi
 		if [[ ${exit_mkdir} -ne 0 ]]; then
 			echo "${txt_target_folder_false}" | tee -a "${script_log}"
 			echo "$(timestamp) - [ ${jobname} ] ${txt_target_folder_false}" >> "${system_log}"
 		fi
-		synodsmnotify -c SYNO.SDS.${app}.Application @administrators "${app}":app:title "${app}":app:target_failed
+		synodsmnotify -c SYNO.SDS."${app}".Application @administrators "${app}":app:title "${app}":app:target_failed
 		exit_code=1
 	fi
-	unset exit_mkdir
+	unset exit_crypt exit_mkdir
 fi
 
 # ------------------------------------------------------------------------
@@ -480,7 +509,7 @@ if [[ ${exit_code} -eq 0 ]]; then
 	# Notification that rsync data backup starts...
 	#---------------------------------------------------------------------
 	echo "${txt_rsync_loop_starts}" | tee -a "${script_log}"
-	synodsmnotify -c SYNO.SDS.${app}.Application @administrators "${app}":app:title "${app}":app:job_executed "${jobname}"
+	synodsmnotify -c SYNO.SDS."${app}".Application @administrators "${app}":app:title "${app}":app:job_executed "${jobname}"
 
 	#---------------------------------------------------------------------
 	# Configure RSync options
@@ -959,13 +988,13 @@ if [[ "${exit_code}" -eq 0 ]]; then
 	echo "${txt_line_separator}" | tee -a "${script_log}"
 	echo "$(timestamp) - ${txt_backupjob_success}" | tee -a "${script_log}"
 	echo "$(timestamp) - [ ${jobname} ] ${txt_backupjob_success}" >> "${system_log}"
-	synodsmnotify -c SYNO.SDS.${app}.Application @administrators "${app}":app:title "${app}":app:job_successful "${jobname}"
+	synodsmnotify -c SYNO.SDS."${app}".Application @administrators "${app}":app:title "${app}":app:job_successful "${jobname}"
 else
 	# Notification that the backup job contained errors
 	echo "${txt_line_separator}" | tee -a "${script_log}"
 	echo "$(timestamp) - ${txt_backupjob_warning}" | tee -a "${script_log}"
 	echo "$(timestamp) - [ ${jobname} ] ${txt_backupjob_warning}" >> "${system_log}"
-	synodsmnotify -c SYNO.SDS.${app}.Application @administrators "${app}":app:title "${app}":app:job_warning "${jobname}"
+	synodsmnotify -c SYNO.SDS."${app}".Application @administrators "${app}":app:title "${app}":app:job_warning "${jobname}"
 fi
 
 # --------------------------------------------------------------------

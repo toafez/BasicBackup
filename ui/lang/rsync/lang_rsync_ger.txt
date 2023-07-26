@@ -73,6 +73,10 @@ txt_target_folder_mountpoint_match="Der Einhängepunkt und die Geräte UUID stim
 txt_target_folder_localized="Der Einhängepunkt des USB/SATA-Datenträgers wurde lokalisiert."
 txt_target_folder_nolocalized="Der Einhängepunkt des USB/SATA-Datenträgers konnte nicht lokalsiert werden!"
 txt_target_folder_mountpoint_false="WARNUNG: Die Geräte UUID konnte keinen, lokal angeschlossenen USB/SATA-Datenträger zugeordnet werden!"
+txt_target_folder_crypt_check="Bei dem Zielordner handelt es sich um einen verschlüsselten freigegebenen Ordner"
+txt_target_folder_crypt_mount="Der Bereitstellungsstatus des verschlüsselten freigegebenen Ordners lautet [ Angehängt ]"
+txt_target_folder_crypt_unmount="Der Bereitstellungsstatus des verschlüsselten freigegebenen Ordners lautet [ Getrennt ]"
+txt_target_folder_crypt_false="Der Zugriff auf einen getrennten, verschlüsselten freigegebenen Zielordner wird nicht unterstützt"
 txt_target_folder_true="Das Datensicherungsziel wurde lokalisiert."
 txt_target_folder_false="WARNUNG: Der Zielordner konnte nicht erstellt werden."
 
@@ -129,3 +133,4 @@ txt_email_fail="Das Versenden des Datensicherungsprotokolls per E-Mail ist fehlg
 
 
 txt_line_separator="-------------------------------------------------------------------------------------------------------------------"
+

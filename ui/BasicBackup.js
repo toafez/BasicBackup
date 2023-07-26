@@ -46,7 +46,7 @@ Ext.apply(SYNO.SDS.BasicBackup.Utils, function() {
     return {
         getMainHtml: function() {
             // Timestamp must be inserted here to prevent caching of iFrame
-            return '<iframe src="webman/3rdparty/BasicBackup/index.cgi?_ts=' + new Date().getTime() + '" title="react-app" style="width: 100%; height: 100%; border: none; margin: 0"/>';
+            return '<iframe src="webman/3rdparty/BasicBackup/index.cgi?timestamp=' + new Date().getTime() + '" title="react-app" style="width: 100%; height: 100%; border: none; margin: 0"/>';
         },
     }
 }());

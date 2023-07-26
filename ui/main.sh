@@ -422,7 +422,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 											echo '
 											<span class="fs-5">'${txt_backup_target}'</span>
 											<ul class="list-unstyled ps-3">
-												<li class="text-success">'${txt_remote_diskstation}'</li>
+												<li class="text-success">'${txt_remote_diskstation}' <span class="text-secondary">('${var[sshpush]}')</span></li>
 											</ul>'
 											backup_target
 											target_versioning
@@ -431,14 +431,14 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 											echo '
 											<span class="fs-5">'${txt_backup_sources}'</span>
 											<ul class="list-unstyled ps-3">
-												<li class="text-success">'${txt_remote_diskstation}'</li>
+												<li class="text-success">'${txt_remote_diskstation}' <span class="text-secondary">('${var[sshpull]}')</span></li>
 											</ul>'
 											backup_sources
 										else
 											echo '
 											<span class="fs-5">'${txt_backup_target}'</span>
 											<ul class="list-unstyled ps-3">
-												<li class="text-success">'${txt_remote_server}'</li>
+												<li class="text-success">'${txt_remote_server}' <span class="text-secondary">('${var[sshpush]}''${var[sshpull]}')</span></li>
 											</ul>'
 											backup_target
 											target_versioning

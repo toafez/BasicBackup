@@ -216,7 +216,7 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 			<!-- Einbinden eigener CSS Formatierungen -->
 			<link rel="stylesheet" href="template/css/stylesheet.css" />
 
-			<!-- Einbinden von bootstrap Framework 5.3.0 -->
+			<!-- Einbinden von bootstrap Framework 5.3.1 -->
 			<link rel="stylesheet" href="template/bootstrap/css/bootstrap.min.css" />
 
 			<!-- Einbinden von bootstrap Icons 1.10.5 -->
@@ -426,7 +426,7 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 				<!-- container -->
 			</article>
 
-			<!-- Einbinden von bootstrap JavaScript 5.3.0 -->
+			<!-- Einbinden von bootstrap JavaScript 5.3.1 -->
 			<script src="template/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 			<!-- Einbinden von JavaScript bzw. jQuery Funktionen im HTML body  -->

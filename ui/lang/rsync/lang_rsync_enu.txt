@@ -73,6 +73,10 @@ txt_target_folder_mountpoint_match="The mount point and the device UUID match."
 txt_target_folder_localized="The mount point of the USB/SATA volume has been localized."
 txt_target_folder_nolocalized="The mount point of the USB/SATA volume could not be located!"
 txt_target_folder_mountpoint_false="WARNING: The device UUID could not be assigned to a locally connected USB/SATA volume!"
+txt_target_folder_crypt_check="The target folder is an encrypted shared folder"
+txt_target_folder_crypt_mount="The provisioning status of the encrypted shared folder is [ Attached ]"
+txt_target_folder_crypt_unmount="The provisioning status of the encrypted shared folder is [ Detached ]"
+txt_target_folder_crypt_false="Access to a separate encrypted shared destination folder is not supported"
 txt_target_folder_true="The backup target has been located."
 txt_target_folder_false="WARNING: The target folder could not be created."
 
@@ -128,3 +132,4 @@ txt_email_send="Note: The backup log was successfully sent via email!"
 txt_email_fail="Note: Sending the backup log via email failed!"
 
 txt_line_separator="-------------------------------------------------------------------------------------------------------------------"
+
