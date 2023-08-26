@@ -12,15 +12,6 @@
 
 TIMESTAMP=$(date '+%Y-%m-%d%t%H:%M:%S')
 
-case $SYNOPKG_DSM_LANGUAGE in
-	ger)
-	echo "<h3>Wichtiger Hinweis!</h3><span style=\"color: red;\">Mit diesem Update wird</span> die bisher in Basic Backup integrierte <span style=\"color: red;\">AutoPilot</span> Funktion als eigenständige App <span style=\"color: red;\">ausgelagert</span>. Du kannst auch weiterhin deine mit Basic Backup erstellen Datensicherungsaufträge über AutoPilot ausführen lassen, indem du dir die App <span style=\"color: green;\">AutoPilot für externe Datenträger</span> von meinem GitHub Repository unter<br /><br /><div style=\"text-align: center;\"><a href=\"https://github.com/toafez/AutoPilot/releases\">https://github.com/toafez/AutoPilot/releases</a></div><br />herunterlädst, installierst und entsprechend konfigurierst. <span style=\"color: red;\">An deinen externen Datenträgern</span> bzw. an der darauf liegenden Scriptdatei autopilot <span style=\"color: red;\">müssen keine Änderungen vorgenommen werden</span>." > $SYNOPKG_TEMP_LOGFILE
-	;;
-	enu)
-	echo "<h3>Important note!</h3><span style=\"color: red;\">With this update,</span> the <span style=\"color: red;\">AutoPilot</span> function as a standalone app <span style=\"color: red;\">outsourced</span>. You can continue to run your backup jobs created with Basic Backup via AutoPilot by downloading the app <span style=\"color: green;\">AutoPilot for external media</span> from my GitHub repository at<br /><br /><div style=\"text-align: center;\">< a href=\"https://github.com/toafez/AutoPilot/releases\">https://github.com/toafez/AutoPilot/releases</a></div><br />download, install and <span style=\"color: red;\">No changes need to be made to your external data carriers</span> or to the script file autopilot <span style=\"color: red;\">on it </span>." > $SYNOPKG_TEMP_LOGFILE
-	;;
-esac
-
 # Delete udev rules
 # -------------------------------------------------------------------------------------
 
