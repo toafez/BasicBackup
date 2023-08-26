@@ -100,7 +100,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 							echo '&nbsp;'${txt_system_title}'
 						</a>
 						<div class="float-end">
-							<a href="index.cgi?page=main&section=reset" title="'${txt_link_refresh}'"><i class="bi bi-arrow-repeat text-dark"></i></a>
+							&nbsp;
 						</div>
 					</div>
 				</div>

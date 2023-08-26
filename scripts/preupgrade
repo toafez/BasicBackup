@@ -12,15 +12,6 @@
 
 TIMESTAMP=$(date '+%Y-%m-%d%t%H:%M:%S')
 
-case $SYNOPKG_DSM_LANGUAGE in
-	ger)
-	echo "Mit diesem Update wird die bisher in Basic Backup integrierte <strong>AutoPilot Funktion</strong> als eigenständige App <strong>ausgelagert</strong>. Du kannst auch weiterhin deine mit Basic Backup erstellen Datensicherungsaufträge über AutoPilot ausführen lassen, indem du dir die App <strong>AutoPilot für externe Datenträger</strong> von meinem GitHub Repository unter <a href=\"https://github.com/toafez/AutoPilot/releases\">https://github.com/toafez/AutoPilot/releases</a> herunterlädst, installierst und entsprechend konfigurierst. An deinen externen Datenträgern bzw. an der darauf liegenden Scriptdatei <strong>Gautopilot</strong> müssen jedoch keine weiteren Änderungen vorgenommen werden." > $SYNOPKG_TEMP_LOGFILE
-	;;
-	enu)
-	echo "With this update, the <strong>AutoPilot function</strong> that was previously integrated into Basic Backup is <strong>outsourced</strong> as an independent app. You can still run your backup jobs created with Basic Backup via AutoPilot by downloading the <strong>AutoPilot for External Disks</strong> app from my GitHub repository at <a href=\"https://github.com/toafez/AutoPilot/releases\">https://github.com/toafez/AutoPilot/releases</a> download, install and configure accordingly. However, no further changes need to be made to your external data carriers or to the <strong>autopilot</strong> script file on them." > $SYNOPKG_TEMP_LOGFILE
-	;;
-esac
-
 # Backup user settings
 # -------------------------------------------------------------------------------------
 if [ ! -d "${SYNOPKG_TEMP_UPGRADE_FOLDER}/usersettings" ]; then
