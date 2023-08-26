@@ -248,16 +248,14 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 								</div>
 								<div class="float-end">
 									<ul class="navbar-nav">
-										<li class="nav-item">
-											<li><a class="nav-link" href="index.cgi?page=view&section=systemlog&file='${usr_systemlog}'">'${txt_link_systemlog}'</a></li>
-										</li>
 										<li class="nav-item dropdown">
 											<a class="nav-link dropdown-toggle" href="#" id="navDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 												'${txt_link_settings}'
 											</a>
 											<ul class="dropdown-menu dropdown-menu-sm-end" aria-labelledby="navDropdown">
-												<li><a class="dropdown-item" href="index.cgi?page=recovery&section=start">'${txt_link_recovery}'</a></li>
 												<li><a class="dropdown-item" href="index.cgi?page=debug&section=start">'${txt_link_debug}'</a></li>
+												<li><a class="dropdown-item" href="index.cgi?page=view&section=systemlog&file='${usr_systemlog}'">'${txt_link_systemlog}'</a></li>
+												<li><a class="dropdown-item" href="index.cgi?page=recovery&section=start">'${txt_link_recovery}'</a></li>
 											</ul>
 										</li>
 

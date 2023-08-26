@@ -12,6 +12,8 @@
 
 TIMESTAMP=$(date '+%Y-%m-%d%t%H:%M:%S')
 
+echo "Hello World!!" > $SYNOPKG_TEMP_LOGFILE
+
 # Backup user settings
 # -------------------------------------------------------------------------------------
 if [ ! -d "${SYNOPKG_TEMP_UPGRADE_FOLDER}/usersettings" ]; then
