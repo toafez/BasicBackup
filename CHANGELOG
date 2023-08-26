@@ -1,5 +1,14 @@
 Basic Backup Release Notes
 
+Version 0.7-500 vom 26.08.2023
+
+ - Deutsch
+    - Mit diesem Update wird die bisher in Basic Backup integrierte AutoPilot Funktion als eigenständige App ausgelagert. Du kannst auch weiterhin deine mit Basic Backup erstellen Datensicherungsaufträge über AutoPilot ausführen lassen, indem du dir die App AutoPilot für externe Datenträger von meinem GitHub Repository unterhttps://github.com/toafez/AutoPilot/releases herunterlädst, installierst und entsprechend konfigurierst. An deinen externen Datenträgern bzw. an der darauf liegenden Scriptdatei autopilot müssen keine Änderungen vorgenommen werden.
+
+ - English
+    - With this update, the AutoPilot function that was previously integrated in Basic Backup will be outsourced as a separate app. You can still run your backup jobs created with Basic Backup via AutoPilot by downloading the AutoPilot app for external media from my GitHub repository at https://github.com/toafez/AutoPilot/releases, installing it and configuring it accordingly. No changes need to be made to your external data carriers or the autopilot script file on it.
+
+
 Version 0.7-450 vom 26.07.2023
 
  - Deutsch
