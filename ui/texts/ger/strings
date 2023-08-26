@@ -1,14 +1,5 @@
 [app]
 title="Basic Backup"
-subtitle="AutoPilot"
-autopilot_enabled="AutoPilot wurde aktiviert!"
-autopilot_disabled="AutoPilot wurde deaktiviert!"
-autopilot_start="Auf dem ext. Datenträger {0} wurde ein AutoPilot Script gefunden. Script wird ausgeführt..."
-autopilot_stop_a="Das auf dem ext. Datenträger {0} ausgeführte Script ist nun beendet und der ext. Datenträger wurde wieder ausgeworfen."
-autopilot_stop_b="Das auf dem ext. Datenträger {0} ausgeführte Script ist nun beendet. Der ext. Datenträger bleibt eingehängt."
-autopilot_warning_a="Das auf dem ext. Datenträger {0} ausgeführte Script ist nun beendet. Der ext. Datenträger konnte jedoch nicht ordnungsgemäß ausgeworfen werden!"
-autopilot_warning_b="Das auf dem ext. Datenträger {0} ausgeführte Script ist nun beendet, jedoch sind während der Ausführung Fehler aufgetreten! Der externe Datenträger bleibt eingehängt."
-autopilot_warning_c="Auf dem ext. Datenträger {0} wurde ein AutoPilot Script gefunden. Das Script kann wegen fehlender Berechtigung jedoch nicht ausgeführt werden. Bitte passen sie die Dateirechte entsprechend an..."
 script_failed="Datensicherung abgebrochen! Der Datensicherungsauftrag kann nur durch den Systembenutzer root ausgeführt werden."
 job_failed="Datensicherung abgebrochen! Die Auftragskonfiguration konnte nicht eingelesen werden."
 server_failed="Datensicherung abgebrochen! Die Verbindung zum Remoteserver ist fehlgeschlagen."
@@ -21,3 +12,5 @@ adduser_exists="Vorgang abgebrochen. Basic Backup ist bereits Mitglied der Grupp
 deluser_true="Ausführung erfolgreich. Basic Backup wurde aus der Gruppe [ administrators ] entfernt wurdurch Zugriffe auf das System eingeschränkt wurden."
 deluser_notexist="Vorgang abgebrochen. Basic Backup ist kein Mitglied der Gruppe [ administrators ]."
 groupuser_error="Ein Fehler ist aufgetreten. Überprüfen Sie Ihre Eingaben und führen den Vorgang erneut aus."
+
+

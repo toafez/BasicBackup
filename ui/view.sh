@@ -38,9 +38,6 @@ if [[ "${get[page]}" == "view" ]]; then
 					if [[ "${get[section]}" == "systemlog" ]]; then
 						echo '<h5 class="modal-title" style="color: #FF8C00;">'${txt_view_system_log}'</h5>'
 					fi
-					if [[ "${get[section]}" == "autopilot" ]]; then
-						echo '<h5 class="modal-title" style="color: #FF8C00;">'${txt_view_autopilot_log}'</h5>'
-					fi
 					# Datensicherungsprotokoll
 					if [[ "${get[section]}" == "scriptlog" ]]; then
 						logname="${get[file]##*/}"
@@ -66,11 +63,6 @@ if [[ "${get[page]}" == "view" ]]; then
 									<div class="text-monospace text-nowrap" style="font-size: 87.5%;">'
 										if [[ "${get[section]}" == "systemlog" ]]; then
 											tac "${get[file]}" | while read line; do
-												echo ''${line}'<br>'
-											done
-											unset line
-										elif [[ "${get[section]}" == "autopilot" ]]; then
-											cat "${get[file]}" | while read line; do
 												echo ''${line}'<br>'
 											done
 											unset line
@@ -116,15 +108,7 @@ if [[ "${get[page]}" == "view" ]]; then
 							<a href="'${app_link}'/usersettings/logfiles/'${get[file]##*/}'" class="btn btn-secondary btn-sm" download>'${txt_button_system_log_download}'</a>'
 						fi
 						echo '&nbsp;<a href="index.cgi?page=view&section=systemlog&query=delete&file='${get[file]}'" class="btn btn-secondary btn-sm">'${txt_button_system_log_delete}'</a>'
-					fi
-					if [[ "${get[section]}" == "autopilot" ]]; then
-						if [ -s "${usr_logfiles}"/autopilot.log ]; then
-							echo '
-							<a href="'${app_link}'/usersettings/logfiles/'${get[file]##*/}'" class="btn btn-secondary btn-sm" download>'${txt_button_system_log_download}'</a>'
-						fi
-						echo '&nbsp;<a href="index.cgi?page=view&section=autopilot&query=delete&file='${get[file]}'" class="btn btn-secondary btn-sm">'${txt_button_system_log_delete}'</a>'
-					fi
-
+					fi	
 					echo '
 					<a href="index.cgi?page=main&section=start" class="btn btn-secondary btn-sm" aria-label="Close">'${txt_button_Close}'</a>
 				</div>
@@ -141,15 +125,11 @@ if [[ "${get[page]}" == "view" ]]; then
 	# --------------------------------------------------------------
 	if [[ "${get[query]}" == "delete" ]] && [ -z "${get[delete]}" ]; then
 		[[ "${get[section]}" == "systemlog" ]] && popup_modal "view" "${txt_popup_delete_conf}" "${txt_popup_delete_systemlog}" "" "systemlog"
-		[[ "${get[section]}" == "autopilot" ]] && popup_modal "view" "${txt_popup_delete_conf}" "${txt_popup_delete_systemlog}" "" "autopilot"
 	elif [[ "${get[query]}" == "delete" ]]  && [[ "${get[delete]}" == "true" ]]; then
 		[ -f "${get_request}" ] && rm "${get_request}"
 		[ -f "${get[file]}" ] && :> "${get[file]}"
 		if [[ "${get[section]}" == "systemlog" ]]; then
 			echo '<meta http-equiv="refresh" content="0; url=index.cgi?page=view&section=systemlog&file='${usr_systemlog}'&query=&delete=">'
-		fi
-		if [[ "${get[section]}" == "autopilot" ]]; then
-			echo '<meta http-equiv="refresh" content="0; url=index.cgi?page=view&section=autopilot&file='${usr_logfiles}'/autopilot.log&query=&delete=">'
 		fi
 	fi
 fi

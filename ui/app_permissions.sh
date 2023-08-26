@@ -84,22 +84,4 @@ function synogroupuser()
 		if [[ "${1}" == "deluser" ]]; then
 			synogroupuser "deluser" "administrators" "BasicBackup"
 		fi
-
-		# Autopilot einschalten
-		if [[ "${1}" == "autopilot start" ]] && [ ! -f /usr/lib/udev/rules.d/99-autopilot.rules ]; then
-			cp /var/packages/BasicBackup/target/ui/modules/autopilot.rules /usr/lib/udev/rules.d/99-autopilot.rules
-			chmod 644 /usr/lib/udev/rules.d/99-autopilot.rules
-			/usr/bin/udevadm control --reload-rules
-
-			synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_enabled
-		fi
-
-		# Autopilot ausschalten
-		if [[ "${1}" == "autopilot stop" ]] && [ -f /usr/lib/udev/rules.d/99-autopilot.rules ]; then
-			rm -f /usr/lib/udev/rules.d/99-autopilot.rules
-			/usr/bin/udevadm control --reload-rules
-
-			synodsmnotify -c SYNO.SDS.${app}.Application @administrators ${app}:app:subtitle ${app}:app:autopilot_disabled
-		fi
-
 	fi

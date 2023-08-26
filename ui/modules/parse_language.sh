@@ -68,13 +68,6 @@ function language() {
 		fi
 	fi
 
-	# Sprachdateien für das USB-Script laden
-	if [[ "${1}" == "PILOT" ]]; then
-		if [ -f "/var/packages/BasicBackup/target/ui/lang/pilot/lang_pilot_${script_lang}.txt" ]; then
-			source "/var/packages/BasicBackup/target/ui/lang/pilot/lang_pilot_${script_lang}.txt"
-		fi
-	fi
-
 	# Sprachdateien für das rsync-Script laden
 	if [[ "${1}" == "RSYNC" ]]; then
 		if [ -f "/var/packages/BasicBackup/target/ui/lang/rsync/lang_rsync_${script_lang}.txt" ]; then

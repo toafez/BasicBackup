@@ -49,7 +49,27 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 		git_version=$(wget --no-check-certificate --timeout=60 --tries=1 -q -O- "https://raw.githubusercontent.com/toafez/${app_name}/main/INFO.sh" | grep ^version | cut -d '"' -f2)		
 		if [ -n "${git_version}" ] && [ -n "${local_version}" ]; then
 			if dpkg --compare-versions ${git_version} gt ${local_version}; then
-				echo '<p class="text-center">'${txt_update_available}' <a href="https://github.com/toafez/'${app_name}'/releases" target="_blank">'${git_version}'</a></p>'
+			echo '
+			<div class="row">
+				<div class="ol-sm-12">
+					<h5>'${txt_update_available}'</h5>
+					<table class="table table-borderless table-hover table-sm">
+						<thead></thead>
+						<tbody>
+							<tr>
+								<td scope="row" class="row-sm-auto">
+									'${txt_update_from}' <span class="text-danger">'${local_version}'</span> '${txt_update_to}' <span class="text-success">'${git_version}'</span>
+									<td class="text-end"> 
+										<a href="https://github.com/toafez/'${app_name}'/releases" class="btn btn-light btn-sm text-success text-decoration-none" target="_blank">Update</a>
+									</td>
+								</td>'
+									
+								echo '
+							</tr>
+						</tbody>
+					</table><hr />
+				</div>
+			</div>'	
 			fi
 		fi
 
@@ -72,7 +92,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 							userhome_status=$(cat "/etc/synoinfo.conf" | grep userHomeEnable | cut -d '"' -f2) # yes= Dienst aktiv
 
 							# rsync, SSH, Benutzer-Home und admin Rechte abfragen
-							if [[ "${rsyncd_status}" == "enabled" ]] && [[ "${sshd_status}" == "enabled" ]] && [[ "${userhome_status}" == "yes" ]] && ( cat /etc/group | grep ^administrators | grep -q ${app_name}) && [ -f /usr/lib/udev/rules.d/99-autopilot.rules ]; then
+							if [[ "${rsyncd_status}" == "enabled" ]] && [[ "${sshd_status}" == "enabled" ]] && [[ "${userhome_status}" == "yes" ]] && ( cat /etc/group | grep ^administrators | grep -q ${app_name}) ; then
 								echo '&nbsp;<i class="bi bi-check-lg text-success"></i> '
 							else
 								echo '&nbsp;<i class="bi bi-exclamation-lg text-danger"></i>'
@@ -161,35 +181,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 											echo '
 										</ul>
 									</li>
-								</ul>'
-
-								# USB/SATA-AutoPilot aktiviert bzw. deaktiviert
-								# --------------------------------------------------------------
-								if [ -f /usr/lib/udev/rules.d/99-autopilot.rules ]; then
-									# USB/SATA-AutoPilot deaktivieren
-									echo '
-									<ul class="list-unstyled">
-										<li class="text-dark list-style-square">'${txt_autopilot_status}'&nbsp;
-											<span class="float-end">
-												<a href="index.cgi?page=autoconfig&section=start" title="'${txt_pilot_settings}'"><i class="bi bi-gear-fill text-dark"></i></a>&nbsp;&nbsp;
-											</span>
-											<ul class="list-unstyled ps-4">
-												<li class="text-success">'${txt_autopilot_service}' '${txt_is_active}'. <a href="#help-autopilot" class="text-danger text-decoration-none" data-bs-toggle="modal" data-bs-target="#help-autopilot">'${txt_button_deactivate}'</a></li>
-											</ul>
-										</li>
-									</ul>'
-								else
-									# USB/SATA-AutoPilot aktivieren
-									echo '
-									<ul class="list-unstyled">
-										<li class="text-dark list-style-square">'${txt_autopilot_status}'
-											<ul class="list-unstyled ps-4">
-												<li class="text-danger pb-2">'${txt_autopilot_service}' '${txt_is_inactive}'. <a href="#help-autopilot" class="text-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#help-autopilot">'${txt_button_activate}'</a></li>
-											</ul>
-										</li>
-									</ul>'
-								fi
-								echo '
+								</ul>
 							</div>
 						</div>
 						<div class="row">

@@ -26,8 +26,10 @@
 # --------------------------------------------------------------
 	#txtAppTitle="Basic Backup für DSM 7"
 	txt_alert_only_admin="Der Zugriff auf die Inhalte von ${app_title} ist nur Benutzern aus der Gruppe der Administratoren gestattet."
-	txt_update_available="<span class=\"text-danger\">Ein neues Update ist auf GitHub verfügbar.</span></br >Bitte aktualisiere deine Backup Basic Version ${local_version} auf die Version"
-
+	txt_update_available="Auf GitHub steht ein neues <span class=\"text-success fst-italic\">Update</span> zur Verfügung."
+	txt_update_from="Bitte aktualisiere deine ${app_name} Version"
+	txt_update_to="auf die Version"
+	
 	txt_link_note="Hinweis"
 	txt_link_refresh="Seite aktualisieren"
 
@@ -55,15 +57,12 @@
 	txt_link_help="Hilfe"
 	txt_link_settings="Systemeinstellungen"
 	txt_link_recovery="Sichern und wiederherstellen"
-	txt_link_autopilot="USB/SATA-AutoPilot"
 	txt_link_debug="Debug Modus"
 	txt_link_help_ssh_local="<strong>SSH:</strong> 1. SSH auf dieser DiskStation einrichten"
 	txt_link_help_ssh_remote="<strong>SSH:</strong> 2. SSH auf einem Remote Server einrichten"
 	txt_link_help_ssh_rsa="<strong>SSH:</strong> 3. SSH Handshake und RSA Austausch"
 	txt_link_help_version="<strong>Rsync:</strong> Versionierte Datensicherung mit Hardlinks"
 	txt_link_help_permissions="<strong>System:</strong> Erweitern bzw. beschränken der App-Berechtigung"
-	txt_link_help_autopilot="<strong>AutoPilot:</strong> USB/SATA-AutoPilot Funktion (de)-aktivieren"
-	txt_link_help_external_storage="<strong>AutoPilot:</strong> Externen Datenträger für AutoPilot einrichten"
 
 	# App group membership
 	txt_app_group_member="App-Gruppenmitgliedschaft"
@@ -92,12 +91,7 @@
 	txt_label_logfiles="Protokolle"
 	txt_link_system="System"
 	txt_link_systemlog="Systemprotokoll"
-	txt_link_autopilot="AutoPilot"
-	txt_link_usbautopilot="USB/SATA-AutoPilot"
-	txt_link_autopilotlog="USB/SATA-AutoPilot Protokoll"
 
-	txt_autopilot_status="AutoPilot Status"
-	txt_autopilot_service="Die USB/SATA-AutoPilot Funktion ist"
 	txt_rsync_status="Rsync Status"
 	txt_rsync_service="Der rsync Dienst ist"
 	txt_rsync_port="und verwendet den SSH Verschlüsselungsport"
@@ -169,7 +163,6 @@
 # --------------------------------------------------------------
 	txt_view_system_log="Systemprotokoll"
 	txt_view_logfile="Datensicherungsprotokoll"
-	txt_view_autopilot_log="USB/SATA-AutoPilot Protokoll"
 	txt_view_file_not_found="Keine Protokolleinträge vorhanden!"
 	txt_button_system_log_download="Protokoll herunterladen"
 	txt_button_system_log_delete="Protokoll löschen"
@@ -340,34 +333,4 @@
 	txt_folder_not_found_info="Der Ordner für die Datensicherungsaufträge konnte nicht gefunden werden"
 	txt_share_not_found_note="Der freigegebene Ordner konnte nicht gefunden werden"
 
-# autoconfig.sh
-# --------------------------------------------------------------
-	txt_pilot_settings="USB/SATA-AutoPilot Einstellungen festlegen"
-	txt_pilot_connect="Nach dem anschließen des externen Datenträgers die AutoPilot Scriptdatei automatisch ausführen"
-	txt_pilot_disconnect="Nach der Ausführung der AutoPilot Scriptdatei den externen Datenträger..."
-	txt_pilot_disconnect_never="niemals auswerfen"
-	txt_pilot_disconnect_auto="nur auswerfen, wenn alle Aufgabe(n) fehlerfrei abgearbeitet wurde(n)"
-	txt_pilot_disconnect_manual="immer auswerfen, wenn die Aufgabe durch eine \"exit 100\" Anweisung manuell beendet wird"
-	txt_pilot_signal="Optische sowie akustische Signale an Ihrer DiskStation über die USB/SATA-AutoPilot Funktion auslösen"
-
-	txt_pilot_external_setting="Einen externen Datenträger für USB/SATA-AutoPilot einrichten"
-	txt_pilot_external_console="Externen Datenträger über die Konsole einrichten"
-	txt_pilot_ext_console_step_1="Melden Sie sich als Benutzer <span class=\"text-danger fst-italic\">root</span> auf der Konsole Ihrer DiskStation an."
-	txt_pilot_ext_console_step_2="Wechseln Sie in das root Verzeichnis des externen Datenträgers, für den Sie die AutoPilot Funktion einrichten  möchten z.B. ..."
-	txt_pilot_ext_console_step_3="Erstellen Sie eine neue Scriptdatei mit dem Namen <span class=\"text-danger fst-italic\">autopilot</span> und passen Sie die Dateirechte an, um die Scriptdatei ausführbar zu machen."
-	txt_pilot_ext_console_step_4="Um nun die Scriptdatei mit Inhalten zu füllen gibt es mehrere Möglichkeiten. Eine davon wäre die Verwendung des Befehles <span class=\"text-danger fst-italic\">cat</span>. Ein Beispiel..."
-	txt_pilot_ext_console_step_5="Möchten Sie beim Einstecken des externen Datenträgers gerne ein Basic Backup Auftrag ausführen, dann führen Sie zunächst den Befehl <span class=\"text-danger fst-italic\">cat</span> aus.."
-	txt_pilot_ext_console_step_6="... und fügen den nachfolgenden Inhalt ein, wobei Sie <span class=\"text-danger fst-italic\">TASKNAME</span> durch den von Ihnen gewünschten Auftragsnamen ersetzen. Beispiel:"
-	txt_pilot_ext_console_step_7="Betätigen Sie zum Abschluss die Return Taste gefolgt von der Tastenkombination STRG + D um den Inhalt zu speichern."
-	txt_pilot_ext_console_step_8="Werfen Sie den externen Datenträger über den DSM aus. Beim nächsten anstecken des externen Datenträgers wird der Inhalt der grade erstellten Scriptdatei ausgeführt."
-
-	txt_pilot_external_gui="Externen Datenträger über den DSM einrichten"
-	txt_pilot_ext_gui_step_1="Installieren Sie über das DSM Paket-Zentrum das von Synology angebotene Paket <span class=\"text-danger fst-italic\">Text-Editor</span>"
-	txt_pilot_ext_gui_step_2="Starten Sie den Text-Editor und erstellen Sie über die Schaltfläche <span class=\"text-danger fst-italic\">Datei</span> > <span class=\"text-danger fst-italic\">Neu</span> eine neue Textdatei."
-	txt_pilot_ext_gui_step_3="Möchten Sie beim Einstecken des externen Datenträgers gerne ein Basic Backup Auftrag ausführen, dann fügen Sie den nachfolgenden Inhalt ein, wobei Sie <span class=\"text-danger fst-italic\">TASKNAME</span> durch den von Ihnen gewünschten Auftragsnamen ersetzen. Beispiel:"
-	txt_pilot_ext_gui_step_4="Speichern Sie anschließend die grade erstellet Textdatei über die Schaltfläche <span class=\"text-danger fst-italic\">Datei</span> > <span class=\"text-danger fst-italic\">Speichern unter...</span> wählen als Speicherort das root Verzeichnis des gewünschten externen Datenträgers, wie z.B. /usbshare aus und geben als Dateiname <span class=\"text-danger fst-italic\">autopilot</span> ohne Dateiendung an. Bestätigen Sie Ihre Eingaben durch drücken der Schaltfläche <span class=\"text-danger fst-italic\">Speichern</span>."
-	txt_pilot_ext_gui_step_5="Um sicherzustellen, das die Datei autopilot das Attribut <span class=\"text-danger fst-italic\">Ausführen</span> besitzt, öffnen Sie die <span class=\"text-danger fst-italic\">File Station</span> und wechseln auf den externen Datenträger, auf dem sich die Datei autopilot befindet. Rufen Sie durch einen Rechtsklick auf die Datei autopilot das <span class=\"text-danger fst-italic\">Kontextmenü</span> auf und wählen dort den Punkt <span class=\"text-danger fst-italic\">Eigenschaften</span> aus."
-	txt_pilot_ext_gui_step_6="Werden Ihnen im Reiter <span class=\"text-danger fst-italic\">Berechtigung</span> mehrere Checkboxen angeboten, worüber Sie die <span class=\"text-danger fst-italic\">Lese-, Schreib- und Ausführberechtigung</span> für <span class=\"text-danger fst-italic\">Besitzer, Gruppe und Sonstige</span> festlegen können, dann stellen Sie sicher, das <span class=\"text-danger fst-italic\">alle</span> Checkboxen angehakt sind. Speichern Sie mögliche Änderungen im Anschluss über die Schaltfläche <span class=\"text-danger fst-italic\">Speichern</span>."
-	txt_pilot_ext_gui_step_7="Werden Ihnen im Reiter <span class=\"text-danger fst-italic\">Berechtigung</span> die grade genannten Checkboxen nicht angeboten, dann erstellen Sie über die Schaltfläche <span class=\"text-danger fst-italic\">Erstellen</span> eine neue Berechtigung. Wählen Sie aus dem Auswahlmenü unter dem Punkt <span class=\"text-danger fst-italic\">Benutzer oder Gruppe</span>, Everyone und unter dem Punkt <span class=\"text-danger fst-italic\">Typ</span>, Zulassen aus. Haken Sie unter dem Punkt <span class=\"text-danger fst-italic\">Berechtigungen</span> alle Checkboxen für <span class=\"text-danger fst-italic\">Administration, Lesen und Schreiben</span> an und klicken auf die Schaltfläche <span class=\"text-danger fst-italic\">Fertig</span>. Speichern Sie Ihre Änderungen im Anschluss über die Schaltfläche <span class=\"text-danger fst-italic\">Speichern</span>."
-	txt_pilot_ext_gui_step_8="Werfen Sie den externen Datenträger über den DSM aus. Beim nächsten anstecken des externen Datenträgers wird der Inhalt der grade erstellten Scriptdatei ausgeführt."
 

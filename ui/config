@@ -16,18 +16,8 @@
 			"depend": ["SYNO.SDS.BasicBackup.MainWindow"],
 			"preloadTexts": [
 				"app:title",
-				"app:subtitle",
 				"app:permissions_true",
 				"app:permissions_false",
-				"app:autopilot_enabled",
-				"app:autopilot_disabled",
-				"app:autopilot_start",
-				"app:autopilot_stop_a",
-				"app:autopilot_stop_b",
-				"app:autopilot_stop_c",
-				"app:autopilot_stop_d",
-				"app:autopilot_alert_a",
-				"app:autopilot_alert_b",
 				"app:script_failed",
 				"app:job_failed",
 				"app:server_failed",
@@ -47,3 +37,4 @@
 		"SYNO.SDS.BasicBackup.Utils": []
 	}
 }
+

@@ -26,7 +26,9 @@
 # --------------------------------------------------------------
 	#txtAppTitle="Basic Backup für DSM 7"
 	txt_alert_only_admin="Access to the contents of ${app_title} is only permitted to users from the administrators group."
-	txt_update_available="<span class=\"text-danger\">A new update is available on GitHub.</span></br >Please update your Backup Basic version ${local_version} to version"
+	txt_update_available="A new <span class=\"text-success fst-italic\">update</span> is available on GitHub."
+	txt_update_from="Please update your ${app_name} version"
+	txt_update_to="to version"
 
 	txt_link_note="Note"
 	txt_link_refresh="Refresh page"
@@ -55,15 +57,12 @@
 	txt_link_help="Help"
 	txt_link_settings="System Settings"
 	txt_link_recovery="Backup and Restore"
-	txt_link_autopilot="USB/SATA AutoPilot"
 	txt_link_debug="Debug mode"
 	txt_link_help_ssh_local="<strong>SSH:</strong> 1. Set up SSH on this DiskStation"
 	txt_link_help_ssh_remote="<strong>SSH:</strong> 2. Set up SSH on a remote server"
 	txt_link_help_ssh_rsa="<strong>SSH:</strong> 3. SSH Handshake and RSA Exchange"
 	txt_link_help_version="<strong>Rsync:</strong> Versioned Backup with Hardlinks"
 	txt_link_help_permissions="<strong>System:</strong> Extend or restrict the app permission"
-	txt_link_help_autopilot="<strong>AutoPilot:</strong> USB/SATA AutoPilot function (de)-activate"
-	txt_link_help_external_storage="<strong>AutoPilot:</strong> Set up external storage for AutoPilot"
 
 	# App group membership
 	txt_app_group_member="App group membership"
@@ -92,12 +91,7 @@
 	txt_label_logfiles="Log files"
 	txt_link_system="System"
 	txt_link_systemlog="System Log"
-	txt_link_autopilot="AutoPilot"
-	txt_link_usbautopilot="USB/SATA-AutoPilot"
-	txt_view_autopilotlog="USB/SATA-AutoPilot Log"
 
-	txt_autopilot_status="AutoPilot Status"
-	txt_autopilot_service="The USB/SATA AutoPilot function is"
 	txt_rsync_status="Rsync Status"
 	txt_rsync_service="The rsync service is"
 	txt_rsync_port="and uses the SSH encryption port"
@@ -129,7 +123,6 @@
 	txt_local_diskstation="Local DiskStation"
 	txt_remote_diskstation="Remote DiskStation"
 	txt_remote_server="Remote rsync-Server"
-	txt_local_diskstation="Local DiskStation"
 	txt_remote_pushserver="Push backup to remote server"
 	txt_remote_pullserver="Pull backup from remote server"
 	txt_backup_sources="Backup Source"
@@ -170,7 +163,6 @@
 # --------------------------------------------------------------
 	txt_view_system_log="System Log"
 	txt_view_logfile="Data Backup Log"
-	txt_view_autopilot_log="USB/SATA-AutoPilot Log"
 	txt_view_file_not_found="No log entries available!"
 	txt_button_system_log_download="Download log"
 	txt_button_system_log_delete="Delete Log"
@@ -341,34 +333,4 @@
 	txt_folder_not_found_info="The folder for the backup jobs could not be found"
 	txt_share_not_found_note="The shared folder could not be found"
 
-# autoconfig.sh
-# --------------------------------------------------------------
-	txt_pilot_settings="Set USB/SATA AutoPilot settings"
-	txt_pilot_connect="After connecting the external disk automatically run the AutoPilot script file"
-	txt_pilot_disconnect="After executing the AutoPilot script file, the external disk..."
-	txt_pilot_disconnect_never="never eject"
-	txt_pilot_disconnect_auto="eject only if all task(s) have been processed without errors"
-	txt_pilot_disconnect_manual="always eject if the task is terminated manually by an \"exit 100\" statement manually"
-	txt_pilot_signal="Trigger visual as well as audible signals on your DiskStation via USB/SATA AutoPilot function"
-
-	txt_pilot_external_setting="Set up an external disk for USB/SATA AutoPilot"
-	txt_pilot_external_console="Set up external disk via console"
-	txt_pilot_ext_console_step_1="Log in as user <span class=\"text-danger fst-italic\">root</span> on the console of your DiskStation."
-	txt_pilot_ext_console_step_2="Change to the root directory of the external data carrier for which you want to set up the AutoPilot function e.g. ..."
-	txt_pilot_ext_console_step_3="Create a new script file named <span class=\"text-danger fst-italic\">autopilot</span> and adjust the file permissions to make the script file executable."
-	txt_pilot_ext_console_step_4="There are several ways to fill the script file with content. One of them would be to use the <span class=\"text-danger fst-italic\">cat</span> command. An example..."
-	txt_pilot_ext_console_step_5="If you would like to run a Basic Backup job when you plug in the external disk, first run the command <span class=\"text-danger fst-italic\">cat</span>."
-	txt_pilot_ext_console_step_6="... and paste the following content, replacing <span class=\"text-danger fst-italic\">TASKNAME</span> with the job name you want. Example:"
-	txt_pilot_ext_console_step_7="Finally, press the Return key followed by the CTRL + D key combination to save the contents."
-	txt_pilot_ext_console_step_8="Eject the external disk via the DSM. The next time the external disk is plugged in, the contents of the script file just created will be executed."
-
-	txt_pilot_external_gui="Set up external disk via the DSM"
-	txt_pilot_ext_gui_step_1="Via the DSM Package Center, install the <span class=\"text-danger fst-italic\">Text Editor</span> package offered by Synology."
-	txt_pilot_ext_gui_step_2="Start the text editor and create a new text file via the <span class=\"text-danger fst-italic\">File</span> > <span class=\"text-danger fst-italic\">New</span> button."
-	txt_pilot_ext_gui_step_3="If you would like to run a Basic Backup job when you plug in the external disk, then insert the following content, replacing <span class=\"text-danger fst-italic\">TASKNAME</span> with the job name you want. Example:"
-	txt_pilot_ext_gui_step_4="Then <span class=\"text-danger fst-italic\">save</span> the text file you just created using the <span class=\"text-danger fst-italic\">Save as...</pan> button. Select the root directory of the desired external data carrier as the storage location, e.g. /usbshare, and enter <span class=\"text-danger fst-italic\">autopilot</span> without file extension as the file name. Confirm your entries by pressing the <span class=\"text-danger fst-italic\">Save</span> button."
-	txt_pilot_ext_gui_step_5="To ensure that the autopilot file has the <span class=\"text-danger fst-italic\">Execute</span> attribute, open <span class=\"text-danger fst-italic\">File Station</span> and change to the external data carrier on which the autopilot file is located. Right-click on the autopilot file to open the <span class=\"text-danger fst-italic\">context menu</span> and select Properties."
-	txt_pilot_ext_gui_step_6="If you are offered several check boxes on the <span class=\"text-danger fst-italic\">Permission</span> tab with which you can set the <span class=\"text-danger fst-italic\">read, write and execute</span> permission for <span class=\"text-danger fst-italic\">owner, group and others</span>, then make sure that <span class=\"text-danger fst-italic\">all</span> check boxes are activated. Then <span class=\"text-danger fst-italic\">save</span> all changes via the Save button."
-	txt_pilot_ext_gui_step_7="If the check boxes just mentioned are not offered on the <span class=\"text-danger fst-italic\">Permission</span> tab, create a new permission via the <span class=\"text-danger fst-italic\">Create</span> button. In the drop-down menu, under the item <span class=\"text-danger fst-italic\">User or Group</span>, select the option Everyone and under the item <span class=\"text-danger fst-italic\">Type</span>, select the option Allow. Under the item <span class=\"text-danger fst-italic\">Permissions</span>, activate all check boxes for <span class=\"text-danger fst-italic\">Administration, Read and Write</span> and click the <span class=\"text-danger fst-italic\">Done</span> button. Save your changes by clicking on the <span class=\"text-danger fst-italic\">Save</span> button."
-	txt_pilot_ext_gui_step_8="Eject the external data medium via the DSM. The next time the external data medium is plugged in, the contents of the script file just created are executed."
 

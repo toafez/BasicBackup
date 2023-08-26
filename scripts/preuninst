@@ -17,20 +17,24 @@ TIMESTAMP=$(date '+%Y-%m-%d%t%H:%M:%S')
 
 if [ "${pkgwizard_remove_settings}" == "true" ]; then
 	if [ -f /usr/lib/udev/rules.d/99-autopilot.rules ]; then
-		sudo rm -f /usr/lib/udev/rules.d/99-autopilot.rules
-		if [ ! -f /usr/lib/udev/rules.d/99-autopilot.rules ]; then
-			sudo /usr/bin/udevadm control --reload-rules
-			echo ''${TIMESTAMP}' - AutoPilot UDEV rule has been deleted.' >> /tmp/${SYNOPKG_PKGNAME}.history
-		else
-			echo ''${TIMESTAMP}' - The AutoPilot UDEV rule could not be deleted.' >> /tmp/${SYNOPKG_PKGNAME}.history
-			case $SYNOPKG_DSM_LANGUAGE in
-				ger)
-				echo "Hinweis: Die AutoPilot UDEV-Regel konnte nicht gelöscht werden. Um die UDEV-Regel manuell zu löschen, öffnen sie ein Terminal Fenster und geben ein: rm -f /usr/lib/udev/rules.d/99-autopilot.rules " > $SYNOPKG_TEMP_LOGFILE
-				;;
-				*)
-				echo "Note: The AutoPilot UDEV rule could not be deleted. To delete the UDEV rule manually, open a terminal window and type: rm -f /usr/lib/udev/rules.d/99-autopilot.rules " > $SYNOPKG_TEMP_LOGFILE
-				;;
-			esac
+		# Check if AutoPilot UDEV rule points to Basic Backup
+		udev_appcheck=$(grep -w /usr/lib/udev/rules.d/99-autopilot.rules -e "BasicBackup")
+		if [ -n "${udev_appcheck}" ]; then
+			rm -f /usr/lib/udev/rules.d/99-autopilot.rules
+			if [ ! -f /usr/lib/udev/rules.d/99-autopilot.rules ]; then
+				/usr/bin/udevadm control --reload-rules
+				echo ''${TIMESTAMP}' - AutoPilot UDEV rule has been deleted.' >> /tmp/${SYNOPKG_PKGNAME}.history
+			else
+				echo ''${TIMESTAMP}' - The AutoPilot UDEV rule could not be deleted.' >> /tmp/${SYNOPKG_PKGNAME}.history
+				case $SYNOPKG_DSM_LANGUAGE in
+					ger)
+					echo "Hinweis: Die AutoPilot UDEV-Regel konnte nicht gelöscht werden. Um die UDEV-Regel manuell zu löschen, öffnen sie ein Terminal Fenster und geben ein: rm -f /usr/lib/udev/rules.d/99-autopilot.rules " > $SYNOPKG_TEMP_LOGFILE
+					;;
+					*)
+					echo "Note: The AutoPilot UDEV rule could not be deleted. To delete the UDEV rule manually, open a terminal window and type: rm -f /usr/lib/udev/rules.d/99-autopilot.rules " > $SYNOPKG_TEMP_LOGFILE
+					;;
+				esac
+			fi
 		fi
 	fi
 	exit 0
