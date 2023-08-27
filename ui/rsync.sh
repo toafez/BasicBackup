@@ -923,7 +923,7 @@ if [[ ${exit_code} -eq 0 ]]; then
 			# If the remote folder exists, then execute the find command
 			if ${ssh} test -d "'${at_history}'"; then
 				${ssh} "find '${at_history}'/* -maxdepth 0 -type d -mtime +${var[versions]} -print0 | xargs -0 rm -r" 2>/dev/null
-				Verify that a new entry in the version history is correctly
+				# Verify that a new entry in the version history is correctly
 				if [[ ${?} -eq 0 ]]; then
 					echo "${txt_version_history_delete}" | tee -a "${script_log}"
 				fi
