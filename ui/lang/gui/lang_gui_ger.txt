@@ -103,10 +103,6 @@
 	txt_ssh_port="und verwendet den SSH Port"
 	txt_ssh_info="Sollten Sie keine Datensicherungsaufträge von- oder auf Remote Server durchführen, können Sie den SSH Terminal-Dienst <strong>deaktiviert</strong> lassen. Ansonsten muss im Vorfeld der SSH Terminal-Dienst aktiviert sein. Zum <strong>aktivieren des SSH Terminal-Dienstes</strong> gehen Sie zu <strong>DSM-Hauptmenü > Systemsteuerung > Terminal & SNMP</strong> und wechseln dort in den Reiter <strong>> Terminal</strong>. Aktiveren Sie die Checkbox <strong>SSH-Dienst aktivieren</strong>. Sollte es sich bei dem zu verbindenden Remote Server ebenfalls um eine Synology DiskStation handeln, muss auch dort der SSH Terminal-Dienst im Vorfeld aktiviert sein. Bei allen anderen rsync kompatiblen Remote Servern ist im Einzelfall zu prüfen, ob und wie der SSH Terminal-Dienst zu aktiveren ist."
 
-	txt_userhome_status="Benutzerbasis Status"
-	txt_userhome_service="Der Benutzer-Home-Dienst ist"
-	txt_userhome_info="Sollten Sie keine Datensicherungsaufträge von- oder auf Remote Server durchführen, können Sie den Benutzer-Home-Dienst <strong>deaktiviert</strong> lassen. Ansonsten müssen im Vorfeld sowohl der SSH Terminal-Dienst als auch der Benutzer-Home-Dienst aktiviert sein, da die benötigten SSH-Verbindungsdaten im entsprechenden Benutzer-Home-Ordner abgelegt werden. Zum <strong>aktivieren des Benutzer-Home-Dienstes</strong> gehen Sie zu <strong>DSM-Hauptmenü > Systemsteuerung > Benutzer und Gruppe</strong> und wechseln dort in den Reiter <strong>> Erweitert</strong>. Aktiveren Sie unter dem Menüpunkt <strong>Benutzerbasis</strong> die Checkbox <strong>Benutzer-Home-Dienst aktiveren</strong>. Sollte es sich bei dem zu verbindenden Remote Server ebenfalls um eine Synology DiskStation handeln, muss auch dort der Benutzer-Home-Dienst im Vorfeld aktiviert sein. Bei allen anderen rsync kompatiblen Remote Servern ist im Einzelfall zu prüfen, ob und wie der Benutzer-Home-Dienst zu aktiveren ist."
-
 	txt_is_active="aktiviert"
 	txt_is_inactive="deaktiviert"
 
@@ -332,5 +328,6 @@
 	txt_folder_not_create_info="Der Speicherort konnte nicht erstellt werden"
 	txt_folder_not_found_info="Der Ordner für die Datensicherungsaufträge konnte nicht gefunden werden"
 	txt_share_not_found_note="Der freigegebene Ordner konnte nicht gefunden werden"
+
 
 

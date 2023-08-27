@@ -88,11 +88,8 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 							# SSH Status abfragen
 							sshd_status=$(systemctl is-enabled sshd.service)	# activ= Dienst aktiv, unknown= Dienst deaktiert
 
-							# Benutzer-Home-Ordner abfragen
-							userhome_status=$(cat "/etc/synoinfo.conf" | grep userHomeEnable | cut -d '"' -f2) # yes= Dienst aktiv
-
 							# rsync, SSH, Benutzer-Home und admin Rechte abfragen
-							if [[ "${rsyncd_status}" == "enabled" ]] && [[ "${sshd_status}" == "enabled" ]] && [[ "${userhome_status}" == "yes" ]] && ( cat /etc/group | grep ^administrators | grep -q ${app_name}) ; then
+							if [[ "${rsyncd_status}" == "enabled" ]] && [[ "${sshd_status}" == "enabled" ]] && ( cat /etc/group | grep ^administrators | grep -q ${app_name}) ; then
 								echo '&nbsp;<i class="bi bi-check-lg text-success"></i> '
 							else
 								echo '&nbsp;<i class="bi bi-exclamation-lg text-danger"></i>'
@@ -158,25 +155,6 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 												echo '
 												<li class="text-danger">'${txt_ssh_service}' '${txt_is_inactive}'</li>
 												<li class="text-secondary">'${txt_ssh_info}'</li>'
-											fi
-											echo '
-										</ul>
-									</li>
-								</ul>'
-
-								# Benutzer-Home-Dienst aktiviert bzw. deaktiviert
-								# --------------------------------------------------------------
-								echo '
-								<ul class="list-unstyled">
-									<li class="text-dark list-style-square">'${txt_userhome_status}'
-										<ul class="list-unstyled ps-4">'
-											if [[ "${userhome_status}" == "yes" ]]; then
-												echo '
-												<li class="text-success">'${txt_userhome_service}' '${txt_is_active}'</li>'
-											else
-												echo '
-												<li class="text-danger">'${txt_userhome_service}' '${txt_is_inactive}'</li>
-												<li class="text-secondary">'${txt_userhome_info}'</li>'
 											fi
 											echo '
 										</ul>

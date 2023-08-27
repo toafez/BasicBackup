@@ -103,10 +103,6 @@
 	txt_ssh_port="and is using the SSH port"
 	txt_ssh_info="If you do not perform backup jobs to or from remote servers, you can leave the SSH terminal service <strong>disabled</strong>. Otherwise, the SSH terminal service must be enabled in advance. To <strong>enable the SSH Terminal service</strong> go to <strong>DSM Main Menu > Control Panel > Terminal & SNMP</strong> and change to the <strong>>Terminal</strong> tab there. Activate the checkbox <strong>Enable SSH service</strong>. If the remote server to be connected is also a Synology DiskStation, the SSH terminal service must also be enabled there in advance. For all other rsync compatible remote servers it has to be checked in each individual case if and how the SSH terminal service has to be activated."
 
-	txt_userhome_status="User Home Status"
-	txt_userhome_service="The user home service is"
-	txt_userhome_info="If you do not perform backup jobs to or from remote servers, you can leave the user home service <strong>disabled</strong>. Otherwise, both the SSH Terminal service and the User Home service must be enabled in advance, as the required SSH connection data will be stored in the corresponding User Home folder. To <strong>enable the User Home service</strong> go to <strong>DSM Main Menu > Control Panel > Users and Group</strong> and change to the <strong>>Advanced</strong> tab there. Under the menu item <strong>User Base</strong>, activate the checkbox <strong>Enable User Home Service</strong>. If the remote server to be connected is also a Synology DiskStation, the User Home Service must also be enabled there in advance. For all other rsync compatible remote servers it has to be checked in each individual case if and how the user home service has to be activated."
-
 	txt_is_active="activated"
 	txt_is_inactive="disabled"
 
@@ -332,5 +328,6 @@
 	txt_folder_not_create_info="The location could not be created"
 	txt_folder_not_found_info="The folder for the backup jobs could not be found"
 	txt_share_not_found_note="The shared folder could not be found"
+
 
 
