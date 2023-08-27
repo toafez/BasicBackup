@@ -1,5 +1,14 @@
 Basic Backup Release Notes
 
+
+Version 0.7-    vom
+ - Deutsch
+    - Im rsync-Script war die Zeile 926 nicht auszukommentiert, was zu einem "command not found" Fehler führte. Vielen Dank an @treki
+
+ - English
+    - In the rsync script, line 926 was not commented out, resulting in a "command not found" error. Many thanks to @treki
+
+
 Version 0.7-500 vom 26.08.2023
 
  - Deutsch
