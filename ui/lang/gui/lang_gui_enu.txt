@@ -32,6 +32,8 @@
 
 	txt_link_note="Note"
 	txt_link_refresh="Refresh page"
+	txt_link_expand_permissions="Expand app permissions"
+	txt_link_revoke_permissions="Revoke app permissions"
 
 	txt_button_Continue="More"
 	txt_button_Back="Back"
@@ -45,11 +47,28 @@
 	txt_button_secure="Secure"
 	txt_button_activate="Activate?"
 	txt_button_deactivate="Deactivate?"
-	txt_button_extend_permission="Extend permission?"
-	txt_button_restrict_permission="Restrict permission?"
+	txt_button_extend_permission="Extend permission"
+	txt_button_revoke_permission="Revoke permission"
 
 	txt_popup_input_error="Input error!"
 	txt_popup_delete_conf="Deletion confirmation!"
+
+# app-permissions.sh
+# --------------------------------------------------------------
+	txt_help_permissions_expand_terminal="Extend app permissions from the console"
+	txt_help_permissions_revoke_terminal="Revoke app permissions from the console"
+	txt_help_permissions_expand_dsm="Extend app permissions via DSM Task Scheduler"
+	txt_help_permissions_revoke_dsm="Revoke app permissions via DSM Task Scheduler"
+	txt_help_permissions_step_1="Login to your DiskStation's console as user <span class=\"text-danger fst-italic\">root</span> and run the following command"
+	txt_help_permissions_step_2="In DSM under <span class=\"text-danger fst-italic\">Main Menu</span> > <span class=\"text-danger fst-italic\">Control Panel</span> open the < span class=\"text-danger fst-italic\">Task Scheduler</span>."
+	txt_help_permissions_step_3="In the task scheduler, use the <span class=\"text-danger fst-italic\">Create</span> > <span class=\"text-danger fst-italic\">Scheduled Task</span > > <span class=\"text-danger fst-italic\">Custom Script</span> off."
+	txt_help_permissions_step_4="In the pop-up window that opens, enter <span class=\"text-danger fst-italic\">General</span> > <span class=\"text-danger fst-italic \">General settings</span> for the task and select <span class=\"text-danger fst-italic\">root</span> as the user. Then uncheck <span class =\"text-danger fst-italic\">Enabled</span>."
+	txt_help_permissions_step_5="In the tab <span class=\"text-danger fst-italic\">Task settings</span> > <span class=\"text-danger fst-italic\">Execute command</span> > < span class=\"text-danger fst-italic\">Custom Script</span> enter the following command in the text field..."
+	txt_help_permissions_step_6="Confirm your entries with the <span class=\"text-danger fst-italic\">OK</span> button and also accept the subsequent warning message with <span class=\"text-danger fst-italic\" >OK</span>."
+	txt_help_permissions_step_7="In order for the task to be added to the task scheduler, you must finally enter the password of the user currently logged into the DSM and confirm the process with the <span class=\"text-danger fst-italic\">Send</span> button ."
+	txt_help_permissions_step_8="In the overview of the task planner, you must now <span class=\"text-danger fst-italic\">highlight</span> the just created task with the mouse (the line should have a blue background after highlighting), however <span class=\"text-decoration-underline\">do not tick</span> the checkbox to activate the task permanently."
+	txt_help_permissions_step_9="Now run the task once by pressing the <span class=\"text-danger fst-italic\">Run</span> button."
+	txt_help_permissions_step_10="Close and re-enter ${app_name} for the changes to take effect."
 
 # index.cgi
 # --------------------------------------------------------------
@@ -58,11 +77,10 @@
 	txt_link_settings="System Settings"
 	txt_link_recovery="Backup and Restore"
 	txt_link_debug="Debug mode"
-	txt_link_help_ssh_local="<strong>SSH:</strong> 1. Set up SSH on this DiskStation"
-	txt_link_help_ssh_remote="<strong>SSH:</strong> 2. Set up SSH on a remote server"
-	txt_link_help_ssh_rsa="<strong>SSH:</strong> 3. SSH Handshake and RSA Exchange"
-	txt_link_help_version="<strong>Rsync:</strong> Versioned Backup with Hardlinks"
-	txt_link_help_permissions="<strong>System:</strong> Extend or restrict the app permission"
+	txt_link_help_ssh_local="Set up SSH on this DiskStation"
+	txt_link_help_ssh_remote="Set up SSH on a remote server"
+	txt_link_help_ssh_rsa="SSH Handshake and RSA Exchange"
+	txt_link_help_version="Versioned Backup with Hardlinks"
 
 	# App group membership
 	txt_app_group_member="App group membership"
@@ -86,19 +104,16 @@
 
 # main.sh
 # --------------------------------------------------------------
-	txt_system_title="System Environment"
     txt_label_logfile="Log file"
 	txt_label_logfiles="Log files"
 	txt_link_system="System"
 	txt_link_systemlog="System Log"
 
-	txt_rsync_status="Rsync Status"
 	txt_rsync_service="The rsync service is"
-	txt_rsync_info="To <strong>enable the rsync service</strong> go to <strong>DSM main menu > Control Panel > File Services</strong> and change there to the tab <strong>> rsync</strong>. Enable the <strong>rsync service checkbox</strong>. By default, port 22 is used as SSH encryption port, which you can adjust if necessary."
+	txt_rsync_info="To <span class=\"text-success fst-italic\">enable</span> the rsync service, open <span class=\"text-danger fst-italic\">DSM main menu</span> > <span class=\"text-danger fst-italic\">Control Panel</span> > <span class=\"text-danger fst-italic\">File Services</span> and switch to the tab <span class=\ "text-danger fst-italic\">rsync</span>. Check the <span class=\"text-danger fst-italic\">enable rsync service</span> checkbox. Port 22 is used by default as the SSH encryption port, which can be adjusted if necessary."
 
-	txt_ssh_status="SSH Status"
 	txt_ssh_service="The SSH terminal service is"
-	txt_ssh_info="If you do not perform backup jobs to or from remote servers, you can leave the SSH terminal service <strong>disabled</strong>. Otherwise, the SSH terminal service must be enabled in advance. To <strong>enable the SSH Terminal service</strong> go to <strong>DSM Main Menu > Control Panel > Terminal & SNMP</strong> and change to the <strong>>Terminal</strong> tab there. Activate the checkbox <strong>Enable SSH service</strong>. If the remote server to be connected is also a Synology DiskStation, the SSH terminal service must also be enabled there in advance. For all other rsync compatible remote servers it has to be checked in each individual case if and how the SSH terminal service has to be activated."
+	txt_ssh_info="To <span class=\"text-success fst-italic\">enable</span> SSH terminal service, open <span class=\"text-danger fst-italic\">DSM main menu</span> > <span class=\"text-danger fst-italic\">Control Panel</span> > <span class=\"text-danger fst-italic\">Terminal & SNMP</span> and switch to the < tab span class=\"text-danger fst-italic\">Terminal</span>. Activate the checkbox <span class=\"text-danger fst-italic\">Enable SSH service</span>."
 
 	txt_is_active="activated"
 	txt_is_inactive="disabled"

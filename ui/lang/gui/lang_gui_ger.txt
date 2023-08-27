@@ -32,6 +32,8 @@
 	
 	txt_link_note="Hinweis"
 	txt_link_refresh="Seite aktualisieren"
+	txt_link_expand_permissions="App-Berechtigungen erweitern"
+	txt_link_revoke_permissions="App-Berechtigungen zurücknehmen"
 
 	txt_button_Continue="Weiter"
 	txt_button_Back="Zurück"
@@ -45,12 +47,29 @@
 	txt_button_secure="Sichern"
 	txt_button_activate="Aktivieren?"
 	txt_button_deactivate="Deaktivieren?"
-	txt_button_extend_permission="Berechtigungen erweitern?"
-	txt_button_restrict_permission="Berechtigungen beschränken?"
+	txt_button_extend_permission="Berechtigungen erweitern"
+	txt_button_revoke_permission="Berechtigungen zurücknehmen"
 
 	txt_popup_input_error="Eingabefehler!"
 	txt_popup_delete_conf="Löschbestätigung!"
 
+# app-permissions.sh
+# --------------------------------------------------------------
+	txt_help_permissions_expand_terminal="App-Berechtigungen über die Konsole erweitern"
+	txt_help_permissions_revoke_terminal="App-Berechtigungen über die Konsole zurücknehmen"
+	txt_help_permissions_expand_dsm="App-Berechtigungen über den DSM Aufgabenplaner erweitern"
+	txt_help_permissions_revoke_dsm="App-Berechtigungen über den DSM Aufgabenplaner zurücknehmen"
+	txt_help_permissions_step_1="Melde dich als Benutzer <span class=\"text-danger fst-italic\">root</span> auf der Konsole deiner DiskStation an und führe folgenden Befehl aus"
+	txt_help_permissions_step_2="Öffne im DSM unter <span class=\"text-danger fst-italic\">Hauptmenü</span> > <span class=\"text-danger fst-italic\">Systemsteuerung</span> den <span class=\"text-danger fst-italic\">Aufgabenplaner</span>."
+	txt_help_permissions_step_3="Wähle im Aufgabenplaner über die Schaltfläche <span class=\"text-danger fst-italic\">Erstellen</span> > <span class=\"text-danger fst-italic\">Geplante Aufgabe</span> > <span class=\"text-danger fst-italic\">Benutzerdefiniertes Script</span> aus."
+	txt_help_permissions_step_4="In dem sich nun öffnenden Pop-up-Fenster gibst du im Reiter <span class=\"text-danger fst-italic\">Allgemein</span> > <span class=\"text-danger fst-italic\">Allgemeine Einstellungen</span> der Aufgabe einen individuellen Namen und wählst als Benutzer <span class=\"text-danger fst-italic\">root</span> aus. Anschließend entfernst du noch den Haken bei <span class=\"text-danger fst-italic\">Aktiviert</span>."
+	txt_help_permissions_step_5="Füge im Reiter <span class=\"text-danger fst-italic\">Aufgabeneinstellungen</span> > <span class=\"text-danger fst-italic\">Befehl ausführen</span> > <span class=\"text-danger fst-italic\">Benutzerdefiniertes Script</span> den nachfolgenden Befehl in das Textfeld ein..."
+	txt_help_permissions_step_6="Bestätige deine Eingaben mit die Schaltfläche <span class=\"text-danger fst-italic\">OK</span> und akzeptiere die anschließende Warnmeldung ebenfalls mit <span class=\"text-danger fst-italic\">OK</span>."
+	txt_help_permissions_step_7="Damit die Aufgabe dem Aufgabenplaner hinzugefügt wird, musst du abschließend das Passwort deines aktuell am DSM angemeldeten Benutzers eingeben und den Vorgang über die Schaltfläche <span class=\"text-danger fst-italic\">Senden</span> bestätigen."
+	txt_help_permissions_step_8="In der Übersicht des Aufgabenplaners musst du nun die grade erstellte Aufgabe mit der Maus <span class=\"text-danger fst-italic\">markieren</span> die Zeile sollte nach dem markieren blau hinterlegt sein), jedoch <span class=\"text-decoration-underline\">keinen</span> Haken in der Checkbox setzen, um die Aufgabe dauerhaft zu aktivieren."
+	txt_help_permissions_step_9="Führe die Aufgabe nun durch betätigen der Schaltfläche <span class=\"text-danger fst-italic\">Ausführen</span> einmalig aus."
+	txt_help_permissions_step_10="Schließe die ${app_name} und rufe sie erneut auf, damit die Änderungen wirksam werden."
+	
 # index.cgi
 # --------------------------------------------------------------
 	txt_link_new_job="Auftrag erstellen"
@@ -58,11 +77,10 @@
 	txt_link_settings="Systemeinstellungen"
 	txt_link_recovery="Sichern und wiederherstellen"
 	txt_link_debug="Debug Modus"
-	txt_link_help_ssh_local="<strong>SSH:</strong> 1. SSH auf dieser DiskStation einrichten"
-	txt_link_help_ssh_remote="<strong>SSH:</strong> 2. SSH auf einem Remote Server einrichten"
-	txt_link_help_ssh_rsa="<strong>SSH:</strong> 3. SSH Handshake und RSA Austausch"
-	txt_link_help_version="<strong>Rsync:</strong> Versionierte Datensicherung mit Hardlinks"
-	txt_link_help_permissions="<strong>System:</strong> Erweitern bzw. beschränken der App-Berechtigung"
+	txt_link_help_ssh_local="SSH auf dieser DiskStation einrichten"
+	txt_link_help_ssh_remote="SSH auf einem Remote Server einrichten"
+	txt_link_help_ssh_rsa="SSH Handshake und RSA Austausch"
+	txt_link_help_version="Versionierte Datensicherung mit Hardlinks"
 
 	# App group membership
 	txt_app_group_member="App-Gruppenmitgliedschaft"
@@ -86,19 +104,16 @@
 
 # main.sh
 # --------------------------------------------------------------
-	txt_system_title="Systemumgebung"
     txt_label_logfile="Protokoll"
 	txt_label_logfiles="Protokolle"
 	txt_link_system="System"
 	txt_link_systemlog="Systemprotokoll"
 
-	txt_rsync_status="Rsync Status"
 	txt_rsync_service="Der rsync Dienst ist"
-	txt_rsync_info="Zum <strong>aktivieren des rsync Dienstes</strong> gehen Sie zu <strong>DSM-Hauptmenü > Systemsteuerung > Dateidienste</strong> und wechseln dort in den Reiter <strong>> rsync</strong>. Aktiveren Sie die Checkbox <strong>rsync Dienst aktivieren</strong>. Als SSH-Verschlüsselungsport wird standardmäßig der Port 22 verwendet, welchen Sie bei Bedarf anpassen können."
+	txt_rsync_info="Zum <span class=\"text-success fst-italic\">aktivieren</span> des rsync Dienstes öffne <span class=\"text-danger fst-italic\">DSM-Hauptmenü</span> > <span class=\"text-danger fst-italic\">Systemsteuerung</span> > <span class=\"text-danger fst-italic\">Dateidienste</span> und wechsel dort in den Reiter <span class=\"text-danger fst-italic\">rsync</span>. Aktivere die Checkbox <span class=\"text-danger fst-italic\">rsync Dienst aktivieren</span>. Als SSH-Verschlüsselungsport wird standardmäßig der Port 22 verwendet, welcher bei Bedarf angepasst werden werden."
 
-	txt_ssh_status="SSH Status"
 	txt_ssh_service="Der SSH Terminal-Dienst ist"
-	txt_ssh_info="Sollten Sie keine Datensicherungsaufträge von- oder auf Remote Server durchführen, können Sie den SSH Terminal-Dienst <strong>deaktiviert</strong> lassen. Ansonsten muss im Vorfeld der SSH Terminal-Dienst aktiviert sein. Zum <strong>aktivieren des SSH Terminal-Dienstes</strong> gehen Sie zu <strong>DSM-Hauptmenü > Systemsteuerung > Terminal & SNMP</strong> und wechseln dort in den Reiter <strong>> Terminal</strong>. Aktiveren Sie die Checkbox <strong>SSH-Dienst aktivieren</strong>. Sollte es sich bei dem zu verbindenden Remote Server ebenfalls um eine Synology DiskStation handeln, muss auch dort der SSH Terminal-Dienst im Vorfeld aktiviert sein. Bei allen anderen rsync kompatiblen Remote Servern ist im Einzelfall zu prüfen, ob und wie der SSH Terminal-Dienst zu aktiveren ist."
+	txt_ssh_info="Zum <span class=\"text-success fst-italic\">aktivieren</span> des SSH Terminal-Dienstes öffne <span class=\"text-danger fst-italic\">DSM-Hauptmenü</span> > <span class=\"text-danger fst-italic\">Systemsteuerung</span> > <span class=\"text-danger fst-italic\">Terminal & SNMP</span> und wechsel dort in den Reiter <span class=\"text-danger fst-italic\">Terminal</span>. Aktivere dort die Checkbox <span class=\"text-danger fst-italic\">SSH-Dienst aktivieren</span>."
 
 	txt_is_active="aktiviert"
 	txt_is_inactive="deaktiviert"

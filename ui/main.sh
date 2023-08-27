@@ -39,145 +39,109 @@ mainnav
 # --------------------------------------------------------------
 if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 	[[ -f "${post_request}" ]] && source "${post_request}"
-
-	echo '
-	<div class="accordion accordion-flush" id="main-accordion">'
 	
-		# Überprüfen des App-Versionsstandes
-		# --------------------------------------------------------------
-		local_version=$(cat "/var/packages/${app_name}/INFO" | grep ^version | cut -d '"' -f2)
-		git_version=$(wget --no-check-certificate --timeout=60 --tries=1 -q -O- "https://raw.githubusercontent.com/toafez/${app_name}/main/INFO.sh" | grep ^version | cut -d '"' -f2)		
-		if [ -n "${git_version}" ] && [ -n "${local_version}" ]; then
-			if dpkg --compare-versions ${git_version} gt ${local_version}; then
+	# Überprüfen des App-Versionsstandes
+	# --------------------------------------------------------------
+	local_version=$(cat "/var/packages/${app_name}/INFO" | grep ^version | cut -d '"' -f2)
+	git_version=$(wget --no-check-certificate --timeout=60 --tries=1 -q -O- "https://raw.githubusercontent.com/toafez/${app_name}/main/INFO.sh" | grep ^version | cut -d '"' -f2)		
+	if [ -n "${git_version}" ] && [ -n "${local_version}" ]; then
+		if dpkg --compare-versions ${git_version} gt ${local_version}; then
 			echo '
 			<div class="row">
 				<div class="ol-sm-12">
-					<h5>'${txt_update_available}'</h5>
-					<table class="table table-borderless table-hover table-sm">
+					<table class="table table-borderless table-sm">
 						<thead></thead>
 						<tbody>
 							<tr>
 								<td scope="row" class="row-sm-auto">
-									'${txt_update_from}' <span class="text-danger">'${local_version}'</span> '${txt_update_to}' <span class="text-success">'${git_version}'</span>
+									<strong>'${txt_update_available}'</strong><br />'${txt_update_from}' <span class="text-danger">'${local_version}'</span> '${txt_update_to}' <span class="text-success">'${git_version}'</span>
 									<td class="text-end"> 
 										<a href="https://github.com/toafez/'${app_name}'/releases" class="btn btn-light btn-sm text-success text-decoration-none" target="_blank">Update</a>
 									</td>
-								</td>'
-									
-								echo '
+								</td>
 							</tr>
 						</tbody>
 					</table><hr />
 				</div>
 			</div>'	
-			fi
 		fi
+	fi
 
-		# Systemumgebung und Systemprotokoll
-		# --------------------------------------------------------------
+	# Überprüfen der App-Berechtigung
+	# --------------------------------------------------------------
+	if [ -z "${app_permissions}" ] || [[ "${app_permissions}" == "false" ]]; then
 		echo '
-		<div class="accordion-item border-0">
-			<span class="accordion-header" id="heading0">
-				<div class="card border-0">
-					<div class="card-header bg-light border-0">
-						<a href="#edit0" class="text-dark text-decoration-none" data-bs-toggle="collapse" data-bs-target="#collapse0" aria-expanded="true" aria-controls="collapse0">'
+		<div class="row">
+			<div class="ol-sm-12">
+				<table class="table table-borderless table-sm">
+					<thead></thead>
+					<tbody>
+						<tr>
+							<td scope="row" class="row-sm-auto">
+								<strong>'${txt_group_status_false}'</strong>
+								<td class="text-end"> 
+									<a href="#help-permissions" class="btn btn-light btn-sm text-success text-decoration-none" data-bs-toggle="modal" data-bs-target="#help-app-permissions">'${txt_button_extend_permission}'</a>
+								</td>
+							</td>
+						</tr>
+					</tbody>
+				</table><hr />
+			</div>
+		</div>'	
+	fi
 
-							# rsync Status abfragen
-							rsyncd_status=$(systemctl is-enabled rsyncd.service) # activ= Dienst aktiv, unknown= Dienst deaktiert
+	# Überprüfen des rsync-Dienstes
+	# --------------------------------------------------------------
+	# rsync Status abfragen
+	rsyncd_status=$(systemctl is-enabled rsyncd.service) # activ= Dienst aktiv, unknown= Dienst deaktiert
+	if [[ "${rsyncd_status}" != "enabled" ]]; then
+		echo '
+		<div class="row">
+			<div class="ol-sm-12">
+				<table class="table table-borderless table-sm">
+					<thead></thead>
+					<tbody>
+						<tr>
+							<td scope="row" class="row-sm-auto">
+								<strong>'${txt_rsync_service}' '${txt_is_inactive}'</strong><br />'${txt_rsync_info}'
+								<td class="text-end"> 
+									&nbsp;
+								</td>
+							</td>
+						</tr>
+					</tbody>
+				</table><hr />
+			</div>
+		</div>'	
+	fi
 
-							# SSH Status abfragen
-							sshd_status=$(systemctl is-enabled sshd.service)	# activ= Dienst aktiv, unknown= Dienst deaktiert
-
-							# rsync, SSH, Benutzer-Home und admin Rechte abfragen
-							if [[ "${rsyncd_status}" == "enabled" ]] && [[ "${sshd_status}" == "enabled" ]] && ( cat /etc/group | grep ^administrators | grep -q ${app_name}) ; then
-								echo '&nbsp;<i class="bi bi-check-lg text-success"></i> '
-							else
-								echo '&nbsp;<i class="bi bi-exclamation-lg text-danger"></i>'
-							fi
-							echo '&nbsp;'${txt_system_title}'
-						</a>
-						<div class="float-end">
-							&nbsp;
-						</div>
-					</div>
-				</div>
-			</span>'
-
-			# Systemumgebung anzeigen
-			# --------------------------------------------------------------
-			echo '
-			<div id="collapse0" class="accordion-collapse collapse" aria-labelledby="heading0" data-bs-parent="#main-accordion">
-				<div class="accordion-body">
-					<div class="card-body bg-light">
-						<div class="row">
-							<div class="col-sm-12">'
-
-								# rsync Dienst aktiviert bzw. deaktiviert - Befehl: systemctl status sshd.service
-								# --------------------------------------------------------------
-								echo '
-								<ul class="list-unstyled">
-									<li class="text-dark list-style-square">'${txt_rsync_status}'
-										<ul class="list-unstyled ps-4">'
-											if [[ "${rsyncd_status}" == "enabled" ]]; then
-												echo '
-												<li class="text-success">'${txt_rsync_service}' '${txt_is_active}'</li>'
-											else
-												echo '
-												<li class="text-danger">'${txt_rsync_service}' '${txt_is_inactive}'</li>
-												<li class="text-secondary">'${txt_rsync_info}'</li>'
-											fi
-											echo '
-										</ul>
-									</li>
-								</ul>'
-
-								# SSH Dienst aktiviert bzw. deaktiviert - Befehl: systemctl status rsyncd.service
-								# --------------------------------------------------------------
-								echo '
-								<ul class="list-unstyled">
-									<li class="text-dark list-style-square">'${txt_ssh_status}'
-										<ul class="list-unstyled ps-4">'
-											if [[ "${sshd_status}" == "enabled" ]]; then
-												echo '
-												<li class="text-success">'${txt_ssh_service}' '${txt_is_active}'</li>'
-											else
-												echo '
-												<li class="text-danger">'${txt_ssh_service}' '${txt_is_inactive}'</li>
-												<li class="text-secondary">'${txt_ssh_info}'</li>'
-											fi
-											echo '
-										</ul>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col">'
-
-								# Hinweis, das nur eingeschränkte Benutzerrechte vorhanden
-								# --------------------------------------------------------------
-								#if cat /etc/group | grep ^administrators | grep -q ${app_name} ; then
-								echo '
-								<ul class="list-unstyled">
-									<li class="text-dark list-style-square">'${txt_group_status}'
-										<ul class="list-unstyled ps-4">'
-											if cat /etc/group | grep ^administrators | grep -q ${app_name} ; then
-												echo '
-												<li class="text-success">'${txt_group_status_true}'. <a href="#help-permissions" class="text-danger text-decoration-none" data-bs-toggle="modal" data-bs-target="#help-permissions">'${txt_button_restrict_permission}'</a></li>'
-											else
-												echo '
-												<li class="text-danger pb-2">'${txt_group_status_false}' <a href="#help-permissions" class="text-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#help-permissions">'${txt_button_extend_permission}'</a></li>'
-											fi
-											echo '
-										</ul>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div><br />'
-
+	# Überprüfen des ssh-Dienstes
+	# --------------------------------------------------------------
+	# rsync Status abfragen
+	# SSH Status abfragen
+	sshd_status=$(systemctl is-enabled sshd.service)	# activ= Dienst aktiv, unknown= Dienst deaktiert
+	if [[ "${sshd_status}" != "enabled" ]]; then
+		echo '
+		<div class="row">
+			<div class="ol-sm-12">
+				<table class="table table-borderless table-sm">
+					<thead></thead>
+					<tbody>
+						<tr>
+							<td scope="row" class="row-sm-auto">
+								<strong>'${txt_ssh_service}' '${txt_is_inactive}'</strong><br />'${txt_ssh_info}'
+								<td class="text-end"> 
+									&nbsp;
+								</td>
+							</td>
+						</tr>
+					</tbody>
+				</table><hr />
+			</div>
+		</div>'	
+	fi
+	echo '
+	<div class="accordion accordion-flush" id="main-accordion">'
 		# Backupaufträge anzeigen
 		# --------------------------------------------------------------
 		backupconfigs=$(find "$usr_backupjobs" -type f -name "*.config" -maxdepth 1 | sort)

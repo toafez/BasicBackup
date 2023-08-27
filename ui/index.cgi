@@ -76,6 +76,13 @@
 		unset OLD_REQUEST_METHOD
 	fi
 
+# App-Berechtigungen auswerten
+# --------------------------------------------------------------
+if cat /etc/group | grep ^administrators | grep -q ${app_name} ; then
+	app_permissions="true"
+else
+	app_permissions="false"
+fi
 
 # Umgebungsvariablen festlegen
 # --------------------------------------------------------------
@@ -257,8 +264,14 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 											</a>
 											<ul class="dropdown-menu dropdown-menu-sm-end" aria-labelledby="navDropdown">
 												<li><a class="dropdown-item" href="index.cgi?page=debug&section=start">'${txt_link_debug}'</a></li>
-												<li><a class="dropdown-item" href="index.cgi?page=view&section=systemlog&file='${usr_systemlog}'">'${txt_link_systemlog}'</a></li>
-												<li><a class="dropdown-item" href="index.cgi?page=recovery&section=start">'${txt_link_recovery}'</a></li>
+												<li><a class="dropdown-item" href="index.cgi?page=view&section=systemlog&file='${usr_systemlog}'">'${txt_link_systemlog}'</a></li>		
+												<li><a class="dropdown-item" href="index.cgi?page=recovery&section=start">'${txt_link_recovery}'</a></li>'
+												if [[ "${app_permissions}" == "true" ]]; then
+													echo '<li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#help-app-permissions">'${txt_link_revoke_permissions}'</button></li>'
+												else
+													echo '<li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#help-app-permissions">'${txt_link_expand_permissions}'</button></li>'
+												fi
+												echo '
 											</ul>
 										</li>
 
@@ -311,6 +324,11 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 					help_modal "ssh-rsa" "${txt_link_help_ssh_rsa}"
 					help_modal "versioning" "${txt_link_help_version}"
 					help_modal "permissions" "${txt_link_help_permissions}"
+					if [[ "${app_permissions}" == "true" ]]; then
+						help_modal "app-permissions" "${txt_link_revoke_permissions}"
+					else
+						help_modal "app-permissions" "${txt_link_expand_permissions}"
+					fi
 
 					# Hinweis Badges
 					# --------------------------------------------------------------
