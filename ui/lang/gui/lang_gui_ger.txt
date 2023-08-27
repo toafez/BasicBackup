@@ -94,13 +94,10 @@
 
 	txt_rsync_status="Rsync Status"
 	txt_rsync_service="Der rsync Dienst ist"
-	txt_rsync_port="und verwendet den SSH Verschlüsselungsport"
-	#txt_rsync_account="Das rsync Konto ist"
 	txt_rsync_info="Zum <strong>aktivieren des rsync Dienstes</strong> gehen Sie zu <strong>DSM-Hauptmenü > Systemsteuerung > Dateidienste</strong> und wechseln dort in den Reiter <strong>> rsync</strong>. Aktiveren Sie die Checkbox <strong>rsync Dienst aktivieren</strong>. Als SSH-Verschlüsselungsport wird standardmäßig der Port 22 verwendet, welchen Sie bei Bedarf anpassen können."
 
 	txt_ssh_status="SSH Status"
 	txt_ssh_service="Der SSH Terminal-Dienst ist"
-	txt_ssh_port="und verwendet den SSH Port"
 	txt_ssh_info="Sollten Sie keine Datensicherungsaufträge von- oder auf Remote Server durchführen, können Sie den SSH Terminal-Dienst <strong>deaktiviert</strong> lassen. Ansonsten muss im Vorfeld der SSH Terminal-Dienst aktiviert sein. Zum <strong>aktivieren des SSH Terminal-Dienstes</strong> gehen Sie zu <strong>DSM-Hauptmenü > Systemsteuerung > Terminal & SNMP</strong> und wechseln dort in den Reiter <strong>> Terminal</strong>. Aktiveren Sie die Checkbox <strong>SSH-Dienst aktivieren</strong>. Sollte es sich bei dem zu verbindenden Remote Server ebenfalls um eine Synology DiskStation handeln, muss auch dort der SSH Terminal-Dienst im Vorfeld aktiviert sein. Bei allen anderen rsync kompatiblen Remote Servern ist im Einzelfall zu prüfen, ob und wie der SSH Terminal-Dienst zu aktiveren ist."
 
 	txt_is_active="aktiviert"

@@ -5,10 +5,12 @@ Version 0.7-    vom
  - Deutsch
     - Im rsync-Script war die Zeile 926 nicht auszukommentiert, was zu einem "command not found" Fehler führte. Vielen Dank an @treki
     - Hinweise zum Aktivieren des lokalen Benutzer-Home-Dienstes wurden entfernt, da hier der SSH-Verbindungsaufbau immer durch den Benutzer root erfolgt. Auf dem sich zu verbindenden Remote Server muss hingegen der Benutzer-Home-Dienst aktiviert sein, da man sich hierbei nicht als root anmelden kann.
+    - Die Ports für den SSH- und rsync-Dienst können zur Zeit nicht mehr bestimmt werden. Diesbezügliche Hinweise wurden entfernt.
 
  - English
     - In the rsync script, line 926 was not commented out, resulting in a "command not found" error. Many thanks to @treki
     - Notes on activating the local user home service have been removed, since here the SSH connection is always established by the user root. On the other hand, the user home service must be activated on the remote server to be connected, since you cannot log in as root here.
+    - The ports for the SSH and rsync service can no longer be determined at this time. Related notices have been removed.
 
 
 Version 0.7-500 vom 26.08.2023

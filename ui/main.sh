@@ -114,20 +114,13 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 
 								# rsync Dienst aktiviert bzw. deaktiviert - Befehl: systemctl status sshd.service
 								# --------------------------------------------------------------
-
-								# rsync Dienst aktiv/deaktiviert
-								rsync_port_check=$(cat "/etc/synoinfo.conf" | grep rsync_sshd_port | cut -d '"' -f2)
-
-								# rsync Konto aktiv/deaktiviert
-								rsync_account_check=$(cat "/etc/synoinfo.conf" | grep rsync_account | cut -d '"' -f2)
-
 								echo '
 								<ul class="list-unstyled">
 									<li class="text-dark list-style-square">'${txt_rsync_status}'
 										<ul class="list-unstyled ps-4">'
 											if [[ "${rsyncd_status}" == "enabled" ]]; then
 												echo '
-												<li class="text-success">'${txt_rsync_service}' '${txt_is_active}' '${txt_rsync_port}' '${rsync_port_check}'</li>'
+												<li class="text-success">'${txt_rsync_service}' '${txt_is_active}'</li>'
 											else
 												echo '
 												<li class="text-danger">'${txt_rsync_service}' '${txt_is_inactive}'</li>
@@ -140,17 +133,13 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 
 								# SSH Dienst aktiviert bzw. deaktiviert - Befehl: systemctl status rsyncd.service
 								# --------------------------------------------------------------
-
-								# SSH-Dienst aktiv/deaktivert
-								ssh_port_check=$(cat "/etc/synoinfo.conf" | grep ssh_port | cut -d '"' -f2)
-
 								echo '
 								<ul class="list-unstyled">
 									<li class="text-dark list-style-square">'${txt_ssh_status}'
 										<ul class="list-unstyled ps-4">'
 											if [[ "${sshd_status}" == "enabled" ]]; then
 												echo '
-												<li class="text-success">'${txt_ssh_service}' '${txt_is_active}' '${txt_ssh_port}' '${ssh_port_check}'</li>'
+												<li class="text-success">'${txt_ssh_service}' '${txt_is_active}'</li>'
 											else
 												echo '
 												<li class="text-danger">'${txt_ssh_service}' '${txt_is_inactive}'</li>

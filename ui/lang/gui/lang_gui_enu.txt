@@ -94,13 +94,10 @@
 
 	txt_rsync_status="Rsync Status"
 	txt_rsync_service="The rsync service is"
-	txt_rsync_port="and uses the SSH encryption port"
-	#txt_rsync_account="The rsync account is"
 	txt_rsync_info="To <strong>enable the rsync service</strong> go to <strong>DSM main menu > Control Panel > File Services</strong> and change there to the tab <strong>> rsync</strong>. Enable the <strong>rsync service checkbox</strong>. By default, port 22 is used as SSH encryption port, which you can adjust if necessary."
 
 	txt_ssh_status="SSH Status"
 	txt_ssh_service="The SSH terminal service is"
-	txt_ssh_port="and is using the SSH port"
 	txt_ssh_info="If you do not perform backup jobs to or from remote servers, you can leave the SSH terminal service <strong>disabled</strong>. Otherwise, the SSH terminal service must be enabled in advance. To <strong>enable the SSH Terminal service</strong> go to <strong>DSM Main Menu > Control Panel > Terminal & SNMP</strong> and change to the <strong>>Terminal</strong> tab there. Activate the checkbox <strong>Enable SSH service</strong>. If the remote server to be connected is also a Synology DiskStation, the SSH terminal service must also be enabled there in advance. For all other rsync compatible remote servers it has to be checked in each individual case if and how the SSH terminal service has to be activated."
 
 	txt_is_active="activated"
