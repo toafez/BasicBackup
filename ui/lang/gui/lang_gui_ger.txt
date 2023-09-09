@@ -352,5 +352,3 @@
 	txt_folder_not_found_info="Der Ordner für die Datensicherungsaufträge konnte nicht gefunden werden"
 	txt_share_not_found_note="Der freigegebene Ordner konnte nicht gefunden werden"
 
-
-

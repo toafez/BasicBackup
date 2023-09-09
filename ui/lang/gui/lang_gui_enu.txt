@@ -352,5 +352,3 @@
 	txt_folder_not_found_info="The folder for the backup jobs could not be found"
 	txt_share_not_found_note="The shared folder could not be found"
 
-
-

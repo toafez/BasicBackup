@@ -56,7 +56,7 @@ if [[ "${get[page]}" == "view" ]]; then
 							# --------------------------------------------------------------
 							get[file]=$(urldecode ${get[file]})
 
-							if [ -z "${get[process]}" ] || [[ "${get[process]}" == "stopped" ]]; then
+							if [ -z "${get[process]}" ] || [[ "${get[process]}" == "false" ]]; then
 								if [ -s "${get[file]}" ]; then
 									# Gebe Dateiinhalt aus
 									echo '
@@ -79,7 +79,7 @@ if [[ "${get[page]}" == "view" ]]; then
 								fi
 							fi
 
-							if [[ "${get[process]}" == "runs" ]]; then
+							if [[ "${get[process]}" == "true" ]]; then
 								echo '
 								<div class="text-monospace text-nowrap" style="font-size: 87.5%;">
 									<div id="refresh">
