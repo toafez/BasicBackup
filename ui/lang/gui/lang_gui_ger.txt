@@ -89,13 +89,14 @@
 	# Notes - group membership
 	txt_group_status="App Berechtigungsstatus"
 	txt_group_status_true="${app_title} verfügt über erweiterte Systemberechtigungen"
-	txt_group_status_false="${app_title} verfügt nur über eingeschränkte Berechtigungen."
+	txt_group_status_false="${app_title} verfügt nur über eingeschränkte App- bzw. Systemberechtigungen."
 
 # debug.sh
 # --------------------------------------------------------------
 	txt_debug_title="Debug-Modus - Optionen zur Fehleranalyse"
 	txt_debug_mode_on="Debugging Konsole einschalten"
 	txt_debug_mode_off="Debugging Konsole ausschalten"
+	txt_debug_select="Wähle bitte eine oder mehrere Debug Optionen aus der Liste aus!"
 	txt_debug_membership="Gruppenmitgliedschaft(en) der App"
 	txt_debug_requests="GET & POST Anfragemethoden"
 	txt_debug_get="GET Request Methode"
@@ -115,36 +116,40 @@
 	txt_ssh_service="Der SSH Terminal-Dienst ist"
 	txt_ssh_info="Zum <span class=\"text-success fst-italic\">aktivieren</span> des SSH Terminal-Dienstes öffne <span class=\"text-danger fst-italic\">DSM-Hauptmenü</span> > <span class=\"text-danger fst-italic\">Systemsteuerung</span> > <span class=\"text-danger fst-italic\">Terminal & SNMP</span> und wechsel dort in den Reiter <span class=\"text-danger fst-italic\">Terminal</span>. Aktivere dort die Checkbox <span class=\"text-danger fst-italic\">SSH-Dienst aktivieren</span>."
 
+	txt_active="Aktiviert"
+	txt_inactive="Deaktiviert"
 	txt_is_active="aktiviert"
 	txt_is_inactive="deaktiviert"
 
 	txt_source_shares="Freigegebene Ordner"
 	txt_target_share="Freigegebener Ordner"
 
-	txt_backupjob_runs="läuft..."
+	txt_backupjob_runs="wird ausgeführt..."
 	txt_update_job="Update verfügbar"
 	txt_update_job_run="Update ausführen"
 	txt_update_job_info="Um Ihre Auftragskonfiguration zu aktualisieren, klicken Sie bitte auf diese Schaltfläche. Durchlaufen Sie dabei sämtliche Konfigurationseinstellungen und halten dabei nach möglichen Änderungen bzw. Erweiterungen Ausschau und passen diese ggf. an Ihre Bedürfnisse an. Klicken Sie am Ende der Konfiguration auf die Schaltfläche [ Speichern ] um die Änderungen zu übernehmen."
 
 	txt_backup_log_title="Datensicherungsprotokoll"
 	txt_edit_job_title="Auftrag bearbeiten"
+	txt_delete_job_title="Auftrag löschen"
 	txt_local_diskstation="Lokale DiskStation"
+	txt_external_disk="Externer Datenträger"
 	txt_remote_diskstation="Remote DiskStation"
 	txt_remote_server="Remote rsync-Server"
 	txt_remote_pushserver="Push Backup zum Remote Server"
 	txt_remote_pullserver="Pull Backup vom Remote Server"
-	txt_backup_sources="Datensicherungsquelle"
+	txt_backup_sources="Datensicherungsquelle(n)"
 	txt_backup_target="Datensicherungsziel"
-	txt_versioning="Versionierung"
-	txt_versions="Tage werden gesicherte Daten im Versionsverlauf aufbewahrt"
+	txt_versioning="Versionsstände"
+	txt_versions_step_1="Versionsstände, die älter als"
+	txt_versions_step_2="<span class=\"text-danger\">Tage</span> sind, werden endgültig gelöscht."
 	txt_recycling="Papierkorb"
-	txt_recycle_inactive="Die Papierkorb Funktion steht bei einer Versionierung nicht zur Verfügung."
-	txt_recycle_false="Die Aufbewahrung zwischenzeitlich gelöschter Daten wurde deaktiviert."
-	txt_recycle_true="Tage werden zwischenzeitlich gelöschte Daten im Ordner /@recycle aufbewahrt."
+	txt_recycling_step_1="Zum löschen vorgemerkte Daten, die älter als"
+	txt_recycling_step_2="<span class=\"text-danger\">Tage</span> sind, werden endgültig gelöscht."
+	txt_recycling_inactive="Der Papierkorb steht bei einer versionierten Datensicherung <span class=\"text-danger\">nicht</span> zur Verfügung."
 
-	txt_bash_code_note="Mit folgenden Befehlen lässt sich der Auftrag über den <span class=\"text-primary\">DSM Aufgabenplaner</span> oder über das Terminal Ihrer DiskStation als <strong>root</strong> ausführen."
-	#txt_bash_code_regular="Befehl zum ausführen des Auftrages"
-	txt_bash_code_option="An den Befehl anhängbare Optionsschalter"
+	txt_bash_code_option="Optionsschalter"
+	txt_bash_code_option_note="Optionsschalter können an den Befehl zur Ausführung eines Auftrages angehangen werden um beispielsweise einen Testlauf durchzuführen, oder um ein detailierteres Protokoll zu erhalten."
 	txt_bash_code_jobname="<span class=\"text-success\">Standardoption</span>: Name des auszuführenden Auftrages in Anführungszeichen."
 	txt_bash_code_dryrun="Rsync simuliert nur was passieren würde, ohne das dabei Daten kopiert bzw. synchronisiert werden."
 	txt_bash_code_rsync_v="Kurzes rsync Protokoll, welche Dateien übertragen werden."
@@ -153,16 +158,22 @@
 	txt_bash_code_ssh_v="Kurzes SSH Verbindungsprotokoll (Debugging Mode 1) wird ausgeführt."
 	txt_bash_code_ssh_vv="Erweitertes SSH Verbindungsprotokoll (Debugging Mode 2) wird ausgeführt."
 	txt_bash_code_ssh_vvv="Sehr umfangreiches SSH Verbindungsprotokoll (Debugging Mode 3) wird ausgeführt."
-	txt_bash_code_perms="<span class=\"text-danger\">Expertenmodus</span>: Ändern der rsync Zugriffsrechte von Ordnern (Verzeichnisse) und Dateien.<br />Schreibweise: <span class=\"text-danger\">--chmod=ugo=rwx</span> oder auch <span class=\"text-danger\">--chmod=\"ugo=rwx\"</span>. Nähere Informationen zum Umgang mit Zugriffsrechten (chmod) im Zusammenhang mit rsync erhalten Sie auf einschlägigen Seiten im Internet."
-	txt_bash_code_perms_push="<span class=\"text-danger\">Experimentell:</span> Sollten bei einem <span class=\"text-danger\">Push Backup</span> Zugriffsprobleme im Ziel der Datensicherung auftreten."
+	txt_bash_code_perms="<span class=\"text-danger\">Expertenmodus</span>: Ändern der rsync Zugriffsrechte von Ordnern und Dateien. Schreibweise: <span class=\"text-danger\">--chmod=ugo=rwx</span> oder auch <span class=\"text-danger\">--chmod=\"ugo=rwx\"</span>. Nähere Informationen zum Umgang mit Zugriffsrechten (chmod) im Zusammenhang mit rsync erhälst du auf einschlägigen Seiten im Internet."
+	txt_bash_code_perms_push="<span class=\"text-danger\">Experimentell:</span> Ändern der rsync Zugriffsrechte von Ordnern und Dateien, sollten bei einem <span class=\"text-danger\">Push Backup</span> Zugriffsprobleme im Ziel der Datensicherung auftreten. Nähere Informationen zum Umgang mit Zugriffsrechten (chmod) im Zusammenhang mit rsync erhälst du auf einschlägigen Seiten im Internet."
 
-	txt_job_step_title="Befehl zum ausführen des Auftrages über den DSM-Aufgabenplaner"
-	txt_job_step_1="Wählen Sie im DSM <span class=\"text-danger\">Hauptmenü</span> die <span class=\"text-danger\">Systemsteuerung</span> aus und öffnen im Anschluss den <span class=\"text-danger\">Aufgabenplaner</span>."
-	txt_job_step_2="Erstellen Sie über die Schaltfläche <span class=\"text-danger\">Erstellen</span> eine neue <span class=\"text-danger\">geplante Aufgabe</span> und wählen im Anschluss ein <span class=\"text-danger\">Benutzerdefiniertes Script</span> aus."
-	txt_job_step_3="Vergeben Sie im Reiter <span class=\"text-danger\">Allgemein</span> der Aufgabe einen eindeutigen <span class=\"text-danger\">Namen</span>, wählen als <span class=\"text-danger\">Benutzer: <span class=\"text-danger\">root</span></span> aus. Möchten Sie, das der Auftrag im Anschluss automatisch ausgelöst wird, dann setzen Sie den Haken bei Aktiviert, ansonsten entfernen Sie ihn."
-	txt_job_step_4="Falls gewünscht, können Sie einen Zeitplan über den entsprechenden Reiter anlegen. Ansonsten überspringen Sie den Reiter Zeitplan und wechseln gleich zum Reiter <span class=\"text-danger\">Aufgabeneinstellungen</span>. Im unteren Textfeld fügen Sie bitte den unten stehenden Befehl, gefolgt von weiteren möglichen Optionsschaltern ein..."
-	txt_job_step_5="Beenden Sie Ihre Eingaben mit <span class=\"text-danger\">OK</span> und bestätigen Sie die anschließende Warnmeldung ebenfalls mit <span class=\"text-danger\">OK</span>."
-	txt_job_step_6="Bei Bedarf können Sie die grade erstellte Aufgabe über den <span class=\"text-danger\">Aufgabenplaner</span> manuell ausführen. Markieren Sie dazu die Aufgabe mit der Maus und betätigen im Anschluss die Schaltfläche <span class=\"text-danger\">Ausführen</span> um die Aufgabe einmalig manuell auszuführen."
+	txt_help_job_title="Auftragsausführung"
+	txt_help_job_info="Mit dem oben aufgeführten Befehl lässt sich der Auftrag über den <strong class=\"text-dark\">DSM Aufgabenplaner</strong> oder über die <strong class=\"text-dark\">Konsole</strong> der DiskStation als <strong class=\"text-danger\">root</strong> ausführen."
+	txt_help_job_title_terminal="Auftrag über die Konsole ausführen"
+	txt_help_job_title_dsm="Auftrag über den Aufgabenplaner ausführen"
+	txt_help_job_step_1="Melde dich als Benutzer <span class=\"text-danger fst-italic\">root</span> auf der Konsole deiner DiskStation an und führe den oben aufgeführten Befehl zur <span class=\"text-danger fst-italic\">Auftragsausführung</span> aus"
+	txt_help_job_step_2="Öffne im DSM unter <span class=\"text-danger fst-italic\">Hauptmenü</span> > <span class=\"text-danger fst-italic\">Systemsteuerung</span> den <span class=\"text-danger fst-italic\">Aufgabenplaner</span>."
+	txt_help_job_step_3="Wähle im Aufgabenplaner über die Schaltfläche <span class=\"text-danger fst-italic\">Erstellen</span> > <span class=\"text-danger fst-italic\">Geplante Aufgabe</span> > <span class=\"text-danger fst-italic\">Benutzerdefiniertes Script</span> aus."
+	txt_help_job_step_4="In dem sich nun öffnenden Pop-up-Fenster gibst du im Reiter <span class=\"text-danger fst-italic\">Allgemein</span> > <span class=\"text-danger fst-italic\">Allgemeine Einstellungen</span> der Aufgabe einen individuellen Namen und wählst als Benutzer <span class=\"text-danger fst-italic\">root</span> aus. Möchtest du, das der Auftrag später automatisch per Zeitplan ausgelöst wird, dann setze den Haken bei <span class=\"text-danger fst-italic\">Aktiviert</span>."
+	txt_help_job_step_5="Falls gewünscht, kannst du nun Einstellungen im Reiter <span class=\"text-danger fst-italic\">Zeitplan</span> vornehmen."
+	txt_help_job_step_6="Füge anschließend im Reiter <span class=\"text-danger fst-italic\">Aufgabeneinstellungen</span> > <span class=\"text-danger fst-italic\">Befehl ausführen</span> > <span class=\"text-danger fst-italic\">Benutzerdefiniertes Script</span> den oben aufgeführten Befehl zur <span class=\"text-danger fst-italic\">Auftragsausführung</span>, gefolgt von weiteren möglichen Optionsschaltern in das Textfeld ein..."
+	txt_help_job_step_7="Bestätige deine Eingaben mit die Schaltfläche <span class=\"text-danger fst-italic\">OK</span> und akzeptiere die anschließende Warnmeldung ebenfalls mit <span class=\"text-danger fst-italic\">OK</span>."
+	txt_help_job_step_8="Damit die Aufgabe dem Aufgabenplaner hinzugefügt wird, musst du abschließend das Passwort deines aktuell am DSM angemeldeten Benutzers eingeben und den Vorgang über die Schaltfläche <span class=\"text-danger fst-italic\">Senden</span> bestätigen."
+	txt_help_job_step_9="In der Übersicht des Aufgabenplaners kannst du nun die grade erstellte Aufgabe mit der Maus <span class=\"text-danger fst-italic\">markieren</span> (die Zeile sollte nach dem markieren blau hinterlegt sein) und die Aufgabe durch betätigen der Schaltfläche <span class=\"text-danger fst-italic\">Ausführen</span> manuell auslösen."
 
 	txt_popup_delete_job="Soll der Datensicherungsauftrag<br /><strong>$(urldecode ${get[jobname]})</strong><br />wirklich gelöscht werden?"
 	txt_popup_delete_systemlog="Soll der Inhalt des Protokolls wirklich gelöscht werden?"
@@ -178,7 +189,7 @@
 # jobedit.sh
 # --------------------------------------------------------------
 	txt_language_label="Ausgabesprache"
-	txt_note_mountpoint="<span class=\"text-danger\">Wichtiger Hinweis:</span> Der Einhängepunkt (Mountpoint) dieses externen Datenträgers ist variabel und kann sich bei einem späteren neu verbinden durchaus ändern. Stellen Sie daher bitte im Vorfeld sicher, das der aktuelle Einhängepunkt dieses Datenträgers mit dem hinterlegten Einhängepunkt des Datensicherungsauftrages übereinstimmt."
+	txt_note_mountpoint="<span class=\"text-danger\">Wichtiger Hinweis:</span> Der Einhängepunkt (Mountpoint) dieses externen Datenträgers ist variabel und kann sich bei einem späteren neu verbinden durchaus ändern. Stelle daher bitte im Vorfeld sicher, das der aktuelle Einhängepunkt dieses Datenträgers mit dem hinterlegten Einhängepunkt des Datensicherungsauftrages übereinstimmt."
 
 	# Seite 1
 	txt_job_title="Auftrag"
@@ -202,20 +213,20 @@
 	txt_emailfrom_note="Die E-Mail Adresse des Absenders muss gleich der im DSM unter <span class=\"text-blue\">Hauptmenü > Systemsteuerung > Benachrichtigung > E-Mail</span> angegebenen Absenderadresse sein. Ansonsten wird keine E-Mail bzw. kein Sicherungsprotokoll zugestellt."
 
 	txt_signal_label_optical="Optische Signalausgabe über LED"
-	txt_signal_optical_note="Durch aktivieren der optischen Signalausgabe erhält man eine visuelle Rückmeldung über den Status des aktuell ausgeführten Datensicherungsauftrages. Dabei wechselt zu Beginn der Datensicherung die Status-LED Ihrer Synology DiskStation von grün nach orange. Nach dem Beenden wechselt die Status-LED wieder von orange nach grün."
+	txt_signal_optical_note="Durch aktivieren der optischen Signalausgabe erhält man eine visuelle Rückmeldung über den Status des aktuell ausgeführten Datensicherungsauftrages. Dabei wechselt zu Beginn der Datensicherung die Status-LED deiner Synology DiskStation von grün nach orange. Nach dem Beenden wechselt die Status-LED wieder von orange nach grün."
 	txt_signal_label_acoustical="Akustische Signalausgabe über Lautsprecher"
-	txt_signal_acoustical_note="Durch aktivieren der akustischen Signalausgabe erhält man eine visuelle Rückmeldung über den Status des aktuell ausgeführten Datensicherungsauftrages. Dabei ertönt bei Beginn der Datensicherung ein Signalton aus dem Lautsprecher Ihrer Synology DiskStation. Nach dem Beenden ertönt abermals ein Signalton. Traten während der Datensicherung Probleme auf, ertönt als Rückmeldung ein dreifacher Signalton."
+	txt_signal_acoustical_note="Durch aktivieren der akustischen Signalausgabe erhält man eine visuelle Rückmeldung über den Status des aktuell ausgeführten Datensicherungsauftrages. Dabei ertönt bei Beginn der Datensicherung ein Signalton aus dem Lautsprecher deiner Synology DiskStation. Nach dem Beenden ertönt abermals ein Signalton. Traten während der Datensicherung Probleme auf, ertönt als Rückmeldung ein dreifacher Signalton."
 	txt_signal_opt_true="Ein"
 	txt_signal_opt_false="Aus"
 	txt_signal_format="true/false"
 
 	# Seite 2
-	txt_popup_jobname_excists="Der Auftrags- bzw. Scriptname existiert bereits.<br />Bitte verwenden Sie eine andere Bezeichnung."
+	txt_popup_jobname_excists="Der Auftrags- bzw. Scriptname existiert bereits.<br />Verwende bitte eine andere Bezeichnung."
 	txt_target_title="Datensicherungsziel"
 
 	# Seite 2a
 	txt_targetserver_label="Zielserver"
-	txt_targetserver_opt="Bitte wählen Sie einen Zielserver aus"
+	txt_targetserver_opt="Bitte wähle einen Zielserver aus"
 	txt_targetserver_opt_local="Lokale DiskStation"
 	txt_targetserver_opt_remote="Remote rsync-Server (Push Backup)"
 
@@ -232,12 +243,12 @@
 	txt_localfolder_label="Zielverzeichnis"
 	txt_localfolder_note="Es muss ein Zielverzeichnis angegeben werden, das von einem <span class=\"text-blue\">/</span> (Slash) angeführt wird. Die Verwendung weiterer Unterverzeichnisse ist möglich. Ist das Zielverzeichnis nicht vorhanden, wird es während der ersten Datensicherung angelegt. Ungültige Zeichen in Datei- oder Verzeichnisnamen sind <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
 	txt_localfolder_format="z.B. /Basic Backup/Mein erstes Backup"
-	txt_localfolder_regex="^\/([a-zA-Z0-9 _\-\/]+)+$"
+	txt_localfolder_regex="^\/([a-zA-Z0-9 _\-\.\/]+)+$"
 
 	txt_remotetarget_label="Zielverzeichnis"
 	txt_remotetarget_note="Es muss ein Zielverzeichnis angegeben werden, das von einem <span class=\"text-blue\">/</span> (Slash) angeführt wird. Die Verwendung weiterer Unterverzeichnisse ist möglich. Befindet sich das Zielverzeichnis auf einer Synology DiskStation, so muss zusätzlich noch der gewünschte freigegebene Ordner angegeben werden wie z.B. <span class=\"text-blue\">/volume1/NetBackup</span>. Ist das Zielverzeichnis nicht vorhanden, wird es während der ersten Datensicherung angelegt. Ungültige Zeichen in Datei- oder Verzeichnisnamen sind <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
 	txt_remotetarget_format="z.B. /volume1/NetBackup/Mein erstes Backup"
-	txt_remotetarget_regex="^\/([a-zA-Z0-9 _\-\/]+)+$"
+	txt_remotetarget_regex="^\/([a-zA-Z0-9 _\-\.\/]+)+$"
 
 	# Seite 2b und Seite 3b
 	txt_sshbuild_note="Hinweise zur Einrichtung einer SSH-Verbindung"
@@ -283,7 +294,7 @@
     txt_uuid_error="<strong>Warnung:</strong> Es konnte kein gültiges UUID Format ermittelt werden, weshalb die Option - ${txt_uuidcheck_opt_true} - wieder deaktiviert wurde."
 
 	txt_sourceserver_label="Quellserver"
-	txt_sourceserver_opt="Bitte wählen Sie einen Quellserver aus"
+	txt_sourceserver_opt="Bitte wähle einen Quellserver aus"
 	txt_sourceserver_opt_local="Lokale DiskStation"
 	txt_sourceserver_opt_remote="Remote rsync-Server (Pull Backup)"
 
@@ -291,11 +302,11 @@
 	txt_sources_label="Datensicherungsquelle(n)"
 	txt_sources_label_info="Pfade durch ein & voneinander trennen"
 	txt_sources_format="z.B. /volume1/music/Compilations & /volume1/photo/General & /volume2/video/Series"
-	txt_sources_regex="^\/([a-zA-Z0-9 _\-\/&]+)+$"
-	txt_sources_rights="Basic Backup verfügt aktuell nur über eingeschränkte Systemrechte, da die App kein Mitglied in der Gruppe der Administratoren ist. Das hat zur Folge, das an dieser Stelle nur freigegebene Ordner, nicht jedoch zugehörige Unterordner auswählbar sind. Zum erweitern der Systemrechte, folgen Sie bitte den Anweisungen auf der <a href=\"index.cgi?page=jobedit&section=reset\" class=\"text-primary text-decoration-none\">Startseite</a> von Basic Backup."
+	txt_sources_regex="^\/([a-zA-Z0-9 _\-\.\/&]+)+$"
+	txt_sources_rights="Basic Backup verfügt aktuell nur über eingeschränkte Systemrechte, da die App kein Mitglied in der Gruppe der Administratoren ist. Das hat zur Folge, das an dieser Stelle nur freigegebene Ordner, nicht jedoch zugehörige Unterordner auswählbar sind. Zum erweitern der Systemrechte, folge bitte den Anweisungen auf der <a href=\"index.cgi?page=jobedit&section=reset\" class=\"text-primary text-decoration-none\">Startseite</a> von Basic Backup."
 
 	# Seite 4
-	txt_popup_select_source="Bitte wählen Sie mindestens einen Quellordner aus"
+	txt_popup_select_source="Wähle bitte mindestens einen Quellordner aus"
 	txt_rsync_title="Rsync Verhalten"
 
 	txt_syncopt_label="rsync Optionsschalter"
@@ -307,7 +318,7 @@
 	txt_days="Tage"
 
 	txt_versioning_label="Versionierung"
-	txt_versioning_note="Im Gegensatz zu einer synchronisierten Datensicherung werden bei einer versionierten Datensicherung alle, seit der letzten Datensicherung entstandenen Änderungen der Quelle, in einen separaten Ordner, benannt nach Datum und Uhrzeit der aktuellen Datensicherung, im Ziel abgelegt. Die Papierkorb Funktion steht Ihnen hierbei nicht zur Verfügung."
+	txt_versioning_note="Im Gegensatz zu einer synchronisierten Datensicherung werden bei einer versionierten Datensicherung alle, seit der letzten Datensicherung entstandenen Änderungen der Quelle, in einen separaten Ordner, benannt nach Datum und Uhrzeit der aktuellen Datensicherung, im Ziel abgelegt. Die Papierkorb Funktion steht dir hierbei nicht zur Verfügung."
 	txt_versioning_opt_true="Ein"
 	txt_versioning_opt_false="Aus"
 	txt_versioning_format="true/false"

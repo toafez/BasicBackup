@@ -36,12 +36,12 @@ if [ "${gui_lang}" == "ger" ]; then
 				Im Folgenden wird nach einem ersten Verbindungstest die SSH-Ordnerstruktur durch den Austausch des öffentlichen sowie des privaten Schlüssels vervollständigt.
 			<p>
 			<div class="alert alert-danger" role="alert">
-				<strong>Hinweis:</strong> Vor einem ersten Verbindungstest sollten Sie sich vergewissern, das auf dem zu verbindenden <strong>Remote Server</strong> im Vorfeld die <strong>SSH Ordnerstruktur</strong> eingerichtet wurde. Sind alle Vorbereitungen getroffen, steht einem ersten Verbindungstest nichts mehr im Wege.
+				<strong>Hinweis:</strong> Vor einem ersten Verbindungstest solltest du dich vergewissern, das auf dem zu verbindenden <strong>Remote Server</strong> im Vorfeld die <strong>SSH Ordnerstruktur</strong> eingerichtet wurde. Sind alle Vorbereitungen getroffen, steht einem ersten Verbindungstest nichts mehr im Wege.
 			</div>
 
 			<h4 class="mt-4">Anmeldung auf der lokalen DiskStation</h4>
 			<p>
-				Beginnen Sie mit der Anmeldung auf der lokalen DiskStation und dem Wechsel zum Root-Konto
+				Beginne mit der Anmeldung auf der lokalen DiskStation und dem Wechsel zum Root-Konto
 			</p>
 			<div class="ps-4">
 				<pre class="shadow-none p-1 mb-0 bg-light rounded"><span class="text-success">tux@LinuxDistro</span>:<span class="text-primary">~</span># ssh -p <span class="text-danger">22</span> <span class="text-danger">admin</span>@<span class="text-danger">192.168.2.10</span></pre>
@@ -52,14 +52,14 @@ if [ "${gui_lang}" == "ger" ]; then
 				<pre class="shadow-none p-1 mb-0 bg-light rounded"><span class="text-success">root@DiskStation</span>:<span class="text-primary">~</span>#</pre>
 			</div>
 
-			<h4 class="mt-4">Bekanntmachung Ihrer DiskStation mit Ihrem Remote Server</h4>
+			<h4 class="mt-4">Bekanntmachung deiner DiskStation mit deinem Remote Server</h4>
 			<div class="ps-4">
 				<div class="alert alert-danger" role="alert">
-					<strong>Hinweis:</strong> Der nachfolgend beschriebene sogenannte <strong>Handshake</strong> wird bei jedem Erstkontakt mit einem bis dato unbekannten Remote Server durchgeführt. Hierbei muss der Benutzer den Verbindungsvorgang <strong>aktiv bestätigen</strong> Nach einer positiven Bestätigung wird ein <strong>Fingerprint</strong> des Remote Servers in der lokalen Datei <strong>~/.ssh/known_hosts</strong> Ihrer DiskStation gespeichert. Der Fingerprint basiert dabei auf dem öffentlichen Schlüssel des Remote Servers, der in der Datei <strong>~/.ssh/[FILENAME].pub</strong> enthalten ist. Im Allgemeinen dient der Fingerprint zur einfachen Identifizierung bzw. Verifizierung des Rechners, mit dem Sie sich verbinden wollen.
+					<strong>Hinweis:</strong> Der nachfolgend beschriebene sogenannte <strong>Handshake</strong> wird bei jedem Erstkontakt mit einem bis dato unbekannten Remote Server durchgeführt. Hierbei muss der Benutzer den Verbindungsvorgang <strong>aktiv bestätigen</strong> Nach einer positiven Bestätigung wird ein <strong>Fingerprint</strong> des Remote Servers in der lokalen Datei <strong>~/.ssh/known_hosts</strong> deiner DiskStation gespeichert. Der Fingerprint basiert dabei auf dem öffentlichen Schlüssel des Remote Servers, der in der Datei <strong>~/.ssh/[FILENAME].pub</strong> enthalten ist. Im Allgemeinen dient der Fingerprint zur einfachen Identifizierung bzw. Verifizierung des Rechners, mit dem du dich verbinden willst.
 				</div>
 				<p class="mt-3">
 					<strong>Praxis Beispiel</strong><br />
-					Wir verwenden im folgenden wieder die Zugangsaten, die wir bereits beispielhaft für unseren Remote Server benannt hatten. Nachdem Sie den nachfolgenden Befehl mit der Return Taste bestätigt haben, sollte eine Meldung erscheinen, die Sie am Ende des Textes darum bittet, den Verbindungsaufbau mit <strong>yes</strong> zu bestätigen... <i>Are you sure you want to continue connecting (<strong>yes</strong>/no/[fingerprint])?</i>
+					Wir verwenden im folgenden wieder die Zugangsaten, die wir bereits beispielhaft für unseren Remote Server benannt hatten. Nachdem du den nachfolgenden Befehl mit der Return Taste bestätigt hast, sollte eine Meldung erscheinen, die dich am Ende des Textes darum bittet, den Verbindungsaufbau mit <strong>yes</strong> zu bestätigen... <i>Are you sure you want to continue connecting (<strong>yes</strong>/no/[fingerprint])?</i>
 				</p>
 				<pre class="shadow-none p-1 mb-0 bg-light rounded"><span class="text-success">root@DiskStation</span>:<span class="text-primary">~</span># ssh -p <span class="text-danger">22</span> <span class="text-danger">user</span>@<span class="text-danger">192.168.2.20</span></pre>
 				<p class="shadow-none p-1 mb-0 bg-light rounded font-monospace">
@@ -68,18 +68,18 @@ if [ "${gui_lang}" == "ger" ]; then
 					Are you sure you want to continue connecting (<strong>yes</strong>/no/[fingerprint])?<br />
 				</p>
 				<p class="mt-3">
-					Geben Sie über die Tastaur <strong>yes</strong> ein und bestätigen Ihre Eingabe abermals mit der Return Taste. Daraufhin erscheint eine weitere Meldung die Ihnen mitteilt, das der Fingerprint des Remote Servers in der lokalen Datei known_hosts abgelegt wird. Der Vorgang muss durch Eingabe des Passwortes für Ihren Remote Server bestätigt werden...
+					Gib über die Tastaur <strong>yes</strong> ein und bestätige deine Eingabe abermals mit der Return Taste. Daraufhin erscheint eine weitere Meldung die dir mitteilt, das der Fingerprint des Remote Servers in der lokalen Datei known_hosts abgelegt wird. Der Vorgang muss durch Eingabe des Passwortes für deinen Remote Server bestätigt werden...
 				</p>
 				<p class="shadow-none p-1 mb-0 bg-light rounded font-monospace">
 					Warning: Permanently added `192.168.2.20` (ECDSA) to the list of known hosts.
 					user@192.168.2.20`s password:
 				</p>
 				<p class="mt-3">
-					Nach Eingabe des Passwortes und betätigen mit der Return Taste sollten Sie nun mit dem Terminal Ihres Remote Servers verbunden sein.
+					Nach Eingabe des Passwortes und betätigen mit der Return Taste solltest du nun mit dem Terminal Ihres Remote Servers verbunden sein.
 				</p>
 				<pre class="shadow-none p-2 mb-1 bg-light rounded"><span class="text-success">user@RemoteServer</span>:<span class="text-primary">~</span>$</pre>
 				<p class="mt-3">
-					Durch die Eingabe des Befehls <strong>exit</strong>, wird die SSH Verbindung zum Remote Server wieder getrennt und Sie kehren auf das Terminal Ihrer DiskStation zurück.
+					Durch die Eingabe des Befehls <strong>exit</strong>, wird die SSH Verbindung zum Remote Server wieder getrennt und du kehrst auf das Terminal deiner DiskStation zurück.
 				</p>
 					<pre class="shadow-none p-1 mb-0 bg-light rounded"><span class="text-success">user@RemoteServer</span>:<span class="text-primary">~</span>$ exit</pre>
 					<pre class="shadow-none p-1 mb-0 bg-light rounded">logout</pre>
@@ -89,31 +89,31 @@ if [ "${gui_lang}" == "ger" ]; then
 			<h4 class="mt-4">Austausch des öffentlichen RSA-Schlüssels [FILENAME].pub</h4>
 			<div class="ps-4">
 				<p>
-					Damit Sie zukünftig eine passwortlose SSH Verbindung mit Ihrem Remote Server aufbauen können, ist es erforderlich, den <strong>öffentlichen Schlüssel</strong> Ihrer lokalen DiskStation in der Datei <strong>authorized_keys</strong> Ihres Remote Servers zu hinterlegen. Da auf dem Remote Server die SSH Ordnerstruktur bereits vorhanden sein sollte, kann dies mit dem nachfolgenden Befehl einfach durchgeführt werden.
+					Damit du zukünftig eine passwortlose SSH Verbindung mit deinem Remote Server aufbauen kannst, ist es erforderlich, den <strong>öffentlichen Schlüssel</strong> deiner lokalen DiskStation in der Datei <strong>authorized_keys</strong> deines Remote Servers zu hinterlegen. Da auf dem Remote Server die SSH Ordnerstruktur bereits vorhanden sein sollte, kann dies mit dem nachfolgenden Befehl einfach durchgeführt werden.
 				</p>
 				<div class="alert alert-danger" role="alert">
-					<strong>Hinweis:</strong> Durch den einseitigen Handshake kann eine Verbindung auch nur von Ihrer DiskStation aus, auf Ihren Remote Server erfolgen. Der umgekehrte Weg, also der Aufbau einer Verbindung, ausgehend von Ihrem Remote Server, wird daher so lange scheitern, bis Sie den Handshake in die Gegenrichtung ausgeführt haben. Diese Verbindungsart wird für die Verwendung von Basic Backup aber nicht benötigt.
+					<strong>Hinweis:</strong> Durch den einseitigen Handshake kann eine Verbindung auch nur von deiner DiskStation aus, auf deinen Remote Server erfolgen. Der umgekehrte Weg, also der Aufbau einer Verbindung, ausgehend von deinem Remote Server, wird daher so lange scheitern, bis du den Handshake in die Gegenrichtung ausgeführt hast. Diese Verbindungsart wird für die Verwendung von Basic Backup aber nicht benötigt.
 				</div>
 				<strong>Syntax</strong>
 				<pre class="shadow-none p-2 mb-1 bg-light rounded">cat ~/.ssh/[<span class="text-danger">FILENAME</span>].pub | ssh -p [<span class="text-danger">PORT</span>] [<span class="text-danger">USERNAME</span>]@[<span class="text-danger">SERVER-ADDRESS</span>] "cat >> ~/.ssh/authorized_keys"</pre>
 				<p class="mt-3">
 					<strong>Praxis Beispiel</strong><br />
-					Als Beispiel verwenden wir wieder die bereits bekannten Zugangsdaten zu unsrem Remote Server. Nachdem Sie den nachfolgenden Befehl mit der Return Taste bestätigt haben, werden Sie aufgefordert, das Passwort für den Remote Servers anzugeben, damit die Verbindung aufgebaut werden kann. Dies wird das letzte mal sein, das Sie Ihr Passwort eingeben müssen. Bestätigen Sie die Passworteingabe wieder mit der Return Taste. Am Ende der Aktion sollten Sie sich wieder im Terminal Ihrer lokalen DiskStation befinden.
+					Als Beispiel verwenden wir wieder die bereits bekannten Zugangsdaten zu unsrem Remote Server. Nachdem du den nachfolgenden Befehl mit der Return Taste bestätigt hast, wirst du aufgefordert, das Passwort für den Remote Servers anzugeben, damit die Verbindung aufgebaut werden kann. Dies wird das letzte mal sein, das du dein Passwort eingeben musst. Bestätige die Passworteingabe wieder mit der Return Taste. Am Ende der Aktion solltest du dich wieder im Terminal deiner lokalen DiskStation befinden.
 				</p>
 				<pre class="shadow-none p-1 mb-0 bg-light rounded"><span class="text-success">root@DiskStation</span>:<span class="text-primary">~</span># cat ~/.ssh/<span class="text-danger">id_rsa</span>.pub | ssh -p <span class="text-danger">22</span> <span class="text-danger">user</span>@<span class="text-danger">192.168.2.20</span> "cat >> ~/.ssh/authorized_keys"</pre>
 				<pre class="shadow-none p-1 mb-0 bg-light rounded"> user@192.168.2.20`s password:</pre>
 				<pre class="shadow-none p-1 mb-0 bg-light rounded"><span class="text-success">root@DiskStation</span>:<span class="text-primary">~</span>#</pre>
 				<p class="mt-3">
-					Um zu überprüfen, ob alles geklappt hat, melden Sie sich erneut am Remote Server an. Dieses mal sollte die Verbindung ohne Handshake und Passworteingabe erfolgen.
+					Um zu überprüfen, ob alles geklappt hat, meldest du dich erneut am Remote Server an. Dieses mal sollte die Verbindung ohne Handshake und Passworteingabe erfolgen.
 				</p>
 				<pre class="shadow-none p-1 mb-0 bg-light rounded"><span class="text-success">root@DiskStation</span>:<span class="text-primary">~</span># ssh -p <span class="text-danger">22</span> <span class="text-danger">user</span>@<span class="text-danger">192.168.2.20</span></pre>
 				<pre class="shadow-none p-1 mb-0 bg-light rounded"><span class="text-success">user@RemoteServer</span>:<span class="text-primary">~</span>$</pre>
 				<p class="mt-3">
-					Trennen Sie die Verbindung erneut mit einem <strong>exit</strong>
+					Trenne die Verbindung erneut mit einem <strong>exit</strong>
 				</p>
 				<pre class="shadow-none p-2 mb-1 bg-light rounded"><span class="text-success">user@RemoteServer</span>:<span class="text-primary">~</span>$ exit</pre>
 				<p class="mt-3">
-					Sie haben nun erfolgreich Ihre lokale DiskStation mit Ihrem Remote Server bekannt gemacht und somit eine grundlegende Voraussetzung geschaffen, ein Pull- oder Push Backup auszuführen.
+					Du hast nun erfolgreich deine lokale DiskStation mit deinem Remote Server bekannt gemacht und somit eine grundlegende Voraussetzung geschaffen, ein Pull- oder Push Backup auszuführen.
 				</p>
 				<p class="text-end"><br />
 					<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">'${txt_button_Close}'</button>

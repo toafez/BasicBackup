@@ -221,8 +221,8 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 			<!-- Einbinden von bootstrap Icons 1.10.5 -->
 			<link rel="stylesheet" href="template/bootstrap/font/bootstrap-icons.css" />
 
-			<!-- Einbinden von jQuery 3.7.0 -->
-			<script src="template/jquery/jquery-3.7.0.min.js"></script>
+			<!-- Einbinden von jQuery 3.7.1 -->
+			<script src="template/jquery/jquery-3.7.1.min.js"></script>
 
 			<!-- Einbinden von JavaScript bzw. jQuery Funktionen im HTML Header  -->
 			<script src="template/js/head-functions.js"></script>
@@ -239,27 +239,29 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 					{
 						echo '
 						<nav class="navbar fixed-top navbar-expand-sm navbar-light bg-light">
-							<div class="container-fluid">
-								<span class="navbar-brand" style="color: #FF8C00;">'${app_title}'</span>
+							<div class="container-fluid">'
+								#<span class="navbar-brand" style="color: #FF8C00;">'${app_title}'</span>
+								echo '
 								<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
 									<span class="navbar-toggler-icon"></span>
 								</button>
 								<div class="collapse navbar-collapse" id="navbarDropdown">
 									<ul class="navbar-nav">
-										<li class="nav-item">'
-											echo -n '<a class="nav-link'; [[ "${get[page]}" == "jobedit" ]] && echo -n ' active" aria-current="page" ' || echo -n '" '
-											echo -n 'href="index.cgi?page=jobedit&section=1&edit=false&jobname=">'${txt_link_new_job}'</a>'
+										<li class="nav-item">
+											<a class="btn btn-sm text-dark text-decoration-none py-0" role="button" style="background-color: #e6e6e6;" href="index.cgi?page=main&section=reset" title="'${txt_button_refresh}'"><i class="bi bi-house-door text-dark" style="font-size: 1.2rem;"></i></a>'
+											echo -n '<a class="btn btn-sm text-dark text-decoration-none'; [[ "${get[page]}" == "jobedit" ]] && echo -n ' active disabled" aria-current="page" ' || echo -n '" '
+											echo -n 'style="background-color: #e6e6e6;" href="index.cgi?page=jobedit&section=1&edit=false&jobname=">'${txt_link_new_job}'</a>'
+											#if [[ "${get[page]}" != "jobedit" ]]; then
+											#	echo '<a class="btn btn-sm text-dark text-decoration-none disabled" style="background-color: #e6e6e6;" href="index.cgi?page=jobedit&section=1&edit=false&jobname=">'${txt_link_new_job}'</a>&nbsp;'
+											#fi
 											echo '
 										</li>
 									</ul>
 								</div>
 								<div class="float-end">
 									<ul class="navbar-nav">
-										<li class="nav-item">
-											<a class="nav-link" href="index.cgi?page=main&section=reset" title="'${txt_button_refresh}'"><i class="bi bi-arrow-repeat text-secondary h5"></i></a>
-										</li>
-										<li class="nav-item dropdown">
-											<a class="nav-link dropdown-toggle" href="#" id="navDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+										<li class="nav-item dropdown pt-1">
+											<a class="dropdown-toggle btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;" href="#" id="navDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 												'${txt_link_settings}'
 											</a>
 											<ul class="dropdown-menu dropdown-menu-sm-end" aria-labelledby="navDropdown">
@@ -273,10 +275,10 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 												fi
 												echo '
 											</ul>
-										</li>
+										</li>&nbsp;&nbsp;
 
-										<li class="nav-item dropdown">
-											<a class="nav-link dropdown-toggle" href="#" id="navDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+										<li class="nav-item dropdown pt-1">
+											<a class="dropdown-toggle btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;" href="#" id="navDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 												'${txt_link_help}'
 											</a>
 											<ul class="dropdown-menu dropdown-menu-sm-end" aria-labelledby="navDropdown">
@@ -332,7 +334,7 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 
 					# Hinweis Badges
 					# --------------------------------------------------------------
-					note="<span class=\"text-info text-uppercase\" title=\"${txt_link_note}\"><i class=\"bi bi-info-circle-fill\"></i></span>"
+					note="<span class=\"text-primary text-uppercase ms-1\" style=\"border: solid #e6e6e6; border-width: 2px 4px; border-radius: 3px; background-color: #e6e6e6;\" title=\"${txt_link_note}\"><i class=\"bi bi-info-square\"></i></span>"
 
 
 					# Seiteninhalte laden
@@ -358,7 +360,7 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 								</div>
 								<div class="card-body pb-0">'
 									if [ -z "${group_membership}" ] && [ -z "${http_requests}" ] && [ -z "${global_enviroment}" ]; then
-										echo "<p>Bitte wählen Sie eine oder mehrere Debug Optionen aus der Liste aus!</p>"
+										echo '<p>'${txt_debug_select}'</p>'
 									fi
 
 									# Gruppenmitgliedschaften der App

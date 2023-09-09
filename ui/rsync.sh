@@ -1,6 +1,6 @@
 #!/bin/bash
 # Filename: rsync.sh - coded in utf-8
-script_version="0.7-450"
+script_version="0.8-000"
 
 #                       Basic Backup
 #
@@ -157,7 +157,7 @@ fi
 
 unset var
 exit_code=
-clear
+# clear
 
 # ------------------------------------------------------------------------
 # Ceck that the script run only as root
@@ -225,6 +225,14 @@ app_version=$(cat "/var/packages/${app}/INFO" | grep ^version | cut -d '"' -f2)
 #  Set timestamp, create log files and output notification
 # ------------------------------------------------------------------------
 if [[ ${exit_code} -eq 0 ]]; then
+
+	#---------------------------------------------------------------------
+	# Set pid file
+	#---------------------------------------------------------------------
+	touch /var/packages/"${app}"/tmp/pid && chmod 755 $_ && chown "${app}":"${app}" $_
+	pid=$(ps -aux | grep -v "grep" | grep -w "${jobname}" | grep -v "rsync --daemon" | awk '{print $2}')
+	echo 'pid="'${pid}'"' > /var/packages/"${app}"/tmp/pid
+	echo 'job="'${jobname}'"' >> /var/packages/"${app}"/tmp/pid
 
 	#---------------------------------------------------------------------
 	# Set timestamp
@@ -984,18 +992,25 @@ fi
 
 if [[ "${exit_code}" -eq 0 ]]; then
 
+	# Delete pid file
+	[ -f /var/packages/"${app}"/tmp/pid ] && rm /var/packages/"${app}"/tmp/pid
+
 	# Notification that the backup job was successfully executed
 	echo "${txt_line_separator}" | tee -a "${script_log}"
 	echo "$(timestamp) - ${txt_backupjob_success}" | tee -a "${script_log}"
 	echo "$(timestamp) - [ ${jobname} ] ${txt_backupjob_success}" >> "${system_log}"
 	synodsmnotify -c SYNO.SDS."${app}".Application @administrators "${app}":app:title "${app}":app:job_successful "${jobname}"
 else
+	# Delete pid file
+	[ -f /var/packages/BasicBackup/tmp/pid ] && rm /var/packages/BasicBackup/tmp/pid
+
 	# Notification that the backup job contained errors
 	echo "${txt_line_separator}" | tee -a "${script_log}"
 	echo "$(timestamp) - ${txt_backupjob_warning}" | tee -a "${script_log}"
 	echo "$(timestamp) - [ ${jobname} ] ${txt_backupjob_warning}" >> "${system_log}"
 	synodsmnotify -c SYNO.SDS."${app}".Application @administrators "${app}":app:title "${app}":app:job_warning "${jobname}"
 fi
+
 
 # --------------------------------------------------------------------
 # Email notifications

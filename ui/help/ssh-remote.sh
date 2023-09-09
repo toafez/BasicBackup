@@ -33,13 +33,13 @@ if [ "${gui_lang}" == "ger" ]; then
 				Im Folgenden wird nun der Weg zum Aufbau einer SSH-Ordnerstruktur für einem Remote Server beschrieben.
 			<p>
 			<div class="alert alert-danger" role="alert">
-				<strong>Hinweis 1:</strong><br />Handelt es sich bei dem verwendeten Remote Server um eine <strong>Synology DiskStation</strong>, dann aktivieren Sie im Vorfeld bitte den <strong>SSH Terminal-Dienst</strong>. Zum aktivieren des SSH Terminal-Dienstes gehen Sie zu <strong>DSM-Hauptmenü > Systemsteuerung > Terminal & SNMP</strong> und wechseln dort in den Reiter <strong>> Terminal</strong>. Aktiveren Sie die Checkbox <strong>SSH-Dienst aktivieren</strong>.<br /><br /><strong>Hinweis 2:</strong><br />Handelt es sich bei dem verwendeten Remote Server um eine <strong>Synology DiskStation</strong>, dann aktivieren Sie im Vorfeld bitte auch den <strong>rsync-Dienst</strong>. Zum <strong>aktivieren des rsync Dienstes</strong> gehen Sie zu <strong>DSM-Hauptmenü > Systemsteuerung > Dateidienste</strong> und wechseln dort in den Reiter <strong>> rsync</strong>. Aktiveren Sie die Checkbox <strong>rsync Dienst aktivieren</strong>. Als SSH-Verschlüsselungsport wird standardmäßig der Port 22 verwendet, welchen Sie bei Bedarf anpassen können.
-				<br /><br /><strong>Hinweis 3:</strong><br />Handelt es sich bei dem verwendeten Remote Server um eine <strong>Synology DiskStation</strong>, dann aktivieren Sie im Vorfeld bitte außerdem den <strong>Benutzer-Home-Dienst</strong>, da die benötigten SSH-Verbindungsdaten im entsprechenden Benutzer-Home-Ordner des angemeldeten SSH-Benutzers abgelegt werden. Zum aktivieren des Benutzer-Home-Dienstes gehen Sie zu <strong>DSM-Hauptmenü > Systemsteuerung > Benutzer und Gruppe</strong> und wechseln dort in den Reiter <strong>> Erweitert</strong>. Aktiveren Sie unter dem Menüpunkt <strong>Benutzerbasis</strong> die Checkbox <strong>Benutzer-Home-Dienst aktiveren</strong>.<br /><br />Sollte es sich bei dem verwendeten <strong>Remote Server</strong> um ein anderes Gerät als eine Synology DiskStation handeln, stellen Sie bitte im Vorfeld sicher, das der <strong>SSH Dienst</strong> aktiviert sowie ein gültige <strong>Portnummer</strong> vergeben wurde. Stellen Sie des weiteren sicher, das die Verwendung des <strong>rsync-Dienstes</strong> sowie entsprechende <strong>Benutzer-Home-Ordner</strong> zur Verfügung stehen bzw. aktiviert wurden.
+				<strong>Hinweis 1:</strong><br />Handelt es sich bei dem verwendeten Remote Server um eine <strong>Synology DiskStation</strong>, dann aktiviere im Vorfeld bitte den <strong>SSH Terminal-Dienst</strong>. Zum aktivieren des SSH Terminal-Dienstes navigierst du zu <strong>DSM-Hauptmenü > Systemsteuerung > Terminal & SNMP</strong> und wechselst dort in den Reiter <strong>> Terminal</strong>. Aktivere die Checkbox <strong>SSH-Dienst aktivieren</strong>.<br /><br /><strong>Hinweis 2:</strong><br />Handelt es sich bei dem verwendeten Remote Server um eine <strong>Synology DiskStation</strong>, dann aktiviere im Vorfeld bitte auch den <strong>rsync-Dienst</strong>. Zum <strong>aktivieren des rsync Dienstes</strong> navigiere zu <strong>DSM-Hauptmenü > Systemsteuerung > Dateidienste</strong> und wechsel dort in den Reiter <strong>> rsync</strong>. Aktivere die Checkbox <strong>rsync Dienst aktivieren</strong>. Als SSH-Verschlüsselungsport wird standardmäßig der Port 22 verwendet, welchen du bei Bedarf anpassen kannst.
+				<br /><br /><strong>Hinweis 3:</strong><br />Handelt es sich bei dem verwendeten Remote Server um eine <strong>Synology DiskStation</strong>, dann aktiviere im Vorfeld bitte außerdem den <strong>Benutzer-Home-Dienst</strong>, da die benötigten SSH-Verbindungsdaten im entsprechenden Benutzer-Home-Ordner des angemeldeten SSH-Benutzers abgelegt werden. Zum aktivieren des Benutzer-Home-Dienstes navigiere zu <strong>DSM-Hauptmenü > Systemsteuerung > Benutzer und Gruppe</strong> und wechsel dort in den Reiter <strong>> Erweitert</strong>. Aktivere unter dem Menüpunkt <strong>Benutzerbasis</strong> die Checkbox <strong>Benutzer-Home-Dienst aktiveren</strong>.<br /><br />Sollte es sich bei dem verwendeten <strong>Remote Server</strong> um ein anderes Gerät als eine Synology DiskStation handeln, stelle bitte im Vorfeld sicher, das der <strong>SSH Dienst</strong> aktiviert sowie ein gültige <strong>Portnummer</strong> vergeben wurde. Stelle des weiteren sicher, das die Verwendung des <strong>rsync-Dienstes</strong> sowie entsprechende <strong>Benutzer-Home-Ordner</strong> zur Verfügung stehen bzw. aktiviert wurden.
 			</div>
 			<h4 class="mt-4">Anmeldung auf dem Remote Server</h4>
 			<div class="ps-4">
 				<p>
-					Stellen Sie unter Verwendung Ihrer Zugangsdaten über z.B. PuTTY oder direkt über einen Terminal, eine SSH-Verbindung zum Terminal Ihrers Remote Servers her. Im folgenden verwenden wir Beispielhaft diese Zugangsdaten.<br />
+					Stelle unter Verwendung deiner Zugangsdaten über z.B. PuTTY oder direkt über einen Terminal, eine SSH-Verbindung zum Terminal deines Remote Servers her. Im folgenden verwenden wir Beispielhaft diese Zugangsdaten.<br />
 					<pre class="shadow-none p-1 mb-0 bg-light rounded">Benutzername : <span class="text-danger">user</span></pre>
 					<pre class="shadow-none p-1 mb-0 bg-light rounded">Hostname     : <span class="text-danger">RemoteServer</span></pre>
 					<pre class="shadow-none p-1 mb-0 bg-light rounded">IP-Adresse   : <span class="text-danger">192.168.2.20</span></pre>
@@ -54,7 +54,7 @@ if [ "${gui_lang}" == "ger" ]; then
 				</p>
 				<pre class="shadow-none p-1 mb-0 bg-light rounded"><span class="text-success">tux@LinuxDistro</span>:<span class="text-primary">~</span># ssh -p <span class="text-danger">22</span> <span class="text-danger">user</span>@<span class="text-danger">192.168.2.20</span></pre>
 				<p class="mt-3">
-					Nachdem die Verbindung zu Ihrem Remote Server aufgebaut wurde, werden Sie darum gebeten, Ihre Zugangsdaten einzugeben.
+					Nachdem die Verbindung zu deinem Remote Server aufgebaut wurde, wirst du darum gebeten, deine Zugangsdaten einzugeben.
 				</p>
 				<pre class="shadow-none p-1 mb-0 bg-light rounded">login as: <span class="text-danger">user</span></pre>
 				<pre class="shadow-none p-1 mb-1 bg-light rounded">user@192.168.2.20`s password:</pre>
@@ -65,7 +65,7 @@ if [ "${gui_lang}" == "ger" ]; then
 				<pre class="shadow-none p-2 mb-1 bg-light rounded"><span class="text-success">user@RemoteServer</span>:<span class="text-primary">~</span>$</pre>
 				<p class="mt-3">
 					<div class="alert alert-danger" role="alert">
-						<strong>Hinweis:</strong> Handelt es sich bei dem Remote Server um ein Synology NAS kann es vorkommen, <strong>das der eigene Benutzer-Home-Ordner ~/ die falsche Gruppen- und Benutzerrechte</strong> (chmod 777 bzw. drwxrwxrwx) aufweist. Ist dies der Fall, wird ein künftiger SSH-Verbindungsversuch womöglich scheitern. Prüfen Sie daher die Gruppen- und Benutzerrechte und ändern diese gegebenenfalls auf <strong>chmod 755 bzw. drwxr-xr-x</strong>. Verwenden Sie dafür den Befehl <strong>sudo chmod 755 /var/services/homes/[USERNAME]</strong>
+						<strong>Hinweis:</strong> Handelt es sich bei dem Remote Server um ein Synology NAS kann es vorkommen, <strong>das der eigene Benutzer-Home-Ordner ~/ die falsche Gruppen- und Benutzerrechte</strong> (chmod 777 bzw. drwxrwxrwx) aufweist. Ist dies der Fall, wird ein künftiger SSH-Verbindungsversuch womöglich scheitern. Prüfe daher die Gruppen- und Benutzerrechte und änder diese gegebenenfalls auf <strong>chmod 755 bzw. drwxr-xr-x</strong>. Verwende dafür den Befehl <strong>sudo chmod 755 /var/services/homes/[USERNAME]</strong>
 					</div>
 				</p>
 			</div>
@@ -83,7 +83,7 @@ if [ "${gui_lang}" == "ger" ]; then
 			<h4 class="mt-4">RSA-Key erzeugen</h4>
 			<div class="ps-4">
 				<p>
-					An dieser Stelle würde auch hier ein RSA-Key erzeugt werden und zwar nach dem selben Prinzip, wie Sie es zuvor bereits auf Ihrer lokalen Synology DiskStation durchgeführt haben. Für die Arbeit mit Basic Backup ist dieser Schritt jedoch irrelevant und wird daher nicht weiter beschrieben.
+					An dieser Stelle würde auch hier ein RSA-Key erzeugt werden und zwar nach dem selben Prinzip, wie du es zuvor bereits auf deiner lokalen Synology DiskStation durchgeführt hast. Für die Arbeit mit Basic Backup ist dieser Schritt jedoch irrelevant und wird daher nicht weiter beschrieben.
 				</p>
 			</div>
 			<h4 class="mt-4">authorized_keys anlegen</h4>
@@ -102,7 +102,7 @@ if [ "${gui_lang}" == "ger" ]; then
 				<pre class="shadow-none p-1 mb-0 bg-light rounded"><span class="text-success">user@RemoteServer</span>:<span class="text-primary">~</span># chmod 0600 ~/.ssh/authorized_keys</pre>
 			</div>
 			<p class="mt-3">
-				Die SSH-Ordnerstruktur für Ihren Remote Server ist nun eingerichtet.
+				Die SSH-Ordnerstruktur für deinen Remote Server ist nun eingerichtet.
 			</p>
 			<p class="text-end"><br />
 				<button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#help-ssh-rsa">Weiter mit '${txt_link_help_ssh_rsa}'</button>

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Filename: permissions.sh - coded in utf-8
+# Filename: app-permissions.sh - coded in utf-8
 
 #                       Basic Backup
 #

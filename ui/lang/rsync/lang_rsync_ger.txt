@@ -26,7 +26,7 @@
 # ------------------------------------------------------------------------
 
 # Check root
-txt_root_failed="Der Datensicherungsauftrag kann nur durch den Systembenutzer root ausgefuehrt werden, da es ansonsten zu unerwarteten Problemen kommen kann! Bitte passen Sie ihre Angaben im DSM-Aufgabenplaner enstprechend an!"
+txt_root_failed="Der Datensicherungsauftrag kann nur durch den Systembenutzer root ausgefuehrt werden, da es ansonsten zu unerwarteten Problemen kommen kann! Passe bitte deine Angaben im DSM-Aufgabenplaner enstprechend an!"
 
 # Check backupjob config
 txt_backupjob_starts="Der Datensicherungsauftrag wird gestartet..."
@@ -46,7 +46,7 @@ txt_server_ping_wakeup="Der Remote Server ist offline. Versuche den Remote Serve
 txt_server_ping_false="Datensicherungsauftrag abgebrochen! Der Remote Server ist offline!"
 
 # Wakeup Remote server
-txt_server_wakeup_true="Der Remote Server wurde aufgeweckt. Bitte warten Sie [ ${var[wakeup]} ] Sekunden, bis der Remote Server erreichbar ist."
+txt_server_wakeup_true="Der Remote Server wurde aufgeweckt. Warte bitte [ ${var[wakeup]} ] Sekunden, bis der Remote Server erreichbar ist."
 txt_server_wakeup_false="Datensicherungsauftrag abgebrochen! Der Remote Server konnte nicht aufgeweckt werden!"
 
 # SSH Establish connection
@@ -133,4 +133,5 @@ txt_email_fail="Das Versenden des Datensicherungsprotokolls per E-Mail ist fehlg
 
 
 txt_line_separator="-------------------------------------------------------------------------------------------------------------------"
+
 

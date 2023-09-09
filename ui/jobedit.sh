@@ -1,6 +1,6 @@
 #!/bin/bash
 # Filename: jobedit.sh - coded in utf-8
-job_version="0.7-000"
+job_version="0.8-000"
 
 #                       Basic Backup
 #
@@ -317,9 +317,9 @@ echo '
 					# ---------------------------------------------------------------------------
 					echo '
 					<div class="card border-0">
-						<div class="card-header ps-0 pb-0 bg-body border-0">'
+						<div class="card-header border-0" style="background-color: #ffffff;">'
 							if [[ "${get[edit]}" == "true" ]]; then
-								echo '<h5>'${txt_job_title}' <span class="text-blue">'$(urldecode ${get[jobname]})'</span> '${txt_job_edit}'</h5>'
+								echo '<h5>'${txt_job_title}' <span class="text-secondary">'$(urldecode ${get[jobname]})'</span> '${txt_job_edit}'</h5>'
 							else
 								echo '<h5>'${txt_job_title}' '${txt_job_create}'</h5>'
 							fi
@@ -330,9 +330,9 @@ echo '
 						# Auftrags- bzw. Scriptname (backupjob)
 						# ...
 						echo '
-						<div class="row g-3 mb-3">
+						<div class="row mb-3 px-4">
 							<div class="col">
-								<label for="jobname" class="form-label text-secondary">'${txt_jobname_label}'</label>
+								<label for="jobname" class="form-label text-dark">'${txt_jobname_label}'</label>
 								<div class="input-group input-group-sm">
 									<input type="text" pattern="'${txt_jobname_regex}'" class="form-control form-control-sm" name="jobname" id="jobname" value="'${var[jobname]}'" placeholder="'${txt_jobname_format}'" aria-label="" aria-describedby="jobname" required />
 									 <span class="input-group-text" id="inputGroup-sizing-sm">.sh</span>
@@ -345,9 +345,9 @@ echo '
 						event_mail=$(cat "/usr/syno/etc/synosmtp.conf" | grep eventmails | cut -d '"' -f2)
 
 						echo '
-						<div class="row g-3 mb-3">
+						<div class="row mb-3 px-4">
 							<div class="col">
-								<label for="sendemail" class="form-label text-secondary">'${txt_sendemail_label}'</label>
+								<label for="sendemail" class="form-label text-dark">'${txt_sendemail_label}'</label>
 								<select id="sendemail" name="sendemail" class="form-select form-select-sm" required >'
 									echo -n '<option value="false"'; \
 									[[ "${var[sendemail]}" == "false" ]] && echo -n ' selected>' || echo -n '>'
@@ -362,7 +362,7 @@ echo '
 								</select>
 							</div>
 							<div class="col">
-								<label for="emailfrom" class="form-label text-secondary">'${txt_emailfrom_label}'
+								<label for="emailfrom" class="form-label text-dark">'${txt_emailfrom_label}'
 									<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#emailfrom-note" role="button" aria-expanded="false" aria-controls="emailfrom-note">'${note}'</a>
 									<div class="collapse" id="emailfrom-note">
 										<div class="card card-body border-0">
@@ -373,7 +373,7 @@ echo '
 								<input type="emailfrom" class="form-control form-control-sm" name="emailfrom" id="emailfrom" value="'${var[emailfrom]:-${smtp_mail}}'" placeholder="'${txt_email_format}'" />
 							</div>
 							<div class="col">
-								<label for="emailto" class="form-label text-secondary">'${txt_emailto_label}'</label>
+								<label for="emailto" class="form-label text-dark">'${txt_emailto_label}'</label>
 								<input type="emailto" class="form-control form-control-sm" name="emailto" id="emailto" value="'${var[emailto]:-${event_mail}}'" placeholder="'${txt_email_format}'" />
 							</div>
 						</div>'
@@ -381,9 +381,9 @@ echo '
 						# Signalsteuerung
 						# ...
 						echo '
-						<div class="row g-3 mb-3">
+						<div class="row mb-3 px-4">
 							<div class="col">
-								<label for="optical" class="form-label text-secondary">'${txt_signal_label_optical}'
+								<label for="optical" class="form-label text-dark">'${txt_signal_label_optical}'
 									<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#optical-note" role="button" aria-expanded="false" aria-controls="optical-note">'${note}'</a>
 									<div class="collapse" id="optical-note">
 										<div class="card card-body border-0">
@@ -402,7 +402,7 @@ echo '
 								</select>
 							</div>
 							<div class="col">
-								<label for="acoustical" class="form-label text-secondary">'${txt_signal_label_acoustical}'
+								<label for="acoustical" class="form-label text-dark">'${txt_signal_label_acoustical}'
 									<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#acoustical-note" role="button" aria-expanded="false" aria-controls="acoustical-note">'${note}'</a>
 									<div class="collapse" id="acoustical-note">
 										<div class="card card-body border-0">
@@ -427,8 +427,8 @@ echo '
 						echo '
 						<p class="text-end"><br />
 							<input type="hidden" name="expand-content" value="false">
-							<a href="index.cgi?page=jobedit&section=abort" class="btn btn-secondary btn-sm">'${txt_button_Cancel}'</a>&nbsp;&nbsp;&nbsp;
-							<button class="btn btn-secondary btn-sm" type="submit" name="section" value="2">'${txt_button_Continue}'</button><br />
+							<a href="index.cgi?page=jobedit&section=abort" class="btn btn-sm text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;">'${txt_button_Cancel}'</a>&nbsp;&nbsp;&nbsp;
+							<button class="btn btn-sm text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;" type="submit" name="section" value="2">'${txt_button_Continue}'</button><br />
 						</p>'
 						echo '
 					</div>'
@@ -474,8 +474,8 @@ echo '
 					# -----------------------------------------------------------------------
 					echo '
 					<div class="card border-0">
-						<div class="card-header ps-0 pb-0 bg-body border-0">'
-							[[ "${get[edit]}" == "true" ]] && echo '<h5>'${txt_job_title}' <span class="text-blue">'$(urldecode ${get[jobname]})'</span> - '${txt_target_title}' '${txt_job_edit}'</h5>' || echo '<h5>'${txt_target_title}' '${txt_job_select}'</h5>'
+						<div class="card-header border-0" style="background-color: #ffffff;">'
+							[[ "${get[edit]}" == "true" ]] && echo '<h5>'${txt_job_title}' <span class="text-secondary">'$(urldecode ${get[jobname]})'</span> - '${txt_target_title}' '${txt_job_edit}'</h5>' || echo '<h5>'${txt_target_title}' '${txt_job_select}'</h5>'
 							echo '
 						</div>
 					</div>
@@ -483,9 +483,9 @@ echo '
 						# Zielserver (targetserver)
 						# ...
 						echo '
-						<div class="row g-3 mb-3">
+						<div class="row mb-3 px-4">
 							<div class="col">
-								<label for="targetserver" class="form-label text-secondary">'${txt_targetserver_label}''
+								<label for="targetserver" class="form-label text-dark">'${txt_targetserver_label}''
 									if [[ "${var[targetserver]}" == "remote" ]]; then
 										echo '
 										<button type="button" class="btn btn-link btn-sm text-danger text-decoration-none" data-bs-toggle="modal" data-bs-target="#help-ssh-local">
@@ -528,9 +528,9 @@ echo '
 							<p class="text-end"><br />
 								<input type="hidden" name="expand-content" value="true">
 								<input type="hidden" name="goback" value="page-1">
-								<a href="index.cgi?page=jobedit&section=abort" class="btn btn-secondary btn-sm">'${txt_button_Cancel}'</a>&nbsp;&nbsp;&nbsp;
-								<button class="btn btn-secondary btn-sm disable_validation" type="submit" name="section" value="1">'${txt_button_Back}'</button>&nbsp;&nbsp;&nbsp;
-								<button class="btn btn-secondary btn-sm" type="submit" name="section" value="2">'${txt_button_Continue}'</button><br />
+								<a href="index.cgi?page=jobedit&section=abort" class="btn btn-sm text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;">'${txt_button_Cancel}'</a>&nbsp;&nbsp;&nbsp;
+								<button class="btn btn-sm  disable_validation text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;" type="submit" name="section" value="1">'${txt_button_Back}'</button>&nbsp;&nbsp;&nbsp;
+								<button class="btn btn-sm text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;" type="submit" name="section" value="2">'${txt_button_Continue}'</button><br />
 							</p>'
 						fi
 
@@ -575,9 +575,9 @@ echo '
 								# Zielordner der Datensicherung (targetshare/targetfolder)
 								# ...
 								echo '
-								<div class="row g-3 mb-3">
+								<div class="row mb-3 px-4">
 									<div class="col">
-										<label for="localshare" class="form-label text-secondary">'${txt_localshare_label}'</label>
+										<label for="localshare" class="form-label text-dark">'${txt_localshare_label}'</label>
 										<select id="localshare" name="localshare" class="form-select form-select-sm" required>
 											<option value="" selected disabled>'${txt_localshare_opt}'</option>'
 												local_target "/volume*" "localshare"
@@ -585,7 +585,7 @@ echo '
 										</select>
 									</div>
 									<div class="col">
-										<label for="localfolder" class="form-label text-secondary">'${txt_localfolder_label}'
+										<label for="localfolder" class="form-label text-dark">'${txt_localfolder_label}'
 											<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#localfolder-note" role="button" aria-expanded="false" aria-controls="localfolder-note">'${note}'</a>
 											<div class="collapse" id="localfolder-note">
 												<div class="card card-body border-0">
@@ -599,9 +599,9 @@ echo '
 
 								# UUID Check durchführen
 								echo '
-								<div class="row g-3 mb-3">
+								<div class="row mb-3 px-4">
 									<div class="col">
-										<label for="uuidcheck" class="form-label text-secondary">'${txt_uuidcheck_label}' '${new}'</label>
+										<label for="uuidcheck" class="form-label text-dark">'${txt_uuidcheck_label}' '${new}'</label>
 										<select id="uuidcheck" name="uuidcheck" class="form-select form-select-sm">'
 											echo -n '<option value="false"'; \
 											[[ "${var[uuidcheck]}" == "false" || -z "${var[uuidcheck]}" ]] && echo -n ' selected>' || echo -n '>'
@@ -640,26 +640,26 @@ echo '
 								# SSH Benutzername (sshuser) und Serveradresse (sshpush)
 								# ...
 								echo '
-								<div class="row g-3 mb-3">
+								<div class="row mb-3 px-4">
 									<div class="col">
-										<label for="sshuser" class="form-label text-secondary">'${txt_ssh_label_user}'</label>
+										<label for="sshuser" class="form-label text-dark">'${txt_ssh_label_user}'</label>
 										<input type="text" class="form-control form-control-sm" name="sshuser" id="sshuser" value="'${var[sshuser]}'" placeholder="'${txt_ssh_format_user}'" required />
 									</div>
 									<div class="col">
-										<label for="sshpush" class="form-label text-secondary">'${txt_ssh_label_address}'</label>
+										<label for="sshpush" class="form-label text-dark">'${txt_ssh_label_address}'</label>
 										<input type="text" class="form-control form-control-sm" name="sshpush" id="sshpush" value="'${var[sshpush]}'" placeholder="'${txt_ssh_format_address}'" required />
 									</div>
 								</div>'
 								# SSH Port und MAC Adresse
 								# ...
 								echo '
-								<div class="row g-3 mb-3">
+								<div class="row mb-3 px-4">
 									<div class="col">
-										<label for="sshport" class="form-label text-secondary">'${txt_ssh_label_port}'</label>
+										<label for="sshport" class="form-label text-dark">'${txt_ssh_label_port}'</label>
 										<input type="number" min="1" max="65535" step="1" class="form-control form-control-sm" name="sshport" id="sshport" value="'${var[sshport]}'" placeholder="'${txt_ssh_format_port}'" required />
 									</div>
 									<div class="col">
-										<label for="sshmac" class="form-label text-secondary">'${txt_ssh_label_mac}'
+										<label for="sshmac" class="form-label text-dark">'${txt_ssh_label_mac}'
 											<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#sshmac-note" role="button" aria-expanded="false" aria-controls="sshmac-note">'${note}'</a>
 												<div class="collapse" id="sshmac-note">
 													<div class="card card-body border-0">
@@ -673,9 +673,9 @@ echo '
 								# WOL und Shutdown
 								# ...
 								echo '
-								<div class="row g-3 mb-3">
+								<div class="row mb-3 px-4">
 									<div class="col">
-										<label for="wakeup" class="form-label text-secondary">'${txt_remoteserver_label_before}'</label>
+										<label for="wakeup" class="form-label text-dark">'${txt_remoteserver_label_before}'</label>
 										<select id="wakeup" name="wakeup" class="form-select form-select-sm" required >'
 											echo -n '<option value="false"'; \
 											[[ "${var[wakeup]}" == "false" ]] && echo -n ' selected>' || echo -n '>'
@@ -693,7 +693,7 @@ echo '
 										</select>
 									</div>
 									<div class="col">
-										<label for="shutdown" class="form-label text-secondary">'${txt_remoteserver_label_after}'
+										<label for="shutdown" class="form-label text-dark">'${txt_remoteserver_label_after}'
 											<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#shutdown-note" role="button" aria-expanded="false" aria-controls="shutdown-note">'${note}'</a>
 											<div class="collapse" id="shutdown-note">
 												<div class="card card-body border-0">
@@ -718,9 +718,9 @@ echo '
 								# Privater RSA-Schlüssel
 								# ...
 								echo '
-								<div class="row g-3 mb-3">
+								<div class="row mb-3 px-4">
 									<div class="col">
-										<label for="privatekey" class="form-label text-secondary">'${txt_privatekey_label}' ('${txt_privatekey_format}')
+										<label for="privatekey" class="form-label text-dark">'${txt_privatekey_label}' ('${txt_privatekey_format}')
 											<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#privatekey-note" role="button" aria-expanded="false" aria-controls="privatekey-note">'${note}'</a>
 											<div class="collapse" id="privatekey-note">
 												<div class="card card-body border-0">
@@ -738,7 +738,7 @@ echo '
 								# ...
 								echo '
 								<div class="mb-3">
-									<label for="target" class="form-label text-secondary">'${txt_remotetarget_label}'
+									<label for="target" class="form-label text-dark">'${txt_remotetarget_label}'
 										<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#target-note" role="button" aria-expanded="false" aria-controls="target-note">'${note}'</a>
 											<div class="collapse" id="target-note">
 												<div class="card card-body border-0">
@@ -757,9 +757,9 @@ echo '
 							<p class="text-end"><br />
 								<input type="hidden" name="expand-content" value="false">
 								<input type="hidden" name="goback" value="page-2">
-								<a href="index.cgi?page=jobedit&section=abort" class="btn btn-secondary btn-sm">'${txt_button_Cancel}'</a>&nbsp;&nbsp;&nbsp;
-								<button class="btn btn-secondary btn-sm disable_validation" type="submit" name="section" value="2">'${txt_button_Back}'</button>&nbsp;&nbsp;&nbsp;
-								<button class="btn btn-secondary btn-sm" type="submit" name="section" value="3">'${txt_button_Continue}'</button><br />
+								<a href="index.cgi?page=jobedit&section=abort" class="btn btn-sm text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;">'${txt_button_Cancel}'</a>&nbsp;&nbsp;&nbsp;
+								<button class="btn btn-sm  disable_validation text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;" type="submit" name="section" value="2">'${txt_button_Back}'</button>&nbsp;&nbsp;&nbsp;
+								<button class="btn btn-sm text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;" type="submit" name="section" value="3">'${txt_button_Continue}'</button><br />
 							</p>'
 						fi
 						echo '
@@ -843,8 +843,8 @@ echo '
 					# -----------------------------------------------------------------------
 					echo '
 					<div class="card border-0">
-						<div class="card-header ps-0 pb-0 bg-body border-0">'
-							[[ "${get[edit]}" == "true" ]] && echo '<h5>'${txt_job_title}' <span class="text-blue">'$(urldecode ${get[jobname]})'</span> - '${txt_sources_title}' '${txt_job_edit}'</h5>' || echo '<h5>'${txt_sources_title}' '${txt_job_select}'</h5>'
+						<div class="card-header border-0" style="background-color: #ffffff;">'
+							[[ "${get[edit]}" == "true" ]] && echo '<h5>'${txt_job_title}' <span class="text-secondary">'$(urldecode ${get[jobname]})'</span> - '${txt_sources_title}' '${txt_job_edit}'</h5>' || echo '<h5>'${txt_sources_title}' '${txt_job_select}'</h5>'
 							echo '
 						</div>
 					</div>
@@ -866,9 +866,9 @@ echo '
 							# Datensicherungsquelle auswählen
 							# ...
 							echo '
-							<div class="row g-3 mb-3">
+							<div class="row mb-3 px-4">
 								<div class="col">
-									<label for="sourceserver" class="form-label text-secondary">'${txt_sourceserver_label}''
+									<label for="sourceserver" class="form-label text-dark">'${txt_sourceserver_label}''
 										if [[ "${var[sourceserver]}" == "remote" ]]; then
 											echo '
 											<button type="button" class="btn btn-link btn-sm text-danger text-decoration-none" data-bs-toggle="modal" data-bs-target="#help-ssh-local">
@@ -910,9 +910,9 @@ echo '
 								<p class="text-end"><br />
 									<input type="hidden" name="expand-content" value="true">
 									<input type="hidden" name="goback" value="page-2a">
-									<a href="index.cgi?page=jobedit&section=abort" class="btn btn-secondary btn-sm">'${txt_button_Cancel}'</a>&nbsp;&nbsp;&nbsp;
-									<button class="btn btn-secondary btn-sm disable_validation" type="submit" name="section" value="2">'${txt_button_Back}'</button>&nbsp;&nbsp;&nbsp;
-									<button class="btn btn-secondary btn-sm" type="submit" name="section" value="3">'${txt_button_Continue}'</button><br />
+									<a href="index.cgi?page=jobedit&section=abort" class="btn btn-sm text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;">'${txt_button_Cancel}'</a>&nbsp;&nbsp;&nbsp;
+									<button class="btn btn-sm  disable_validation text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;" type="submit" name="section" value="2">'${txt_button_Back}'</button>&nbsp;&nbsp;&nbsp;
+									<button class="btn btn-sm text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;" type="submit" name="section" value="3">'${txt_button_Continue}'</button><br />
 								</p>'
 							fi
 
@@ -945,9 +945,9 @@ echo '
 									# Zu sichernde Ordner auswählen
 									# ...
 									echo '
-									<div class="row g-3 mb-3">
+									<div class="row mb-3 px-4">
 										<div class="col">
-											<label for="sources" class="form-label text-secondary">'${txt_sources_label}''
+											<label for="sources" class="form-label text-dark">'${txt_sources_label}''
 												if ! cat /etc/group | grep ^administrators | grep -q ${app_name} ; then
 													echo '
 													<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#email-note" role="button" aria-expanded="false" aria-controls="email-note">'${note}'</a>
@@ -993,26 +993,26 @@ echo '
 									# SSH Benutzername (sshuser) und Serveradresse (sshpush)
 									# ...
 									echo '
-									<div class="row g-3 mb-3">
+									<div class="row mb-3 px-4">
 										<div class="col">
-											<label for="sshuser" class="form-label text-secondary">'${txt_ssh_label_user}'</label>
+											<label for="sshuser" class="form-label text-dark">'${txt_ssh_label_user}'</label>
 											<input type="text" class="form-control form-control-sm" name="sshuser" id="sshuser" value="'${var[sshuser]}'" placeholder="'${txt_ssh_format_user}'" required />
 										</div>
 										<div class="col">
-											<label for="sshpull" class="form-label text-secondary">'${txt_ssh_label_address}'</label>
+											<label for="sshpull" class="form-label text-dark">'${txt_ssh_label_address}'</label>
 											<input type="text" class="form-control form-control-sm" name="sshpull" id="sshpull" value="'${var[sshpull]}'" placeholder="'${txt_ssh_format_address}'" required />
 										</div>
 									</div>'
 									# SSH Port und MAC Adresse
 									# ...
 									echo '
-									<div class="row g-3 mb-3">
+									<div class="row mb-3 px-4">
 										<div class="col">
-											<label for="sshport" class="form-label text-secondary">'${txt_ssh_label_port}'</label>
+											<label for="sshport" class="form-label text-dark">'${txt_ssh_label_port}'</label>
 											<input type="number" min="1" max="65535" step="1" class="form-control form-control-sm" name="sshport" id="sshport" value="'${var[sshport]}'" placeholder="'${txt_ssh_format_port}'" required />
 										</div>
 										<div class="col">
-											<label for="sshmac" class="form-label text-secondary">'${txt_ssh_label_mac}'
+											<label for="sshmac" class="form-label text-dark">'${txt_ssh_label_mac}'
 												<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#sshmac-note" role="button" aria-expanded="false" aria-controls="sshmac-note">'${note}'</a>
 												<div class="collapse" id="sshmac-note">
 													<div class="card card-body border-0">
@@ -1026,9 +1026,9 @@ echo '
 									# WOL und Shutdown
 									# ...
 									echo '
-									<div class="row g-3 mb-3">
+									<div class="row mb-3 px-4">
 										<div class="col">
-											<label for="wakeup" class="form-label text-secondary">'${txt_remoteserver_label_before}'</label>
+											<label for="wakeup" class="form-label text-dark">'${txt_remoteserver_label_before}'</label>
 											<select id="wakeup" name="wakeup" class="form-select form-select-sm" required >'
 												echo -n '<option value="false"'; \
 												[[ "${var[wakeup]}" == "false" ]] && echo -n ' selected>' || echo -n '>'
@@ -1046,7 +1046,7 @@ echo '
 											</select>
 										</div>
 										<div class="col">
-											<label for="shutdown" class="form-label text-secondary">'${txt_remoteserver_label_after}'
+											<label for="shutdown" class="form-label text-dark">'${txt_remoteserver_label_after}'
 												<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#shutdown-note" role="button" aria-expanded="false" aria-controls="shutdown-note">'${note}'</a>
 												<div class="collapse" id="shutdown-note">
 													<div class="card card-body border-0">
@@ -1071,9 +1071,9 @@ echo '
 									# Privater RSA-Schlüssel
 									# ...
 									echo '
-									<div class="row g-3 mb-3">
+									<div class="row mb-3 px-4">
 										<div class="col">
-											<label for="privatekey" class="form-label text-secondary">'${txt_privatekey_label}' ('${txt_privatekey_format}')
+											<label for="privatekey" class="form-label text-dark">'${txt_privatekey_label}' ('${txt_privatekey_format}')
 												<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#privatekey-note" role="button" aria-expanded="false" aria-controls="privatekey-note">'${note}'</a>
 												<div class="collapse" id="privatekey-note">
 													<div class="card card-body border-0">
@@ -1090,9 +1090,9 @@ echo '
 									# Zu sichernde Ordner auswählen
 									# ...
 									echo '
-									<div class="row g-3 mb-3">
+									<div class="row mb-3 px-4">
 										<div class="col">
-											<label for="sources" class="form-label text-secondary">'${txt_sources_label}'
+											<label for="sources" class="form-label text-dark">'${txt_sources_label}'
 												<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#sources-note" role="button" aria-expanded="false" aria-controls="sources-note">'${note}'</a>
 												<div class="collapse" id="sources-note">
 													<div class="card card-body border-0">
@@ -1111,9 +1111,9 @@ echo '
 								<p class="text-end"><br />
 									<input type="hidden" name="expand-content" value="false">
 									<input type="hidden" name="goback" value="page-3">
-									<a href="index.cgi?page=jobedit&section=abort" class="btn btn-secondary btn-sm">'${txt_button_Cancel}'</a>&nbsp;&nbsp;&nbsp;
-									<button class="btn btn-secondary btn-sm disable_validation" type="submit" name="section" value="3">'${txt_button_Back}'</button>&nbsp;&nbsp;&nbsp;
-									<button class="btn btn-secondary btn-sm" type="submit" name="section" value="4">'${txt_button_Continue}'</button><br />
+									<a href="index.cgi?page=jobedit&section=abort" class="btn btn-sm text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;">'${txt_button_Cancel}'</a>&nbsp;&nbsp;&nbsp;
+									<button class="btn btn-sm  disable_validation text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;" type="submit" name="section" value="3">'${txt_button_Back}'</button>&nbsp;&nbsp;&nbsp;
+									<button class="btn btn-sm text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;" type="submit" name="section" value="4">'${txt_button_Continue}'</button><br />
 								</p>'
 							fi
 
@@ -1143,9 +1143,9 @@ echo '
 							# Datensicherungsquelle(n)
 							# ...
 							echo '
-							<div class="row g-3 mb-3">
+							<div class="row mb-3 px-4">
 								<div class="col">
-									<label for="sourceserver" class="form-label text-secondary">'${txt_sourceserver_label}'</label>
+									<label for="sourceserver" class="form-label text-dark">'${txt_sourceserver_label}'</label>
 									<input type="text" class="form-control form-control-sm" placeholder="'${txt_sourceserver_opt_local}'" disabled>
 								</div>
 							</div>'
@@ -1157,9 +1157,9 @@ echo '
 							# Zu sichernde Ordner auswählen
 							# ...
 							echo '
-							<div class="row g-3 mb-3">
+							<div class="row mb-3 px-4">
 								<div class="col">
-									<label for="sources" class="form-label text-secondary">'${txt_sources_label}''
+									<label for="sources" class="form-label text-dark">'${txt_sources_label}''
 										if ! cat /etc/group | grep ^administrators | grep -q ${app_name} ; then
 											echo '
 											<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#email-note" role="button" aria-expanded="false" aria-controls="email-note">'${note}'</a>
@@ -1186,9 +1186,9 @@ echo '
 							<p class="text-end"><br />
 								<input type="hidden" name="expand-content" value="true">
 								<input type="hidden" name="goback" value="page-2a">
-								<a href="index.cgi?page=jobedit&section=abort" class="btn btn-secondary btn-sm">'${txt_button_Cancel}'</a>&nbsp;&nbsp;&nbsp;
-								<button class="btn btn-secondary btn-sm disable_validation" type="submit" name="section" value="2">'${txt_button_Back}'</button>&nbsp;&nbsp;&nbsp;
-								<button class="btn btn-secondary btn-sm" type="submit" name="section" value="4">'${txt_button_Continue}'</button><br />
+								<a href="index.cgi?page=jobedit&section=abort" class="btn btn-sm text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;">'${txt_button_Cancel}'</a>&nbsp;&nbsp;&nbsp;
+								<button class="btn btn-sm  disable_validation text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;" type="submit" name="section" value="2">'${txt_button_Back}'</button>&nbsp;&nbsp;&nbsp;
+								<button class="btn btn-sm text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;" type="submit" name="section" value="4">'${txt_button_Continue}'</button><br />
 							</p>'
 						fi
 						echo '
@@ -1316,8 +1316,8 @@ echo '
 					# -----------------------------------------------------------------------
 					echo '
 					<div class="card border-0">
-						<div class="card-header ps-0 pb-0 bg-body border-0">'
-							[[ "${get[edit]}" == "true" ]] && echo '<h5>'${txt_job_title}' <span class="text-blue">'$(urldecode ${get[jobname]})'</span> - '${txt_rsync_title}' '${txt_job_edit}'</h5>' || echo '<h5>'${txt_rsync_title}' '${txt_job_select}'</h5>'
+						<div class="card-header border-0" style="background-color: #ffffff;">'
+							[[ "${get[edit]}" == "true" ]] && echo '<h5>'${txt_job_title}' <span class="text-secondary">'$(urldecode ${get[jobname]})'</span> - '${txt_rsync_title}' '${txt_job_edit}'</h5>' || echo '<h5>'${txt_rsync_title}' '${txt_job_select}'</h5>'
 							echo '
 						</div>
 					</div>
@@ -1326,9 +1326,9 @@ echo '
 						# rsync-Optionsschalter (syncopt)
 						# ...
 						echo '
-						<div class="row g-3 mb-3">
+						<div class="row mb-3 px-4">
 							<div class="col">
-								<label for="syncopt" class="form-label text-secondary">'${txt_syncopt_label}'</label>
+								<label for="syncopt" class="form-label text-dark">'${txt_syncopt_label}'</label>
 								<input type="text" class="form-control form-control-sm" name="syncopt" id="syncopt" value="'${var[syncopt]:--ah}'" placeholder="'${txt_syncopt_format}'" required />
 							</div>
 						</div>'
@@ -1336,9 +1336,9 @@ echo '
 						# @recycle rotate
 						# ...
 						echo '
-						<div class="row g-3">
+						<div class="row mb-3 px-4">
 							<div class="col">
-								<label for="recycle" class="form-label text-secondary">'${txt_recycle_label}'
+								<label for="recycle" class="form-label text-dark">'${txt_recycle_label}'
 									<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#recycle-note" role="button" aria-expanded="false" aria-controls="recycle-note">'${note}'</a>
 									<div class="collapse" id="recycle-note">
 										<div class="card card-body border-0">
@@ -1356,9 +1356,9 @@ echo '
 						# Versionierung
 						# ...
 						echo '
-						<div class="row g-3 mb-3">
+						<div class="row mb-3 px-4">
 							<div class="col">
-								<label for="versioning" class="form-label text-secondary">'${txt_versioning_label}'
+								<label for="versioning" class="form-label text-dark">'${txt_versioning_label}'
 									<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#versioning-note" role="button" aria-expanded="false" aria-controls="versioning-note">'${note}'</a>
 									<div class="collapse" id="versioning-note">
 										<div class="card card-body border-0">
@@ -1377,7 +1377,7 @@ echo '
 								</select>
 							</div>
 							<div class="col">
-								<label for="versions" class="form-label text-secondary">'${txt_versions_label}'</label>
+								<label for="versions" class="form-label text-dark">'${txt_versions_label}'</label>
 								<div class="input-group input-group-sm mb-3">
 									<input type="number" min="2" max="365" step="1" class="form-control form-control-sm" name="versions" id="versions" value="'${var[versions]:-2}'" placeholder="'${txt_versions_format}'" />
 									<span class="input-group-text" id="inputGroup-sizing-sm">'${txt_days}'</span>
@@ -1389,9 +1389,9 @@ echo '
 						# Muster von der Sicherung ausschließen
 						#
 						#echo '
-						#<div class="row g-3 mb-3">
+						#<div class="row mb-3 px-4">
 						#	<div class="col">
-						#		<label for="exclude" class="form-label text-secondary">'${txt_exclude_label}'</label>
+						#		<label for="exclude" class="form-label text-dark">'${txt_exclude_label}'</label>
 						#		<input type="text" class="form-control form-control-sm" name="exclude" id="exclude" value="'${var[exclude]:---delete-excluded --exclude=@eaDir/*** --exclude=@Logfiles/*** --exclude=#recycle/*** --exclude=#snapshot/*** --exclude=.DS_Store/***}'" />
 						#	</div>
 						#</div>'
@@ -1400,9 +1400,9 @@ echo '
 							<p class="text-end"><br />
 								<input type="hidden" name="expand-content" value="true">
 								<input type="hidden" name="goback" value="page-3a">
-								<a href="index.cgi?page=jobedit&section=abort" class="btn btn-secondary btn-sm">'${txt_button_Cancel}'</a>&nbsp;&nbsp;&nbsp;
-								<button class="btn btn-secondary btn-sm" type="submit" name="section" value="3">'${txt_button_Back}'</button>&nbsp;&nbsp;&nbsp;
-								<button class="btn btn-secondary btn-sm" type="submit" name="section" value="savescript">'${txt_button_Save}'</button><br />
+								<a href="index.cgi?page=jobedit&section=abort" class="btn btn-sm text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;">'${txt_button_Cancel}'</a>&nbsp;&nbsp;&nbsp;
+								<button class="btn btn-sm text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;" type="submit" name="section" value="3">'${txt_button_Back}'</button>&nbsp;&nbsp;&nbsp;
+								<button class="btn btn-sm text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;" type="submit" name="section" value="savescript">'${txt_button_Save}'</button><br />
 							</p>'
 
 						echo '
@@ -1414,8 +1414,8 @@ echo '
 				if [[ "${var[section]}" == "savescript" ]]; then
 					echo '
 					<div class="card border-0">
-						<div class="card-header ps-0 pb-0 bg-body border-0">'
-							[[ "${get[edit]}" == "true" ]] && echo '<h5>'${txt_job_title}' <span class="text-blue">'$(urldecode ${get[jobname]})'</span> - '${txt_save_title_edit}'</h5>' || echo '<h5>'${txt_save_title_new}'</h5>'
+						<div class="card-header border-0" style="background-color: #ffffff;">'
+							[[ "${get[edit]}" == "true" ]] && echo '<h5>'${txt_job_title}' <span class="text-secondary">'$(urldecode ${get[jobname]})'</span> - '${txt_save_title_edit}'</h5>' || echo '<h5>'${txt_save_title_new}'</h5>'
 							echo '
 						</div>
 					</div>

@@ -56,10 +56,10 @@ if [ "${gui_lang}" == "ger" ]; then
 			<h4 class="mt-4">Anmeldung auf der lokalen DiskStation</h4>
 			<div class="ps-4">
 				<div class="alert alert-danger" role="alert">
-					<strong>Hinweis 1:</strong><br />Aktivieren Sie im Vorfeld bitte den <strong>SSH Terminal-Dienst</strong>. Zum aktivieren des SSH Terminal-Dienstes gehen Sie zu <strong>DSM-Hauptmenü > Systemsteuerung > Terminal & SNMP</strong> und wechseln dort in den Reiter <strong>> Terminal</strong>. Aktiveren Sie die Checkbox <strong>SSH-Dienst aktivieren</strong>.<br /><br /><strong>Hinweis 2:</strong><br />Aktivieren Sie im Vorfeld bitte auch den <strong>rsync-Dienst</strong>. Zum <strong>aktivieren des rsync Dienstes</strong> gehen Sie zu <strong>DSM-Hauptmenü > Systemsteuerung > Dateidienste</strong> und wechseln dort in den Reiter <strong>> rsync</strong>. Aktiveren Sie die Checkbox <strong>rsync Dienst aktivieren</strong>. Als SSH-Verschlüsselungsport wird standardmäßig der Port 22 verwendet, welchen Sie bei Bedarf anpassen können.
+					<strong>Hinweis 1:</strong><br />Aktiviere im Vorfeld bitte den <strong>SSH Terminal-Dienst</strong>. Zum aktivieren des SSH Terminal-Dienstes navigiere zu <strong>DSM-Hauptmenü > Systemsteuerung > Terminal & SNMP</strong> und wechsel dort in den Reiter <strong>> Terminal</strong>. Aktivere die Checkbox <strong>SSH-Dienst aktivieren</strong>.<br /><br /><strong>Hinweis 2:</strong><br />Aktiviere im Vorfeld bitte auch den <strong>rsync-Dienst</strong>. Zum <strong>aktivieren des rsync Dienstes</strong> navigiere zu <strong>DSM-Hauptmenü > Systemsteuerung > Dateidienste</strong> und wechsel dort in den Reiter <strong>> rsync</strong>. Aktivere die Checkbox <strong>rsync Dienst aktivieren</strong>. Als SSH-Verschlüsselungsport wird standardmäßig der Port 22 verwendet, welchen du bei Bedarf anpassen kannst.
 				</div>
 				<p class="mt-3">
-					Stellen Sie unter Verwendung Ihrer Zugangsdaten über z.B. PuTTY oder direkt über einen Terminal eine SSH-Verbindung zum Terminal Ihrer lokalen Diskstation her. Achten Sie darauf, das es nur Benutzern aus der Gruppe der Administratoren erlaubt ist, Zugriff per SSH zu erhalten. Im folgenden verwenden wir Beispielhaft diese Zugangsdaten.<br />
+					Stelle unter Verwendung deiner Zugangsdaten über z.B. PuTTY oder direkt über einen Terminal eine SSH-Verbindung zum Terminal deiner lokalen Diskstation her. Achte darauf, das es nur Benutzern aus der Gruppe der Administratoren erlaubt ist, Zugriff per SSH zu erhalten. Im folgenden verwenden wir Beispielhaft diese Zugangsdaten.<br />
 					<pre class="shadow-none p-1 mb-0 bg-light rounded">Benutzername : <span class="text-danger">admin</span></pre>
 					<pre class="shadow-none p-1 mb-0 bg-light rounded">Hostname     : <span class="text-danger">DiskStation</span></pre>
 					<pre class="shadow-none p-1 mb-0 bg-light rounded">IP-Adresse   : <span class="text-danger">192.168.2.10</span></pre>
@@ -77,12 +77,12 @@ if [ "${gui_lang}" == "ger" ]; then
 					<pre class="shadow-none p-1 mb-0 bg-light rounded"><span class="text-success">tux@LinuxDistro</span>:<span class="text-primary">~</span># ssh -p <span class="text-danger">22</span> <span class="text-danger">admin</span>@<span class="text-danger">192.168.2.10</span></pre>
 				</p>
 				<p class="mt-3">
-					Nachdem die Verbindung zu Ihrer lokalen DiskStation aufgebaut wurde, werden Sie darum gebeten, Ihre Zugangsdaten einzugeben.
+					Nachdem die Verbindung zu deiner lokalen DiskStation aufgebaut wurde, wirst du darum gebeten, deine Zugangsdaten einzugeben.
 				</p>
 				<pre class="shadow-none p-1 mb-0 bg-light rounded">login as: <span class="text-danger">admin</span></pre>
 				<pre class="shadow-none p-1 mb-0 bg-light rounded">admin@192.168.2.10`s password:</pre>
 				<p class="mt-3">
-					Nach erfolgreicher Anmeldung werden Sie mit einer Warnmeldung seitens Synology begrüßt.
+					Nach erfolgreicher Anmeldung wirst du mit einer Warnmeldung seitens Synology begrüßt.
 				</p>
 				<p class="shadow-none p-1 mb-0 bg-light rounded font-monospace">
 					Synology strongly advises you not to run commands as the root user, who has the highest privileges on the system. Doing so may cause major damages to the system. Please note that if you choose to proceed, all consequences are at your own risk.
@@ -92,13 +92,13 @@ if [ "${gui_lang}" == "ger" ]; then
 			<h4 class="mt-4">Wechsel zum Root-Konto</h4>
 			<div class="ps-4">
 				<div class="alert alert-danger" role="alert">
-					<strong>Wichtiger Hinweis:</strong> Das Root-Konto ist nur für besondere sowie systemnahe Verwaltungsaufgaben und nicht für alltägliche Aufgaben des Systems gedacht, da es mit weitreichendsten Zugriffsrechten ausgestattet ist. Daher soll an dieser Stelle noch einmal explizit darauf hingewiesen werden, das Sie alleine die Verantwortung für alle nachfolgenden Schritte tragen.
+					<strong>Wichtiger Hinweis:</strong> Das Root-Konto ist nur für besondere sowie systemnahe Verwaltungsaufgaben und nicht für alltägliche Aufgaben des Systems gedacht, da es mit weitreichendsten Zugriffsrechten ausgestattet ist. Daher soll an dieser Stelle noch einmal explizit darauf hingewiesen werden, das DU alleine die Verantwortung für alle nachfolgenden Schritte trägst.
 					<p class="mt-3">
 						Jedoch muss bereits im DSM-Aufgabenplaner zur Ausführung eines Basic Backup Datensicherungsauftrages, die ausgelöste- bzw. geplante Aufgabe als root ausgeführt werden. Daher muss die Einrichtung zum Aufbau einer Remote Server Verbindung ebenfalls über das Root-Konto erfolgen. Die spätere Verbindung zwischen der lokalen Diskstation und dem gewünschten Remote Server, zur Durchführung einer Datensicherung, kann bzw. sollte jedoch über einen abweichenden Benutzer mit eingeschränkten Benutzerrechten erfolgen.
 					</p>
 				</div>
 				<p>
-					Nach der Eingabe von sudo -i und der erneuten Eingabe des Passwortes des zuvor angemeldeten Benutzers <span class="text-danger">admin</span> wechseln Sie zum Root-Konto
+					Nach der Eingabe von sudo -i und der erneuten Eingabe des Passwortes des zuvor angemeldeten Benutzers <span class="text-danger">admin</span> wechselst du zum Root-Konto
 				</p>
 				<pre class="shadow-none p-1 mb-0 bg-light rounded"><span class="text-success">admin@DiskStation</span>:<span class="text-primary">~</span>$ sudo -i</pre>
 				<pre class="shadow-none p-1 mb-0 bg-light rounded">Password:</pre>
@@ -135,7 +135,7 @@ if [ "${gui_lang}" == "ger" ]; then
 				<p class="mt-3">
 					<strong>Praxis Beispiel</strong><br />
 					<pre class="shadow-none p-2 mb-1 bg-light rounded"><span class="text-success">root@DiskStation</span>:<span class="text-primary">~</span># ssh-keygen -b 4096 -t rsa -f ~/.ssh/<span class="text-danger">id_rsa</span></pre>
-					Als Dateiname verwenden wir in diesem Beispiel die Standardbezeichnung <span class="text-danger">id_rsa</span> (ohne Dateinamenerweiterung bzw. Dateisuffix). Dieser Standard Dateiname wird dabei vom System ohne weitere Angaben erkannt und verarbeitet. Möchten Sie sich darüber hinaus mit weiteren Remote Servern verbinden, würde es sich zur Erhöhung der Sicherheit und zur besseren Identifizierung der verschiedenen Server anbieten, weitere RSA-Key Paare mit individuellen Dateinamen nach der oben aufgeführten Syntax zu erstellen. Sollten Sie einen abweichenden Dateinamen als den Standard Dateinamen id_rsa verwenden wollen, muss dieser Dateiname dem System explizit übergeben werden, um den passenden Bezug herstellen zu können. Basic Backup bietet hierfür ein entsprechendes Eingabefeld in den Auftragseinstellungen an.
+					Als Dateiname verwenden wir in diesem Beispiel die Standardbezeichnung <span class="text-danger">id_rsa</span> (ohne Dateinamenerweiterung bzw. Dateisuffix). Dieser Standard Dateiname wird dabei vom System ohne weitere Angaben erkannt und verarbeitet. Möchtest du dich darüber hinaus mit weiteren Remote Servern verbinden, würde es sich zur Erhöhung der Sicherheit und zur besseren Identifizierung der verschiedenen Server anbieten, weitere RSA-Key Paare mit individuellen Dateinamen nach der oben aufgeführten Syntax zu erstellen. Solltest du einen abweichenden Dateinamen als den Standard Dateinamen id_rsa verwenden wollen, muss dieser Dateiname dem System explizit übergeben werden, um den passenden Bezug herstellen zu können. Basic Backup bietet hierfür ein entsprechendes Eingabefeld in den Auftragseinstellungen an.
 				</p>
 				<p>
 					Gleich nach der Ausführung des Befehls wird man nach einer Passphrase, also einem Passwort gefragt...
@@ -144,7 +144,7 @@ if [ "${gui_lang}" == "ger" ]; then
 				<pre class="shadow-none p-1 mb-0 bg-light rounded">Enter passphrase (empty for no passphrase):</pre>
 				<pre class="shadow-none p-1 mb-1 bg-light rounded">Enter same passphrase again:</pre>
 				<p class="mt-3">
-					... tragen Sie hier bitte nichts ein, sondern bestätigen Sie die beiden Abfragen einfach mit der Return Taste. Daraufhin erscheint eine ähnliche Ausgabe wie diese hier...
+					... trag hier bitte nichts ein, sondern bestätige die beiden Abfragen einfach mit der Return Taste. Daraufhin erscheint eine ähnliche Ausgabe wie diese hier...
 				</p>
 				<pre class="shadow-none p-1 mb-0 bg-light rounded">Your identification has been saved in /<span class="text-danger">root</span>/.ssh/<span class="text-danger">id_rsa</span></pre>
 				<pre class="shadow-none p-1 mb-0 bg-light rounded">Your public key has been saved in /<span class="text-danger">root</span>/.ssh/<span class="text-danger">id_rsa</span>.pub</pre>
@@ -183,7 +183,7 @@ if [ "${gui_lang}" == "ger" ]; then
 					<strong>Syntax</strong>
 						<pre class="shadow-none p-2 mb-1 bg-light rounded">cat ~/.ssh/[<span class="text-danger">FILENAME</span>].pub >> ~/.ssh/authorized_keys</pre>
 						<ul>
-							<li>Anstelle von [<span class="text-danger">FILENAME</span>] hier bitte wieder den Dateinamen eintragen, den Sie weiter oben ausgewählt haben.</li>
+							<li>Anstelle von [<span class="text-danger">FILENAME</span>] hier bitte wieder den Dateinamen eintragen, den du weiter oben ausgewählt hast.</li>
 							<li>In diesem Beispiel lautet der Dateiname <span class="text-danger">id_rsa</span>.pub</li>
 						</ul>
 				</p>
