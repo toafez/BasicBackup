@@ -215,10 +215,10 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 			<!-- Einbinden eigener CSS Formatierungen -->
 			<link rel="stylesheet" href="template/css/stylesheet.css" />
 
-			<!-- Einbinden von bootstrap Framework 5.3.1 -->
+			<!-- Einbinden von bootstrap Framework 5.3.2 -->
 			<link rel="stylesheet" href="template/bootstrap/css/bootstrap.min.css" />
 
-			<!-- Einbinden von bootstrap Icons 1.10.5 -->
+			<!-- Einbinden von bootstrap Icons 1.11.1 -->
 			<link rel="stylesheet" href="template/bootstrap/font/bootstrap-icons.css" />
 
 			<!-- Einbinden von jQuery 3.7.1 -->
@@ -239,9 +239,7 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 					{
 						echo '
 						<nav class="navbar fixed-top navbar-expand-sm navbar-light bg-light">
-							<div class="container-fluid">'
-								#<span class="navbar-brand" style="color: #FF8C00;">'${app_title}'</span>
-								echo '
+							<div class="container-fluid">
 								<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
 									<span class="navbar-toggler-icon"></span>
 								</button>
@@ -250,11 +248,7 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 										<li class="nav-item">
 											<a class="btn btn-sm text-dark text-decoration-none py-0" role="button" style="background-color: #e6e6e6;" href="index.cgi?page=main&section=reset" title="'${txt_button_refresh}'"><i class="bi bi-house-door text-dark" style="font-size: 1.2rem;"></i></a>'
 											echo -n '<a class="btn btn-sm text-dark text-decoration-none'; [[ "${get[page]}" == "jobedit" ]] && echo -n ' active disabled" aria-current="page" ' || echo -n '" '
-											echo -n 'style="background-color: #e6e6e6;" href="index.cgi?page=jobedit&section=1&edit=false&jobname=">'${txt_link_new_job}'</a>'
-											#if [[ "${get[page]}" != "jobedit" ]]; then
-											#	echo '<a class="btn btn-sm text-dark text-decoration-none disabled" style="background-color: #e6e6e6;" href="index.cgi?page=jobedit&section=1&edit=false&jobname=">'${txt_link_new_job}'</a>&nbsp;'
-											#fi
-											echo '
+											echo -n 'style="background-color: #e6e6e6;" href="index.cgi?page=jobedit&section=1&edit=false&jobname=">'${txt_link_new_job}'</a>
 										</li>
 									</ul>
 								</div>
@@ -426,7 +420,7 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 				<!-- container -->
 			</article>
 
-			<!-- Einbinden von bootstrap JavaScript 5.3.1 -->
+			<!-- Einbinden von bootstrap JavaScript 5.3.2 -->
 			<script src="template/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 			<!-- Einbinden von JavaScript bzw. jQuery Funktionen im HTML body  -->
