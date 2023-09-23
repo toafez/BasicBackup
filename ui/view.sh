@@ -105,12 +105,12 @@ if [[ "${get[page]}" == "view" ]]; then
 					if [[ "${get[section]}" == "systemlog" ]]; then
 						if [ -s "${usr_systemlog}" ]; then
 							echo '
-							<a href="'${app_link}'/usersettings/logfiles/'${get[file]##*/}'" class="btn btn-secondary btn-sm" download>'${txt_button_system_log_download}'</a>'
+							<a href="'${app_link}'/usersettings/logfiles/'${get[file]##*/}'" class="btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;" download>'${txt_button_system_log_download}'</a>'
 						fi
-						echo '&nbsp;<a href="index.cgi?page=view&section=systemlog&query=delete&file='${get[file]}'" class="btn btn-secondary btn-sm">'${txt_button_system_log_delete}'</a>'
+						echo '&nbsp;<a href="index.cgi?page=view&section=systemlog&query=delete&file='${get[file]}'" class="btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;">'${txt_button_system_log_delete}'</a>'
 					fi	
 					echo '
-					<a href="index.cgi?page=main&section=start" class="btn btn-secondary btn-sm" aria-label="Close">'${txt_button_Close}'</a>
+					<a href="index.cgi?page=main&section=start" class="btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;" aria-label="Close">'${txt_button_Close}'</a>
 				</div>
 			</div>
 		</div>

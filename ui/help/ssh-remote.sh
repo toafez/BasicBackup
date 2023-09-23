@@ -105,8 +105,8 @@ if [ "${gui_lang}" == "ger" ]; then
 				Die SSH-Ordnerstruktur für deinen Remote Server ist nun eingerichtet.
 			</p>
 			<p class="text-end"><br />
-				<button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#help-ssh-rsa">Weiter mit '${txt_link_help_ssh_rsa}'</button>
-				<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">'${txt_button_Close}'</button>
+				<button type="button" class="btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;" role="button" data-bs-dismiss="modal">'${txt_button_Close}'</button>
+				<button type="button" class="btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;" role="button" data-bs-toggle="modal" data-bs-target="#help-ssh-rsa">Weiter mit '${txt_link_help_ssh_rsa}'</button>
 			</p>
 		</div>
 	</div>'
@@ -193,8 +193,8 @@ else
 				The SSH folder structure for your remote server is now set up.
 			</p>
 			<p class="text-end"><br />
-				<button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#help-ssh-rsa">Next with '${txt_link_help_ssh_rsa}'</button>
-				<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">'${txt_button_Close}'</button>
+				<button type="button" class="btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;" role="button" data-bs-dismiss="modal">'${txt_button_Close}'</button>
+				<button type="button" class="btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;" role="button" data-bs-toggle="modal" data-bs-target="#help-ssh-rsa">Next with '${txt_link_help_ssh_rsa}'</button>
 			</p>
 		</div>
 	</div>'

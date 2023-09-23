@@ -116,7 +116,7 @@ if [ "${gui_lang}" == "ger" ]; then
 					Du hast nun erfolgreich deine lokale DiskStation mit deinem Remote Server bekannt gemacht und somit eine grundlegende Voraussetzung geschaffen, ein Pull- oder Push Backup auszuführen.
 				</p>
 				<p class="text-end"><br />
-					<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">'${txt_button_Close}'</button>
+					<button type="button" class="btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;" role="button" data-bs-dismiss="modal">'${txt_button_Close}'</button>
 				</p>
 			</div>
 		</div>
@@ -214,7 +214,7 @@ else
 					You have now successfully made your local DiskStation known to your remote server, thus creating a basic requirement to perform a pull or push backup.
 				</p>
 				<p class="text-end"><br />
-					<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">'${txt_button_Close}'</button>
+					<button type="button" class="btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;" role="button" data-bs-dismiss="modal">'${txt_button_Close}'</button>
 				</p>
 			</div>
 		</div>

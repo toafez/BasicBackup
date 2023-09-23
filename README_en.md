@@ -30,11 +30,11 @@ Download the **most recent version** of Basic Backup from the [Releases](https:/
       - Log in to the console of your Synology NAS as user **root**.
       - Command to extend app permissions
 
-        `/usr/syno/synoman/webman/3rdparty/BasicBackup/app_permissions.sh "adduser"`
+        `/usr/syno/synoman/webman/3rdparty/BasicBackup/permissions.sh "adduser"`
 
       - Command to restrict app permissions
 
-        `/usr/syno/synoman/webman/3rdparty/BasicBackup/app_permissions.sh "deluser"`
+        `/usr/syno/synoman/webman/3rdparty/BasicBackup/permissions.sh "deluser"`
  
     - #### Extend or restrict app permissions via the task planner
 
@@ -44,11 +44,11 @@ Download the **most recent version** of Basic Backup from the [Releases](https:/
       - In the **Task Settings** tab > **Execute Command** > **Custom Script**, insert the following command into the text field...
       - Command to extend the app permissions
 
-        `/usr/syno/synoman/webman/3rdparty/BasicBackup/app_permissions.sh "adduser"`
+        `/usr/syno/synoman/webman/3rdparty/BasicBackup/permissions.sh "adduser"`
 
       - Command to restrict app permissions
 
-        `/usr/syno/synoman/webman/3rdparty/BasicBackup/app_permissions.sh "deluser"`
+        `/usr/syno/synoman/webman/3rdparty/BasicBackup/permissions.sh "deluser"`
    
       - Save the entries with **OK** and confirm the subsequent warning message with **OK**.
       - Mark the task you have just created in the overview of the task planner, but **do not** activate it (the line should be highlighted in blue after marking).

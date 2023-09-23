@@ -334,7 +334,7 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 
 					# Hinweis Badges
 					# --------------------------------------------------------------
-					note="<span class=\"text-primary text-uppercase ms-1\" style=\"border: solid #e6e6e6; border-width: 2px 4px; border-radius: 3px; background-color: #e6e6e6;\" title=\"${txt_link_note}\"><i class=\"bi bi-info-square\"></i></span>"
+					note="<span class=\"text-primary text-uppercase ms-1\" style=\"border: solid #e6e6e6; border-width: 2px 4px; border-radius: 3px; background-color: #e6e6e6;\" title=\"${txt_link_note}\"><i class=\"bi bi-info-square\"></i><i class=\"bi bi-caret-down-fill text-dark align-middle pb-1 ps-1\" style=\"font-size: 0.4rem;\"></i></span>"
 
 
 					# Seiteninhalte laden

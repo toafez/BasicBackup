@@ -317,7 +317,7 @@ echo '
 					# ---------------------------------------------------------------------------
 					echo '
 					<div class="card border-0">
-						<div class="card-header border-0" style="background-color: #ffffff;">'
+						<div class="card-header border-0 bg-white">'
 							if [[ "${get[edit]}" == "true" ]]; then
 								echo '<h5>'${txt_job_title}' <span class="text-secondary">'$(urldecode ${get[jobname]})'</span> '${txt_job_edit}'</h5>'
 							else
@@ -427,7 +427,7 @@ echo '
 						echo '
 						<p class="text-end"><br />
 							<input type="hidden" name="expand-content" value="false">
-							<a href="index.cgi?page=jobedit&section=abort" class="btn btn-sm text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;">'${txt_button_Cancel}'</a>&nbsp;&nbsp;&nbsp;
+							<a href="index.cgi?page=jobedit&section=abort" class="btn btn-sm text-dark text-decoration-none me-2" role="button" style="background-color: #e6e6e6;">'${txt_button_Cancel}'</a>
 							<button class="btn btn-sm text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;" type="submit" name="section" value="2">'${txt_button_Continue}'</button><br />
 						</p>'
 						echo '
@@ -474,7 +474,7 @@ echo '
 					# -----------------------------------------------------------------------
 					echo '
 					<div class="card border-0">
-						<div class="card-header border-0" style="background-color: #ffffff;">'
+						<div class="card-header border-0 bg-white">'
 							[[ "${get[edit]}" == "true" ]] && echo '<h5>'${txt_job_title}' <span class="text-secondary">'$(urldecode ${get[jobname]})'</span> - '${txt_target_title}' '${txt_job_edit}'</h5>' || echo '<h5>'${txt_target_title}' '${txt_job_select}'</h5>'
 							echo '
 						</div>
@@ -528,8 +528,8 @@ echo '
 							<p class="text-end"><br />
 								<input type="hidden" name="expand-content" value="true">
 								<input type="hidden" name="goback" value="page-1">
-								<a href="index.cgi?page=jobedit&section=abort" class="btn btn-sm text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;">'${txt_button_Cancel}'</a>&nbsp;&nbsp;&nbsp;
-								<button class="btn btn-sm  disable_validation text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;" type="submit" name="section" value="1">'${txt_button_Back}'</button>&nbsp;&nbsp;&nbsp;
+								<a href="index.cgi?page=jobedit&section=abort" class="btn btn-sm text-dark text-decoration-none me-2" role="button" style="background-color: #e6e6e6;">'${txt_button_Cancel}'</a>
+								<button class="btn btn-sm  disable_validation text-dark text-decoration-none me-2" role="button" style="background-color: #e6e6e6;" type="submit" name="section" value="1">'${txt_button_Back}'</button>
 								<button class="btn btn-sm text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;" type="submit" name="section" value="2">'${txt_button_Continue}'</button><br />
 							</p>'
 						fi
@@ -610,9 +610,7 @@ echo '
 											[[ "${var[uuidcheck]}" == "true" ]] && echo -n ' selected>' || echo -n '>'
 											echo ''${txt_uuidcheck_opt_true}'</option>'
 											echo '
-										</select>'
-
-										echo '
+										</select>
 									</div>
 								</div>'
 							fi
@@ -737,7 +735,7 @@ echo '
 								# Zielordner der Datensicherung (targetfolder)
 								# ...
 								echo '
-								<div class="mb-3">
+								<div class="mb-3 px-4">
 									<label for="target" class="form-label text-dark">'${txt_remotetarget_label}'
 										<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#target-note" role="button" aria-expanded="false" aria-controls="target-note">'${note}'</a>
 											<div class="collapse" id="target-note">
@@ -747,7 +745,7 @@ echo '
 											</div>
 									</label>
 									<input type="text" pattern="'${txt_remotetarget_regex}'" class="form-control form-control-sm" name="target" id="target" value="'${var[target]}'" placeholder="'${txt_remotetarget_format}'" required />
-								</div><br />'
+								</div>'
 							fi
 
 							# Erweiterte Schaltfläche einblenden, wenn primäre Schaltfläche ausgeblendet ist
@@ -757,8 +755,8 @@ echo '
 							<p class="text-end"><br />
 								<input type="hidden" name="expand-content" value="false">
 								<input type="hidden" name="goback" value="page-2">
-								<a href="index.cgi?page=jobedit&section=abort" class="btn btn-sm text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;">'${txt_button_Cancel}'</a>&nbsp;&nbsp;&nbsp;
-								<button class="btn btn-sm  disable_validation text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;" type="submit" name="section" value="2">'${txt_button_Back}'</button>&nbsp;&nbsp;&nbsp;
+								<a href="index.cgi?page=jobedit&section=abort" class="btn btn-sm text-dark text-decoration-none me-2" role="button" style="background-color: #e6e6e6;">'${txt_button_Cancel}'</a>
+								<button class="btn btn-sm  disable_validation text-dark text-decoration-none me-2" role="button" style="background-color: #e6e6e6;" type="submit" name="section" value="2">'${txt_button_Back}'</button>
 								<button class="btn btn-sm text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;" type="submit" name="section" value="3">'${txt_button_Continue}'</button><br />
 							</p>'
 						fi
@@ -843,7 +841,7 @@ echo '
 					# -----------------------------------------------------------------------
 					echo '
 					<div class="card border-0">
-						<div class="card-header border-0" style="background-color: #ffffff;">'
+						<div class="card-header border-0 bg-white">'
 							[[ "${get[edit]}" == "true" ]] && echo '<h5>'${txt_job_title}' <span class="text-secondary">'$(urldecode ${get[jobname]})'</span> - '${txt_sources_title}' '${txt_job_edit}'</h5>' || echo '<h5>'${txt_sources_title}' '${txt_job_select}'</h5>'
 							echo '
 						</div>
@@ -853,9 +851,8 @@ echo '
 							unset uuid_format_error
 							echo '
 							<div class="row g-3 mt-2">
-								<div class="col">'
-									echo '<p class="text-danger">'${txt_uuid_error}'</p>'
-									echo '
+								<div class="col">
+									<p class="text-danger">'${txt_uuid_error}'</p>
 								</div>
 							</div>'
 						fi
@@ -872,7 +869,7 @@ echo '
 										if [[ "${var[sourceserver]}" == "remote" ]]; then
 											echo '
 											<button type="button" class="btn btn-link btn-sm text-danger text-decoration-none" data-bs-toggle="modal" data-bs-target="#help-ssh-local">
-												<sup>'${txt_sshbuild_note}'</sup>
+												<sup class="btn btn-sm text-danger text-decoration-none py-1 px-2" style="background-color: #e6e6e6;">'${txt_sshbuild_note}'</sup>
 											</button>'
 										fi
 										echo '
@@ -910,8 +907,8 @@ echo '
 								<p class="text-end"><br />
 									<input type="hidden" name="expand-content" value="true">
 									<input type="hidden" name="goback" value="page-2a">
-									<a href="index.cgi?page=jobedit&section=abort" class="btn btn-sm text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;">'${txt_button_Cancel}'</a>&nbsp;&nbsp;&nbsp;
-									<button class="btn btn-sm  disable_validation text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;" type="submit" name="section" value="2">'${txt_button_Back}'</button>&nbsp;&nbsp;&nbsp;
+									<a href="index.cgi?page=jobedit&section=abort" class="btn btn-sm text-dark text-decoration-none me-2" role="button" style="background-color: #e6e6e6;">'${txt_button_Cancel}'</a>
+									<button class="btn btn-sm  disable_validation text-dark text-decoration-none me-2" role="button" style="background-color: #e6e6e6;" type="submit" name="section" value="2">'${txt_button_Back}'</button>
 									<button class="btn btn-sm text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;" type="submit" name="section" value="3">'${txt_button_Continue}'</button><br />
 								</p>'
 							fi
@@ -1102,7 +1099,7 @@ echo '
 											</label>
 											<input type="text" pattern="'${txt_sources_regex}'" class="form-control form-control-sm" style="white-space: pre;" name="sources" id="sources" value="'${var[sources]}'" placeholder="'${txt_sources_format}'" required />
 										</div>
-									</div><br />'
+									</div>'
 								fi
 
 								# Erweiterte Schaltfläche einblenden, solange primäre Schaltfläche ausgeblendet ist
@@ -1111,8 +1108,8 @@ echo '
 								<p class="text-end"><br />
 									<input type="hidden" name="expand-content" value="false">
 									<input type="hidden" name="goback" value="page-3">
-									<a href="index.cgi?page=jobedit&section=abort" class="btn btn-sm text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;">'${txt_button_Cancel}'</a>&nbsp;&nbsp;&nbsp;
-									<button class="btn btn-sm  disable_validation text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;" type="submit" name="section" value="3">'${txt_button_Back}'</button>&nbsp;&nbsp;&nbsp;
+									<a href="index.cgi?page=jobedit&section=abort" class="btn btn-sm text-dark text-decoration-none me-2" role="button" style="background-color: #e6e6e6;">'${txt_button_Cancel}'</a>
+									<button class="btn btn-sm  disable_validation text-dark text-decoration-none me-2" role="button" style="background-color: #e6e6e6;" type="submit" name="section" value="3">'${txt_button_Back}'</button>
 									<button class="btn btn-sm text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;" type="submit" name="section" value="4">'${txt_button_Continue}'</button><br />
 								</p>'
 							fi
@@ -1186,8 +1183,8 @@ echo '
 							<p class="text-end"><br />
 								<input type="hidden" name="expand-content" value="true">
 								<input type="hidden" name="goback" value="page-2a">
-								<a href="index.cgi?page=jobedit&section=abort" class="btn btn-sm text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;">'${txt_button_Cancel}'</a>&nbsp;&nbsp;&nbsp;
-								<button class="btn btn-sm  disable_validation text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;" type="submit" name="section" value="2">'${txt_button_Back}'</button>&nbsp;&nbsp;&nbsp;
+								<a href="index.cgi?page=jobedit&section=abort" class="btn btn-sm text-dark text-decoration-none me-2" role="button" style="background-color: #e6e6e6;">'${txt_button_Cancel}'</a>
+								<button class="btn btn-sm  disable_validation text-dark text-decoration-none me-2" role="button" style="background-color: #e6e6e6;" type="submit" name="section" value="2">'${txt_button_Back}'</button>
 								<button class="btn btn-sm text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;" type="submit" name="section" value="4">'${txt_button_Continue}'</button><br />
 							</p>'
 						fi
@@ -1316,7 +1313,7 @@ echo '
 					# -----------------------------------------------------------------------
 					echo '
 					<div class="card border-0">
-						<div class="card-header border-0" style="background-color: #ffffff;">'
+						<div class="card-header border-0 bg-white">'
 							[[ "${get[edit]}" == "true" ]] && echo '<h5>'${txt_job_title}' <span class="text-secondary">'$(urldecode ${get[jobname]})'</span> - '${txt_rsync_title}' '${txt_job_edit}'</h5>' || echo '<h5>'${txt_rsync_title}' '${txt_job_select}'</h5>'
 							echo '
 						</div>
@@ -1400,8 +1397,8 @@ echo '
 							<p class="text-end"><br />
 								<input type="hidden" name="expand-content" value="true">
 								<input type="hidden" name="goback" value="page-3a">
-								<a href="index.cgi?page=jobedit&section=abort" class="btn btn-sm text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;">'${txt_button_Cancel}'</a>&nbsp;&nbsp;&nbsp;
-								<button class="btn btn-sm text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;" type="submit" name="section" value="3">'${txt_button_Back}'</button>&nbsp;&nbsp;&nbsp;
+								<a href="index.cgi?page=jobedit&section=abort" class="btn btn-sm text-dark text-decoration-none me-2" role="button" style="background-color: #e6e6e6;">'${txt_button_Cancel}'</a>
+								<button class="btn btn-sm text-dark text-decoration-none me-2" role="button" style="background-color: #e6e6e6;" type="submit" name="section" value="3">'${txt_button_Back}'</button>
 								<button class="btn btn-sm text-dark text-decoration-none" role="button" style="background-color: #e6e6e6;" type="submit" name="section" value="savescript">'${txt_button_Save}'</button><br />
 							</p>'
 
@@ -1414,7 +1411,7 @@ echo '
 				if [[ "${var[section]}" == "savescript" ]]; then
 					echo '
 					<div class="card border-0">
-						<div class="card-header border-0" style="background-color: #ffffff;">'
+						<div class="card-header border-0 bg-white">'
 							[[ "${get[edit]}" == "true" ]] && echo '<h5>'${txt_job_title}' <span class="text-secondary">'$(urldecode ${get[jobname]})'</span> - '${txt_save_title_edit}'</h5>' || echo '<h5>'${txt_save_title_new}'</h5>'
 							echo '
 						</div>

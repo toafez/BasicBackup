@@ -202,8 +202,8 @@ if [ "${gui_lang}" == "ger" ]; then
 				Die SSH-Ordnerstruktur für diese DiskStation ist nun eingerichtet.
 			</p>
 			<p class="text-end"><br />
-				<button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#help-ssh-remote">Weiter mit '${txt_link_help_ssh_remote}'</button>
-				<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">'${txt_button_Close}'</button>
+				<button type="button" class="btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;" role="button" data-bs-dismiss="modal">'${txt_button_Close}'</button>
+				<button type="button" class="btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;" role="button" data-bs-toggle="modal" data-bs-target="#help-ssh-remote">Weiter mit '${txt_link_help_ssh_remote}'</button>
 			</p>
 		</div>
 	</div>'
@@ -386,8 +386,8 @@ else
 				The SSH folder structure for this DiskStation is now set up.
 			</p>
 			<p class="text-end"><br />
-				<button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#help-ssh-remote">Next with '${txt_link_help_ssh_remote}'</button>
-				<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">'${txt_button_Close}'</button>
+				<button type="button" class="btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;" role="button" data-bs-dismiss="modal">'${txt_button_Close}'</button>
+				<button type="button" class="btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;" role="button" data-bs-toggle="modal" data-bs-target="#help-ssh-remote">Next with '${txt_link_help_ssh_remote}'</button>
 			</p>
 		</div>
 	</div>'

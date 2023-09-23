@@ -30,11 +30,11 @@ Laden Sie sich die **jeweils aktuellste Version** von Basic Backup aus dem Berei
       - Melden Sie sich als Benutzer **root** auf der Konsole Ihrer Synology NAS an.
       - Befehl zum erweitern der App-Berechtigungen
 
-        `/usr/syno/synoman/webman/3rdparty/BasicBackup/app_permissions.sh "adduser"`
+        `/usr/syno/synoman/webman/3rdparty/BasicBackup/permissions.sh "adduser"`
 
       - Befehl zum beschränken der App-Berechtigungen
 
-        `/usr/syno/synoman/webman/3rdparty/BasicBackup/app_permissions.sh "deluser"`
+        `/usr/syno/synoman/webman/3rdparty/BasicBackup/permissions.sh "deluser"`
  
     - #### Erweitern bzw. beschränken der App-Berechtigungen über den Aufgabenplaner
 
@@ -44,11 +44,11 @@ Laden Sie sich die **jeweils aktuellste Version** von Basic Backup aus dem Berei
       - Im Reiter **Aufgabeneinstellungen** > **Befehl ausführen** > **Benutzerdefiniertes Script** nachfolgenden Befehl in das Textfeld einfügen...
       - Befehl zum erweitern der App-Berechtigungen
 
-        `/usr/syno/synoman/webman/3rdparty/BasicBackup/app_permissions.sh "adduser"`
+        `/usr/syno/synoman/webman/3rdparty/BasicBackup/permissions.sh "adduser"`
 
       - Befehl zum beschränken der App-Berechtigungen
 
-        `/usr/syno/synoman/webman/3rdparty/BasicBackup/app_permissions.sh "deluser"`
+        `/usr/syno/synoman/webman/3rdparty/BasicBackup/permissions.sh "deluser"`
    
       - Eingaben mit **OK** speichern und die anschließende Warnmeldung ebenfalls mit **OK** bestätigen.
       - Die grade erstellte Aufgabe in der Übersicht des Aufgabenplaners markieren, jedoch **nicht** aktivieren (die Zeile sollte nach dem markieren blau hinterlegt sein).

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Filename: main.sh - coded in utf-8
+# Filename: index.cgi - coded in utf-8
 
 #                       Basic Backup
 #
@@ -22,570 +22,411 @@
 # with this program. If not, see http://www.gnu.org/licenses/  !
 
 
-# Requests zurücksetzen und Seite neu laden
+# System initiieren
 # --------------------------------------------------------------
-if [[ "${get[page]}" == "main" && "${get[section]}" == "reset" ]]; then
-	unset var
-	[[ -f "${get_request}" ]] && rm "${get_request}"
-	[[ -f "${post_request}" ]] && rm "${post_request}"
-	echo '<meta http-equiv="refresh" content="0; url=index.cgi?page=main&section=start">'
+	PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/syno/bin:/usr/syno/sbin
+
+	app_name="BasicBackup"
+	app_title="Basic Backup"
+	app_home=$(echo /volume*/@appstore/${app_name}/ui)
+	app_link=$(echo /webman/3rdparty/${app_name})
+	[ ! -d "${app_home}" ] && exit
+
+	# Version der Basic Backup App aus der Datei INFO.sh auslesen
+	app_version=$(cat "/var/packages/${app_name}/INFO" | grep ^version | cut -d '"' -f2)
+
+	# Version des rsync-Scriptes aus der Datei script.sh auslesen
+	script_version=$(cat "${app_home}/rsync.sh" | grep ^script_version | cut -d '"' -f2)
+
+	# Version der Auftragsbearbeitung aus der Datei jobedit.sh auslesen
+	job_version=$(cat "${app_home}/jobedit.sh" | grep ^job_version | cut -d '"' -f2)
+
+	# Versionsvergleich ziwschen Auftragsbearbeitung und rsync-Script anstellen
+	if dpkg --compare-versions ${job_version} gt ${script_version}; then
+		sed -i 's/script_version.*$/script_version="'${job_version}'"/' ${rsync_script}
+	fi
+
+# App Authentifizierung auswerten
+# --------------------------------------------------------------
+
+	# Zum auswerten des SynoToken, REQUEST_METHOD auf GET ändern
+	if [[ "${REQUEST_METHOD}" == "POST" ]]; then
+		REQUEST_METHOD="GET"
+		OLD_REQUEST_METHOD="POST"
+	fi
+
+	# Auslesen und prüfen der Login Berechtigung  ( login.cgi )
+		syno_login=$(/usr/syno/synoman/webman/login.cgi)
+
+		# Login Berechtigung ( result=success )
+		if echo ${syno_login} | grep -q result ; then
+			login_result=$(echo "${syno_login}" | grep result | cut -d ":" -f2 | cut -d '"' -f2)
+		fi
+		[[ ${login_result} != "success" ]] && { echo 'Access denied'; exit; }
+
+		# Login erfolgreich ( success=true )
+		if echo ${syno_login} | grep -q success ; then
+			login_success=$(echo "${syno_login}" | grep success | cut -d "," -f3 | grep success | cut -d ":" -f2 | cut -d " " -f2 )
+		fi
+		[[ ${login_success} != "true" ]] && { echo 'Access denied'; exit; }
+
+	# REQUEST_METHOD wieder zurück auf POST setzen
+	if [[ "${OLD_REQUEST_METHOD}" == "POST" ]]; then
+		REQUEST_METHOD="POST"
+		unset OLD_REQUEST_METHOD
+	fi
+
+# App-Berechtigungen auswerten
+# --------------------------------------------------------------
+if cat /etc/group | grep ^administrators | grep -q ${app_name} ; then
+	app_permissions="true"
+else
+	app_permissions="false"
 fi
 
-# Horizontale Navigationsleiste laden
+# Umgebungsvariablen festlegen
 # --------------------------------------------------------------
-mainnav
+	# Ordner für temporäre Daten einrichten
+	app_temp="${app_home}/temp"
+	[ ! -d "${app_temp}" ] && mkdir -p -m 755 "${app_temp}"
+	result="${app_temp}/result.txt"
 
-# Startseite anzeigen
+	# POST und GET Requests auswerten und in Dateien zwischenspeichern
+	set_keyvalue="/usr/syno/bin/synosetkeyvalue"
+	get_keyvalue="/bin/get_key_value"
+	get_request="$app_temp/get_request.txt"
+	post_request="$app_temp/post_request.txt"
+
+	# Ordner für Benutzerdaten einrichten
+	usr_settings="${app_home}/usersettings"
+	[ ! -d "${usr_settings}" ] && mkdir -p -m 755 "${usr_settings}"
+
+	# Ordner für eCryptfs Schlüsseldateien einrichten
+	usr_secrets="${usr_settings}/.secrets"
+	[ ! -d "${usr_secrets}" ] && mkdir -p -m 700 "${usr_secrets}"
+
+	# Ordner für Backupaufträge einrichten
+	usr_backupjobs="${usr_settings}/backupjobs"
+	[ ! -d "${usr_backupjobs}" ] && mkdir -p -m 755 "${usr_backupjobs}"
+
+	# Ordner für Logfiles einrichten
+	usr_logfiles="${usr_settings}/logfiles"
+	[ ! -d "${usr_logfiles}" ] && mkdir -p -m 755 "${usr_logfiles}"
+
+	# Ordner für Benutzerdefinierte Einstellungen einrichten
+	usr_systemconfig="${usr_settings}/system"
+	[ ! -d "${usr_systemconfig}" ] && mkdir -p -m 755 "${usr_systemconfig}"
+
+	# Systemprotokoll einrichten
+	usr_systemlog="${usr_logfiles}/${app_name}.history"
+	if [ ! -f "${usr_systemlog}" ]; then
+		touch "${usr_systemlog}"
+		chmod 777 "${usr_systemlog}"
+	fi
+
+	# Konfigurationsdatei für Debug Modus einrichten
+	usr_debugfile="${usr_systemconfig}/debug.config"
+	if [ ! -f "${usr_debugfile}" ]; then
+		touch "${usr_debugfile}"
+		chmod 777 "${usr_debugfile}"
+	fi
+	[ -f "${usr_debugfile}" ] && source "${usr_debugfile}"
+
+	# Wenn keine Seite gesetzt, dann Startseite anzeigen
+	if [ -z "${get[page]}" ]; then
+		"${set_keyvalue}" "${get_request}" "get[page]" "main"
+		"${set_keyvalue}" "${get_request}" "get[section]" "start"
+	fi
+
+
+# Verarbeitung von GET/POST-Request Variablen
 # --------------------------------------------------------------
-if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
-	[[ -f "${post_request}" ]] && source "${post_request}"
-	
-	# Überprüfen des App-Versionsstandes
-	# --------------------------------------------------------------
-	local_version=$(cat "/var/packages/${app_name}/INFO" | grep ^version | cut -d '"' -f2)
-	git_version=$(wget --no-check-certificate --timeout=60 --tries=1 -q -O- "https://raw.githubusercontent.com/toafez/${app_name}/main/INFO.sh" | grep ^version | cut -d '"' -f2)		
-	if [ -n "${git_version}" ] && [ -n "${local_version}" ]; then
-		if dpkg --compare-versions ${git_version} gt ${local_version}; then
-			echo '
-			<div class="row">
-				<div class="col-sm-12">
-					<table class="table table-borderless table-sm">
-						<thead></thead>
-						<tbody>
-							<tr>
-								<td scope="row" class="row-sm-auto">
-									<strong>'${txt_update_available}'</strong><br />'${txt_update_from}' <span class="text-danger">'${local_version}'</span> '${txt_update_to}' <span class="text-success">'${git_version}'</span>
-									<td class="text-end"> 
-										<a href="https://github.com/toafez/'${app_name}'/releases" class="btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;" target="_blank">Update</a>
-									</td>
-								</td>
-							</tr>
-						</tbody>
-					</table><hr />
-				</div>
-			</div>'	
+	# urlencode und urldecode Funktion aus der ../modules/parse_url.sh laden
+	[ -f "${app_home}/modules/parse_url.sh" ] && source "${app_home}/modules/parse_url.sh" || exit
+
+	[ -z "${POST_STRING}" -a "${REQUEST_METHOD}" = "POST" -a ! -z "${CONTENT_LENGTH}" ] && read -n ${CONTENT_LENGTH} POST_STRING
+
+	# Sicherung des Internal Field Separator (IFS) sowie das separieren der
+	# GET/POST key/value Anfragen, durch Lokalisierung des Trennzeichen "&"
+	if [ -z "${backupIFS}" ]; then
+		backupIFS="${IFS}"
+		IFS='=&'
+		GET_vars=(${QUERY_STRING})
+		POST_vars=(${POST_STRING})
+		readonly backupIFS
+		IFS="${backupIFS}"
+	fi
+
+	# Analysieren eingehende GET-Anfragen und Verarbeitung zu ${get[key]}="$value" Variablen
+	declare -A get
+	for ((i=0; i<${#GET_vars[@]}; i+=2)); do
+		GET_key=get[${GET_vars[i]}]
+		GET_value=${GET_vars[i+1]}
+		#GET_value=$(urldecode ${GET_vars[i+1]})
+
+		# Zurücksetzen gespeicherter GET/POST-Requests falls main gesetzt
+		if [[ "${get[page]}" == "main" ]] && [ -z "${get[section]}" ]; then
+			[ -f "${get_request}" ] && rm "${get_request}"
+			[ -f "${post_request}" ] && rm "${post_request}"
 		fi
-	fi
 
-	# Überprüfen der App-Berechtigung
-	# --------------------------------------------------------------
-	if [ -z "${app_permissions}" ] || [[ "${app_permissions}" == "false" ]]; then
-		echo '
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="card">
-					<div class="card-header bg-danger-subtle"><strong>'${txt_group_status}'</strong></div>
- 					<div class="card-body">
-						<table class="table table-borderless table-sm mb-0">
-							<thead></thead>
-							<tbody>
-								<tr>
-									<td scope="row" class="row-sm-auto">'${txt_group_status_false}'
-										<td class="text-end"> 
-											<a href="#help-permissions" class="btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;" data-bs-toggle="modal" data-bs-target="#help-app-permissions">'${txt_button_extend_permission}'</a>
-										</td>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div><br />'	
-	fi
+		# Speichern von GET-Requests zur späteren Weiterverarbeitung
+		"${set_keyvalue}" "${get_request}" "$GET_key" "$GET_value"
+	done
 
-	# Überprüfen des rsync-Dienstes
-	# --------------------------------------------------------------
-	# rsync Status abfragen
-	rsyncd_status=$(systemctl is-enabled rsyncd.service) # activ= Dienst aktiv, unknown= Dienst deaktiert
-	if [[ "${rsyncd_status}" != "enabled" ]]; then
-		echo '
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="card">
-					<div class="card-header bg-danger-subtle"><strong>'${txt_rsync_service}' '${txt_is_inactive}'</strong></div>
- 					<div class="card-body">'${txt_rsync_info}'</div>
-				</div>
-			</div>
-		</div><br />'	
-	fi
+	# Analysieren eingehende POST-Anfragen und Verarbeitung zu ${var[key]}="$value" Variablen
+	declare -A var
+	for ((i=0; i<${#POST_vars[@]}; i+=2)); do
+		POST_key=var[${POST_vars[i]}]
+		#POST_value=${POST_vars[i+1]}
+		POST_value=$(urldecode ${POST_vars[i+1]})
 
-	# Überprüfen des ssh-Dienstes
-	# --------------------------------------------------------------
-	# SSH Status abfragen
-	sshd_status=$(systemctl is-enabled sshd.service)	# activ= Dienst aktiv, unknown= Dienst deaktiert
-	if [[ "${sshd_status}" != "enabled" ]]; then
-		echo '
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="card">
-					<div class="card-header bg-danger-subtle"><strong>'${txt_ssh_service}' '${txt_is_inactive}'</strong></div>
-					<div class="card-body">'${txt_ssh_info}'</div>
-				</div>
-			</div>
-		</div><br />'	
-	fi
+		# Speichern von POST-Requests zur späteren Weiterverarbeitung
+		"${set_keyvalue}" "${post_request}" "$POST_key" "$POST_value"
+	done
 
+	# Einbinden der temporär gespeicherten GET/POST-Requests ( key="value" ) sowie der Benutzereinstellungen
+	[ -f "${get_request}" ] && source "${get_request}"
+	[ -f "${post_request}" ] && source "${post_request}"
+
+
+# Layoutausgabe
+# --------------------------------------------------------------
+if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
+
+	# Spracheinstellungen aus der ../modules/parse_language.sh laden
+	[ -f "${app_home}/modules/parse_language.sh" ] && source "${app_home}/modules/parse_language.sh" || exit
+	language "GUI"
+
+	# Websitefunktionen aus der ../modules/html.function.sh laden
+	[ -f "${app_home}/template/html_functions.sh" ] && source "${app_home}/template/html_functions.sh" || exit
+
+	echo "Content-type: text/html"
+	echo
 	echo '
-	<div class="row">
-		<div class="col">
-			<div class="accordion accordion-flush" id="main-accordion">'
-				# Backupaufträge anzeigen
-				# --------------------------------------------------------------
-				backupconfigs=$(find "$usr_backupjobs" -type f -name "*.config" -maxdepth 1 | sort)
-				if [ -n "$backupconfigs" ]; then
-					id=1
-					IFS="
-					"
-					for backupconfig in ${backupconfigs}; do
-						IFS="$backifs"
-						[ -f "${backupconfig}" ] && source "${backupconfig}"
-						backupjob=$(echo "${backupconfig##*/}")
-						backupjob=$(echo "${backupjob%.*}")
-						logfile="${usr_logfiles}/${backupjob}.log"
+	<!doctype html>
+	<html lang="en">
+		<head>
+			<meta charset="utf-8" />
+			<title>'${app_title}'</title>
+			<link rel="shortcut icon" href="images/icon_32.png" type="image/x-icon" />
+			<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-						# Ausgabe der Aufträge
-						# ------------------------------------------------------------------------
+			<!-- Einbinden eigener CSS Formatierungen -->
+			<link rel="stylesheet" href="template/css/stylesheet.css" />
+
+			<!-- Einbinden von bootstrap Framework 5.3.1 -->
+			<link rel="stylesheet" href="template/bootstrap/css/bootstrap.min.css" />
+
+			<!-- Einbinden von bootstrap Icons 1.10.5 -->
+			<link rel="stylesheet" href="template/bootstrap/font/bootstrap-icons.css" />
+
+			<!-- Einbinden von jQuery 3.7.1 -->
+			<script src="template/jquery/jquery-3.7.1.min.js"></script>
+
+			<!-- Einbinden von JavaScript bzw. jQuery Funktionen im HTML Header  -->
+			<script src="template/js/head-functions.js"></script>
+		</head>
+		<body>
+			<header></header>
+			<article>
+				<!-- container -->
+				<div class="container-lg">'
+
+					# Funktion: Hauptnavigation anzeigen
+					# --------------------------------------------------------------
+					function mainnav()
+					{
 						echo '
-						<div class="accordion-item border-0 mb-3">
-							<span class="accordion-header" id="heading'${id}'">
-								<div class="card border-0">
-									<div class="card-header bg-light border-0">'
-
-										process="false"
-										is_active=$(cat "/var/packages/${app_name}/tmp/pid" | grep ^job | cut -d '"' -f2)
-										if [[ "${backupjob}" == "${is_active}" ]]; then
-											process="true"
-											echo '<meta http-equiv="refresh" content="10">'
-										else
-											process="false"
-										fi
-
-										echo '
-										<a href="#edit'${id}'" class="text-dark text-decoration-none" data-bs-toggle="collapse" data-bs-target="#collapse'${id}'" aria-expanded="true" aria-controls="collapse'${id}'">'
-											if [ -z "${var[sshpush]}" ] && [ -z "${var[sshpull]}" ]; then
-												if [[ "${var[sources]}" == /volume[[:digit:]]* ]] && [[ "${var[target]}" == /volume[[:digit:]]* ]]; then
-													backuptype="share-to-share"
-													backupsource="${txt_local_diskstation}"
-													backuptarget="${txt_local_diskstation}"
-													sourceicon="bi bi-hdd"
-													targeticon="bi bi-hdd"
-												fi
-												if [[ "${var[sources]}" == /volume[[:digit:]]* ]] && [[ "${var[target]}" == /volumeUSB* || "${var[target]}" == /volumeSATA* ]]; then
-													backuptype="share-to-usb"
-													backupsource="${txt_local_diskstation}"
-													backuptarget="${txt_external_disk}"
-													sourceicon="bi bi-hdd"
-													targeticon="bi bi-usb-symbol"
-												fi
-												if [[ "${var[sources]}" == /volumeUSB* || "${var[sources]}" == /volumeSATA* ]] && [[ "${var[target]}" == /volume[[:digit:]]* ]]; then
-													backuptype="usb-to-share"
-													backupsource="${txt_external_disk}"
-													backuptarget="${txt_local_diskstation}"
-													sourceicon="bi bi-usb-symbol"
-													targeticon="bi bi-hdd"
-												fi
-												if [[ "${var[sources]}" == /volumeUSB* || "${var[sources]}" == /volumeSATA* ]] && [[ "${var[target]}" == /volumeUSB* || "${var[target]}" == /volumeSATA* ]]; then
-													backuptype="usb-to-usb"
-													backupsource="${txt_external_disk}"
-													backuptarget="${txt_external_disk}"
-													sourceicon="bi bi-usb-symbol"
-													targeticon="bi bi-usb-symbol"
-												fi
-											elif [ -n "${var[sshpush]}" ]; then
-												if [[ "${var[sources]}" == /volume[[:digit:]]* ]]; then
-													backuptype="share-push-server"
-													backupsource="${txt_local_diskstation}"
-													if [[ "${var[target]}" == /volume* ]]; then
-														backuptarget="${txt_remote_diskstation}"
-													else
-														backuptarget="${txt_remote_server}"
-													fi
-													sourceicon="bi bi-hdd"
-													targeticon="bi bi-hdd-network"
-												fi
-												if [[ "${var[sources]}" == /volumeUSB* || "${var[sources]}" == /volumeSATA* ]]; then
-													backuptype="usb-push-server"
-													backupsource="${txt_external_disk}"
-													if [[ "${var[target]}" == /volume* ]]; then
-														backuptarget="${txt_remote_diskstation}"
-													else
-														backuptarget="${txt_remote_server}"
-													fi
-													sourceicon="bi bi-usb-symbol"
-													targeticon="bi bi-hdd-network"
-												fi
-											elif [ -n "${var[sshpull]}" ]; then 
-												if [[ "${var[target]}" == /volume[[:digit:]]* ]]; then
-													backuptype="share-pull-server"
-													if [[ "${var[sources]}" == /volume* ]]; then
-														backupsource="${txt_remote_diskstation}"
-													else
-														backupsource="${txt_remote_server}"
-													fi
-													backuptarget="${txt_local_diskstation}"
-													sourceicon="bi bi-hdd-network"
-													targeticon="bi bi-hdd"
-												fi
-												if [[ "${var[sources]}" == /volumeUSB* || "${var[sources]}" == /volumeSATA* ]]; then
-													backuptype="usb-pull-server"
-													if [[ "${var[sources]}" == /volume* ]]; then
-														backupsource="${txt_remote_diskstation}"
-													else
-														backupsource="${txt_remote_server}"
-													fi
-													backuptarget="${txt_external_disk}"
-													sourceicon="bi bi-hdd-network"
-													targeticon="bi bi-usb-symbol"
-												fi
-											fi
-
+						<nav class="navbar fixed-top navbar-expand-sm navbar-light bg-light">
+							<div class="container-fluid">
+								<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+									<span class="navbar-toggler-icon"></span>
+								</button>
+								<div class="collapse navbar-collapse" id="navbarDropdown">
+									<ul class="navbar-nav">
+										<li class="nav-item">
+											<a class="btn btn-sm text-dark text-decoration-none py-0" role="button" style="background-color: #e6e6e6;" href="index.cgi?page=main&section=reset" title="'${txt_button_refresh}'"><i class="bi bi-house-door text-dark" style="font-size: 1.2rem;"></i></a>'
+											echo -n '<a class="btn btn-sm text-dark text-decoration-none'; [[ "${get[page]}" == "jobedit" ]] && echo -n ' active disabled" aria-current="page" ' || echo -n '" '
+											echo -n 'style="background-color: #e6e6e6;" href="index.cgi?page=jobedit&section=1&edit=false&jobname=">'${txt_link_new_job}'</a>'
 											echo '
-											<span class="btn btn-sm text-dark py-0" role="button" style="background-color: #e6e6e6;">'
-												if [[ "${backuptype}" == "share-to-share" ]]; then
-													echo '
-													<i class="'${sourceicon}'" style="font-size: 1.2rem;" title="'${backupsource}'"></i>&nbsp;
-													<i class="bi bi-arrow-right-short text-success" style="font-size: 1.2rem;"></i>&nbsp;
-													<i class="'${targeticon}'" style="font-size: 1.2rem;" title="'${backuptarget}'"></i>&nbsp;'
-												fi
-												if [[ "${backuptype}" == "share-to-usb" ]]; then
-													echo '
-														<i class="'${sourceicon}'" style="font-size: 1.2rem;" title="'${backupsource}'"></i>&nbsp;
-														<i class="bi bi-arrow-right-short text-success" style="font-size: 1.2rem;"></i>&nbsp;
-														<i class="'${targeticon}'" style="font-size: 1.2rem;" title="'${backuptarget}'"></i>&nbsp;'
-												fi
-												if [[ "${backuptype}" == "usb-to-share" ]]; then
-													echo '
-													<i class="'${sourceicon}'" style="font-size: 1.2rem;" title="'${backupsource}'"></i>&nbsp;
-													<i class="bi bi-arrow-right-short text-success" style="font-size: 1.2rem;"></i>&nbsp;
-													<i class="'${targeticon}'" style="font-size: 1.2rem;" title="'${backuptarget}'"></i>&nbsp;'
-												fi
-												if [[ "${backuptype}" == "usb-to-usb" ]]; then
-													echo '
-													<i class="'${sourceicon}'" style="font-size: 1.2rem;" title="'${backupsource}'"></i>&nbsp;
-													<i class="bi bi-arrow-right-short text-success" style="font-size: 1.2rem;"></i>&nbsp;
-													<i class="'${targeticon}'" style="font-size: 1.2rem;" title="'${backuptarget}'"></i>&nbsp;'
-												fi
-												if [[ "${backuptype}" == "share-push-server" ]]; then
-													echo '
-													<i class="'${sourceicon}'" style="font-size: 1.2rem;" title="'${backupsource}'"></i>&nbsp;
-													<i class="bi bi-arrow-right-short text-success" style="font-size: 1.2rem;"></i>&nbsp;
-													<i class="'${targeticon}'" style="font-size: 1.2rem;" title="'${backuptarget}'"></i>'
-												fi
-												if [[ "${backuptype}" == "usb-push-server" ]]; then
-													echo '
-													<i class="'${sourceicon}'" style="font-size: 1.2rem;" title="'${backupsource}'"></i>&nbsp;
-													<i class="bi bi-arrow-right-short text-success" style="font-size: 1.2rem;"></i>&nbsp;
-													<i class="'${targeticon}'" style="font-size: 1.2rem;" title="'${backuptarget}'"></i>'
-												fi
-												if [[ "${backuptype}" == "share-pull-server" ]]; then
-													echo '
-													<i class="'${targeticon}'" style="font-size: 1.2rem;" title="'${backuptarget}'"></i>&nbsp;
-													<i class="bi bi-arrow-left-short text-success" style="font-size: 1.2rem;"></i>&nbsp;
-													<i class="'${sourceicon}'" style="font-size: 1.2rem;" title="'${backupsource}'"></i>'
-												fi
-												if [[ "${backuptype}" == "usb-pull-server" ]]; then
-													echo '
-													<i class="'${sourceicon}'" style="font-size: 1.2rem;" title="'${backupsource}'"></i>&nbsp;
-													<i class="bi bi-arrow-left-short text-success" style="font-size: 1.2rem;"></i>&nbsp;
-													<i class="'${targeticon}'" style="font-size: 1.2rem;" title="'${backuptarget}'"></i>'
-												fi
-												echo '
-											</span>
-										</a>'
-										if [[ "${process}" == "true" ]]; then
-											echo '
-											<div class="spinner-grow" style="width: 1rem; height: 1rem; color: #FF8C00;" role="status">
-												<span class="visually-hidden">Loading...</span>
-											</div>&nbsp;&nbsp;'${backupjob}' <span class="text-success">'${txt_backupjob_runs}'</span>'
-										else
-											echo '&nbsp;&nbsp;'${backupjob}''
-										fi
-									
-										echo '
-										<div class="float-end">'
-
-											# Auftragsoptionen anzeigen (rechts)
-											# --------------------------------------------------------------
-
-											# Job version
-											if dpkg --compare-versions ${job_version} gt ${jobconfig_version}; then
-												if dpkg --compare-versions ${jobconfig_version} eq "0.7-000"; then
-													find ${usr_backupjobs}/ -type f -print0 | xargs -0 -n 1 sed -i -e 's/'"0.7-000"'/'"${job_version}"'/g'
-												else
-													echo '
-													<a class="btn btn-sm text-dark btn-outline-danger bg-danger-subtle text-decoration-none" role="button" href="index.cgi?page=jobedit&section=1&edit=true&jobname='${backupjob}'">
-														<span style="font-size: 0.8rem;" title="'${txt_update_job_info}'">'${txt_update_job_run}'</span>
-													</a>&nbsp;'
-												fi
-												unset jobconfig_version
-											fi
-
-											# Logfile
-											if [ -f "${logfile}" ]; then
-												echo '
-												<a class="btn btn-sm text-dark text-decoration-none py-0" role="button" style="background-color: #e6e6e6;" href="index.cgi?page=view&section=scriptlog&file='${logfile}'&process='${process}'" title="'${txt_backup_log_title}'">
-													<i class="bi bi-journal-text text-dark" style="font-size: 1.2rem;"></i></a>&nbsp;'
-											fi
-
-											# Settings
-											echo '
-											<a class="btn btn-sm text-dark text-decoration-none py-0" role="button" style="background-color: #e6e6e6;" href="index.cgi?page=jobedit&section=1&edit=true&jobname='${backupjob}'" title="'${txt_edit_job_title}'">
-												<i class="bi bi-gear-fill text-secondary" style="font-size: 1.2rem;"></i></a>&nbsp;'
-
-											# Trash 
-											echo '
-											<a class="btn btn-sm text-dark text-decoration-none py-0" role="button" style="background-color: #e6e6e6;" href="index.cgi?page=main&section=start&query=delete&jobname='${backupjob}'" title="'${txt_delete_job_title}'">
-												<i class="bi bi-trash text-danger" style="font-size: 1.2rem;"></i></a>
-										</div>
-									</div>
+										</li>
+									</ul>
 								</div>
-							</span>'
+								<div class="float-end">
+									<ul class="navbar-nav">
+										<li class="nav-item dropdown pt-1">
+											<a class="dropdown-toggle btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;" href="#" id="navDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+												'${txt_link_settings}'
+											</a>
+											<ul class="dropdown-menu dropdown-menu-sm-end" aria-labelledby="navDropdown">
+												<li><a class="dropdown-item" href="index.cgi?page=debug&section=start">'${txt_link_debug}'</a></li>
+												<li><a class="dropdown-item" href="index.cgi?page=view&section=systemlog&file='${usr_systemlog}'">'${txt_link_systemlog}'</a></li>		
+												<li><a class="dropdown-item" href="index.cgi?page=recovery&section=start">'${txt_link_recovery}'</a></li>'
+												if [[ "${app_permissions}" == "true" ]]; then
+													echo '<li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#help-app-permissions">'${txt_link_revoke_permissions}'</button></li>'
+												else
+													echo '<li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#help-app-permissions">'${txt_link_expand_permissions}'</button></li>'
+												fi
+												echo '
+											</ul>
+										</li>&nbsp;&nbsp;
 
-							# Auftragseinstellungen anzeigen
-							# ------------------------------------------------------------------------
-							echo '
-							<div id="collapse'${id}'" class="accordion-collapse collapse" aria-labelledby="heading'${id}'" data-bs-parent="#main-accordion">
-								<div class="accordion-body m-0 p-0">
-									<div class="card-body bg-light">
-										<div class="row">
-											<div class="col bg-light px-4">
-												<table class="table table-sm table-light table-borderless mb-0">
-													<thead></thead>
-													<tbody>'
-														# Datensicherungsziel
-														echo '
-														<tr>
-															<td style="width: 220px;">
-																'${txt_backup_target}'
-															</td>
-															<td style="width: auto;">
-																<span class="text-dark">'${backuptarget}'</span>
-																<br />
-																<i class="bi bi-folder-fill text-warning ps-1" style="font-size: 1.2rem;"></i>
-																<span class="text-secondary"> '${var[target]}'</span>
-															</td>
-														</tr>'
-														# Datensicherungsquelle
-														echo '
-														<tr>
-															<td style="width: 220px;">
-																'${txt_backup_sources}'
-															</td>
-															<td style="width: auto;">
-																<span class="text-dark">'${backupsource}'</span>
-																<br />'
-																IFS='&'
-																read -r -a sources <<< "${var[sources]}"
-																IFS="${backupIFS}"
-																for source in "${sources[@]}"; do
-																	source=$(echo "${source}" | sed 's/^[ \t]*//;s/[ \t]*$//')
-																	echo '
-																	<i class="bi bi-folder-fill text-warning ps-1" style="font-size: 1.2rem;"></i>
-																	<span class="text-secondary"> '${source}'</span><br />'
-																done
-																unset source
-																echo '
-															</td>
-														</tr>'
-														# Versionsstände
-														echo '
-														<tr>
-															<td style="width: 220px;">
-																'${txt_versioning}'
-															</td>'
-															if [[ "${var[versioning]}" == "true" ]]; then
-																echo '
-																<td style="width: auto;">
-																	<span class="text-secondary">'${txt_versions_step_1}' <span class="text-danger">'${var[versions]}'</span> '${txt_versions_step_2}'</span>
-																</td>'
-															else
-																echo '
-																<td style="width: auto;">
-																	<span class="text-danger">'${txt_inactive}'</span>
-																</td>'
-															fi
-															echo '
-														</tr>'
-														# Papierkorb
-														echo '
-														<tr>
-															<td style="width: 220px;">
-																'${txt_recycling}'
-															</td>'
-															if [[ "${var[versioning]}" == "true" ]]; then
-																echo '
-																<td style="width: auto;">
-																	<span class="text-secondary">'${txt_recycling_inactive}'</span>
-																</td>'
-															else
-																if [[ "${var[recycle]}" -eq 0 ]]; then
-																	echo '
-																	<td style="width: auto;">
-																		<span class="text-danger">'${txt_inactive}'</span>
-																	</td>'
-																else
-																	echo '
-																	<td style="width: auto;">
-																		<span class="text-secondary">'${txt_recycling_step_1}' <span class="text-danger">'${var[recycle]}'</span> '${txt_recycling_step_2}'</span>
-																	</td>'
-																fi
-															fi
-															echo '
-														</tr>'
-														# Auftragsausführung
-														echo '
-														<tr>
-															<td class="pt-2" style="width: 220px;">
-																<span>'${txt_help_job_title}'
-																	<span class="float-end">
-																		<a class="btn btn-sm text-dark text-decoration-none py-0" data-bs-toggle="collapse" href="#collapseJob" role="button" aria-expanded="false" aria-controls="collapseJob" style="background-color: #e6e6e6;" title="'${txt_link_note}'">
-																			<i class="bi bi-info-square text-primary" style="font-size: 1.2rem;"></i>
-																		</a>
-																	</span>
-																</span>
-															</td>'
-															# Befehl
-															echo '
-															<td style="width: auto;">
-																<div class="card">
-																	<div class="card-body font-monospace" style="font-size: 0.9rem;">
-																		/usr/syno/synoman'${app_link}'/rsync.sh --job-name="'${backupjob}'"'
-																		if [ -n "${var[sshpush]}" ]; then
-																			echo ' --chmod=ugo=rwX &'
-																		else
-																			echo ' &'
-																		fi
-																		echo '
-																	</div>
-																</div>'
-																# Auftrag über Konsole bzw. Aufgabenplaner ausführen
-																echo '
-																<div class="collapse mt-2" id="collapseJob">
-																	<div class="card card-body ps-1">
-																		<small>
-																			<span class="text-secondary">'${txt_help_job_info}'</span>
-																			<br /><br />
-																			<strong class="ps-1">'${txt_help_job_title_terminal}'</strong>
-																			<ol class="text-secondary">
-																				<li>'${txt_help_job_step_1}'</li>
-																			</ol>
-																			<strong class="ps-1">'${txt_help_job_title_dsm}'</strong>
-																			<ol class="text-secondary">
-																				<li>'${txt_help_job_step_2}'</li>
-																				<li>'${txt_help_job_step_3}'</li>
-																				<li>'${txt_help_job_step_4}'</li>
-																				<li>'${txt_help_job_step_5}'</li>
-																				<li>'${txt_help_job_step_6}'</li>
-																				<li>'${txt_help_job_step_7}'</li>
-																				<li>'${txt_help_job_step_8}'</li>
-																				<li>'${txt_help_job_step_9}'</li>
-																			</ol>
-																		</small>
-																	</div>
-																</div>
-															</td>
-														</tr>'
-														# Optionsschalter
-														echo '
-														<tr>
-															<td class="pt-2" style="width: 220px;">
-																<span>'${txt_bash_code_option}'
-																	<span class="float-end">
-																		<a class="btn btn-sm text-dark text-decoration-none py-0" data-bs-toggle="collapse" href="#collapseOpt" role="button" aria-expanded="false" aria-controls="collapseOpt" style="background-color: #e6e6e6;" title="'${txt_link_note}'">
-																			<i class="bi bi-info-square text-primary" style="font-size: 1.2rem;"></i>
-																		</a>
-																	</span>
-																</span>
-															</td>
-															<td style="width: auto;">
-																<span class="text-secondary">'${txt_bash_code_option_note}'</span>
-																<div class="collapse mt-2" id="collapseOpt">
-																	<div class="card">								
-																		<div class="card-body ps-1">
-																			<small>
-																				<dl class="row">
-																					<dt class="col-sm-3 pe-4 fw-normal">--job-name="....."</dt>
-																					<dd class="col-sm-9 mb-0 text-secondary">'${txt_bash_code_jobname}'</dd>'
-																					if [ -n "${var[sshpush]}" ]; then
-																						echo '
-																						<dt class="col-sm-3 text-danger pe-4 fw-normal">--chmod=ugo=rwX</dt>
-																						<dd class="col-sm-9 mb-0 text-secondary">'${txt_bash_code_perms_push}'</dd>'
-																					else
-																						echo '
-																						<dt class="col-sm-3 pe-4 fw-normal">--chmod="....."</dt>
-																						<dd class="col-sm-9 mb-0 text-secondary">'${txt_bash_code_perms}'</dd>'
-																					fi
-																					echo '
-																					<dt class="col-sm-3 pe-4 fw-normal">--dry-run</dt>
-																					<dd class="col-sm-9 mb-0 text-secondary">'${txt_bash_code_dryrun}'</dd>
-																					<dt class="col-sm-3 pe-4 fw-normal">-v</dt>
-																					<dd class="col-sm-9 mb-0 text-secondary">'${txt_bash_code_rsync_v}''
-																						if [ -n "${var[sshpull]}" ] || [ -n "${var[sshpush]}" ]; then
-																							echo '<br />'${txt_bash_code_ssh_v}''
-																						fi
-																						echo '
-																					</dd>
-																					<dt class="col-sm-3 pe-4 fw-normal">-vv</dt>
-																					<dd class="col-sm-9 mb-0 text-secondary">'${txt_bash_code_rsync_vv}''
-																						if [ -n "${var[sshpull]}" ] || [ -n "${var[sshpush]}" ]; then
-																							echo '<br />'${txt_bash_code_ssh_vv}''
-																						fi
-																						echo '
-																					</dd>
-																					<dt class="col-sm-3 pe-4 fw-normal">-vvv</dt>
-																					<dd class="col-sm-9 mb-0 text-secondary">'${txt_bash_code_rsync_vvv}''
-																						if [ -n "${var[sshpull]}" ] || [ -n "${var[sshpush]}" ]; then
-																							echo '<br />'${txt_bash_code_ssh_vvv}''
-																						fi
-																						echo '
-																					</dd>
-																				</dl>
-																			</small>
-																		</div>
-																	</div>
-																</div>
-															</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-										</div>
-										<br />
+										<li class="nav-item dropdown pt-1">
+											<a class="dropdown-toggle btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;" href="#" id="navDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+												'${txt_link_help}'
+											</a>
+											<ul class="dropdown-menu dropdown-menu-sm-end" aria-labelledby="navDropdown">
+												<li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#help-ssh-local">'${txt_link_help_ssh_local}'</button></li>
+												<li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#help-ssh-remote">'${txt_link_help_ssh_remote}'</button></li>
+												<li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#help-ssh-rsa">'${txt_link_help_ssh_rsa}'</button></li>
+												<li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#help-versioning">'${txt_link_help_version}'</button></li>
+												<li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#help-permissions">'${txt_link_help_permissions}'</button></li>
+											</ul>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</nav>
+						<p>&nbsp;</p>
+						<p>&nbsp;</p>'
+					}
+
+					# Funktion: Hilfeartikel im Popupfenster anzeigen
+					# --------------------------------------------------------------
+					function help_modal ()
+					{
+						echo '
+						<!-- Modal -->
+						<div class="modal fade" id="help-'${1}'" tabindex="-1" aria-labelledby="help-'${1}'-label" aria-hidden="true">
+							<div class="modal-dialog modal-fullscreen">
+								<div class="modal-content">
+									<div class="modal-header bg-light">
+										<h5 class="modal-title" style="color: #FF8C00;" id="help-'${1}'-label"><span class="navbar-brand">'${2}'</span></h5>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" title="'${txt_button_Close}'"></button>
+									</div>
+									<div class="modal-body">'
+										[ -f "${app_home}/help/${1}.sh" ] && source "${app_home}/help/${1}.sh" || echo "Page not found"
+										echo '
 									</div>
 								</div>
 							</div>
-						</div>' # accordion div end
-						id=$[${id}+1]
-					done
-					unset backupjob backuptype backupsource backuptarget sourceicon targeticon id var
+						</div>'
+					}
+
+					# Hilfeartikel laden
+					# --------------------------------------------------------------
+					help_modal "ssh-local" "${txt_link_help_ssh_local}"
+					help_modal "ssh-remote" "${txt_link_help_ssh_remote}"
+					help_modal "ssh-rsa" "${txt_link_help_ssh_rsa}"
+					help_modal "versioning" "${txt_link_help_version}"
+					help_modal "permissions" "${txt_link_help_permissions}"
+					if [[ "${app_permissions}" == "true" ]]; then
+						help_modal "app-permissions" "${txt_link_revoke_permissions}"
+					else
+						help_modal "app-permissions" "${txt_link_expand_permissions}"
+					fi
+
+					# Hinweis Badges
+					# --------------------------------------------------------------
+					note="<span class=\"text-primary text-uppercase ms-1\" style=\"border: solid #e6e6e6; border-width: 2px 4px; border-radius: 3px; background-color: #e6e6e6;\" title=\"${txt_link_note}\"><i class=\"bi bi-info-square\"></i><i class=\"bi bi-caret-down-fill text-dark align-middle pb-1 ps-1\" style=\"font-size: 0.4rem;\"></i></span>"
+
+
+					# Seiteninhalte laden
+					# --------------------------------------------------------------
+						# Infotext: Authentifizierung auf Anwendungsebene aktivieren
+						[ -n "${txtActivatePrivileg}" ] && echo ''${txtActivatePrivileg}''
+
+						# Dynamische Seitenausgabe
+						if [ -f "${get[page]}.sh" ]; then
+							. ./"${get[page]}.sh"
+						else
+							echo 'Page '${get[page]}''${var[page]}'.sh not found!'
+						fi
+
+						# Debugging
+						if [[ "${debugging}" == "on" ]]; then
+							echo '
+							<p>&nbsp;</p>
+							<div class="card mb-3">
+								<div class="card-header">
+									<i class="bi-icon bi-bug text-secondary float-start" style="cursor: help;" title="Debug"></i>
+									<span class="text-secondary">&nbsp;&nbsp;<b>Debug</b></span>
+								</div>
+								<div class="card-body pb-0">'
+									if [ -z "${group_membership}" ] && [ -z "${http_requests}" ] && [ -z "${global_enviroment}" ]; then
+										echo '<p>'${txt_debug_select}'</p>'
+									fi
+
+									# Gruppenmitgliedschaften der App
+									if [[ "${group_membership}" == "on" ]]; then
+										echo '
+										<ul class="list-unstyled">
+											<li class="text-dark list-style-square"><strong>'${txt_debug_membership}'</strong>
+												<ul class="list-unstyled ps-3">'
+													if cat /etc/group | grep ^${app_name} | grep -q ${app_name} ; then
+														echo ''${app_name}'<br />'
+													fi
+													if cat /etc/group | grep ^system | grep -q ${app_name} ; then
+														echo 'system<br />'
+													fi
+													if cat /etc/group | grep ^administrators | grep -q ${app_name} ; then
+														echo 'administrators<br />'
+													fi
+													if cat /etc/group | grep ^log | grep -q ${app_name} ; then
+														echo 'log<br />'
+													fi
+													echo '
+												</ul>
+											</li>
+										</ul>'
+									fi
+
+									# GET und POST Requests
+									if [[ "${http_requests}" == "on" ]]; then
+										echo '
+										<ul class="list-unstyled">
+											<li class="text-dark list-style-square"><strong>'${txt_debug_get}'</strong>
+												<ul class="list-unstyled ps-3">
+													<pre>'; cat ${get_request}; echo '</pre>
+												</ul>
+											</li>
+											<li class="text-dark list-style-square"><strong>'${txt_debug_post}'</strong>
+												<ul class="list-unstyled ps-3">
+													<pre>'; cat ${post_request}; echo '</pre>
+												</ul>
+											</li>
+										</ul>'
+									fi
+
+									# Globale Umgebung
+									if [[ "${global_enviroment}" == "on" ]]; then
+										echo '
+										<ul class="list-unstyled">
+											<li class="text-dark list-style-square"><strong>'${txt_debug_global}'</strong>
+												<ul class="list-unstyled ps-3">
+													<pre>'; (set -o posix ; set | sed '/txt.*/d;'); echo '</pre>
+												</ul>
+											</li>
+										</ul>'
+									fi
+									echo '
+								</div>
+								<!-- card-body -->
+							</div>
+							<!-- card -->'
+						fi
 					echo '
 				</div>
-			</div>'
-		else
-			echo '
-			<p class="text-center">&nbsp;</p>
-			<p class="text-center"><img src="images/icon_256.png" /></p>'
-		fi
-		echo '
-	</div>'
+				<!-- container -->
+			</article>
 
-	# Auftrag löschen
-	# --------------------------------------------------------------
-	if [[ "${get[query]}" == "delete" ]] && [ -z "${get[delete]}" ]; then
-		popup_modal "main" "${txt_popup_delete_conf}" "${txt_popup_delete_job}"
-	elif [[ "${get[query]}" == "delete" ]] && [[ "${get[delete]}" == "true" ]]; then
-		[ -f "${get_request}" ] && rm "${get_request}"
+			<!-- Einbinden von bootstrap JavaScript 5.3.1 -->
+			<script src="template/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-		# Leerzeichen mit Backslash ausblenden
-		get[jobname]=$(urldecode ${get[jobname]})
-
-		# Lösche Backupjob
-		[ -f "${usr_backupjobs}/${get[jobname]}.config" ] && rm "${usr_backupjobs}/${get[jobname]}.config" 2>/dev/null
-
-		# Lösche Logfiles
-		[ -f "${usr_logfiles}/${get[jobname]}.log" ] && rm "${usr_logfiles}/${get[jobname]}.log" 2>/dev/null
-		unset get
-		echo '<meta http-equiv="refresh" content="0; url=index.cgi?page=main&section=start">'
-	fi
+			<!-- Einbinden von JavaScript bzw. jQuery Funktionen im HTML body  -->
+			<script src="template/js/body-functions.js"></script>
+		</body>
+	</html>'
 fi
+exit

@@ -30,6 +30,8 @@
 	txt_update_from="Please update your ${app_name} version"
 	txt_update_to="to version"
 
+	txtVAR="Variable is not set!
+
 	txt_link_note="Note"
 	txt_link_refresh="Refresh page"
 	txt_link_expand_permissions="Expand app permissions"
@@ -38,6 +40,7 @@
 	txt_button_Continue="More"
 	txt_button_Back="Back"
 	txt_button_Cancel="Cancel"
+	txt_button_refresh="Refresh page"
 	txt_button_understood="Understood"
 	txt_button_Close="Close"
 	txt_button_Save="Save"
@@ -149,7 +152,7 @@
 	txt_recycling_inactive="The recycle bin is <span class=\"text-danger\">not</span> available for a versioned backup."
 
 	txt_bash_code_option="Option switches"
-	txt_bash_code_option_note="Option switches can be appended to the command to execute a job, for example to do a test run, or to get a more detailed log."
+	txt_bash_code_option_note="Option switches, each separated by a space, can be appended to the command to execute a job, for example to carry out a test run or to obtain a detailed log. <span class=\"text-danger\">It is important to ensure that that the ampersand & is always at the end of the command</span>."
 	txt_bash_code_jobname="<span class=\"text-success\">default option</span>: Name of the job to be executed in quotes."
 	txt_bash_code_dryrun="Rsync only simulates what would happen without copying or synchronising data."
 	txt_bash_code_rsync_v="Short rsync log, which files are transferred."
@@ -243,12 +246,12 @@
 	txt_localfolder_label="Target directory"
 	txt_localfolder_note="A target directory must be specified, headed by a <span class=\"text-blue\">/</span> (slash). The use of further subdirectories is possible. If the target directory does not exist, it will be created during the first backup. Invalid characters in file or directory names are <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
 	txt_localfolder_format="z.B. /Basic Backup/My first backup"
-	txt_localfolder_regex="^\/([a-zA-Z0-9 _\-\/]+)+$"
+	txt_localfolder_regex="^\/([a-zA-Z0-9 _\-\.\/]+)+$"
 
 	txt_remotetarget_label="Target directory"
 	txt_remotetarget_note="A target directory must be specified, headed by a <span class=\"text-blue\">/</span> (Slash). The use of further subdirectories is possible. If the target directory is on a Synology DiskStation, the desired shared folder must also be specified, e.g. <span class=\"text-blue\">/volume1/NetBackup</span>. If the target directory does not exist, it will be created during the first backup. Invalid characters in file or directory names are <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
 	txt_remotetarget_format="z.B. /volume1/NetBackup/My first backup"
-	txt_remotetarget_regex="^\/([a-zA-Z0-9 _\-\/]+)+$"
+	txt_remotetarget_regex="^\/([a-zA-Z0-9 _\-\.\/]+)+$"
 
 	# Page 2b and page 3b
 	txt_sshbuild_note="Hints for setting up an SSH connection"
@@ -302,7 +305,7 @@
 	txt_sources_label="Data Backup Source(s)"
 	txt_sources_label_info="Separate paths with a &"
 	txt_sources_format="z.B. /volume1/music/Compilations & /volume1/photo/General & /volume2/video/Series"
-	txt_sources_regex="^\/([a-zA-Z0-9 _\-\/&]+)+$"
+	txt_sources_regex="^\/([a-zA-Z0-9 _\-\.\/&]+)+$"
 	txt_sources_rights="Basic Backup currently has only limited system rights, as the app is not a member of the administrators' group. As a result, only shared folders can be selected at this point, but not associated subfolders. To extend the system rights, please follow the instructions on the <a href=\"index.cgi?page=jobedit&section=reset\" class=\"text-primary text-decoration-none\">start page</a> of Basic Backup."
 
 	# Page 4

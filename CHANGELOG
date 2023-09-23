@@ -1,6 +1,19 @@
 Basic Backup Release Notes
 
 
+Version 0.8-100 vom 23.09.2023
+
+ - Deutsch
+    - Um die Benutzerfreundlichkeit zu verbessern, wurden die meisten Buttons mit zusätzlichen, nach unten zeigenden Pfeilen versehen, wenn sich dahinter ein Dropdown Menü mit weiteren Informationen befindet.
+    - Unterhalb des Befehls zur Auftragsausführung wird nun explizit darauf hingewiesen, dass sich das Kaufmännische & stets am Ende des Befehls befinden muss. Durch das Kaufmännische & am Ende des Befehls wird der Auftrag als eigenständiger Hintergrundprozess ausgeführt und damit von dem Prozess der GUI ausgekoppelt. Das wiederum verbessert die Stabilität der GUI.  
+    - Allgemeine Codeoptimierungen und kleinere Systemanpassungen vorgenommen.
+
+ - English
+    - To improve usability, most buttons have additional downward-pointing arrows when there is a drop-down menu with further information behind them.
+    - Below the command to execute the order, it is now explicitly stated that the ampersand must always be at the end of the command. The ampersand & at the end of the command executes the order as an independent background process and is therefore decoupled from the GUI process. This in turn improves the stability of the GUI.
+    - General code optimizations and minor system adjustments made.
+
+
 Version 0.8-000 vom 09.09.2023
 
  - Deutsch

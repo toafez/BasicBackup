@@ -73,22 +73,22 @@ function popup_modal()
 			fi
 			if [[ "${1}" == "main" ]]; then
 				echo '
-				<a href="index.cgi?page=main&section=start&query=delete&delete=true&jobname='${get[jobname]}'" class="btn btn-secondary btn-sm">Löschen</a>
+				<a href="index.cgi?page=main&section=start&query=delete&delete=true&jobname='${get[jobname]}'" class="btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;">Löschen</a>
 				<input type="hidden" name="expand-content" value="'${4}'">'
 			fi
 			if [[ "${1}" == "view" ]]; then
 				echo '
-				<a href="index.cgi?page=view&section='${5}'&query=delete&delete=true&file='${get[file]}'" class="btn btn-secondary btn-sm">Löschen</a>
+				<a href="index.cgi?page=view&section='${5}'&query=delete&delete=true&file='${get[file]}'" class="btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;">Löschen</a>
 				<input type="hidden" name="expand-content" value="'${4}'">'
 			fi
 			if [[ "${1}" == "system" ]]; then
 				echo '
-				<a href="index.cgi?page=system&section=start" class="btn btn-secondary btn-sm">Okay</a>'
+				<a href="index.cgi?page=system&section=start" class="btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;">Okay</a>'
 			fi
 			
 			if [[ "${1}" != "system" ]]; then
 				echo '
-				<a href="javascript: window.history.back()" class="btn btn-secondary btn-sm" aria-label="Close">'${txt_button_Back}'</a>'
+				<a href="javascript: window.history.back()" class="btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;" aria-label="Close">'${txt_button_Back}'</a>'
 			fi
 			echo '
 		  </div>

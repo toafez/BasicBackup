@@ -21,7 +21,6 @@
 # have received a copy of the GNU General Public  License  along
 # with this program. If not, see http://www.gnu.org/licenses/  !
 
-
 # Globale Sprachvariablen
 # --------------------------------------------------------------
 	#txtAppTitle="Basic Backup für DSM 7"
@@ -29,6 +28,8 @@
 	txt_update_available="Auf GitHub steht ein neues <span class=\"text-success fst-italic\">Update</span> zur Verfügung."
 	txt_update_from="Bitte aktualisiere deine ${app_name} Version"
 	txt_update_to="auf die Version"
+
+	txtVAR="Variable ist nicht gesetzt!"
 	
 	txt_link_note="Hinweis"
 	txt_link_refresh="Seite aktualisieren"
@@ -38,6 +39,7 @@
 	txt_button_Continue="Weiter"
 	txt_button_Back="Zurück"
 	txt_button_Cancel="Abbruch"
+	txt_button_refresh="Seite aktualisieren"
 	txt_button_understood="Verstanden"
 	txt_button_Close="Schließen"
 	txt_button_Save="Speichern"
@@ -149,7 +151,7 @@
 	txt_recycling_inactive="Der Papierkorb steht bei einer versionierten Datensicherung <span class=\"text-danger\">nicht</span> zur Verfügung."
 
 	txt_bash_code_option="Optionsschalter"
-	txt_bash_code_option_note="Optionsschalter können an den Befehl zur Ausführung eines Auftrages angehangen werden um beispielsweise einen Testlauf durchzuführen, oder um ein detailierteres Protokoll zu erhalten."
+	txt_bash_code_option_note="Optionsschalter können, je durch ein Leerzeichen voneinander getrennt, an den Befehl zur Ausführung eines Auftrages angehangen werden, um beispielsweise einen Testlauf durchzuführen, oder um ein detailliertes Protokoll zu erhalten. <span class=\"text-danger\">Dabei ist darauf zu achten, dass sich das Kaufmännische & stets am Ende des Befehls befindet</span>."
 	txt_bash_code_jobname="<span class=\"text-success\">Standardoption</span>: Name des auszuführenden Auftrages in Anführungszeichen."
 	txt_bash_code_dryrun="Rsync simuliert nur was passieren würde, ohne das dabei Daten kopiert bzw. synchronisiert werden."
 	txt_bash_code_rsync_v="Kurzes rsync Protokoll, welche Dateien übertragen werden."
