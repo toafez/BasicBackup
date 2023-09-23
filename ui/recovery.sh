@@ -83,17 +83,13 @@ if [[ "${get[page]}" == "recovery" && "${get[section]}" == "start" ]]; then
 									</label>
 									<input type="text" pattern="'${txt_localfolder_regex}'" class="form-control form-control-sm" name="configfolder" id="configfolder" value="'${var[configfolder]}'" placeholder="'${txt_folderpath_format_path}'" required />
 								</div>
-							</div>'
-
-							echo '
+							</div>
 							<p class="text-end"><br />
 								<input type="hidden" name="load" value="true">
-								<a href="index.cgi?page=main&section=start" class="btn btn-secondary btn-sm">'${txt_button_Back}'</a>&nbsp;&nbsp;&nbsp;
-								<button class="btn btn-danger btn-sm" type="submit" name="section" value="import">'${txt_button_restore}'</button>&nbsp;&nbsp;&nbsp;
-								<button class="btn btn-success btn-sm" type="submit" name="section" value="export">'${txt_button_secure}'</button><br />
-							</p>'
-
-							echo '
+								<a class="btn btn-sm text-dark text-decoration-none me-2" style="background-color: #e6e6e6;" role="button" href="index.cgi?page=main&section=start">'${txt_button_Back}'</a>
+								<button class="btn btn-sm text-dark text-decoration-none me-2" style="background-color: #e6e6e6;" role="button" type="submit" name="section" value="import">'${txt_button_restore}'</button>
+								<button class="btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;" role="button" name="section" value="export">'${txt_button_secure}'</button><br />
+							</p>
 						</div>
 					</div>
 				</div>'
