@@ -1,6 +1,6 @@
 #!/bin/bash
 # Filename: rsync.sh - coded in utf-8
-script_version="0.8-000"
+script_version="0.8-200"
 
 #                       Basic Backup
 #
@@ -613,16 +613,12 @@ if [[ ${exit_code} -eq 0 ]]; then
 			${backup} \
 			${excluded} \
 			${perms} \
-			-e "ssh -p ${var[sshport]} -i ~/.ssh/${var[privatekey]}" ${var[sshuser]}@${var[sshpull]}:"${source}" "${target}" > >(tee -a "${script_log}") 2>&1
+			-e "ssh -p ${var[sshport]} -i ~/.ssh/${var[privatekey]}" ${var[sshuser]}@${var[sshpull]}:"'${source}'" "${target}" > >(tee -a "${script_log}") 2>&1
 			rsync_exit_code=${?}
 		fi
 
 		# If the connectiontype is sshpush
 		if [[ "${connectiontype}" == "sshpush" ]]; then
-
-			# Escape white spaces with backslash
-			target=$(echo ${target} | sed -e 's/ /\ /g')
-
 			# Local to Remote: rsync [option]... [source]... [USER@]HOST:DEST
 			rsync \
 			${var[syncopt]} \
