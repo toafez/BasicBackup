@@ -604,7 +604,12 @@ if [[ ${exit_code} -eq 0 ]]; then
 		# If the connectiontype is sshpull
 		if [[ "${connectiontype}" == "sshpull" ]]; then
 			# Remote to Local: rsync [option]... [USER@]HOST:source... [target]
-			rsync \
+			# Notes: To transfer folder and file names from or to a remote shell 
+			# that contain spaces and/or special characters, the rsync option 
+			# --protect-args (-s) is used. Alternatively, folder and file names 
+			# can also be set in additional single quotes. 
+			# Example: either ... rsync -s "${source}" ... or ... "'${source}'"
+			rsync -s \
 			${var[syncopt]} \
 			${dryrun} \
 			${verbose} \
@@ -613,14 +618,19 @@ if [[ ${exit_code} -eq 0 ]]; then
 			${backup} \
 			${excluded} \
 			${perms} \
-			-e "ssh -p ${var[sshport]} -i ~/.ssh/${var[privatekey]}" ${var[sshuser]}@${var[sshpull]}:"'${source}'" "${target}" > >(tee -a "${script_log}") 2>&1
+			-e "ssh -p ${var[sshport]} -i ~/.ssh/${var[privatekey]}" ${var[sshuser]}@${var[sshpull]}:"${source}" "${target}" > >(tee -a "${script_log}") 2>&1
 			rsync_exit_code=${?}
 		fi
 
 		# If the connectiontype is sshpush
 		if [[ "${connectiontype}" == "sshpush" ]]; then
 			# Local to Remote: rsync [option]... [source]... [USER@]HOST:DEST
-			rsync \
+			# Notes: To transfer folder and file names from or to a remote shell 
+			# that contain spaces and/or special characters, the rsync option 
+			# --protect-args (-s) is used. Alternatively, folder and file names 
+			# can also be set in additional single quotes. 
+			# Example: either ... rsync -s "${target}" ... or ... "'${target}'"
+			rsync -s \
 			${var[syncopt]} \
 			${dryrun} \
 			${verbose} \
@@ -629,9 +639,10 @@ if [[ ${exit_code} -eq 0 ]]; then
 			${backup} \
 			${excluded} \
 			${perms} \
-			-e "ssh -p ${var[sshport]} -i ~/.ssh/${var[privatekey]}" "${source}" ${var[sshuser]}@${var[sshpush]}:"'${target}'" > >(tee -a "${script_log}") 2>&1
+			-e "ssh -p ${var[sshport]} -i ~/.ssh/${var[privatekey]}" "${source}" ${var[sshuser]}@${var[sshpush]}:"${target}" > >(tee -a "${script_log}") 2>&1
 			rsync_exit_code=${?}
 		fi
+
 		#-----------------------------------------------------------------
 		# rsync exit codes
 		# ----------------------------------------------------------------
