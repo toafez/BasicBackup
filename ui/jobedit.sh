@@ -4,7 +4,7 @@ job_version="0.8-000"
 
 #                       Basic Backup
 #
-#        Copyright (C) 2023 by Tommes | License GNU GPLv3
+#        Copyright (C) 2024 by Tommes | License GNU GPLv3
 #         Member of the German Synology Community Forum
 #
 # Extract from  GPL3   https://www.gnu.org/licenses/gpl-3.0.html
@@ -35,6 +35,9 @@ function local_sources()
 	while IFS= read -r volume; do
 		IFS="${backupIFS}"
 		[[ -z "${volume}" ]] && continue
+		mountpoint=$(mount | grep -E "${volume}")
+		dev=$(echo "${mountpoint}" | awk '{print $1}')
+		[[ -z "${dev}" ]] && continue
 		echo -n '<span class="text-secondary ps-2"><strong>'${volume}'</strong></span><br />'
 		if [[ "${volume}" == /volumeUSB[[:digit:]]/usbshare* || "${volume}" == /volumeSATA[[:digit:]]/satashare* ]]; then
 			echo -n '<div class="text-secondary ps-4 pb-1"><small>'${txt_note_mountpoint}'</small></div>'
@@ -108,6 +111,9 @@ function local_target()
 	while IFS= read -r volume; do
 		IFS="${backupIFS}"
 		[[ -z "${volume}" ]] && continue
+		mountpoint=$(mount | grep -E "${volume}")
+		dev=$(echo "${mountpoint}" | awk '{print $1}')
+		[[ -z "${dev}" ]] && continue
 		while IFS= read -r share; do
 			IFS="${backupIFS}"
 			[[ -z "${share}" ]] && continue
@@ -1441,7 +1447,7 @@ echo '
 						echo "" >> "${scripttarget}"
 						echo "#                        Basic Backup" >> "${scripttarget}"
 						echo "#" >> "${scripttarget}"
-						echo "#        Copyright (C) 2023 by Tommes | License GNU GPLv3" >> "${scripttarget}"
+						echo "#        Copyright (C) 2024 by Tommes | License GNU GPLv3" >> "${scripttarget}"
 						echo "#         Member of the German Synology Community Forum" >> "${scripttarget}"
 						echo "#" >> "${scripttarget}"
 						echo "# Extract from  GPL3   https://www.gnu.org/licenses/gpl-3.0.html" >> "${scripttarget}"
