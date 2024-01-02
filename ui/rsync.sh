@@ -1,6 +1,6 @@
 #!/bin/bash
 # Filename: rsync.sh - coded in utf-8
-script_version="0.8-200"
+script_version="0.8-300"
 
 #                       Basic Backup
 #
@@ -382,7 +382,7 @@ if [[ ${exit_code} -eq 0 ]]; then
 	if [[ "${connectiontype}" == "local" ]] || [[ "${connectiontype}" == "sshpull" ]]; then
 
 		# If the backup destination is on a USB data carrier, check the mount point and adjust it if necessary
-		if [[ "${target}" == /volumeUSB*/usbshare* ]] || [[ "${target}" == /volumeSATA*/satashare* ]]; then
+		if [[ "${target}" == /volumeUSB[[:digit:]]/usbshare* ]] || [[ "${target}" == /volumeSATA[[:digit:]]/satashare* ]]; then
 			echo "${txt_target_folder_on_usb}" | tee -a "${script_log}"
 
 			if [[ "${var[uuidcheck]}" == "true" ]]; then
@@ -393,7 +393,7 @@ if [[ ${exit_code} -eq 0 ]]; then
 				targetfolder=$(echo "${target}" | cut -d'/' -f4-)
 
 				# Evaluates the mount points of all connected USB data carriers
-				mnts=( /volumeUSB* /volumeSATA* )
+				mnts=( /volumeUSB[[:digit:]] /volumeSATA[[:digit:]] )
 				while IFS= read -r volume; do
 					IFS="${backupIFS}"
 					[[ -z "${volume}" ]] && continue
@@ -408,12 +408,13 @@ if [[ ${exit_code} -eq 0 ]]; then
 						mountpoint=$(mount)
 						mountpoint=$(echo "${mountpoint}" | grep " on ${new_mountpoint} " | awk '{ print $1 }')
 						device="${mountpoint}"
+						[[ -z "${device}" ]] && continue
 						uuid=$(blkid -s UUID -o value ${device})
 
 						# If the original UUID matches the determined UUID, set the determined mount point if necessary
 						if [[ "${uuid}" == "${var[uuid]}" ]]; then
 							if [[ "${old_mountpoint}" != "${new_mountpoint}" ]]; then
-								target="${new_mountpoint}/${targetfolder}"
+								var[target]="${new_mountpoint}/${targetfolder}"
 								echo "${txt_target_folder_mountpoint_changed}" | tee -a "${script_log}"
 								echo "${txt_target_folder_org_mnt} [ ${old_mountpoint} ]" | tee -a "${script_log}"
 								echo "${txt_target_folder_new_mnt} [ ${new_mountpoint} ]" | tee -a "${script_log}"
@@ -423,12 +424,13 @@ if [[ ${exit_code} -eq 0 ]]; then
 								exit_mountpoint=0
 							fi
 						else
-							exit_mountpoint=1
+							continue
 						fi
 
 					done <<< "$( find ${volume}/* -maxdepth 0 -type d ! -path '*/lost\+found' ! -path '*/\@*' ! -path '*/\$RECYCLE.BIN' ! -path '*/Repair' ! -path '*/System Volume Information' )"
 				done <<< "$( find "${mnts[@]}" -maxdepth 0 -type d 2>/dev/null )"
 				unset volume share old_mountpoint targetfolder new_mountpoint mountpoint device uuid label type
+
 			else
 				# Extract mountpoint from ${target}
 				mountpoint=$(echo "${target}" | cut -d'/' -f1-3)
@@ -1007,6 +1009,7 @@ if [[ "${exit_code}" -eq 0 ]]; then
 	echo "$(timestamp) - ${txt_backupjob_success}" | tee -a "${script_log}"
 	echo "$(timestamp) - [ ${jobname} ] ${txt_backupjob_success}" >> "${system_log}"
 	synodsmnotify -c SYNO.SDS."${app}".Application @administrators "${app}":app:title "${app}":app:job_successful "${jobname}"
+	synologset1 sys info 0x11100000 "Package [${app}] completed the backup job [${jobname}] successfully!"
 else
 	# Delete pid file
 	[ -f /var/packages/BasicBackup/tmp/pid ] && rm /var/packages/BasicBackup/tmp/pid
@@ -1016,6 +1019,8 @@ else
 	echo "$(timestamp) - ${txt_backupjob_warning}" | tee -a "${script_log}"
 	echo "$(timestamp) - [ ${jobname} ] ${txt_backupjob_warning}" >> "${system_log}"
 	synodsmnotify -c SYNO.SDS."${app}".Application @administrators "${app}":app:title "${app}":app:job_warning "${jobname}"
+	synologset1 sys info 0x11100000 "Package [${app}] executed the backup job [${jobname}] with errors! Check the job log."
+	
 fi
 
 

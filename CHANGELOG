@@ -1,5 +1,17 @@
 Basic Backup Release Notes
 
+Version 0.8-300 vom 02.01.2024
+ - Deutsch
+    - Weitere Anzeigefehler unter Verwendung der englischen Sprache behoben.
+    - Wurde in der Auftragskonfiguration unter dem Punkt Datensicherungsziel angegeben, das ein externer Datenträger anhand seiner Geräte UUID identifiziert und der hinterlegte Einhängepunkt (mountpoint) in der Auftragskonfiguration gegebenenfalls angepasst werden sollte, brach der Auftrag ab. Fehler wurde behoben.
+    - Es werden ab sofort relevante Systemereignisse, wie z.B. das Ergebnis eines ausgeführten Datensicherungsauftrages oder das Erweitern bzw. Beschränken der App-Berechtigung an das DSM Protokoll Center übergeben.
+
+ - English
+    - Fixed more display error when using English language.
+    - If an external disk was identified by its device UUID under Data backup destination in the task configuration and the stored mount point in the task configuration should be adjusted if necessary, the task was canceled. Error has been fixed.
+    - Relevant system events, such as the result of an executed data backup task or the extension or restriction of app permissions, are now transferred to the DSM Protocol Center.
+
+
 Version 0.8-250 vom 01.01.2024
  - Deutsch
     - Anzeigefehler unter Verwendung der englischen Sprache behoben.
