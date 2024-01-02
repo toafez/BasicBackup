@@ -2,7 +2,7 @@
 	"BasicBackup.js": {
 		"SYNO.SDS.BasicBackup.Application": {
 			"type": "app",
-			"title": "BasicBackup",
+			"title": "Basic Backup",
 			"appWindow": "SYNO.SDS.BasicBackup.MainWindow",
 			"desc": "File-based rsync backup with optional versioning",
 			"icon": "images\/icon_{0}.png",
@@ -29,7 +29,7 @@
 		},
 		"SYNO.SDS.BasicBackup.MainWindow": {
 			"type": "lib",
-			"title": "BasicBackup",
+			"title": "Basic Backup",
 			"icon": "images\/icon_{0}.png",	
 			"texts": "texts",
 			"depend": ["SYNO.SDS.BasicBackup.Utils"]
@@ -37,4 +37,5 @@
 		"SYNO.SDS.BasicBackup.Utils": []
 	}
 }
+
 
