@@ -20,7 +20,6 @@ On a Synology NAS system, Hyper Backup usually takes care of the comprehensive b
 | An external data carrier can be selected as a backup destination<br />***Note:** If an external data carrier is specified as a backup destination using Basic Backup, it can be identified by its UUID instead of its mount point. In this case, the mount point is redirected internally to the correct device, if necessary.* | 🟢 | 🟢 |
 | Data backup sources from an external data carrier can be selected<br />***Note:** Backing up from external data carriers may be subject to errors, as the mount point of the device may change in the meantime. In this case, the mount point is not adjusted by determining the UUID.* | 🟢 | 🔴 |
 | A local data backup can be made from an external data carrier to another external data carrier. | 🟢 | 🔴 |
-| Automatic execution of a data backup job after insertion of an external data carrier as well as a final ejection of the data carrier after completion of the data backup. | 🟢 | 🔴 |
 | **Use of remote servers on the LAN or via the Internet** |
 | Local backup sources of the Synology NAS can be backed up to a remote server (Push Backup) | 🟢 | 🟢 |
 | Remote backup sources can be backed up to the local Synology NAS (Pull Backup). | 🟢 | 🔴 |
