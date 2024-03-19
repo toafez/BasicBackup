@@ -215,10 +215,10 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 			<!-- Einbinden eigener CSS Formatierungen -->
 			<link rel="stylesheet" href="template/css/stylesheet.css" />
 
-			<!-- Einbinden von bootstrap Framework 5.3.2 -->
+			<!-- Einbinden von bootstrap Framework 5.3.3 -->
 			<link rel="stylesheet" href="template/bootstrap/css/bootstrap.min.css" />
 
-			<!-- Einbinden von bootstrap Icons 1.11.2 -->
+			<!-- Einbinden von bootstrap Icons 1.11.3 -->
 			<link rel="stylesheet" href="template/bootstrap/font/bootstrap-icons.css" />
 
 			<!-- Einbinden von jQuery 3.7.1 -->
@@ -420,7 +420,7 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 				<!-- container -->
 			</article>
 
-			<!-- Einbinden von bootstrap JavaScript 5.3.2 -->
+			<!-- Einbinden von bootstrap JavaScript 5.3.3 -->
 			<script src="template/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 			<!-- Einbinden von JavaScript bzw. jQuery Funktionen im HTML body  -->

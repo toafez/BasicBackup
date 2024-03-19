@@ -1,5 +1,16 @@
 Basic Backup Release Notes
 
+Previously unpublished release
+
+  - Deutsch
+    - Update Bootstrap Framework auf 5.3.3
+    - Update Bootsrap Icons auf 1.11.3
+
+ - English
+    - Update Bootstrap Framework to 5.3.3
+    - Update Bootsrap Icons to 1.11.3
+
+
 Version 0.8-300 vom 02.01.2024
  - Deutsch
     - Weitere Anzeigefehler unter Verwendung der englischen Sprache behoben.
