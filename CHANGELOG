@@ -5,10 +5,30 @@ Previously unpublished release
   - Deutsch
     - Update Bootstrap Framework auf 5.3.3
     - Update Bootsrap Icons auf 1.11.3
+    - Mit der Installation dieser Version wurde die Array-Deklaration [var] aus allen Backupkonfigurationen in die rsync.sh verschoben.
+    - Es wurden Probleme bei der Erkennung und Verarbeitung externer USB/SATA-Datenträger behoben.
+    - Die Ermittlung der UUID, GUID bzw. VSN externer Datenträger wurde verbessert. 
+      Folgende Dateisysteme werden erkannt... 
+      - 128-bit UUID (LINUX/UNIX)
+      - 64 bit VSN (Windows NTFS)
+      - 32 bit VSN (Windows FAT12, FAT16, FAT32 und exFAT) zusammengefasst als vFAT
+    - Wird beim Anlegen oder Bearbeiten eines Auftrags die lokale DiskStation als Zielserver angegeben, werden künftig gemeinsame Ordner ohne Angabe des Volumes angezeigt. Außerdem entfällt die Verpflichtung, dem Zielverzeichnis ein / (Slash bzw. Schrägstrich) voranzustellen.
+    - Beim sichern und wiederherstellen von Aufträgen, werden künftig gemeinsame Ordner ohne Angabe des Volumes angezeigt. Außerdem entfällt die Verpflichtung, dem Zielverzeichnis ein / (Slash bzw. Schrägstrich) voranzustellen. 
+    - Allgemeine Detailverbesserungen, Codeoptimierungen und Fehlerbereinigungen vorgenommen.
 
  - English
     - Update Bootstrap Framework to 5.3.3
     - Update Bootsrap Icons to 1.11.3
+    - With the installation of this version, the array declaration [var] was moved from all backup configurations to rsync.sh
+    - Problems with the recognition and processing of external USB/SATA disks have been fixed.
+    - The determination of the UUID, GUID or VSN of external disks has been improved. 
+      The following file systems are recognized...
+      - 128-bit UUID (LINUX/UNIX)
+      - 64 bit VSN (Windows NTFS)
+      - 32 bit VSN (Windows FAT12, FAT16, FAT32 and exFAT) summarized as vFAT
+    - If the local DiskStation is specified as the target server when creating or editing a job, shared folders will be displayed without a specified volume in future. In addition, the obligation to prefix the target directory with a / (slash) will no longer apply.
+    - When backing up and restoring jobs, shared folders will in future be displayed without a specified volume. In addition, the obligation to prefix the target directory with a / (slash) will no longer apply.
+    - General detail improvements, code optimizations and bug fixes.
 
 
 Version 0.8-300 vom 02.01.2024

@@ -33,13 +33,13 @@
 	[ ! -d "${app_home}" ] && exit
 
 	# Version der Basic Backup App aus der Datei INFO.sh auslesen
-	app_version=$(cat "/var/packages/${app_name}/INFO" | grep ^version | cut -d '"' -f2)
+	app_version=$(synogetkeyvalue /var/packages/${app_name}/INFO version)
 
 	# Version des rsync-Scriptes aus der Datei script.sh auslesen
-	script_version=$(cat "${app_home}/rsync.sh" | grep ^script_version | cut -d '"' -f2)
+	script_version=$(synogetkeyvalue ${app_home}/rsync.sh script_version)
 
 	# Version der Auftragsbearbeitung aus der Datei jobedit.sh auslesen
-	job_version=$(cat "${app_home}/jobedit.sh" | grep ^job_version | cut -d '"' -f2)
+	job_version=$(synogetkeyvalue ${app_home}/jobedit.sh job_version)
 
 	# Versionsvergleich ziwschen Auftragsbearbeitung und rsync-Script anstellen
 	if dpkg --compare-versions ${job_version} gt ${script_version}; then
@@ -93,7 +93,7 @@ fi
 
 	# POST und GET Requests auswerten und in Dateien zwischenspeichern
 	set_keyvalue="/usr/syno/bin/synosetkeyvalue"
-	get_keyvalue="/bin/get_key_value"
+	get_keyvalue="/usr/syno/bin/synogetkeyvalue"
 	get_request="$app_temp/get_request.txt"
 	post_request="$app_temp/post_request.txt"
 

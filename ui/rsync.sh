@@ -178,6 +178,7 @@ for i in "$@" ; do
 		jobname="${i#*=}"
         backupjob="${dir}/usersettings/backupjobs/${jobname}.config"
         if [ -f "${backupjob}" ]; then
+			declare -A var
 			source "${backupjob}"
 			exit_code=0
 		else
@@ -382,7 +383,7 @@ if [[ ${exit_code} -eq 0 ]]; then
 	if [[ "${connectiontype}" == "local" ]] || [[ "${connectiontype}" == "sshpull" ]]; then
 
 		# If the backup destination is on a USB data carrier, check the mount point and adjust it if necessary
-		if [[ "${target}" == /volumeUSB[[:digit:]]/usbshare* ]] || [[ "${target}" == /volumeSATA[[:digit:]]/satashare* ]]; then
+		if [[ "${target}" == /volumeUSB* ]] || [[ "${target}" == /volumeSATA* ]]; then
 			echo "${txt_target_folder_on_usb}" | tee -a "${script_log}"
 
 			if [[ "${var[uuidcheck]}" == "true" ]]; then
@@ -393,7 +394,7 @@ if [[ ${exit_code} -eq 0 ]]; then
 				targetfolder=$(echo "${target}" | cut -d'/' -f4-)
 
 				# Evaluates the mount points of all connected USB data carriers
-				mnts=( /volumeUSB[[:digit:]] /volumeSATA[[:digit:]] )
+				mnts=( /volumeUSB /volumeSATA )
 				while IFS= read -r volume; do
 					IFS="${backupIFS}"
 					[[ -z "${volume}" ]] && continue
@@ -405,11 +406,10 @@ if [[ ${exit_code} -eq 0 ]]; then
 						new_mountpoint="${share}"
 
 						# Evaluates the device as well as the uuid of the mounted USB data carrier
-						mountpoint=$(mount)
-						mountpoint=$(echo "${mountpoint}" | grep " on ${new_mountpoint} " | awk '{ print $1 }')
-						device="${mountpoint}"
-						[[ -z "${device}" ]] && continue
-						uuid=$(blkid -s UUID -o value ${device})
+						mountpoint=$(mount | grep -E "${new_mountpoint}")
+						dev=$(echo "${mountpoint}" | awk '{print $1}')
+						[[ -z "${dev}" ]] && continue
+						uuid=$(blkid -s UUID -o value ${dev})
 
 						# If the original UUID matches the determined UUID, set the determined mount point if necessary
 						if [[ "${uuid}" == "${var[uuid]}" ]]; then
@@ -429,7 +429,7 @@ if [[ ${exit_code} -eq 0 ]]; then
 
 					done <<< "$( find ${volume}/* -maxdepth 0 -type d ! -path '*/lost\+found' ! -path '*/\@*' ! -path '*/\$RECYCLE.BIN' ! -path '*/Repair' ! -path '*/System Volume Information' )"
 				done <<< "$( find "${mnts[@]}" -maxdepth 0 -type d 2>/dev/null )"
-				unset volume share old_mountpoint targetfolder new_mountpoint mountpoint device uuid label type
+				unset volume share old_mountpoint targetfolder new_mountpoint mountpoint dev uuid label type
 
 			else
 				# Extract mountpoint from ${target}

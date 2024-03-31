@@ -110,7 +110,7 @@ if [ "${gui_lang}" == "ger" ]; then
 					Als erstes wird nun im Benutzer-Home-Ordner von <span class="text-danger">root</span> ein neuer, versteckter Ordner angelegt.
 				</p>
 				<div class="alert alert-danger" role="alert">
-					<strong>Hinweis:</strong> Im allgemeinen liegt der Benutzer-Home-Ordner des Systembenutzers root unter <strong>/root</strong>, wohingegen alle anderen Benutzer im Zusammenhang mit einer Synology DiskStation unter <strong>/var/services/homes/[BENUTZERNAME]</strong> abgelegt werden. Andere Linux Distributionen verwenden hier in der Regel den Ordner <strong>/home/[BENUTZERNAME]</strong>. Durch die Verwendung von <strong>~/</strong> verweist das System aber immer auf den Benutzer-Home-Ordner <strong>des aktuell angemeldeten SSH-Benutzers.</strong>
+					<strong>Hinweis:</strong> Im Allgemeinen befindet sich auf allen Linux  Distributionen der Home-Ordner des Systembenutzers root im Verzeichnis <strong>/root</strong> . Alle anderen Benutzer werden auf einer  <strong>Synology DiskStation</strong> im Verzeichnis <strong>/volume[x]/homes</strong> unter Verwendung ihres jeweiligen Benutzernamens gruppiert. Das System leitet aus diesem Verzeichnis für jeden am System angemeldeten Benutzer einen virtuellen Benutzer-Home-Ordner ab, der sich unter <strong>/volume1/home</strong> befindet und stellt diesen zur Verfügung. Andere Linux Distributionen verwenden hier in der Regel den Ordner <strong>/home/[BENUTZERNAME]</strong>. Durch die Verwendung von <strong>~/</strong> verweist das System aber immer auf den Benutzer-Home-Ordner <strong>des aktuell angemeldeten SSH-Benutzers.</strong>
 				</div>
 				<pre class="shadow-none p-2 mb-1 bg-light rounded"><span class="text-success">root@DiskStation</span>:<span class="text-primary">~</span># mkdir -p ~/.ssh</pre>
 				<ul>
@@ -294,7 +294,7 @@ else
 					First, a new hidden folder is now created in the user home folder of <span class="text-danger">root</span>
 				</p>
 				<div class="alert alert-danger" role="alert">
-					<strong>Note:</strong> Generally, the user home folder of the system user root is located under <strong>/root</strong>, whereas all other users in the context of a Synology DiskStation are stored under <strong>/var/services/homes/[USERNAME]</strong>. Other Linux distributions usually use the folder <strong>/home/[USERNAME]</strong> here. By using <strong>~/</strong>, however, the system always points to the user home folder <strong>of the SSH user currently logged in.</strong>
+					<strong>Note:</strong> In general, on all Linux distributions, the home folder of the root system user is located in the <strong>/root</strong> directory. All other users are grouped on a  <strong>Synology DiskStation</strong> in the <strong>/volume[x]/homes</strong> directory using the respective user name. The system derives a virtual user home folder from this directory for each user logged on to the system, which is located under <strong>/volume1/home</strong> and makes it available. Other Linux distributions usually use the folder <strong>/home/[USERNAME]</strong> here. By using <strong>~/</strong>, however, the system always points to the user home folder <strong>of the SSH user currently logged in.</strong>
 				</div>
 				<pre class="shadow-none p-2 mb-1 bg-light rounded"><span class="text-success">root@DiskStation</span>:<span class="text-primary">~</span># mkdir -p ~/.ssh</pre>
 				<ul>

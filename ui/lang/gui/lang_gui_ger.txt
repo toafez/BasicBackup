@@ -243,12 +243,12 @@ txt_uuidcheck_opt_true="Einhängepunkt anhand der Geräte UUID identifizieren un
 txt_uuidcheck_opt_false="Einhängepunkt nicht anpassen auch wenn sich dieser zwischenzeitlich geändert hat"
 
 txt_localfolder_label="Zielverzeichnis"
-txt_localfolder_note="Es muss ein Zielverzeichnis angegeben werden, das von einem <span class=\"text-blue\">/</span> (Slash) angeführt wird. Die Verwendung weiterer Unterverzeichnisse ist möglich. Ist das Zielverzeichnis nicht vorhanden, wird es während der ersten Datensicherung angelegt. Ungültige Zeichen in Datei- oder Verzeichnisnamen sind <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
+txt_localfolder_note="Es muss ein Zielverzeichnis angegeben werden. Die Verwendung von weiteren Unterverzeichnissen, jeweils durch einen <span class=\"text-blue\">/</span> (Slash bzw. Schrägstrich) getrennt, ist möglich.  Ist das Zielverzeichnis nicht vorhanden, wird es während der ersten Datensicherung angelegt. Ungültige Zeichen in Datei- oder Verzeichnisnamen sind <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
 txt_localfolder_format="z.B. /Basic Backup/Mein erstes Backup"
-txt_localfolder_regex="^\/([a-zA-Z0-9 _\-\.\/]+)+$"
+txt_localfolder_regex="^\([a-zA-Z0-9 _\-\.\/]+)+$"
 
 txt_remotetarget_label="Zielverzeichnis"
-txt_remotetarget_note="Es muss ein Zielverzeichnis angegeben werden, das von einem <span class=\"text-blue\">/</span> (Slash) angeführt wird. Die Verwendung weiterer Unterverzeichnisse ist möglich. Befindet sich das Zielverzeichnis auf einer Synology DiskStation, so muss zusätzlich noch der gewünschte freigegebene Ordner angegeben werden wie z.B. <span class=\"text-blue\">/volume1/NetBackup</span>. Ist das Zielverzeichnis nicht vorhanden, wird es während der ersten Datensicherung angelegt. Ungültige Zeichen in Datei- oder Verzeichnisnamen sind <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
+txt_remotetarget_note="Es muss ein Zielverzeichnis angegeben werden, das von einem <span class=\"text-blue\">/</span> (Slash bzw. Schrägstrich) angeführt wird. Die Verwendung weiterer Unterverzeichnisse ist möglich. Befindet sich das Zielverzeichnis auf einer Synology DiskStation, so muss zusätzlich noch der gewünschte freigegebene Ordner angegeben werden wie z.B. <span class=\"text-blue\">/volume1/NetBackup</span>. Ist das Zielverzeichnis nicht vorhanden, wird es während der ersten Datensicherung angelegt. Ungültige Zeichen in Datei- oder Verzeichnisnamen sind <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
 txt_remotetarget_format="z.B. /volume1/NetBackup/Mein erstes Backup"
 txt_remotetarget_regex="^\/([a-zA-Z0-9 _\-\.\/]+)+$"
 
@@ -257,7 +257,7 @@ txt_sshbuild_note="Hinweise zur Einrichtung einer SSH-Verbindung"
 txt_ssh_label_user="SSH Benutzername"
 txt_ssh_format_user="z.B. root"
 
-txt_ssh_label_address="Remote Serveradresse"
+txt_ssh_label_address="Serveradresse"
 txt_ssh_format_address="URL oder IPv4 Serveradresse"
 txt_ssh_script_sshpush="Remotserver ist Datensicherungsziel, dann sshpush"
 txt_ssh_script_sshpull="Remotserver ist Datensicherungsquelle, dann sshpull"
@@ -267,11 +267,11 @@ txt_ssh_format_port="z.B. Port 22"
 
 txt_ssh_label_mac="MAC Adresse"
 txt_ssh_format_mac="z.B. 3D:F2:C9:A6:B3:4F"
-txt_ssh_info_mac="Die MAC-Adresse muss nur angegeben werden, wenn der Remote Server nach der Datensicherung automatisch heruntergefahren werden soll."
+txt_ssh_info_mac="Die MAC-Adresse muss nur angegeben werden, wenn der Remote Server vor der Datensicherung per WOL (Wake on LAN) gestartet werden soll."
 txt_ssh_regex_mac="^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$"
 
-txt_privatekey_label="Dateiname des zu verwendenden, lokal abgelegten privaten Schlüssels"
-txt_privatekey_note="Wurde kein alternativer Dateiname für den privaten Schlüssel (private key) angegeben, wird der Standardname <strong>id_rsa</strong> verwendet. Ungültige Zeichen in Datei- oder Ordnernamen sind <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
+txt_privatekey_label="Dateiname des zu verwendenden privaten SSH-Schlüssels"
+txt_privatekey_note="Wurde kein alternativer Dateiname für den privaten SSH Schlüssel (private key) angegeben, wird der Standardname <strong>id_rsa</strong> verwendet. Ungültige Zeichen in Datei- oder Ordnernamen sind <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
 txt_privatekey_format="z.B. id_rsa"
 txt_privatekey_regex="^[0-9a-zA-Z _-]+$"
 
@@ -291,7 +291,7 @@ txt_remoteserver_opt_shutdown_success="... nur herunterfahren, wenn Datensicheru
 
 # Seite 3a
 txt_sources_title="Datensicherungsquelle(n)"
-txt_sources_notes="Jedes Quellverzeichnis muss mit einem <span class=\"text-blue\">/</span> (Slash) beginnen. Die Verwendung weiterer Unterverzeichnisse ist möglich. Befindet sich das Quellverzeichnis auf einer Synology DiskStation, so muss zusätzlich noch der gewünschte freigegebene Ordner angegeben werden wie z.B. <span class=\"text-blue\">/volume1/music</span> oder auch <span class=\"text-blue\">/volume1/music/Compilations</span>. Des Weiteren müssen einzelne Quellverzeichnisse durch ein <span class=\"text-danger\">&</span> voneinander getrennt werden, wie im Beispieleintrag dargestellt. Ungültige Zeichen in Datei- oder Verzeichnisnamen sind <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
+txt_sources_notes="Jedes Quellverzeichnis muss mit einem <span class=\"text-blue\">/</span> (Slash bzw. Schrägstrich) beginnen. Die Verwendung weiterer Unterverzeichnisse ist möglich. Befindet sich das Quellverzeichnis auf einer Synology DiskStation, so muss zusätzlich noch der gewünschte freigegebene Ordner angegeben werden wie z.B. <span class=\"text-blue\">/volume1/music</span> oder auch <span class=\"text-blue\">/volume1/music/Compilations</span>. Des Weiteren müssen einzelne Quellverzeichnisse durch ein <span class=\"text-danger\">&</span> voneinander getrennt werden, wie im Beispieleintrag dargestellt. Ungültige Zeichen in Datei- oder Verzeichnisnamen sind <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
 
 txt_uuid_error="<strong>Warnung:</strong> Es konnte kein gültiges UUID Format ermittelt werden, weshalb die Option - ${txt_uuidcheck_opt_true} - wieder deaktiviert wurde."
 
@@ -338,13 +338,13 @@ txt_save_note_failed="Ein Problem ist aufgetreten! Der Datenscherungsauftrag kon
 
 # system.sh
 # --------------------------------------------------------------
-txt_import_export_title="Sichern und wiederherstellen der Datensicherungsaufträge"
+txt_import_export_title="Sichern und wiederherstellen von Aufträgen"
 txt_import_export_info="<span class=\"text-dark\">Hinweise</span><br />Es werden immer alle Datensicherungsaufträge gesichert. Beim wiederherstellen werden bereits existierende Aufträge nur dann im Ziel überschrieben, wenn diese neueren Datums sind. Des Weiteren ist darauf zu achten, das beim wiederherstellen die Angabe des Speicherortes <strong>ohne</strong> den Pfad /usersettings/backupjobs anzugeben ist."
 txt_targetpath_label="Datensicherungsziel"
 txt_targetpath_info="Freigegebener Ordner"
-txt_targetlocation_label="Zielordner"
-txt_folderpath_label="Ordner"
-txt_folderpath_format_path="/Ordner (ohne Angabe des Ordners /usersettings)"
+txt_targetlocation_label="Zielverzeichnis"
+txt_folderpath_label="Verzeichnis"
+txt_folderpath_format_path="...ohne Angabe der Unterverzeichnisse /usersettings/backupjobs"
 txt_error_occurred_note="Ein Fehler ist aufgetreten"
 txt_export_true_note="Die Datensicherungsaufträge wurden exportiert"
 txt_import_true_note="Die Datensicherungsaufträge wurden importiert"
@@ -353,4 +353,5 @@ txt_import_false_note="Die Datensicherungsaufträge konnten nicht importiert wer
 txt_folder_not_create_info="Der Speicherort konnte nicht erstellt werden"
 txt_folder_not_found_info="Der Ordner für die Datensicherungsaufträge konnte nicht gefunden werden"
 txt_share_not_found_note="Der freigegebene Ordner konnte nicht gefunden werden"
+
 

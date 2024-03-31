@@ -39,7 +39,7 @@ function local_sources()
 		dev=$(echo "${mountpoint}" | awk '{print $1}')
 		[[ -z "${dev}" ]] && continue
 		echo -n '<span class="text-secondary ps-2"><strong>'${volume}'</strong></span><br />'
-		if [[ "${volume}" == /volumeUSB[[:digit:]]/usbshare* || "${volume}" == /volumeSATA[[:digit:]]/satashare* ]]; then
+		if [[ "${volume}" == /volumeUSB* || "${volume}" == /volumeSATA* ]]; then
 			echo -n '<div class="text-secondary ps-4 pb-1"><small>'${txt_note_mountpoint}'</small></div>'
 		fi
 		# Vertikales Dropdownmenü (checktree.js, fadetree.js, stylesheet.css)
@@ -51,11 +51,11 @@ function local_sources()
 
 				IFS='&'
 				read -r -a shares <<< "${var[sources]}"
-				IFS="${backupIFS}"
 				for dir in "${shares[@]}"; do
 					dir=$(echo "${dir}" | sed 's/^[ \t]*//;s/[ \t]*$//')
 					[[ "${share}" == "${dir}" ]] && break
 				done
+				IFS="${backupIFS}"
 				unset shares
 
 				echo -n '
@@ -74,11 +74,11 @@ function local_sources()
 
 							IFS='&'
 							read -r -a folders <<< "${var[sources]}"
-							IFS="${backupIFS}"
 							for sub in "${folders[@]}"; do
 								sub=$(echo "${sub}" | sed 's/^[ \t]*//;s/[ \t]*$//')
 								[[ "${folder}" == "${sub}" ]] && break
 							done
+							IFS="${backupIFS}"
 
 							echo -n '
 							<li>
@@ -119,7 +119,7 @@ function local_target()
 			[[ -z "${share}" ]] && continue
 			echo -n '<option value="'${share}'"'; \
 				[[ "${var[${2}]}" == "${share}" ]] && echo -n ' selected>' || echo -n '>'
-			echo ''${share}'</option>'
+			echo ''${share##*/}'</option>'
 		done <<< "$( find ${volume}/* -type d ! -path '*/lost\+found' ! -path '*/\@*' ! -path '*/\$RECYCLE.BIN' ! -path '*/Repair' ! -path '*/System Volume Information' -maxdepth 0 )"
 	done <<< "$( find ${1} -maxdepth 0 -type d )"
 	unset volume share
@@ -268,10 +268,12 @@ echo '
 				fi
 
 				# Auftrag laden
-				if [[ "${get[edit]}" == "true" ]] && [ -f "${usr_backupjobs}/$(urldecode ${get[jobname]}).config" ]; then
-					source "${usr_backupjobs}/$(urldecode ${get[jobname]}).config"
-					var[jobname]=$(urldecode ${get[jobname]})
-					old_jobname=$(urldecode ${get[jobname]})
+				[ -n "${get[jobname]}" ] && get[jobname]=$(echo ${get[jobname]} |sed 's/%20/ /g')
+				if [[ "${get[edit]}" == "true" ]] && [ -f "${usr_backupjobs}/${get[jobname]}.config" ]; then
+					declare -A var
+					source "${usr_backupjobs}/${get[jobname]}.config"
+					var[jobname]="${get[jobname]}"
+					old_jobname="${get[jobname]}"
 
 					if [ -z "${var[sshpush]}" ] && [ -z "${var[sshpull]}" ]; then
 						var[targetserver]="local"
@@ -325,7 +327,7 @@ echo '
 					<div class="card border-0">
 						<div class="card-header border-0 bg-white">'
 							if [[ "${get[edit]}" == "true" ]]; then
-								echo '<h5>'${txt_job_title}' <span class="text-secondary">'$(urldecode ${get[jobname]})'</span> '${txt_job_edit}'</h5>'
+								echo '<h5>'${txt_job_title}' <span class="text-secondary">'${get[jobname]}'</span> '${txt_job_edit}'</h5>'
 							else
 								echo '<h5>'${txt_job_title}' '${txt_job_create}'</h5>'
 							fi
@@ -347,8 +349,8 @@ echo '
 						</div>'
 						# E-Mail Adresse
 						# ...
-						smtp_mail=$(cat "/usr/syno/etc/synosmtp.conf" | grep smtp_from_mail | cut -d '"' -f2)
-						event_mail=$(cat "/usr/syno/etc/synosmtp.conf" | grep eventmails | cut -d '"' -f2)
+						smtp_mail=$(synogetkeyvalue /usr/syno/etc/synosmtp.conf smtp_from_mail)
+						event_mail=$(synogetkeyvalue /usr/syno/etc/synosmtp.conf eventmails)
 
 						echo '
 						<div class="row mb-3 px-4">
@@ -445,6 +447,12 @@ echo '
 				if [[ "${var[section]}" == "2" ]]; then
 					[[ "${pageview}" == "on" ]] && echo "Seite (page-2) - Primäre Ansicht"
 
+output="/var/packages/BasicBackup/target/ui/modules/backupjob.output"
+chmod 775 "${output}"
+sed -e "s/___TXT_BACKUPTARGET_LABEL___/${txt_backuptarget_label}/g" \
+	-e "s/___VAR_TARGET___/${var[target]}/g" \
+	/var/packages/BasicBackup/target/ui/modules/backupjob.template > "${output}"
+
 					[ -f "${post_request}" ] && source "${post_request}"
 
 					# Falls Name des Backupjobs bereits vorhanden, dann Popup - Fehler
@@ -481,7 +489,7 @@ echo '
 					echo '
 					<div class="card border-0">
 						<div class="card-header border-0 bg-white">'
-							[[ "${get[edit]}" == "true" ]] && echo '<h5>'${txt_job_title}' <span class="text-secondary">'$(urldecode ${get[jobname]})'</span> - '${txt_target_title}' '${txt_job_edit}'</h5>' || echo '<h5>'${txt_target_title}' '${txt_job_select}'</h5>'
+							[[ "${get[edit]}" == "true" ]] && echo '<h5>'${txt_job_title}' <span class="text-secondary">'${get[jobname]}'</span> - '${txt_target_title}' '${txt_job_edit}'</h5>' || echo '<h5>'${txt_target_title}' '${txt_job_select}'</h5>'
 							echo '
 						</div>
 					</div>
@@ -560,7 +568,7 @@ echo '
 									var[localfolder]=$(echo "${var[target]}" | cut -d'/' -f4-)
 
 									# Folder: Hängt am Anfang ein Slash an. Ergebnis: /folder/sub
-									var[localfolder]=$(echo "/${var[localfolder]}")
+									#var[localfolder]=$(echo "/${var[localfolder]}")
 								fi
 
 								# Variablen zurücksetzen: Kommend von Seite 3 - Primäre Ansicht - rsync-Server Quelle(n) (Push Backup)
@@ -641,26 +649,13 @@ echo '
 									fi
 								fi
 
-								# SSH Benutzername (sshuser) und Serveradresse (sshpush)
+								# Remote Serveradresse und MAC Adresse 
 								# ...
 								echo '
 								<div class="row mb-3 px-4">
-									<div class="col">
-										<label for="sshuser" class="form-label text-dark">'${txt_ssh_label_user}'</label>
-										<input type="text" class="form-control form-control-sm" name="sshuser" id="sshuser" value="'${var[sshuser]}'" placeholder="'${txt_ssh_format_user}'" required />
-									</div>
 									<div class="col">
 										<label for="sshpush" class="form-label text-dark">'${txt_ssh_label_address}'</label>
 										<input type="text" class="form-control form-control-sm" name="sshpush" id="sshpush" value="'${var[sshpush]}'" placeholder="'${txt_ssh_format_address}'" required />
-									</div>
-								</div>'
-								# SSH Port und MAC Adresse
-								# ...
-								echo '
-								<div class="row mb-3 px-4">
-									<div class="col">
-										<label for="sshport" class="form-label text-dark">'${txt_ssh_label_port}'</label>
-										<input type="number" min="1" max="65535" step="1" class="form-control form-control-sm" name="sshport" id="sshport" value="'${var[sshport]}'" placeholder="'${txt_ssh_format_port}'" required />
 									</div>
 									<div class="col">
 										<label for="sshmac" class="form-label text-dark">'${txt_ssh_label_mac}'
@@ -673,6 +668,52 @@ echo '
 										</label>
 										<input type="text" pattern="'${txt_ssh_regex_mac}'" class="form-control form-control-sm" name="sshmac" id="sshmac" value="'${var[sshmac]}'" placeholder="'${txt_ssh_format_mac}'" />
 									</div>
+								</div>'
+								# SSH Benutzer und SSH Port
+								# ...
+								echo '
+								<div class="row mb-3 px-4">
+									<div class="col">
+										<label for="sshuser" class="form-label text-dark">'${txt_ssh_label_user}'</label>
+										<input type="text" class="form-control form-control-sm" name="sshuser" id="sshuser" value="'${var[sshuser]}'" placeholder="'${txt_ssh_format_user}'" required />
+									</div>
+									<div class="col">
+										<label for="sshport" class="form-label text-dark">'${txt_ssh_label_port}'</label>
+										<input type="number" min="1" max="65535" step="1" class="form-control form-control-sm" name="sshport" id="sshport" value="'${var[sshport]}'" placeholder="'${txt_ssh_format_port}'" required />
+									</div>
+								</div>'
+								# Privater RSA-Schlüssel
+								# ...
+								echo '
+								<div class="row mb-3 px-4">
+									<div class="col">
+										<label for="privatekey" class="form-label text-dark">'${txt_privatekey_label}' ('${txt_privatekey_format}')
+											<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#privatekey-note" role="button" aria-expanded="false" aria-controls="privatekey-note">'${note}'</a>
+											<div class="collapse" id="privatekey-note">
+												<div class="card card-body border-0">
+													<small>'${txt_privatekey_note}'</small>
+												</div>
+											</div>
+										</label>
+										<div class="input-group input-group-sm">
+											<span class="input-group-text" id="basic-addon1">/root/.ssh/</span>
+											<input type="privatekey" pattern="'${txt_privatekey_regex}'" class="form-control form-control-sm" name="privatekey" id="privatekey" value="'${var[privatekey]:-id_rsa}'" placeholder="'${txt_privatekey_format}'" />
+										</div>
+									</div>
+								</div>'
+								# Zielordner der Datensicherung (targetfolder)
+								# ...
+								echo '
+								<div class="mb-3 px-4">
+									<label for="target" class="form-label text-dark">'${txt_remotetarget_label}'
+										<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#target-note" role="button" aria-expanded="false" aria-controls="target-note">'${note}'</a>
+											<div class="collapse" id="target-note">
+												<div class="card card-body border-0">
+													<small>'${txt_remotetarget_note}'</small>
+												</div>
+											</div>
+									</label>
+									<input type="text" pattern="'${txt_remotetarget_regex}'" class="form-control form-control-sm" name="target" id="target" value="'${var[target]}'" placeholder="'${txt_remotetarget_format}'" required />
 								</div>'
 								# WOL und Shutdown
 								# ...
@@ -718,39 +759,6 @@ echo '
 											echo '
 										</select>
 									</div>
-								</div>'
-								# Privater RSA-Schlüssel
-								# ...
-								echo '
-								<div class="row mb-3 px-4">
-									<div class="col">
-										<label for="privatekey" class="form-label text-dark">'${txt_privatekey_label}' ('${txt_privatekey_format}')
-											<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#privatekey-note" role="button" aria-expanded="false" aria-controls="privatekey-note">'${note}'</a>
-											<div class="collapse" id="privatekey-note">
-												<div class="card card-body border-0">
-													<small>'${txt_privatekey_note}'</small>
-												</div>
-											</div>
-										</label>
-										<div class="input-group input-group-sm">
-											<span class="input-group-text" id="basic-addon1">/root/.ssh/</span>
-											<input type="privatekey" pattern="'${txt_privatekey_regex}'" class="form-control form-control-sm" name="privatekey" id="privatekey" value="'${var[privatekey]:-id_rsa}'" placeholder="'${txt_privatekey_format}'" />
-										</div>
-									</div>
-								</div>'
-								# Zielordner der Datensicherung (targetfolder)
-								# ...
-								echo '
-								<div class="mb-3 px-4">
-									<label for="target" class="form-label text-dark">'${txt_remotetarget_label}'
-										<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#target-note" role="button" aria-expanded="false" aria-controls="target-note">'${note}'</a>
-											<div class="collapse" id="target-note">
-												<div class="card card-body border-0">
-													<small>'${txt_remotetarget_note}'</small>
-												</div>
-											</div>
-									</label>
-									<input type="text" pattern="'${txt_remotetarget_regex}'" class="form-control form-control-sm" name="target" id="target" value="'${var[target]}'" placeholder="'${txt_remotetarget_format}'" required />
 								</div>'
 							fi
 
@@ -802,39 +810,38 @@ echo '
 					fi
 
 					if [[ "${var[targetserver]}" == "local" ]]; then
-						var[target]=$(echo "${var[localshare]}${var[localfolder]}")
+						# Wenn der String mit einem Slash beginnt, entferne ihn
+						if echo "${var[localfolder]}" | grep -q '^/' ; then
+							var[localfolder]="${var[localfolder]:1}"
+						fi
+
+						var[target]=$(echo "${var[localshare]}/${var[localfolder]}")
 						"${set_keyvalue}" "${post_request}" "var[target]" "${var[target]}"
 
 						# Wenn localshare = externer Datenträger, dann bestimme UUID.
-						if [[ "${var[localshare]}" == /volumeUSB[[:digit:]]/usbshare* ]] || [[ "${var[localshare]}" == /volumeSATA[[:digit:]]/satashare* ]]; then
-							mountpoint=$(mount)
-							mountpoint=$(echo "${mountpoint}" | grep " on ${var[localshare]} " | awk '{ print $1 }')
-							device="${mountpoint}"
+						if [[ "${var[localshare]}" == /volumeUSB* ]] || [[ "${var[localshare]}" == /volumeSATA* ]]; then
+							mountpoint=$(mount | grep -E "${var[localshare]}")
+							dev=$(echo "${mountpoint}" | awk '{print $1}')
 							[ -f "${post_request}" ] && source "${post_request}"
 							if [[ "${var[uuidcheck]}" == "true" ]]; then
-								uuid=$(blkid -s UUID -o value ${device})
-								label=$(blkid -s LABEL -o value ${device})
-								type=$(blkid -s TYPE -o value ${device})
+								uuid=$(blkid -s UUID -o value ${dev})
+								label=$(blkid -s LABEL -o value ${dev})
+								type=$(blkid -s TYPE -o value ${dev})
 
-								# Check 128 bit UUID
+								# Determine the file system if there is a 128-bit UUID (LINUX/UNIX)
 								if [[ "${uuid}" =~ ^\{?[A-F0-9a-f]{8}-[A-F0-9a-f]{4}-[A-F0-9a-f]{4}-[A-F0-9a-f]{4}-[A-F0-9a-f]{12}\}?$ ]]; then
 									"${set_keyvalue}" "${post_request}" "var[uuid]" "${uuid}"
-								# Check 32 bit VSN
-								elif [[ "${uuid}" =~ ^\{?[A-F0-9a-f]{4}-[A-F0-9a-f]{4}\}?$ ]]; then
-									"${set_keyvalue}" "${post_request}" "var[uuid]" "${uuid}"
-								# Check 64 bit SN
+								# Determine the file system if there is a 64 bit VSN (Windows NTFS)
 								elif [[ "${uuid}" =~ ^\{?[A-F0-9a-f]{16}\}?$ ]]; then
 									"${set_keyvalue}" "${post_request}" "var[uuid]" "${uuid}"
-								# Check 32 bit SN
-								elif [[ "${uuid}" =~ ^\{?[A-F0-9a-f]{8}\}?$ ]]; then
+								# Determine the file system if there is a 32 bit VSN (Windows FAT12, FAT16, FAT32 and exFAT) combined as vFAT
+								elif [[ "${uuid}" =~ ^\{?[A-F0-9a-f]{4}-[A-F0-9a-f]{4}\}?$ ]] || [[ "${ext_uuid}" =~ ^\{?[A-F0-9a-f]{8}\}?$ ]]; then
 									"${set_keyvalue}" "${post_request}" "var[uuid]" "${uuid}"
 								else
 									"${set_keyvalue}" "${post_request}" "var[uuid]" ""
 									"${set_keyvalue}" "${post_request}" "var[uuidcheck]" "false"
 									uuid_error="true"
 								fi
-
-								# "${set_keyvalue}" "${post_request}" "var[uuid]" "${uuid}"
 							fi
 						else
 							"${set_keyvalue}" "${post_request}" "var[uuid]" ""
@@ -848,7 +855,7 @@ echo '
 					echo '
 					<div class="card border-0">
 						<div class="card-header border-0 bg-white">'
-							[[ "${get[edit]}" == "true" ]] && echo '<h5>'${txt_job_title}' <span class="text-secondary">'$(urldecode ${get[jobname]})'</span> - '${txt_sources_title}' '${txt_job_edit}'</h5>' || echo '<h5>'${txt_sources_title}' '${txt_job_select}'</h5>'
+							[[ "${get[edit]}" == "true" ]] && echo '<h5>'${txt_job_title}' <span class="text-secondary">'${get[jobname]}'</span> - '${txt_sources_title}' '${txt_job_edit}'</h5>' || echo '<h5>'${txt_sources_title}' '${txt_job_select}'</h5>'
 							echo '
 						</div>
 					</div>
@@ -875,7 +882,7 @@ echo '
 										if [[ "${var[sourceserver]}" == "remote" ]]; then
 											echo '
 											<button type="button" class="btn btn-link btn-sm text-danger text-decoration-none" data-bs-toggle="modal" data-bs-target="#help-ssh-local">
-												<sup class="btn btn-sm text-danger text-decoration-none py-1 px-2" style="background-color: #e6e6e6;">'${txt_sshbuild_note}'</sup>
+												<sup>'${txt_sshbuild_note}'</sup>
 											</button>'
 										fi
 										echo '
@@ -964,8 +971,9 @@ echo '
 											</label><br />'
 											count=1
 											local_sources "/volume[[:digit:]]"
-											local_sources "/volumeUSB[[:digit:]]/usbshare*"
-											local_sources "/volumeSATA[[:digit:]]/satashare*"
+											local_sources "/volumeUSB[[:digit:]]"
+											local_sources "/volumeSATA[[:digit:]]"
+											local_sources "/volumeSATA"
 											unset count
 											echo '
 										</div>
@@ -993,26 +1001,13 @@ echo '
 										[ -f "${post_request}" ] && source "${post_request}"
 									fi
 
-									# SSH Benutzername (sshuser) und Serveradresse (sshpush)
+									# Remote Serveradresse und MAC Adresse
 									# ...
 									echo '
 									<div class="row mb-3 px-4">
-										<div class="col">
-											<label for="sshuser" class="form-label text-dark">'${txt_ssh_label_user}'</label>
-											<input type="text" class="form-control form-control-sm" name="sshuser" id="sshuser" value="'${var[sshuser]}'" placeholder="'${txt_ssh_format_user}'" required />
-										</div>
 										<div class="col">
 											<label for="sshpull" class="form-label text-dark">'${txt_ssh_label_address}'</label>
 											<input type="text" class="form-control form-control-sm" name="sshpull" id="sshpull" value="'${var[sshpull]}'" placeholder="'${txt_ssh_format_address}'" required />
-										</div>
-									</div>'
-									# SSH Port und MAC Adresse
-									# ...
-									echo '
-									<div class="row mb-3 px-4">
-										<div class="col">
-											<label for="sshport" class="form-label text-dark">'${txt_ssh_label_port}'</label>
-											<input type="number" min="1" max="65535" step="1" class="form-control form-control-sm" name="sshport" id="sshport" value="'${var[sshport]}'" placeholder="'${txt_ssh_format_port}'" required />
 										</div>
 										<div class="col">
 											<label for="sshmac" class="form-label text-dark">'${txt_ssh_label_mac}'
@@ -1024,6 +1019,54 @@ echo '
 												</div>
 											</label>
 											<input type="text" pattern="'${txt_ssh_regex_mac}'" class="form-control form-control-sm" name="sshmac" id="sshmac" value="'${var[sshmac]}'" placeholder="'${txt_ssh_format_mac}'" />
+										</div>
+									</div>'
+									# SSH Benutzer und SSH Port
+									# ...
+									echo '
+									<div class="row mb-3 px-4">
+										<div class="col">
+											<label for="sshuser" class="form-label text-dark">'${txt_ssh_label_user}'</label>
+											<input type="text" class="form-control form-control-sm" name="sshuser" id="sshuser" value="'${var[sshuser]}'" placeholder="'${txt_ssh_format_user}'" required />
+										</div>
+										<div class="col">
+											<label for="sshport" class="form-label text-dark">'${txt_ssh_label_port}'</label>
+											<input type="number" min="1" max="65535" step="1" class="form-control form-control-sm" name="sshport" id="sshport" value="'${var[sshport]}'" placeholder="'${txt_ssh_format_port}'" required />
+										</div>
+									</div>'
+									# Privater RSA-Schlüssel
+									# ...
+									echo '
+									<div class="row mb-3 px-4">
+										<div class="col">
+											<label for="privatekey" class="form-label text-dark">'${txt_privatekey_label}' ('${txt_privatekey_format}')
+												<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#privatekey-note" role="button" aria-expanded="false" aria-controls="privatekey-note">'${note}'</a>
+												<div class="collapse" id="privatekey-note">
+													<div class="card card-body border-0">
+														<small>'${txt_privatekey_note}'</small>
+													</div>
+												</div>
+											</label>
+											<div class="input-group input-group-sm">
+												<span class="input-group-text" id="basic-addon1">/root/.ssh/</span>
+												<input type="privatekey" pattern="'${txt_privatekey_regex}'" class="form-control form-control-sm" name="privatekey" id="privatekey" value="'${var[privatekey]:-id_rsa}'" placeholder="'${txt_privatekey_format}'" />
+											</div>
+										</div>
+									</div>'
+									# Zu sichernde Ordner auswählen
+									# ...
+									echo '
+									<div class="row mb-3 px-4">
+										<div class="col">
+											<label for="sources" class="form-label text-dark">'${txt_sources_label}'
+												<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#sources-note" role="button" aria-expanded="false" aria-controls="sources-note">'${note}'</a>
+												<div class="collapse" id="sources-note">
+													<div class="card card-body border-0">
+														<small>'${txt_sources_notes}'</small>
+													</div>
+												</div>
+											</label>
+											<input type="text" pattern="'${txt_sources_regex}'" class="form-control form-control-sm" style="white-space: pre;" name="sources" id="sources" value="'${var[sources]}'" placeholder="'${txt_sources_format}'" required />
 										</div>
 									</div>'
 									# WOL und Shutdown
@@ -1069,41 +1112,6 @@ echo '
 												echo ''${txt_remoteserver_opt_shutdown_success}'</option>'
 												echo '
 											</select>
-										</div>
-									</div>'
-									# Privater RSA-Schlüssel
-									# ...
-									echo '
-									<div class="row mb-3 px-4">
-										<div class="col">
-											<label for="privatekey" class="form-label text-dark">'${txt_privatekey_label}' ('${txt_privatekey_format}')
-												<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#privatekey-note" role="button" aria-expanded="false" aria-controls="privatekey-note">'${note}'</a>
-												<div class="collapse" id="privatekey-note">
-													<div class="card card-body border-0">
-														<small>'${txt_privatekey_note}'</small>
-													</div>
-												</div>
-											</label>
-											<div class="input-group input-group-sm">
-												<span class="input-group-text" id="basic-addon1">/root/.ssh/</span>
-												<input type="privatekey" pattern="'${txt_privatekey_regex}'" class="form-control form-control-sm" name="privatekey" id="privatekey" value="'${var[privatekey]:-id_rsa}'" placeholder="'${txt_privatekey_format}'" />
-											</div>
-										</div>
-									</div>'
-									# Zu sichernde Ordner auswählen
-									# ...
-									echo '
-									<div class="row mb-3 px-4">
-										<div class="col">
-											<label for="sources" class="form-label text-dark">'${txt_sources_label}'
-												<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#sources-note" role="button" aria-expanded="false" aria-controls="sources-note">'${note}'</a>
-												<div class="collapse" id="sources-note">
-													<div class="card card-body border-0">
-														<small>'${txt_sources_notes}'</small>
-													</div>
-												</div>
-											</label>
-											<input type="text" pattern="'${txt_sources_regex}'" class="form-control form-control-sm" style="white-space: pre;" name="sources" id="sources" value="'${var[sources]}'" placeholder="'${txt_sources_format}'" required />
 										</div>
 									</div>'
 								fi
@@ -1176,8 +1184,9 @@ echo '
 									</label><br />'
 									count=1
 									local_sources "/volume[[:digit:]]"
-									local_sources "/volumeUSB[[:digit:]]/usbshare*"
-									local_sources "/volumeSATA[[:digit:]]/satashare*"
+									local_sources "/volumeUSB[[:digit:]]"
+									local_sources "/volumeSATA[[:digit:]]"
+									local_sources "/volumeSATA"
 									unset count
 									echo '
 								</div>
@@ -1320,7 +1329,7 @@ echo '
 					echo '
 					<div class="card border-0">
 						<div class="card-header border-0 bg-white">'
-							[[ "${get[edit]}" == "true" ]] && echo '<h5>'${txt_job_title}' <span class="text-secondary">'$(urldecode ${get[jobname]})'</span> - '${txt_rsync_title}' '${txt_job_edit}'</h5>' || echo '<h5>'${txt_rsync_title}' '${txt_job_select}'</h5>'
+							[[ "${get[edit]}" == "true" ]] && echo '<h5>'${txt_job_title}' <span class="text-secondary">'${get[jobname]}'</span> - '${txt_rsync_title}' '${txt_job_edit}'</h5>' || echo '<h5>'${txt_rsync_title}' '${txt_job_select}'</h5>'
 							echo '
 						</div>
 					</div>
@@ -1418,7 +1427,7 @@ echo '
 					echo '
 					<div class="card border-0">
 						<div class="card-header border-0 bg-white">'
-							[[ "${get[edit]}" == "true" ]] && echo '<h5>'${txt_job_title}' <span class="text-secondary">'$(urldecode ${get[jobname]})'</span> - '${txt_save_title_edit}'</h5>' || echo '<h5>'${txt_save_title_new}'</h5>'
+							[[ "${get[edit]}" == "true" ]] && echo '<h5>'${txt_job_title}' <span class="text-secondary">'${get[jobname]}'</span> - '${txt_save_title_edit}'</h5>' || echo '<h5>'${txt_save_title_new}'</h5>'
 							echo '
 						</div>
 					</div>
@@ -1442,30 +1451,10 @@ echo '
 						fi
 
 						echo "#!/bin/bash" > "${scripttarget}"
-						echo "# Filename: ${var[jobname]}.config - coded in utf-8" >> "${scripttarget}"
+						echo "# Execute a Basic Backup job" >> "${scripttarget}"
+						echo "# Job name: ${var[jobname]}" >> "${scripttarget}"
+						echo "# Version of the job configuration" >> "${scripttarget}"
 						echo "jobconfig_version=\"${job_version}\"" >> "${scripttarget}"
-						echo "" >> "${scripttarget}"
-						echo "#                        Basic Backup" >> "${scripttarget}"
-						echo "#" >> "${scripttarget}"
-						echo "#        Copyright (C) 2024 by Tommes | License GNU GPLv3" >> "${scripttarget}"
-						echo "#         Member of the German Synology Community Forum" >> "${scripttarget}"
-						echo "#" >> "${scripttarget}"
-						echo "# Extract from  GPL3   https://www.gnu.org/licenses/gpl-3.0.html" >> "${scripttarget}"
-						echo "#                                     ..." >> "${scripttarget}"
-						echo "# This program is free software: you can redistribute it  and/or" >> "${scripttarget}"
-						echo "# modify it under the terms of the GNU General Public License as" >> "${scripttarget}"
-						echo "# published by the Free Software Foundation, either version 3 of" >> "${scripttarget}"
-						echo "# the License, or (at your option) any later version." >> "${scripttarget}"
-						echo "#" >> "${scripttarget}"
-						echo "# This program is distributed in the hope that it will be useful" >> "${scripttarget}"
-						echo "# but WITHOUT ANY WARRANTY; without even the implied warranty of" >> "${scripttarget}"
-						echo "# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE." >> "${scripttarget}"
-						echo "#" >> "${scripttarget}"
-						echo "# See the GNU General Public License for more details.You should" >> "${scripttarget}"
-						echo "# have received a copy of the GNU General Public  License  along" >> "${scripttarget}"
-						echo "# with this program. If not, see http://www.gnu.org/licenses/  !" >> "${scripttarget}"
-
-						echo "" >> "${scripttarget}"; echo "declare -A var" >> "${scripttarget}"
 
 						# var[target]
 						echo "" >> "${scripttarget}"; echo "# ${txt_backuptarget_label}" >> "${scripttarget}"
@@ -1558,7 +1547,7 @@ echo '
 						#echo "" >> "${scripttarget}"; echo "# ${txt_exclude_label}" >> "${scripttarget}"
 						#"${set_keyvalue}" "${scripttarget}" "var[exclude]" "${var[exclude]}"
 
-						chmod 0755 ${scripttarget}
+						chmod 0755 "${scripttarget}"
 
 
 						if [ ! -f "${scripttarget}" ]; then
@@ -1586,5 +1575,3 @@ echo '
 	<!-- col -->
 </div>
 <!-- row -->'
-
-

@@ -243,9 +243,9 @@ txt_uuidcheck_opt_true="Identify mount point based on device UUID and adjust if 
 txt_uuidcheck_opt_false="Do not adjust mount point even if it has changed in the meantime"
 
 txt_localfolder_label="Target directory"
-txt_localfolder_note="A target directory must be specified, headed by a <span class=\"text-blue\">/</span> (slash). The use of further subdirectories is possible. If the target directory does not exist, it will be created during the first backup. Invalid characters in file or directory names are <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
+txt_localfolder_note="A target directory must be specified. The use of further subdirectories, each separated by a <span class=\"text-blue\">/</span> (slash), is possible.  If the target directory does not exist, it will be created during the first backup. Invalid characters in file or directory names are <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
 txt_localfolder_format="z.B. /Basic Backup/My first backup"
-txt_localfolder_regex="^\/([a-zA-Z0-9 _\-\.\/]+)+$"
+txt_localfolder_regex="^\([a-zA-Z0-9 _\-\.\/]+)+$"
 
 txt_remotetarget_label="Target directory"
 txt_remotetarget_note="A target directory must be specified, headed by a <span class=\"text-blue\">/</span> (Slash). The use of further subdirectories is possible. If the target directory is on a Synology DiskStation, the desired shared folder must also be specified, e.g. <span class=\"text-blue\">/volume1/NetBackup</span>. If the target directory does not exist, it will be created during the first backup. Invalid characters in file or directory names are <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
@@ -257,7 +257,7 @@ txt_sshbuild_note="Hints for setting up an SSH connection"
 txt_ssh_label_user="SSH Username"
 txt_ssh_format_user="e.g. root"
 
-txt_ssh_label_address="Remote Server Address"
+txt_ssh_label_address="Server Address"
 txt_ssh_format_address="URL or IPv4 Server Address"
 txt_ssh_script_sshpush="Remote server is backup destination, then sshpush"
 txt_ssh_script_sshpull="Remote server is backup source, then sshpull"
@@ -267,10 +267,10 @@ txt_ssh_format_port="e.g. Port 22"
 
 txt_ssh_label_mac="MAC Address"
 txt_ssh_format_mac="e.g. 3D:F2:C9:A6:B3:4F"
-txt_ssh_info_mac="The MAC address only needs to be specified if the remote server is to be shut down automatically after the backup."
+txt_ssh_info_mac="The MAC address only needs to be entered if the remote server is to be started via WOL (Wake on LAN) before the backup."
 txt_ssh_regex_mac="^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$"
 
-txt_privatekey_label="Filename of the locally stored private key to be used"
+txt_privatekey_label="File name of the private SSH key to be used"
 txt_privatekey_note="If no alternative file name for the private key has been specified, the default name <strong>id_rsa</strong> is used. Invalid characters in file or folder names are <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
 txt_privatekey_format="e.g. /root/.ssh/id_rsa"
 txt_privatekey_regex="^[0-9a-zA-Z _-]+$"
@@ -338,13 +338,13 @@ txt_save_note_failed="A problem has occurred! The data shear job could not be cr
 
 # system.sh
 # --------------------------------------------------------------
-txt_import_export_title="Backing up and restoring the backup jobs"
+txt_import_export_title="Saving and restoring backup jobs"
 txt_import_export_info="<span class=\"text-dark\">Notes</span><br />All backup jobs are always backed up. Beim wiederherstellen werden bereits existierende Aufträge nur dann im Ziel überschrieben, wenn diese neueren Datums sind. Furthermore, it must be ensured that the storage location is specified <strong>without</strong> the path /usersettings/backupjobs when restoring."
 txt_targetpath_label="Backup path"
 txt_targetpath_info="Shared folder"
-txt_targetlocation_label="Location"
-txt_folderpath_label="Folder"
-txt_folderpath_format_path="/folder (without specifying the /usersettings folder)"
+txt_targetlocation_label="Target directory"
+txt_folderpath_label="Directory"
+txt_folderpath_format_path="...without specifying the subdirectories /usersettings/backupjobs"
 txt_error_occurred_note="An error has occurred"
 txt_export_true_note="The backup jobs have been exported"
 txt_import_true_note="The backup jobs have been imported"
@@ -353,5 +353,6 @@ txt_import_false_note="The backup jobs could not be imported"
 txt_folder_not_create_info="The location could not be created"
 txt_folder_not_found_info="The folder for the backup jobs could not be found"
 txt_share_not_found_note="The shared folder could not be found"
+
 
 

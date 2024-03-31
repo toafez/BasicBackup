@@ -22,6 +22,12 @@ else
 	echo ''${TIMESTAMP}' - Restore user settings failed.' >>/tmp/${SYNOPKG_PKGNAME}.history
 fi
 
+# Delete array declaration [var] from all backup configurations, as the array is declared in rsync.sh from version 0.8-400 onwards. 
+# -------------------------------------------------------------------------------------
+if [ -d "${SYNOPKG_PKGDEST}/ui/usersettings/backupjobs" ]; then
+	find "${SYNOPKG_PKGDEST}/ui/usersettings/backupjobs" -type f -print0 | xargs -0 -n 1 sed -i -e '/'"declare -A var"'/d'
+fi
+
 echo ''${TIMESTAMP}' - Package update completed.' >>/tmp/${SYNOPKG_PKGNAME}.history
 echo "" >>/tmp/${SYNOPKG_PKGNAME}.history
 

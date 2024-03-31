@@ -42,14 +42,13 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 	
 	# Überprüfen des App-Versionsstandes
 	# --------------------------------------------------------------
-	local_version=$(cat "/var/packages/${app_name}/INFO" | grep ^version | cut -d '"' -f2)
 	git_version=$(wget --no-check-certificate --timeout=60 --tries=1 -q -O- "https://raw.githubusercontent.com/toafez/${app_name}/main/INFO.sh" | grep ^version | cut -d '"' -f2)		
-	if [ -n "${git_version}" ] && [ -n "${local_version}" ]; then
-		if dpkg --compare-versions ${git_version} gt ${local_version}; then
+	if [ -n "${git_version}" ] && [ -n "${app_version}" ]; then
+		if dpkg --compare-versions ${git_version} gt ${app_version}; then
 			echo '
 			<div class="card">
 				<div class="card-header bg-danger-subtle"><strong>'${txt_update_available}'</strong></div>
-				<div class="card-body">'${txt_update_from}'<span class="text-danger"> '${local_version}' </span>'${txt_update_to}'<span class="text-success"> '${git_version}'</span>
+				<div class="card-body">'${txt_update_from}'<span class="text-danger"> '${app_version}' </span>'${txt_update_to}'<span class="text-success"> '${git_version}'</span>
 					<div class="float-end"> 
 						<a href="https://github.com/toafez/'${app_name}'/releases" class="btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;" target="_blank">Update</a>
 					</div>
@@ -75,7 +74,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 	# Überprüfen des rsync-Dienstes
 	# --------------------------------------------------------------
 	# rsync Status abfragen
-	rsyncd_status=$(systemctl is-enabled rsyncd.service) # activ= Dienst aktiv, unknown= Dienst deaktiert
+	rsyncd_status=$(systemctl is-enabled rsyncd.service)
 	if [[ "${rsyncd_status}" != "enabled" ]]; then
 		echo '
 		<div class="card">
@@ -87,7 +86,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 	# Überprüfen des ssh-Dienstes
 	# --------------------------------------------------------------
 	# SSH Status abfragen
-	sshd_status=$(systemctl is-enabled sshd.service)	# activ= Dienst aktiv, unknown= Dienst deaktiert
+	sshd_status=$(systemctl is-enabled sshd.service)
 	if [[ "${sshd_status}" != "enabled" ]]; then
 		echo '
 		<div class="card">
@@ -106,7 +105,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 			IFS="
 			"
 			for backupconfig in ${backupconfigs}; do
-				IFS="$backifs"
+				IFS="${backupIFS}"
 				[ -f "${backupconfig}" ] && source "${backupconfig}"
 				backupjob=$(echo "${backupconfig##*/}")
 				backupjob=$(echo "${backupjob%.*}")
@@ -119,7 +118,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 					<div class="accordion-header bg-light p-2">'
 
 						process="false"
-						is_active=$(cat "/var/packages/${app_name}/tmp/pid" | grep ^job | cut -d '"' -f2)
+						is_active=$(synogetkeyvalue /var/packages/${app_name}/tmp/pid job)
 						if [[ "${backupjob}" == "${is_active}" ]]; then
 							process="true"
 							echo '<meta http-equiv="refresh" content="10">'
@@ -339,13 +338,13 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 											<br />'
 											IFS='&'
 											read -r -a sources <<< "${var[sources]}"
-											IFS="${backupIFS}"
 											for source in "${sources[@]}"; do
 												source=$(echo "${source}" | sed 's/^[ \t]*//;s/[ \t]*$//')
 												echo '
 												<i class="bi bi-folder-fill text-warning ps-1" style="font-size: 1.2rem;"></i>
 												<span class="text-secondary"> '${source}'</span><br />'
 											done
+											IFS="${backupIFS}"
 											unset source
 											echo '
 										</td>

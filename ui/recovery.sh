@@ -33,13 +33,16 @@ function local_target()
 	while IFS= read -r volume; do
 		IFS="${backupIFS}"
 		[[ -z "${volume}" ]] && continue
+		mountpoint=$(mount | grep -E "${volume}")
+		dev=$(echo "${mountpoint}" | awk '{print $1}')
+		[[ -z "${dev}" ]] && continue
 		while IFS= read -r share; do
 			IFS="${backupIFS}"
 			[[ -z "${share}" ]] && continue
 			echo -n '<option value="'${share}'"'; \
 				[[ "${var[${2}]}" == "${share}" ]] && echo -n ' selected>' || echo -n '>'
-			echo ''${share}'</option>'
-		done <<< "$( find ${volume}/* -type d ! -path '*/lost\+found' ! -path '*/\@*' ! -path '*/\$RECYCLE.BIN' ! -path '*/Repair' ! -path '*/recovery Volume Information' -maxdepth 0 )"
+			echo ''${share##*/}'</option>'
+		done <<< "$( find ${volume}/* -type d ! -path '*/lost\+found' ! -path '*/\@*' ! -path '*/\$RECYCLE.BIN' ! -path '*/Repair' ! -path '*/System Volume Information' -maxdepth 0 )"
 	done <<< "$( find ${1} -maxdepth 0 -type d )"
 	unset volume share
 }
@@ -65,7 +68,7 @@ if [[ "${get[page]}" == "recovery" && "${get[section]}" == "start" ]]; then
 							<p class="text-secondary">'${txt_import_export_info}'</p><br />
 							<div class="row g-3 mb-3">
 								<div class="col">
-									<label for="configshare" class="form-label text-secondary">'${txt_targetpath_label}'</label>
+									<label for="configshare" class="form-label text-secondary">'${txt_localshare_label}'</label>
 									<select id="configshare" name="configshare" class="form-select form-select-sm" required>
 										<option value="" selected disabled>'${txt_targetshare_opt}'</option>'
 											local_target "/volume*" "configshare"
@@ -107,14 +110,20 @@ if [[ "${get[page]}" == "recovery" && "${var[section]}" == "export" ]]; then
 	[ -f "${post_request}" ] && rm "${post_request}"
 
 	if [ -d "${var[configshare]}" ]; then
-		if [ ! -d "${var[configshare]}${var[configfolder]}" ]; then
-			mkdir -p -m 755 "${var[configshare]}${var[configfolder]}/usersettings"
+
+		# Wenn der String mit einem Slash beginnt, entferne ihn
+		if echo "${var[configfolder]}" | grep -q '^/' ; then
+			var[configfolder]="${var[configfolder]:1}"
 		fi
 
-		if [ -d "${var[configshare]}${var[configfolder]}/usersettings" ]; then
+		if [ ! -d "${var[configshare]}/${var[configfolder]}" ]; then
+			mkdir -p -m 755 "${var[configshare]}/${var[configfolder]}/usersettings"
+		fi
 
-			cp -ar /var/packages/BasicBackup/target/ui/usersettings/backupjobs "${var[configshare]}${var[configfolder]}"/usersettings/backupjobs/
-			chmod 777 -R "${var[configshare]}${var[configfolder]}"/usersettings/backupjobs
+		if [ -d "${var[configshare]}/${var[configfolder]}/usersettings" ]; then
+
+			cp -ar /var/packages/BasicBackup/target/ui/usersettings/backupjobs "${var[configshare]}/${var[configfolder]}"/usersettings/backupjobs/
+			chmod 777 -R "${var[configshare]}/${var[configfolder]}"/usersettings/backupjobs
 			exit_cp=${?}
 
 			if [[ ${exit_cp} -eq 0 ]]; then
@@ -139,9 +148,14 @@ if [[ "${get[page]}" == "recovery" && "${var[section]}" == "import" ]]; then
 
 	if [ -d "${var[configshare]}" ]; then
 
-		if [ -d "${var[configshare]}${var[configfolder]}/usersettings" ]; then
+		# Wenn der String mit einem Slash beginnt, entferne ihn
+		if echo "${var[configfolder]}" | grep -q '^/' ; then
+			var[configfolder]="${var[configfolder]:1}"
+		fi
 
-			cp -ru "${var[configshare]}${var[configfolder]}"/usersettings/backupjobs /var/packages/BasicBackup/target/ui/usersettings/
+		if [ -d "${var[configshare]}/${var[configfolder]}/usersettings" ]; then
+
+			cp -ru "${var[configshare]}/${var[configfolder]}"/usersettings/backupjobs /var/packages/BasicBackup/target/ui/usersettings/
 			exit_cp=${?}
 
 			if [[ ${exit_cp} -eq 0 ]]; then
