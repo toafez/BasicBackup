@@ -525,6 +525,13 @@ if [[ ${exit_code} -eq 0 ]]; then
 	# Configure RSync options
 	#---------------------------------------------------------------------
 	dirdate=$(date "+%Y-%m-%d_%Hh-%Mm-%Ss")
+	# If the 3rd party package -SynoCli Monitor Tools- of the -SynoCommunity- is installed, then use the tool ionice...
+	if [ -f /usr/local/bin/ionice ]; then
+		ionice="/usr/local/bin/ionice -c 3"
+	# ...else... use Bandwidth speed limit
+	elif [ -n "${var[speedlimit]}" ] && [[ "${var[speedlimit]}" -gt 0 ]]; then
+		speedlimit="--bwlimit=${var[speedlimit]}"
+	fi
 	excluded="--delete-excluded --exclude=@eaDir/*** --exclude=@Logfiles/*** --exclude=#recycle/*** --exclude=#snapshot/*** --exclude=.DS_Store/***"
 
 	#---------------------------------------------------------------------
@@ -590,15 +597,16 @@ if [[ ${exit_code} -eq 0 ]]; then
 		# If the connectiontype is local
 		if [[ "${connectiontype}" == "local" ]]; then
 			# Local to Local:  rsync [option]... [source]... target
+			${ionice} \
 			rsync \
 			${var[syncopt]} \
+			${speedlimit} \
 			${dryrun} \
 			${verbose} \
 			--stats \
 			--delete \
 			${backup} \
 			${excluded} \
-			${perms} \
 			"${source}" "${target}" > >(tee -a "${script_log}") 2>&1
 			rsync_exit_code=${?}
 		fi
@@ -611,15 +619,16 @@ if [[ ${exit_code} -eq 0 ]]; then
 			# --protect-args (-s) is used. Alternatively, folder and file names 
 			# can also be set in additional single quotes. 
 			# Example: either ... rsync -s "${source}" ... or ... "'${source}'"
+			${ionice} \
 			rsync -s \
 			${var[syncopt]} \
+			${speedlimit} \
 			${dryrun} \
 			${verbose} \
 			--stats \
 			--delete \
 			${backup} \
 			${excluded} \
-			${perms} \
 			-e "ssh -p ${var[sshport]} -i ~/.ssh/${var[privatekey]}" ${var[sshuser]}@${var[sshpull]}:"${source}" "${target}" > >(tee -a "${script_log}") 2>&1
 			rsync_exit_code=${?}
 		fi
@@ -632,8 +641,10 @@ if [[ ${exit_code} -eq 0 ]]; then
 			# --protect-args (-s) is used. Alternatively, folder and file names 
 			# can also be set in additional single quotes. 
 			# Example: either ... rsync -s "${target}" ... or ... "'${target}'"
+			${ionice} \
 			rsync -s \
 			${var[syncopt]} \
+			${speedlimit} \
 			${dryrun} \
 			${verbose} \
 			--stats \

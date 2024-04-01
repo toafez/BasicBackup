@@ -42,24 +42,24 @@ if [ "${gui_lang}" == "ger" ]; then
 				<ul>
 					<li class="mb-3">
 						<strong>Push Backup, auch to SSH genannt.</strong><br />
-						Hierbei werden die zu sichernden Daten von der DiskStation in Richtung des rsync-kompatiblen Remote Servers übertragen und gesichert.
+						Hierbei werden die zu sichernden Daten von der Synology NAS in Richtung des rsync-kompatiblen Remote Servers übertragen und gesichert.
 					</li>
 					<li>
 						<strong>Pull  Backup, auch from SSH genannt.</strong><br />
-						Hierbei werden die zu sichernden Daten von einem rsync-kompatiblen Remote Server, durch die DiskStation abgeholt und lokal gesichert.
+						Hierbei werden die zu sichernden Daten von einem rsync-kompatiblen Remote Server, durch die Synology NAS abgeholt und lokal gesichert.
 					</li>
 				</ul>
 			</div>
 			<p>
 				Im Folgenden wird nun der Weg zum Aufbau einer SSH-Ordnerstruktur sowie das erzeugen eines privaten- und öffentlichen RSA-Schlüssel beschrieben.
 			</p>
-			<h4 class="mt-4">Anmeldung auf der lokalen DiskStation</h4>
+			<h4 class="mt-4">Anmeldung auf der lokalen Synology NAS</h4>
 			<div class="ps-4">
 				<div class="alert alert-danger" role="alert">
 					<strong>Hinweis 1:</strong><br />Aktiviere im Vorfeld bitte den <strong>SSH Terminal-Dienst</strong>. Zum aktivieren des SSH Terminal-Dienstes navigiere zu <strong>DSM-Hauptmenü > Systemsteuerung > Terminal & SNMP</strong> und wechsel dort in den Reiter <strong>> Terminal</strong>. Aktivere die Checkbox <strong>SSH-Dienst aktivieren</strong>.<br /><br /><strong>Hinweis 2:</strong><br />Aktiviere im Vorfeld bitte auch den <strong>rsync-Dienst</strong>. Zum <strong>aktivieren des rsync Dienstes</strong> navigiere zu <strong>DSM-Hauptmenü > Systemsteuerung > Dateidienste</strong> und wechsel dort in den Reiter <strong>> rsync</strong>. Aktivere die Checkbox <strong>rsync Dienst aktivieren</strong>. Als SSH-Verschlüsselungsport wird standardmäßig der Port 22 verwendet, welchen du bei Bedarf anpassen kannst.
 				</div>
 				<p class="mt-3">
-					Stelle unter Verwendung deiner Zugangsdaten über z.B. PuTTY oder direkt über einen Terminal eine SSH-Verbindung zum Terminal deiner lokalen Diskstation her. Achte darauf, das es nur Benutzern aus der Gruppe der Administratoren erlaubt ist, Zugriff per SSH zu erhalten. Im folgenden verwenden wir Beispielhaft diese Zugangsdaten.<br />
+					Stelle unter Verwendung deiner Zugangsdaten über z.B. PuTTY oder direkt über einen Terminal eine SSH-Verbindung zum Terminal deiner lokalen Synology NAS her. Achte darauf, das es nur Benutzern aus der Gruppe der Administratoren erlaubt ist, Zugriff per SSH zu erhalten. Im folgenden verwenden wir Beispielhaft diese Zugangsdaten.<br />
 					<pre class="shadow-none p-1 mb-0 bg-light rounded">Benutzername : <span class="text-danger">admin</span></pre>
 					<pre class="shadow-none p-1 mb-0 bg-light rounded">Hostname     : <span class="text-danger">DiskStation</span></pre>
 					<pre class="shadow-none p-1 mb-0 bg-light rounded">IP-Adresse   : <span class="text-danger">192.168.2.10</span></pre>
@@ -77,7 +77,7 @@ if [ "${gui_lang}" == "ger" ]; then
 					<pre class="shadow-none p-1 mb-0 bg-light rounded"><span class="text-success">tux@LinuxDistro</span>:<span class="text-primary">~</span># ssh -p <span class="text-danger">22</span> <span class="text-danger">admin</span>@<span class="text-danger">192.168.2.10</span></pre>
 				</p>
 				<p class="mt-3">
-					Nachdem die Verbindung zu deiner lokalen DiskStation aufgebaut wurde, wirst du darum gebeten, deine Zugangsdaten einzugeben.
+					Nachdem die Verbindung zu deiner lokalen Synology NAS aufgebaut wurde, wirst du darum gebeten, deine Zugangsdaten einzugeben.
 				</p>
 				<pre class="shadow-none p-1 mb-0 bg-light rounded">login as: <span class="text-danger">admin</span></pre>
 				<pre class="shadow-none p-1 mb-0 bg-light rounded">admin@192.168.2.10`s password:</pre>
@@ -94,7 +94,7 @@ if [ "${gui_lang}" == "ger" ]; then
 				<div class="alert alert-danger" role="alert">
 					<strong>Wichtiger Hinweis:</strong> Das Root-Konto ist nur für besondere sowie systemnahe Verwaltungsaufgaben und nicht für alltägliche Aufgaben des Systems gedacht, da es mit weitreichendsten Zugriffsrechten ausgestattet ist. Daher soll an dieser Stelle noch einmal explizit darauf hingewiesen werden, das DU alleine die Verantwortung für alle nachfolgenden Schritte trägst.
 					<p class="mt-3">
-						Jedoch muss bereits im DSM-Aufgabenplaner zur Ausführung eines Basic Backup Datensicherungsauftrages, die ausgelöste- bzw. geplante Aufgabe als root ausgeführt werden. Daher muss die Einrichtung zum Aufbau einer Remote Server Verbindung ebenfalls über das Root-Konto erfolgen. Die spätere Verbindung zwischen der lokalen Diskstation und dem gewünschten Remote Server, zur Durchführung einer Datensicherung, kann bzw. sollte jedoch über einen abweichenden Benutzer mit eingeschränkten Benutzerrechten erfolgen.
+						Jedoch muss bereits im DSM-Aufgabenplaner zur Ausführung eines Basic Backup Datensicherungsauftrages, die ausgelöste- bzw. geplante Aufgabe als root ausgeführt werden. Daher muss die Einrichtung zum Aufbau einer Remote Server Verbindung ebenfalls über das Root-Konto erfolgen. Die spätere Verbindung zwischen der lokalen Synology NAS und dem gewünschten Remote Server, zur Durchführung einer Datensicherung, kann bzw. sollte jedoch über einen abweichenden Benutzer mit eingeschränkten Benutzerrechten erfolgen.
 					</p>
 				</div>
 				<p>
@@ -110,7 +110,7 @@ if [ "${gui_lang}" == "ger" ]; then
 					Als erstes wird nun im Benutzer-Home-Ordner von <span class="text-danger">root</span> ein neuer, versteckter Ordner angelegt.
 				</p>
 				<div class="alert alert-danger" role="alert">
-					<strong>Hinweis:</strong> Im Allgemeinen befindet sich auf allen Linux  Distributionen der Home-Ordner des Systembenutzers root im Verzeichnis <strong>/root</strong> . Alle anderen Benutzer werden auf einer  <strong>Synology DiskStation</strong> im Verzeichnis <strong>/volume[x]/homes</strong> unter Verwendung ihres jeweiligen Benutzernamens gruppiert. Das System leitet aus diesem Verzeichnis für jeden am System angemeldeten Benutzer einen virtuellen Benutzer-Home-Ordner ab, der sich unter <strong>/volume1/home</strong> befindet und stellt diesen zur Verfügung. Andere Linux Distributionen verwenden hier in der Regel den Ordner <strong>/home/[BENUTZERNAME]</strong>. Durch die Verwendung von <strong>~/</strong> verweist das System aber immer auf den Benutzer-Home-Ordner <strong>des aktuell angemeldeten SSH-Benutzers.</strong>
+					<strong>Hinweis:</strong> Im Allgemeinen befindet sich auf allen Linux  Distributionen der Home-Ordner des Systembenutzers root im Verzeichnis <strong>/root</strong> . Alle anderen Benutzer werden auf einer <strong>Synology NAS</strong> im Verzeichnis <strong>/volume[x]/homes</strong> unter Verwendung ihres jeweiligen Benutzernamens gruppiert. Das System leitet aus diesem Verzeichnis für jeden am System angemeldeten Benutzer einen virtuellen Benutzer-Home-Ordner ab, der sich unter <strong>/volume1/home</strong> befindet und stellt diesen zur Verfügung. Andere Linux Distributionen verwenden hier in der Regel den Ordner <strong>/home/[BENUTZERNAME]</strong>. Durch die Verwendung von <strong>~/</strong> verweist das System aber immer auf den Benutzer-Home-Ordner <strong>des aktuell angemeldeten SSH-Benutzers.</strong>
 				</div>
 				<pre class="shadow-none p-2 mb-1 bg-light rounded"><span class="text-success">root@DiskStation</span>:<span class="text-primary">~</span># mkdir -p ~/.ssh</pre>
 				<ul>
@@ -199,7 +199,7 @@ if [ "${gui_lang}" == "ger" ]; then
 				<pre class="shadow-none p-1 mb-0 bg-light rounded"><span class="text-success">root@DiskStation</span>:<span class="text-primary">~</span># chmod 0600 ~/.ssh/authorized_keys</pre>
 			</div>
 			<p class="mt-3">
-				Die SSH-Ordnerstruktur für diese DiskStation ist nun eingerichtet.
+				Die SSH-Ordnerstruktur für diese Synology NAS ist nun eingerichtet.
 			</p>
 			<p class="text-end"><br />
 				<button type="button" class="btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;" role="button" data-bs-dismiss="modal">'${txt_button_Close}'</button>
@@ -226,18 +226,18 @@ else
 				<ul>
 					<li class="mb-3">
 						<strong>Push backup, also called to SSH.</strong><br />
-						Here, the data to be backed up is transferred from DiskStation towards the rsync-compatible remote server and backed up.
+						Here, the data to be backed up is transferred from Synology NAS towards the rsync-compatible remote server and backed up.
 					</li>
 					<li>
 						<strong>Pull backup, also called from SSH.</strong><br />
-						Here, the data to be backed up is fetched from an rsync-compatible remote server, through DiskStation and backed up locally.
+						Here, the data to be backed up is fetched from an rsync-compatible remote server, through Synology NAS and backed up locally.
 					</li>
 				</ul>
 			</div>
 			<p>
 				The following now describes the way to build an SSH folder structure and generate a private and public RSA key.
 			</p>
-			<h4 class="mt-4">Logging in to the local DiskStation</h4>
+			<h4 class="mt-4">Logging in to the local Synology NAS</h4>
 			<div class="ps-4">
 				<div class="alert alert-danger" role="alert">
 					<strong> Note 1: </strong> <br /> Please activate the <strong> SSH terminal service </strong> in advance. To activate the SSH terminal service, go to <strong> DSM main menu> Control panel> Terminal & SNMP </strong> and switch to the <strong>> Terminal </strong> tab. Activate the checkbox <strong> Activate SSH service </strong>. <br /> <br /> <strong> Note 2: </strong> <br /> Please activate the <strong> rsync- Service </strong>. To <strong> activate the rsync service </strong> go to <strong> DSM main menu> Control Panel> File Services </strong> and switch to the <strong>> rsync </strong> tab. Activate the checkbox <strong> Activate rsync service </strong>. Port 22 is used by default as the SSH encryption port, which you can adjust if necessary. <br /> <br /> <strong> Note 3: </strong> <br /> Please also activate the <strong> in advance User home service </strong>, since the required SSH connection data is stored in the corresponding user home folder of the logged in SSH user. To activate the user home service, go to <strong> DSM main menu> Control Panel> Users and Groups </strong> and switch to the <strong>> Advanced </strong> tab. Activate the checkbox <strong> Activate user home service </strong> under the menu item <strong> User base </strong>.
@@ -261,7 +261,7 @@ else
 					<pre class="shadow-none p-1 mb-0 bg-light rounded"><span class="text-success">tux@LinuxDistro</span>:<span class="text-primary">~</span># ssh -p <span class="text-danger">22</span> <span class="text-danger">admin</span>@<span class="text-danger">192.168.2.10</span></pre>
 				</p>
 				<p class="mt-3">
-					After the connection to your local DiskStation is established, you will be asked to enter your credentials.
+					After the connection to your local Synology NAS is established, you will be asked to enter your credentials.
 				</p>
 				<pre class="shadow-none p-1 mb-0 bg-light rounded">login as: <span class="text-danger">admin</span></pre>
 				<pre class="shadow-none p-1 mb-0 bg-light rounded">admin@192.168.2.10`s password:</pre>
@@ -294,7 +294,7 @@ else
 					First, a new hidden folder is now created in the user home folder of <span class="text-danger">root</span>
 				</p>
 				<div class="alert alert-danger" role="alert">
-					<strong>Note:</strong> In general, on all Linux distributions, the home folder of the root system user is located in the <strong>/root</strong> directory. All other users are grouped on a  <strong>Synology DiskStation</strong> in the <strong>/volume[x]/homes</strong> directory using the respective user name. The system derives a virtual user home folder from this directory for each user logged on to the system, which is located under <strong>/volume1/home</strong> and makes it available. Other Linux distributions usually use the folder <strong>/home/[USERNAME]</strong> here. By using <strong>~/</strong>, however, the system always points to the user home folder <strong>of the SSH user currently logged in.</strong>
+					<strong>Note:</strong> In general, on all Linux distributions, the home folder of the root system user is located in the <strong>/root</strong> directory. All other users are grouped on a  <strong>Synology NAS</strong> in the <strong>/volume[x]/homes</strong> directory using the respective user name. The system derives a virtual user home folder from this directory for each user logged on to the system, which is located under <strong>/volume1/home</strong> and makes it available. Other Linux distributions usually use the folder <strong>/home/[USERNAME]</strong> here. By using <strong>~/</strong>, however, the system always points to the user home folder <strong>of the SSH user currently logged in.</strong>
 				</div>
 				<pre class="shadow-none p-2 mb-1 bg-light rounded"><span class="text-success">root@DiskStation</span>:<span class="text-primary">~</span># mkdir -p ~/.ssh</pre>
 				<ul>
@@ -383,7 +383,7 @@ else
 				<pre class="shadow-none p-1 mb-0 bg-light rounded"><span class="text-success">root@DiskStation</span>:<span class="text-primary">~</span># chmod 0600 ~/.ssh/authorized_keys</pre>
 			</div>
 			<p class="mt-3">
-				The SSH folder structure for this DiskStation is now set up.
+				The SSH folder structure for this Synology NAS is now set up.
 			</p>
 			<p class="text-end"><br />
 				<button type="button" class="btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;" role="button" data-bs-dismiss="modal">'${txt_button_Close}'</button>

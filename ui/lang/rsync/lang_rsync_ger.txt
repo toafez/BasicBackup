@@ -111,7 +111,7 @@ txt_rsync_25_log="### Rsync meldete den Exit-Code 25: Das Limit --max-delete sto
 txt_rsync_30_log="### Rsync meldete den Exit-Code 30: Zeitueberschreitung beim Senden/Empfangen von Daten"
 txt_rsync_35_log="### Rsync meldete den Exit-Code 35: Zeitueberschreitung beim Warten auf eine Daemon-Verbindung"
 txt_rsync_43_log="### Rsync meldete den Exit-Code 43:<br />### Ueberpruefen Sie, ob der Remote-Server offline ist, ob der Rsync-Dienst gestartet wurde und ob der Port korrekt eingestellt wurde"
-txt_rsync_44_log="### Rsync meldete den Exit-Code 44:<br />### Falsches Passwort. Pruefen Sie, ob das Standardkonto -admin- deaktiviert ist. Dieses muss auf der<br />Quell- und Ziel-DiskStation aktiviert sein, wenn root als SSH-Benutzer verwendet wird."
+txt_rsync_44_log="### Rsync meldete den Exit-Code 44:<br />### Falsches Passwort. Pruefen Sie, ob das Standardkonto -admin- deaktiviert ist. Dieses muss auf der<br />Quell- und Ziel- Synology NAS aktiviert sein, wenn root als SSH-Benutzer verwendet wird."
 txt_rsync_127_log="### Rsync meldete den Exit-Code 127: Pruefen Sie, ob Sie ein rsync-Binary auf Ihrem System installiert haben"
 txt_rsync_255_log="### Rsync meldete den Exit-Code 255:<br />### Vermutlich hat rsync den Exit Code eines Befehls weitergegeben, den es fuer die Verbindung verwendet hat - normalerweise SSH"
 
@@ -133,5 +133,6 @@ txt_email_fail="Das Versenden des Datensicherungsprotokolls per E-Mail ist fehlg
 
 
 txt_line_separator="-------------------------------------------------------------------------------------------------------------------"
+
 
 

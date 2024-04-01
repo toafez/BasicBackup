@@ -39,9 +39,9 @@ if [ "${gui_lang}" == "ger" ]; then
 				<strong>Hinweis:</strong> Vor einem ersten Verbindungstest solltest du dich vergewissern, das auf dem zu verbindenden <strong>Remote Server</strong> im Vorfeld die <strong>SSH Ordnerstruktur</strong> eingerichtet wurde. Sind alle Vorbereitungen getroffen, steht einem ersten Verbindungstest nichts mehr im Wege.
 			</div>
 
-			<h4 class="mt-4">Anmeldung auf der lokalen DiskStation</h4>
+			<h4 class="mt-4">Anmeldung auf der lokalen Synology NAS</h4>
 			<p>
-				Beginne mit der Anmeldung auf der lokalen DiskStation und dem Wechsel zum Root-Konto
+				Beginne mit der Anmeldung auf der lokalen Synology NAS und dem Wechsel zum Root-Konto
 			</p>
 			<div class="ps-4">
 				<pre class="shadow-none p-1 mb-0 bg-light rounded"><span class="text-success">tux@LinuxDistro</span>:<span class="text-primary">~</span># ssh -p <span class="text-danger">22</span> <span class="text-danger">admin</span>@<span class="text-danger">192.168.2.10</span></pre>
@@ -52,10 +52,10 @@ if [ "${gui_lang}" == "ger" ]; then
 				<pre class="shadow-none p-1 mb-0 bg-light rounded"><span class="text-success">root@DiskStation</span>:<span class="text-primary">~</span>#</pre>
 			</div>
 
-			<h4 class="mt-4">Bekanntmachung deiner DiskStation mit deinem Remote Server</h4>
+			<h4 class="mt-4">Bekanntmachung deiner Synology NAS mit deinem Remote Server</h4>
 			<div class="ps-4">
 				<div class="alert alert-danger" role="alert">
-					<strong>Hinweis:</strong> Der nachfolgend beschriebene sogenannte <strong>Handshake</strong> wird bei jedem Erstkontakt mit einem bis dato unbekannten Remote Server durchgeführt. Hierbei muss der Benutzer den Verbindungsvorgang <strong>aktiv bestätigen</strong> Nach einer positiven Bestätigung wird ein <strong>Fingerprint</strong> des Remote Servers in der lokalen Datei <strong>~/.ssh/known_hosts</strong> deiner DiskStation gespeichert. Der Fingerprint basiert dabei auf dem öffentlichen Schlüssel des Remote Servers, der in der Datei <strong>~/.ssh/[FILENAME].pub</strong> enthalten ist. Im Allgemeinen dient der Fingerprint zur einfachen Identifizierung bzw. Verifizierung des Rechners, mit dem du dich verbinden willst.
+					<strong>Hinweis:</strong> Der nachfolgend beschriebene sogenannte <strong>Handshake</strong> wird bei jedem Erstkontakt mit einem bis dato unbekannten Remote Server durchgeführt. Hierbei muss der Benutzer den Verbindungsvorgang <strong>aktiv bestätigen</strong> Nach einer positiven Bestätigung wird ein <strong>Fingerprint</strong> des Remote Servers in der lokalen Datei <strong>~/.ssh/known_hosts</strong> deiner Synology NAS gespeichert. Der Fingerprint basiert dabei auf dem öffentlichen Schlüssel des Remote Servers, der in der Datei <strong>~/.ssh/[FILENAME].pub</strong> enthalten ist. Im Allgemeinen dient der Fingerprint zur einfachen Identifizierung bzw. Verifizierung des Rechners, mit dem du dich verbinden willst.
 				</div>
 				<p class="mt-3">
 					<strong>Praxis Beispiel</strong><br />
@@ -79,7 +79,7 @@ if [ "${gui_lang}" == "ger" ]; then
 				</p>
 				<pre class="shadow-none p-2 mb-1 bg-light rounded"><span class="text-success">user@RemoteServer</span>:<span class="text-primary">~</span>$</pre>
 				<p class="mt-3">
-					Durch die Eingabe des Befehls <strong>exit</strong>, wird die SSH Verbindung zum Remote Server wieder getrennt und du kehrst auf das Terminal deiner DiskStation zurück.
+					Durch die Eingabe des Befehls <strong>exit</strong>, wird die SSH Verbindung zum Remote Server wieder getrennt und du kehrst auf das Terminal deiner Synology NAS zurück.
 				</p>
 					<pre class="shadow-none p-1 mb-0 bg-light rounded"><span class="text-success">user@RemoteServer</span>:<span class="text-primary">~</span>$ exit</pre>
 					<pre class="shadow-none p-1 mb-0 bg-light rounded">logout</pre>
@@ -89,16 +89,16 @@ if [ "${gui_lang}" == "ger" ]; then
 			<h4 class="mt-4">Austausch des öffentlichen RSA-Schlüssels [FILENAME].pub</h4>
 			<div class="ps-4">
 				<p>
-					Damit du zukünftig eine passwortlose SSH Verbindung mit deinem Remote Server aufbauen kannst, ist es erforderlich, den <strong>öffentlichen Schlüssel</strong> deiner lokalen DiskStation in der Datei <strong>authorized_keys</strong> deines Remote Servers zu hinterlegen. Da auf dem Remote Server die SSH Ordnerstruktur bereits vorhanden sein sollte, kann dies mit dem nachfolgenden Befehl einfach durchgeführt werden.
+					Damit du zukünftig eine passwortlose SSH Verbindung mit deinem Remote Server aufbauen kannst, ist es erforderlich, den <strong>öffentlichen Schlüssel</strong> deiner lokalen Synology NAS in der Datei <strong>authorized_keys</strong> deines Remote Servers zu hinterlegen. Da auf dem Remote Server die SSH Ordnerstruktur bereits vorhanden sein sollte, kann dies mit dem nachfolgenden Befehl einfach durchgeführt werden.
 				</p>
 				<div class="alert alert-danger" role="alert">
-					<strong>Hinweis:</strong> Durch den einseitigen Handshake kann eine Verbindung auch nur von deiner DiskStation aus, auf deinen Remote Server erfolgen. Der umgekehrte Weg, also der Aufbau einer Verbindung, ausgehend von deinem Remote Server, wird daher so lange scheitern, bis du den Handshake in die Gegenrichtung ausgeführt hast. Diese Verbindungsart wird für die Verwendung von Basic Backup aber nicht benötigt.
+					<strong>Hinweis:</strong> Durch den einseitigen Handshake kann eine Verbindung auch nur von deiner Synology NAS aus, auf deinen Remote Server erfolgen. Der umgekehrte Weg, also der Aufbau einer Verbindung, ausgehend von deinem Remote Server, wird daher so lange scheitern, bis du den Handshake in die Gegenrichtung ausgeführt hast. Diese Verbindungsart wird für die Verwendung von Basic Backup aber nicht benötigt.
 				</div>
 				<strong>Syntax</strong>
 				<pre class="shadow-none p-2 mb-1 bg-light rounded">cat ~/.ssh/[<span class="text-danger">FILENAME</span>].pub | ssh -p [<span class="text-danger">PORT</span>] [<span class="text-danger">USERNAME</span>]@[<span class="text-danger">SERVER-ADDRESS</span>] "cat >> ~/.ssh/authorized_keys"</pre>
 				<p class="mt-3">
 					<strong>Praxis Beispiel</strong><br />
-					Als Beispiel verwenden wir wieder die bereits bekannten Zugangsdaten zu unsrem Remote Server. Nachdem du den nachfolgenden Befehl mit der Return Taste bestätigt hast, wirst du aufgefordert, das Passwort für den Remote Servers anzugeben, damit die Verbindung aufgebaut werden kann. Dies wird das letzte mal sein, das du dein Passwort eingeben musst. Bestätige die Passworteingabe wieder mit der Return Taste. Am Ende der Aktion solltest du dich wieder im Terminal deiner lokalen DiskStation befinden.
+					Als Beispiel verwenden wir wieder die bereits bekannten Zugangsdaten zu unsrem Remote Server. Nachdem du den nachfolgenden Befehl mit der Return Taste bestätigt hast, wirst du aufgefordert, das Passwort für den Remote Servers anzugeben, damit die Verbindung aufgebaut werden kann. Dies wird das letzte mal sein, das du dein Passwort eingeben musst. Bestätige die Passworteingabe wieder mit der Return Taste. Am Ende der Aktion solltest du dich wieder im Terminal deiner lokalen Synology NAS befinden.
 				</p>
 				<pre class="shadow-none p-1 mb-0 bg-light rounded"><span class="text-success">root@DiskStation</span>:<span class="text-primary">~</span># cat ~/.ssh/<span class="text-danger">id_rsa</span>.pub | ssh -p <span class="text-danger">22</span> <span class="text-danger">user</span>@<span class="text-danger">192.168.2.20</span> "cat >> ~/.ssh/authorized_keys"</pre>
 				<pre class="shadow-none p-1 mb-0 bg-light rounded"> user@192.168.2.20`s password:</pre>
@@ -113,7 +113,7 @@ if [ "${gui_lang}" == "ger" ]; then
 				</p>
 				<pre class="shadow-none p-2 mb-1 bg-light rounded"><span class="text-success">user@RemoteServer</span>:<span class="text-primary">~</span>$ exit</pre>
 				<p class="mt-3">
-					Du hast nun erfolgreich deine lokale DiskStation mit deinem Remote Server bekannt gemacht und somit eine grundlegende Voraussetzung geschaffen, ein Pull- oder Push Backup auszuführen.
+					Du hast nun erfolgreich deine lokale Synology NAS mit deinem Remote Server bekannt gemacht und somit eine grundlegende Voraussetzung geschaffen, ein Pull- oder Push Backup auszuführen.
 				</p>
 				<p class="text-end"><br />
 					<button type="button" class="btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;" role="button" data-bs-dismiss="modal">'${txt_button_Close}'</button>
@@ -137,9 +137,9 @@ else
 				<strong>Note:</strong> Before an initial connection test, make sure that the <strong>SSH folder structure</strong> has been set up in advance on the <strong>Remote Server</strong> to be connected. Once all preparations have been made, there is nothing standing in the way of a first connection test.
 			</div>
 
-			<h4 class="mt-4">Logging on to the local DiskStation</h4>
+			<h4 class="mt-4">Logging on to the local Synology NAS</h4>
 			<p>
-				Start by logging in to the local DiskStation and switching to the root account
+				Start by logging in to the local Synology NAS and switching to the root account
 			</p>
 			<div class="ps-4">
 				<pre class="shadow-none p-1 mb-0 bg-light rounded"><span class="text-success">tux@LinuxDistro</span>:<span class="text-primary">~</span># ssh -p <span class="text-danger">22</span> <span class="text-danger">admin</span>@<span class="text-danger">192.168.2.10</span></pre>
@@ -150,10 +150,10 @@ else
 				<pre class="shadow-none p-1 mb-0 bg-light rounded"><span class="text-success">root@DiskStation</span>:<span class="text-primary">~</span>#</pre>
 			</div>
 
-			<h4 class="mt-4">Announcing your DiskStation to your remote server</h4>
+			<h4 class="mt-4">Announcing your Synology NAS to your remote server</h4>
 			<div class="ps-4">
 				<div class="alert alert-danger" role="alert">
-					<strong>Note:</strong> The so-called <strong>handshake</strong> described below is performed each time the user makes initial contact with a previously unknown remote server. Here, the user must <strong>actively confirm</strong> the connection process. After a positive confirmation, a <strong>fingerprint</strong> of the remote server is stored in the local <strong>~/.ssh/known_hosts</strong> file of your DiskStation. The fingerprint is based on the remote server`s public key, which is contained in the <strong>~/.ssh/[FILENAME].pub</strong> file. In general, the fingerprint is used to easily identify or verify the computer you are trying to connect to.
+					<strong>Note:</strong> The so-called <strong>handshake</strong> described below is performed each time the user makes initial contact with a previously unknown remote server. Here, the user must <strong>actively confirm</strong> the connection process. After a positive confirmation, a <strong>fingerprint</strong> of the remote server is stored in the local <strong>~/.ssh/known_hosts</strong> file of your Synology NAS. The fingerprint is based on the remote server`s public key, which is contained in the <strong>~/.ssh/[FILENAME].pub</strong> file. In general, the fingerprint is used to easily identify or verify the computer you are trying to connect to.
 				</div>
 				<p class="mt-3">
 					<strong>Practical example</strong><br />
@@ -177,7 +177,7 @@ else
 				</p>
 				<pre class="shadow-none p-2 mb-1 bg-light rounded"><span class="text-success">user@RemoteServer</span>:<span class="text-primary">~</span>$</pre>
 				<p class="mt-3">
-					By entering the command <strong>exit</strong>, the SSH connection to the remote server will be disconnected again and you will return to the terminal of your DiskStation.
+					By entering the command <strong>exit</strong>, the SSH connection to the remote server will be disconnected again and you will return to the terminal of your Synology NAS.
 				</p>
 					<pre class="shadow-none p-1 mb-0 bg-light rounded"><span class="text-success">user@RemoteServer</span>:<span class="text-primary">~</span>$ exit</pre>
 					<pre class="shadow-none p-1 mb-0 bg-light rounded">logout</pre>
@@ -187,16 +187,16 @@ else
 			<h4 class="mt-4">RSA public key exchange [FILENAME].pub</h4>
 			<div class="ps-4">
 				<p>
-					In order to establish a passwordless SSH connection with your remote server in the future, it is necessary to store the <strong>public key</strong> of your local DiskStation in the <strong>authorized_keys</strong> file of your remote server. Since the SSH folder structure should already exist on the remote server, this can be easily done with the following command.
+					In order to establish a passwordless SSH connection with your remote server in the future, it is necessary to store the <strong>public key</strong> of your local Synology NAS in the <strong>authorized_keys</strong> file of your remote server. Since the SSH folder structure should already exist on the remote server, this can be easily done with the following command.
 				</p>
 				<div class="alert alert-danger" role="alert">
-					<strong>Note:</strong> Due to the one-way handshake, a connection can also only be made from your DiskStation, to your remote server. The reverse way, i.e. establishing a connection starting from your remote server, will therefore fail until you have performed the handshake in the opposite direction. However, this type of connection is not required for using Basic Backup.
+					<strong>Note:</strong> Due to the one-way handshake, a connection can also only be made from your Synology NAS, to your remote server. The reverse way, i.e. establishing a connection starting from your remote server, will therefore fail until you have performed the handshake in the opposite direction. However, this type of connection is not required for using Basic Backup.
 				</div>
 				<strong>Syntax</strong>
 				<pre class="shadow-none p-2 mb-1 bg-light rounded">cat ~/.ssh/[<span class="text-danger">FILENAME</span>].pub | ssh -p [<span class="text-danger">PORT</span>] [<span class="text-danger">USERNAME</span>]@[<span class="text-danger">SERVER-ADDRESS</span>] "cat >> ~/.ssh/authorized_keys"</pre>
 				<p class="mt-3">
 					<strong>Practice example</strong><br />
-					As an example we use again the already known access data to our remote server. After confirming the following command with the return key, you will be asked to enter the password for the remote server so that the connection can be established. This will be the last time you have to enter your password. Confirm the password entry again with the Return key. At the end of the action, you should be back in the terminal of your local DiskStation.
+					As an example we use again the already known access data to our remote server. After confirming the following command with the return key, you will be asked to enter the password for the remote server so that the connection can be established. This will be the last time you have to enter your password. Confirm the password entry again with the Return key. At the end of the action, you should be back in the terminal of your local Synology NAS.
 				</p>
 				<pre class="shadow-none p-1 mb-0 bg-light rounded"><span class="text-success">root@DiskStation</span>:<span class="text-primary">~</span># cat ~/.ssh/<span class="text-danger">id_rsa</span>.pub | ssh -p <span class="text-danger">22</span> <span class="text-danger">user</span>@<span class="text-danger">192.168.2.20</span> "cat >> ~/.ssh/authorized_keys"</pre>
 				<pre class="shadow-none p-1 mb-0 bg-light rounded"> user@192.168.2.20`s password:</pre>
@@ -211,7 +211,7 @@ else
 				</p>
 				<pre class="shadow-none p-2 mb-1 bg-light rounded"><span class="text-success">user@RemoteServer</span>:<span class="text-primary">~</span>$ exit</pre>
 				<p class="mt-3">
-					You have now successfully made your local DiskStation known to your remote server, thus creating a basic requirement to perform a pull or push backup.
+					You have now successfully made your local Synology NAS known to your remote server, thus creating a basic requirement to perform a pull or push backup.
 				</p>
 				<p class="text-end"><br />
 					<button type="button" class="btn btn-sm text-dark text-decoration-none" style="background-color: #e6e6e6;" role="button" data-bs-dismiss="modal">'${txt_button_Close}'</button>

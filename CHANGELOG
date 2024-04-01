@@ -5,6 +5,8 @@ Previously unpublished release
   - Deutsch
     - Update Bootstrap Framework auf 5.3.3
     - Update Bootsrap Icons auf 1.11.3
+    - Um zu verhindern, dass rsync während der Ausführung immer die volle Netzwerkbandbreite nutzt und damit das System verlangsamt, wurde eine Bandbreiten- bzw. Geschwindigkeitsbegrenzung bis maximal 1250000 KB/s bzw. 1250 MB/s bzw. 10 Gigabit als frei einstellbarer Wert hinzugefügt. Der Standardwert ist eine Geschwindigkeitsbegrenzung von 62500 KB/s (62,5 MB/s), was der Hälfte der theoretischen Bandbreite einer 1-Gigabit-Verbindung (125 MB/s) entspricht.
+    - Wenn das 3rd-Party-Paket -SynoCli Monitor Tools- der -SynoCommunity- installiert ist, verwendet Basic Backup automatisch das darin enthaltene Programm ionice, das nur dann Festplattenzugriffe an rsync zuteilt, wenn kein anderes Programm dies für eine bestimmte Zeit angefordert hat. Der Einfluss dieses I/O-Prozesses auf die normalen Systemaktivitäten sollte daher gleich Null sein. 
     - Mit der Installation dieser Version wurde die Array-Deklaration [var] aus allen Backupkonfigurationen in die rsync.sh verschoben.
     - Es wurden Probleme bei der Erkennung und Verarbeitung externer USB/SATA-Datenträger behoben.
     - Die Ermittlung der UUID, GUID bzw. VSN externer Datenträger wurde verbessert. 
@@ -12,13 +14,16 @@ Previously unpublished release
       - 128-bit UUID (LINUX/UNIX)
       - 64 bit VSN (Windows NTFS)
       - 32 bit VSN (Windows FAT12, FAT16, FAT32 und exFAT) zusammengefasst als vFAT
-    - Wird beim Anlegen oder Bearbeiten eines Auftrags die lokale DiskStation als Zielserver angegeben, werden künftig gemeinsame Ordner ohne Angabe des Volumes angezeigt. Außerdem entfällt die Verpflichtung, dem Zielverzeichnis ein / (Slash bzw. Schrägstrich) voranzustellen.
-    - Beim sichern und wiederherstellen von Aufträgen, werden künftig gemeinsame Ordner ohne Angabe des Volumes angezeigt. Außerdem entfällt die Verpflichtung, dem Zielverzeichnis ein / (Slash bzw. Schrägstrich) voranzustellen. 
+    - Wird beim Anlegen oder Bearbeiten eines Auftrags die lokale Synology NAS als Zielserver angegeben, werden künftig gemeinsame Ordner ohne Angabe des Volumes angezeigt. Außerdem entfällt die Verpflichtung, dem Zielverzeichnis ein / (Slash bzw. Schrägstrich) voranzustellen.
+    - Beim sichern und wiederherstellen von Aufträgen, werden künftig gemeinsame Ordner ohne Angabe des Volumes angezeigt. Außerdem entfällt die Verpflichtung, dem Zielverzeichnis ein / (Slash bzw. Schrägstrich) voranzustellen.
+    - Der Begriff -DiskStation- wurde in allen Texten durch den Begriff -Synology NAS- ausgetauscht. 
     - Allgemeine Detailverbesserungen, Codeoptimierungen und Fehlerbereinigungen vorgenommen.
 
  - English
     - Update Bootstrap Framework to 5.3.3
     - Update Bootsrap Icons to 1.11.3
+    - To prevent rsync from always using the full network bandwidth during execution and thus slowing down the system, a bandwidth or speed limit up to a maximum of 1250000 KB/s or 1250 MB/s was added as a freely adjustable value. The default value is a speed limit of 62500 KB/s (62.5 MB/s), which corresponds to half the theoretical bandwidth of a 1 Gigabit (125 MB/s) connection.
+    - If the 3rd party package -SynoCli Monitor Tools- of the -SynoCommunity- is installed, Basic Backup automatically uses the included program ionice, which only assigns hard disk accesses to rsync as long as no other program has requested this for a certain period of time. The influence of this I/O process on normal system activities should therefore be zero.
     - With the installation of this version, the array declaration [var] was moved from all backup configurations to rsync.sh
     - Problems with the recognition and processing of external USB/SATA disks have been fixed.
     - The determination of the UUID, GUID or VSN of external disks has been improved. 
@@ -26,8 +31,9 @@ Previously unpublished release
       - 128-bit UUID (LINUX/UNIX)
       - 64 bit VSN (Windows NTFS)
       - 32 bit VSN (Windows FAT12, FAT16, FAT32 and exFAT) summarized as vFAT
-    - If the local DiskStation is specified as the target server when creating or editing a job, shared folders will be displayed without a specified volume in future. In addition, the obligation to prefix the target directory with a / (slash) will no longer apply.
+    - If the local Synology NAS is specified as the target server when creating or editing a job, shared folders will be displayed without a specified volume in future. In addition, the obligation to prefix the target directory with a / (slash) will no longer apply.
     - When backing up and restoring jobs, shared folders will in future be displayed without a specified volume. In addition, the obligation to prefix the target directory with a / (slash) will no longer apply.
+    - The term -DiskStation- has been replaced by the term -Synology NAS- in all texts.
     - General detail improvements, code optimizations and bug fixes.
 
 

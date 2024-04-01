@@ -1335,14 +1335,63 @@ sed -e "s/___TXT_BACKUPTARGET_LABEL___/${txt_backuptarget_label}/g" \
 					</div>
 					<div class="card-body">'
 
-						# rsync-Optionsschalter (syncopt)
+						# rsync-Optionsschalter (syncopt) und Speed Limit (speedlimit)
 						# ...
 						echo '
 						<div class="row mb-3 px-4">
 							<div class="col">
 								<label for="syncopt" class="form-label text-dark">'${txt_syncopt_label}'</label>
 								<input type="text" class="form-control form-control-sm" name="syncopt" id="syncopt" value="'${var[syncopt]:--ah}'" placeholder="'${txt_syncopt_format}'" required />
-							</div>
+							</div>'
+							if [ -f /usr/local/bin/ionice ]; then
+								"${set_keyvalue}" "${post_request}" "var[speedlimit]" "62500"
+								echo '
+								<div class="col">
+									<label for="speedlimit" class="form-label text-dark">'${txt_speedlimit_label}' <sup class="text-danger align-middle">New</sup>
+										<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#speedlimit-note" role="button" aria-expanded="false" aria-controls="speedlimit-note">'${note}'</a>
+											<div class="collapse" id="speedlimit-note">
+												<div class="card card-body border-0">
+													<small>
+														<p>'${txt_speedlimit_info_ionice}'</p>
+													</small>
+												</div>
+											</div>
+										</label>
+										<div class="input-group input-group-sm mb-3">
+											<input type="number" min="0" max="1250000" step="500" class="form-control form-control-sm" name="speedlimit" id="speedlimit" value="'${var[speedlimit]:-0}'" placeholder="'${txt_speedlimit_format}'" aria-label="" aria-describedby="speedlimit" disabled />
+											<span class="input-group-text" id="inputGroup-sizing-sm">kB/s</span>
+										</div>
+								</div>'
+							else
+								echo '
+								<div class="col">
+									<label for="speedlimit" class="form-label text-dark">'${txt_speedlimit_label}' <sup class="text-danger align-middle">New</sup>
+										<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#speedlimit-note" role="button" aria-expanded="false" aria-controls="speedlimit-note">'${note}'</a>
+										<div class="collapse" id="speedlimit-note">
+											<div class="card card-body border-0">
+												<small>
+													<p>'${txt_speedlimit_info_rsync}'</p>
+													<table class="table table-sm table-borderless">
+														<tbody>
+															<tr><td>0,1 GBit/s</td><td>&#8793;</td><td>100 MBit/s</td><td>&#8793;</td><td>12,5 MB/s</td><td>&#8793;</td><td>12500 kB/s</td></tr>
+															<tr><td>0,5 GBit/s</td><td>&#8793;</td><td>500 MBit/s</td><td>&#8793;</td><td>62,5 MB/s</td><td>&#8793;</td><td>62500 kB/s</td></tr>
+															<tr><td>1 GBit/s</td><td>&#8793;</td><td>1000 MBit/s</td><td>&#8793;</td><td>125 MB/s</td><td>&#8793;</td><td>125000 kB/s</td></tr>
+															<tr><td>2,5 GBit/s</td><td>&#8793;</td><td>2500 MBit/s</td><td>&#8793;</td><td>312,5 MB/s</td><td>&#8793;</td><td>312500 kB/s</td></tr>
+															<tr><td>5 GBit/s</td><td>&#8793;</td><td>5000 MBit/s</td><td>&#8793;</td><td>625 MB/s</td><td>&#8793;</td><td>625000 kB/s</td></tr>
+															<tr><td>10 GBit/s</td><td>&#8793;</td><td>10000 Mbit/s</td><td>&#8793;</td><td>1250 MB/s</td><td>&#8793;</td><td>1250000 kB/s</td></tr>
+														</tbody>
+													</table>
+												</small>
+											</div>
+										</div>
+									</label>
+										<div class="input-group input-group-sm mb-3">
+											<input type="number" min="0" max="1250000" step="500" class="form-control form-control-sm" name="speedlimit" id="speedlimit" value="'${var[speedlimit]:-62500}'" placeholder="'${txt_speedlimit_format}'" aria-label="" aria-describedby="speedlimit" required />
+											<span class="input-group-text" id="inputGroup-sizing-sm">kB/s</span>
+										</div>
+								</div>'
+							fi
+							echo '
 						</div>'
 
 						# @recycle rotate
@@ -1530,6 +1579,10 @@ sed -e "s/___TXT_BACKUPTARGET_LABEL___/${txt_backuptarget_label}/g" \
 						# var[syncopt]
 						echo "" >> "${scripttarget}"; echo "# ${txt_syncopt_label} (${txt_syncopt_format})" >> "${scripttarget}"
 						"${set_keyvalue}" "${scripttarget}" "var[syncopt]" "${var[syncopt]}"
+
+						# var[speedlimit]
+						echo "" >> "${scripttarget}"; echo "# ${txt_speedlimit_label} (${txt_speedlimit_format})" >> "${scripttarget}"
+						"${set_keyvalue}" "${scripttarget}" "var[speedlimit]" "${var[speedlimit]}"
 
 						# var[recycle]
 						echo "" >> "${scripttarget}"; echo "# ${txt_recycle_label} (${txt_recycle_format})" >> "${scripttarget}"

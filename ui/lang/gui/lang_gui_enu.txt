@@ -79,7 +79,7 @@ txt_link_help="Help"
 txt_link_settings="System Settings"
 txt_link_recovery="Backup and Restore"
 txt_link_debug="Debug mode"
-txt_link_help_ssh_local="Set up SSH on this DiskStation"
+txt_link_help_ssh_local="Set up SSH on this Synology NAS"
 txt_link_help_ssh_remote="Set up SSH on a remote server"
 txt_link_help_ssh_rsa="SSH Handshake and RSA Exchange"
 txt_link_help_version="Versioned Backup with Hardlinks"
@@ -134,9 +134,9 @@ txt_update_job_info="To update your job configuration, please click on this butt
 txt_backup_log_title="Data Backup Log"
 txt_edit_job_title="Edit Job"
 txt_delete_job_title="Delete Job"
-txt_local_diskstation="Local DiskStation"
+txt_local_diskstation="Local Synology NAS"
 txt_external_disk="External disk"
-txt_remote_diskstation="Remote DiskStation"
+txt_remote_diskstation="Remote Synology NAS"
 txt_remote_server="Remote rsync-Server"
 txt_remote_pushserver="Push backup to remote server"
 txt_remote_pullserver="Pull backup from remote server"
@@ -164,7 +164,7 @@ txt_bash_code_perms="<span class=\"text-danger\">Expert mode</span>: Change the 
 txt_bash_code_perms_push="<span class=\"text-danger\">Experimental:</span> Changing the rsync access rights of folders and files should be done with a <span class=\"text-danger\">push backup</span> Access problems occur in the target of the data backup. More information on handling access rights (chmod) in connection with rsync can be found on the relevant Internet sites."
 
 txt_help_job_title="Job Execution"
-txt_help_job_info="The above command can be used to run the job through the <strong class=\"text-dark\">DSM Task Scheduler</strong> or through the <strong class=\"text-dark\">console</ strong> Run the DiskStation as <strong class=\"text-danger\">root</strong>."
+txt_help_job_info="The above command can be used to run the job through the <strong class=\"text-dark\">DSM Task Scheduler</strong> or through the <strong class=\"text-dark\">console</ strong> Run the Synology NAS as <strong class=\"text-danger\">root</strong>."
 txt_help_job_title_terminal="Run job via console"
 txt_help_job_title_dsm="Run job from task scheduler"
 txt_help_job_step_1="Login to your DiskStations console as user <span class=\"text-danger fst-italic\">root</span> and run the above command to <span class=\"text-danger fst -italic\">Job Execution</span> off"
@@ -215,9 +215,9 @@ txt_emailfrom_format="example@domain.com"
 txt_emailfrom_note="The email address of the sender must be the same as the sender address specified in the DSM under <span class=\"text-blue\">Main Menu > Control Panel > Notification > Email</span>. Otherwise, no email or backup log will be delivered."
 
 txt_signal_label_optical="Optical signal output via LED"
-txt_signal_optical_note="Activating the visual signal output provides visual feedback on the status of the currently executed backup job. At the beginning of the backup, the status LED of your Synology DiskStation changes from green to orange. After completion, the status LED changes from orange to green again."
+txt_signal_optical_note="Activating the visual signal output provides visual feedback on the status of the currently executed backup job. At the beginning of the backup, the status LED of your Synology NAS changes from green to orange. After completion, the status LED changes from orange to green again."
 txt_signal_label_acoustical="Acoustic signal output via loudspeaker"
-txt_signal_acoustical_note="By activating the acoustic signal output, you receive visual feedback on the status of the currently executed backup job. A beep will sound from the speaker of your Synology DiskStation when the backup starts. When the backup is finished, you will hear another beep. If any problems occur during the backup, a triple beep will sound as feedback."
+txt_signal_acoustical_note="By activating the acoustic signal output, you receive visual feedback on the status of the currently executed backup job. A beep will sound from the speaker of your Synology NAS when the backup starts. When the backup is finished, you will hear another beep. If any problems occur during the backup, a triple beep will sound as feedback."
 txt_signal_opt_true="On"
 txt_signal_opt_false="Off"
 txt_signal_format="true/false"
@@ -229,7 +229,7 @@ txt_target_title="Backup Target"
 # Page 2a
 txt_targetserver_label="Target Server"
 txt_targetserver_opt="Please select a target server"
-txt_targetserver_opt_local="Local DiskStation"
+txt_targetserver_opt_local="Local Synology NAS"
 txt_targetserver_opt_remote="Remote rsync server (Push Backup)"
 
 # Page 2b
@@ -248,7 +248,7 @@ txt_localfolder_format="z.B. /Basic Backup/My first backup"
 txt_localfolder_regex="^\([a-zA-Z0-9 _\-\.\/]+)+$"
 
 txt_remotetarget_label="Target directory"
-txt_remotetarget_note="A target directory must be specified, headed by a <span class=\"text-blue\">/</span> (Slash). The use of further subdirectories is possible. If the target directory is on a Synology DiskStation, the desired shared folder must also be specified, e.g. <span class=\"text-blue\">/volume1/NetBackup</span>. If the target directory does not exist, it will be created during the first backup. Invalid characters in file or directory names are <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
+txt_remotetarget_note="A target directory must be specified, headed by a <span class=\"text-blue\">/</span> (Slash). The use of further subdirectories is possible. If the target directory is on a Synology NAS, the desired shared folder must also be specified, e.g. <span class=\"text-blue\">/volume1/NetBackup</span>. If the target directory does not exist, it will be created during the first backup. Invalid characters in file or directory names are <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
 txt_remotetarget_format="z.B. /volume1/NetBackup/My first backup"
 txt_remotetarget_regex="^\/([a-zA-Z0-9 _\-\.\/]+)+$"
 
@@ -291,13 +291,13 @@ txt_remoteserver_opt_shutdown_success="... shutdown only if data backup is succe
 
 # Seite 3a
 txt_sources_title="Backup source(s)"
-txt_sources_notes="Each source directory must begin with a <span class=\"text-blue\">/</span> (Slash). The use of further subdirectories is possible. If the source directory is on a Synology DiskStation, the desired shared folder must also be specified, e.g.  <span class=\"text-blue\">/volume1/music</span> oder auch <span class=\"text-blue\">/volume1/music/Compilations</span>. Furthermore, individual source directories must be separated from each other by a <span class=\"text-danger\">&</span>, as shown in the example entry. Invalid characters in file or directory names are <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
+txt_sources_notes="Each source directory must begin with a <span class=\"text-blue\">/</span> (Slash). The use of further subdirectories is possible. If the source directory is on a Synology NAS, the desired shared folder must also be specified, e.g. <span class=\"text-blue\">/volume1/music</span> oder auch <span class=\"text-blue\">/volume1/music/Compilations</span>. Furthermore, individual source directories must be separated from each other by a <span class=\"text-danger\">&</span>, as shown in the example entry. Invalid characters in file or directory names are <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
 
 txt_uuid_error="<strong>Warning:</strong> No valid UUID format could be determined, so the option - ${txt_uuidcheck_opt_true} - has been disabled again."
 
 txt_sourceserver_label="Source Server"
 txt_sourceserver_opt="Please select a source server"
-txt_sourceserver_opt_local="Local DiskStation"
+txt_sourceserver_opt_local="Local Synology NAS"
 txt_sourceserver_opt_remote="Remote rsync-Server (Pull Backup)"
 
 # Page 3b
@@ -313,6 +313,11 @@ txt_rsync_title="Rsync Behaviour"
 
 txt_syncopt_label="rsync option switch"
 txt_syncopt_format="e.g. -ahR"
+
+txt_speedlimit_label="Speed limit"
+txt_speedlimit_format="e.g. z.B. 62500 KB/s (62,5 MB/s) Max. 1250000 KB/s (1250 MB/s)"
+txt_speedlimit_info_rsync="If more extensive data is synchronized using rsync, the performance of DiskStation Manager can be severely limited for the duration of the jobs. This is caused by the high I/O load triggered by the rsync process, which significantly slows down the remaining I/O. This can be noticeably improved by reducing the bandwidth."
+txt_speedlimit_info_ionice="Basic Backup has localized the <strong>ionice</strong> tool on your system, which divides processes into different prioritized I/O classes. <strong>ionice</strong> has therefore been set to grant the rsync process hard disk access only if no other program has requested it for a certain period of time. The adjustment of the bandwidth has therefore been deactivated. The influence of this I/O process on normal system activities should therefore be zero."
 
 txt_recycle_label="Delete contents of the recycle bin /@recycle that are older than..."
 txt_recycle_note="If 0 days is specified, all data deleted in the meantime from the backup source(s) will also be irrevocably deleted in the backup destination. Otherwise, the data deleted in the meantime will be moved to the recycle bin under /@recycle of the destination folder for the specified time in days."
@@ -353,6 +358,7 @@ txt_import_false_note="The backup jobs could not be imported"
 txt_folder_not_create_info="The location could not be created"
 txt_folder_not_found_info="The folder for the backup jobs could not be found"
 txt_share_not_found_note="The shared folder could not be found"
+
 
 
 

@@ -111,7 +111,7 @@ txt_rsync_25_log="### Rsync reported exit code 25: The --max-delete limit stoppe
 txt_rsync_30_log="### Rsync reported exit code 30: Timeout in data send/receive"
 txt_rsync_35_log="### Rsync reported exit code 35: Timeout waiting for daemon connection"
 txt_rsync_43_log="### Rsync reported exit code 43:<br />### Check whether the remote server is offline, whether the rync service has been started and whether the port has been set correctly"
-txt_rsync_44_log="### Rsync reported exit code 44:<br />### Wrong password. Check whether the default -admin- account is deactivated. This must be activated on the<br />source and target DiskStation if root is used as the SSH user."
+txt_rsync_44_log="### Rsync reported exit code 44:<br />### Wrong password. Check whether the default -admin- account is deactivated. This must be activated on the<br />source and target Synology NAS if root is used as the SSH user."
 txt_rsync_127_log="### Rsync reported exit code 127: Check whether you have installed an rsync binary on your system"
 txt_rsync_255_log="### Rsync reported exit code 255:<br />### Presumably rsync passed on the exit code of a command it used for the connection - usually SSH"
 
@@ -132,4 +132,5 @@ txt_email_send="Note: The backup log was successfully sent via email!"
 txt_email_fail="Note: Sending the backup log via email failed!"
 
 txt_line_separator="-------------------------------------------------------------------------------------------------------------------"
+
 

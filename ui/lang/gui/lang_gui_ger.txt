@@ -61,7 +61,7 @@ txt_help_permissions_expand_terminal="App-Berechtigungen über die Konsole erwei
 txt_help_permissions_revoke_terminal="App-Berechtigungen über die Konsole zurücknehmen"
 txt_help_permissions_expand_dsm="App-Berechtigungen über den DSM Aufgabenplaner erweitern"
 txt_help_permissions_revoke_dsm="App-Berechtigungen über den DSM Aufgabenplaner zurücknehmen"
-txt_help_permissions_step_1="Melde dich als Benutzer <span class=\"text-danger fst-italic\">root</span> auf der Konsole deiner DiskStation an und führe folgenden Befehl aus"
+txt_help_permissions_step_1="Melde dich als Benutzer <span class=\"text-danger fst-italic\">root</span> auf der Konsole deiner Synology NAS an und führe folgenden Befehl aus"
 txt_help_permissions_step_2="Öffne im DSM unter <span class=\"text-danger fst-italic\">Hauptmenü</span> > <span class=\"text-danger fst-italic\">Systemsteuerung</span> den <span class=\"text-danger fst-italic\">Aufgabenplaner</span>."
 txt_help_permissions_step_3="Wähle im Aufgabenplaner über die Schaltfläche <span class=\"text-danger fst-italic\">Erstellen</span> > <span class=\"text-danger fst-italic\">Geplante Aufgabe</span> > <span class=\"text-danger fst-italic\">Benutzerdefiniertes Script</span> aus."
 txt_help_permissions_step_4="In dem sich nun öffnenden Pop-up-Fenster gibst du im Reiter <span class=\"text-danger fst-italic\">Allgemein</span> > <span class=\"text-danger fst-italic\">Allgemeine Einstellungen</span> der Aufgabe einen individuellen Namen und wählst als Benutzer <span class=\"text-danger fst-italic\">root</span> aus. Anschließend entfernst du noch den Haken bei <span class=\"text-danger fst-italic\">Aktiviert</span>."
@@ -79,7 +79,7 @@ txt_link_help="Hilfe"
 txt_link_settings="Systemeinstellungen"
 txt_link_recovery="Sichern und wiederherstellen"
 txt_link_debug="Debug Modus"
-txt_link_help_ssh_local="SSH auf dieser DiskStation einrichten"
+txt_link_help_ssh_local="SSH auf dieser Synology NAS einrichten"
 txt_link_help_ssh_remote="SSH auf einem Remote Server einrichten"
 txt_link_help_ssh_rsa="SSH Handshake und RSA Austausch"
 txt_link_help_version="Versionierte Datensicherung mit Hardlinks"
@@ -134,9 +134,9 @@ txt_update_job_info="Um Ihre Auftragskonfiguration zu aktualisieren, klicken Sie
 txt_backup_log_title="Datensicherungsprotokoll"
 txt_edit_job_title="Auftrag bearbeiten"
 txt_delete_job_title="Auftrag löschen"
-txt_local_diskstation="Lokale DiskStation"
+txt_local_diskstation="Lokale Synology NAS"
 txt_external_disk="Externer Datenträger"
-txt_remote_diskstation="Remote DiskStation"
+txt_remote_diskstation="Remote Synology NAS"
 txt_remote_server="Remote rsync-Server"
 txt_remote_pushserver="Push Backup zum Remote Server"
 txt_remote_pullserver="Pull Backup vom Remote Server"
@@ -164,10 +164,10 @@ txt_bash_code_perms="<span class=\"text-danger\">Expertenmodus</span>: Ändern d
 txt_bash_code_perms_push="<span class=\"text-danger\">Experimentell:</span> Ändern der rsync Zugriffsrechte von Ordnern und Dateien, sollten bei einem <span class=\"text-danger\">Push Backup</span> Zugriffsprobleme im Ziel der Datensicherung auftreten. Nähere Informationen zum Umgang mit Zugriffsrechten (chmod) im Zusammenhang mit rsync erhälst du auf einschlägigen Seiten im Internet."
 
 txt_help_job_title="Auftragsausführung"
-txt_help_job_info="Mit dem oben aufgeführten Befehl lässt sich der Auftrag über den <strong class=\"text-dark\">DSM Aufgabenplaner</strong> oder über die <strong class=\"text-dark\">Konsole</strong> der DiskStation als <strong class=\"text-danger\">root</strong> ausführen."
+txt_help_job_info="Mit dem oben aufgeführten Befehl lässt sich der Auftrag über den <strong class=\"text-dark\">DSM Aufgabenplaner</strong> oder über die <strong class=\"text-dark\">Konsole</strong> der Synology NAS als <strong class=\"text-danger\">root</strong> ausführen."
 txt_help_job_title_terminal="Auftrag über die Konsole ausführen"
 txt_help_job_title_dsm="Auftrag über den Aufgabenplaner ausführen"
-txt_help_job_step_1="Melde dich als Benutzer <span class=\"text-danger fst-italic\">root</span> auf der Konsole deiner DiskStation an und führe den oben aufgeführten Befehl zur <span class=\"text-danger fst-italic\">Auftragsausführung</span> aus"
+txt_help_job_step_1="Melde dich als Benutzer <span class=\"text-danger fst-italic\">root</span> auf der Konsole deiner Synology NAS an und führe den oben aufgeführten Befehl zur <span class=\"text-danger fst-italic\">Auftragsausführung</span> aus"
 txt_help_job_step_2="Öffne im DSM unter <span class=\"text-danger fst-italic\">Hauptmenü</span> > <span class=\"text-danger fst-italic\">Systemsteuerung</span> den <span class=\"text-danger fst-italic\">Aufgabenplaner</span>."
 txt_help_job_step_3="Wähle im Aufgabenplaner über die Schaltfläche <span class=\"text-danger fst-italic\">Erstellen</span> > <span class=\"text-danger fst-italic\">Geplante Aufgabe</span> > <span class=\"text-danger fst-italic\">Benutzerdefiniertes Script</span> aus."
 txt_help_job_step_4="In dem sich nun öffnenden Pop-up-Fenster gibst du im Reiter <span class=\"text-danger fst-italic\">Allgemein</span> > <span class=\"text-danger fst-italic\">Allgemeine Einstellungen</span> der Aufgabe einen individuellen Namen und wählst als Benutzer <span class=\"text-danger fst-italic\">root</span> aus. Möchtest du, das der Auftrag später automatisch per Zeitplan ausgelöst wird, dann setze den Haken bei <span class=\"text-danger fst-italic\">Aktiviert</span>."
@@ -215,9 +215,9 @@ txt_emailfrom_format="example@domain.com"
 txt_emailfrom_note="Die E-Mail Adresse des Absenders muss gleich der im DSM unter <span class=\"text-blue\">Hauptmenü > Systemsteuerung > Benachrichtigung > E-Mail</span> angegebenen Absenderadresse sein. Ansonsten wird keine E-Mail bzw. kein Sicherungsprotokoll zugestellt."
 
 txt_signal_label_optical="Optische Signalausgabe über LED"
-txt_signal_optical_note="Durch aktivieren der optischen Signalausgabe erhält man eine visuelle Rückmeldung über den Status des aktuell ausgeführten Datensicherungsauftrages. Dabei wechselt zu Beginn der Datensicherung die Status-LED deiner Synology DiskStation von grün nach orange. Nach dem Beenden wechselt die Status-LED wieder von orange nach grün."
+txt_signal_optical_note="Durch aktivieren der optischen Signalausgabe erhält man eine visuelle Rückmeldung über den Status des aktuell ausgeführten Datensicherungsauftrages. Dabei wechselt zu Beginn der Datensicherung die Status-LED deiner Synology NAS von grün nach orange. Nach dem Beenden wechselt die Status-LED wieder von orange nach grün."
 txt_signal_label_acoustical="Akustische Signalausgabe über Lautsprecher"
-txt_signal_acoustical_note="Durch aktivieren der akustischen Signalausgabe erhält man eine visuelle Rückmeldung über den Status des aktuell ausgeführten Datensicherungsauftrages. Dabei ertönt bei Beginn der Datensicherung ein Signalton aus dem Lautsprecher deiner Synology DiskStation. Nach dem Beenden ertönt abermals ein Signalton. Traten während der Datensicherung Probleme auf, ertönt als Rückmeldung ein dreifacher Signalton."
+txt_signal_acoustical_note="Durch aktivieren der akustischen Signalausgabe erhält man eine visuelle Rückmeldung über den Status des aktuell ausgeführten Datensicherungsauftrages. Dabei ertönt bei Beginn der Datensicherung ein Signalton aus dem Lautsprecher deiner Synology NAS. Nach dem Beenden ertönt abermals ein Signalton. Traten während der Datensicherung Probleme auf, ertönt als Rückmeldung ein dreifacher Signalton."
 txt_signal_opt_true="Ein"
 txt_signal_opt_false="Aus"
 txt_signal_format="true/false"
@@ -229,7 +229,7 @@ txt_target_title="Datensicherungsziel"
 # Seite 2a
 txt_targetserver_label="Zielserver"
 txt_targetserver_opt="Bitte wähle einen Zielserver aus"
-txt_targetserver_opt_local="Lokale DiskStation"
+txt_targetserver_opt_local="Lokale Synology NAS"
 txt_targetserver_opt_remote="Remote rsync-Server (Push Backup)"
 
 # Seite 2b
@@ -243,12 +243,12 @@ txt_uuidcheck_opt_true="Einhängepunkt anhand der Geräte UUID identifizieren un
 txt_uuidcheck_opt_false="Einhängepunkt nicht anpassen auch wenn sich dieser zwischenzeitlich geändert hat"
 
 txt_localfolder_label="Zielverzeichnis"
-txt_localfolder_note="Es muss ein Zielverzeichnis angegeben werden. Die Verwendung von weiteren Unterverzeichnissen, jeweils durch einen <span class=\"text-blue\">/</span> (Slash bzw. Schrägstrich) getrennt, ist möglich.  Ist das Zielverzeichnis nicht vorhanden, wird es während der ersten Datensicherung angelegt. Ungültige Zeichen in Datei- oder Verzeichnisnamen sind <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
+txt_localfolder_note="Es muss ein Zielverzeichnis angegeben werden. Die Verwendung von weiteren Unterverzeichnissen, jeweils durch einen <span class=\"text-blue\">/</span> (Slash bzw. Schrägstrich) getrennt, ist möglich. Ist das Zielverzeichnis nicht vorhanden, wird es während der ersten Datensicherung angelegt. Ungültige Zeichen in Datei- oder Verzeichnisnamen sind <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
 txt_localfolder_format="z.B. /Basic Backup/Mein erstes Backup"
 txt_localfolder_regex="^\([a-zA-Z0-9 _\-\.\/]+)+$"
 
 txt_remotetarget_label="Zielverzeichnis"
-txt_remotetarget_note="Es muss ein Zielverzeichnis angegeben werden, das von einem <span class=\"text-blue\">/</span> (Slash bzw. Schrägstrich) angeführt wird. Die Verwendung weiterer Unterverzeichnisse ist möglich. Befindet sich das Zielverzeichnis auf einer Synology DiskStation, so muss zusätzlich noch der gewünschte freigegebene Ordner angegeben werden wie z.B. <span class=\"text-blue\">/volume1/NetBackup</span>. Ist das Zielverzeichnis nicht vorhanden, wird es während der ersten Datensicherung angelegt. Ungültige Zeichen in Datei- oder Verzeichnisnamen sind <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
+txt_remotetarget_note="Es muss ein Zielverzeichnis angegeben werden, das von einem <span class=\"text-blue\">/</span> (Slash bzw. Schrägstrich) angeführt wird. Die Verwendung weiterer Unterverzeichnisse ist möglich. Befindet sich das Zielverzeichnis auf einer Synology NAS, so muss zusätzlich noch der gewünschte freigegebene Ordner angegeben werden wie z.B. <span class=\"text-blue\">/volume1/NetBackup</span>. Ist das Zielverzeichnis nicht vorhanden, wird es während der ersten Datensicherung angelegt. Ungültige Zeichen in Datei- oder Verzeichnisnamen sind <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
 txt_remotetarget_format="z.B. /volume1/NetBackup/Mein erstes Backup"
 txt_remotetarget_regex="^\/([a-zA-Z0-9 _\-\.\/]+)+$"
 
@@ -291,13 +291,13 @@ txt_remoteserver_opt_shutdown_success="... nur herunterfahren, wenn Datensicheru
 
 # Seite 3a
 txt_sources_title="Datensicherungsquelle(n)"
-txt_sources_notes="Jedes Quellverzeichnis muss mit einem <span class=\"text-blue\">/</span> (Slash bzw. Schrägstrich) beginnen. Die Verwendung weiterer Unterverzeichnisse ist möglich. Befindet sich das Quellverzeichnis auf einer Synology DiskStation, so muss zusätzlich noch der gewünschte freigegebene Ordner angegeben werden wie z.B. <span class=\"text-blue\">/volume1/music</span> oder auch <span class=\"text-blue\">/volume1/music/Compilations</span>. Des Weiteren müssen einzelne Quellverzeichnisse durch ein <span class=\"text-danger\">&</span> voneinander getrennt werden, wie im Beispieleintrag dargestellt. Ungültige Zeichen in Datei- oder Verzeichnisnamen sind <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
+txt_sources_notes="Jedes Quellverzeichnis muss mit einem <span class=\"text-blue\">/</span> (Slash bzw. Schrägstrich) beginnen. Die Verwendung weiterer Unterverzeichnisse ist möglich. Befindet sich das Quellverzeichnis auf einer Synology NAS, so muss zusätzlich noch der gewünschte freigegebene Ordner angegeben werden wie z.B. <span class=\"text-blue\">/volume1/music</span> oder auch <span class=\"text-blue\">/volume1/music/Compilations</span>. Des Weiteren müssen einzelne Quellverzeichnisse durch ein <span class=\"text-danger\">&</span> voneinander getrennt werden, wie im Beispieleintrag dargestellt. Ungültige Zeichen in Datei- oder Verzeichnisnamen sind <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
 
 txt_uuid_error="<strong>Warnung:</strong> Es konnte kein gültiges UUID Format ermittelt werden, weshalb die Option - ${txt_uuidcheck_opt_true} - wieder deaktiviert wurde."
 
 txt_sourceserver_label="Quellserver"
 txt_sourceserver_opt="Bitte wähle einen Quellserver aus"
-txt_sourceserver_opt_local="Lokale DiskStation"
+txt_sourceserver_opt_local="Lokale Synology NAS"
 txt_sourceserver_opt_remote="Remote rsync-Server (Pull Backup)"
 
 # Seite 3b
@@ -314,6 +314,10 @@ txt_rsync_title="Rsync Verhalten"
 txt_syncopt_label="rsync Optionsschalter"
 txt_syncopt_format="z.B. -ahR"
 
+txt_speedlimit_label="Geschwindigkeitsbeschränkung"
+txt_speedlimit_format="z.B. 62500 KB/s (62,5 MB/s) Max. 1250000 KB/s (1250 MB/s)"
+txt_speedlimit_info_rsync="Wenn umfangreichere Daten mit rsync synchronisiert werden, kann die Leistung des DiskStation Managers für die Dauer der Aufträge stark eingeschränkt sein. Ursache dafür ist die hohe I/O-Last, die durch den rsync-Prozess ausgelöst wird und die verbleibende I/O deutlich verlangsamt. Dies kann durch eine Reduzierung der Bandbreite spürbar verbessert werden."
+txt_speedlimit_info_ionice="Basic Backup hat das Tool <strong>ionice</strong> auf Ihrem System lokalisiert, das Prozesse in verschiedene priorisierte I/O-Klassen einteilt. <strong>ionice</strong> wurde daher so eingestellt, dass es dem rsync-Prozess nur dann Festplattenzugriffe gewährt, wenn für eine bestimmte Zeitspanne kein anderes Programm dieses angefordert hat. Die Anpassung der Bandbreite wurde daher deaktiviert. Der Einfluss dieses I/O-Prozesses auf die normalen Systemaktivitäten sollte daher gleich Null sein."
 txt_recycle_label="Inhalte des Papierkorbs /@recycle löschen, die älter sind als..."
 txt_recycle_note="Bei einer Angabe von 0 Tagen werden alle zwischenzeitlich gelöschten Daten aus den Datensicherungsquelle(n) auch im Datensicherungsziel unwiderruflich gelöscht. Andernfalls werden die zwischenzeitlich gelöschten Daten für die angegebene Zeit in Tagen in den Papierkorb, unter /@recycle des Zielordners verschoben."
 txt_recycle_format="z.B. 90 Tage"
@@ -353,5 +357,6 @@ txt_import_false_note="Die Datensicherungsaufträge konnten nicht importiert wer
 txt_folder_not_create_info="Der Speicherort konnte nicht erstellt werden"
 txt_folder_not_found_info="Der Ordner für die Datensicherungsaufträge konnte nicht gefunden werden"
 txt_share_not_found_note="Der freigegebene Ordner konnte nicht gefunden werden"
+
 
 
