@@ -349,6 +349,23 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 											echo '
 										</td>
 									</tr>'
+									# Bandbreitenbeschänkung
+									echo '
+									<tr>
+										<td style="width: 220px;">
+											'${txt_speedlimit_label}'
+										</td>
+										<td style="width: auto;">
+											<span class="text-secondary">'
+												if [ -f /usr/local/bin/ionice ]; then
+													echo ''${txt_speedlimit_active}''
+												else
+													echo ''${var[speedlimit]}' kB/s'
+												fi
+											echo '
+											</span>
+										</td>
+									</tr>'
 									# Versionsstände
 									echo '
 									<tr>
@@ -413,9 +430,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 												<div class="card-body font-monospace" style="font-size: 0.9rem;">
 													/usr/syno/synoman'${app_link}'/rsync.sh --job-name="'${backupjob}'"'
 													if [ -n "${var[sshpush]}" ]; then
-														echo ' --chmod=ugo=rwX &'
-													else
-														echo ' &'
+														echo ' --chmod=ugo=rwX'
 													fi
 													echo '
 												</div>
