@@ -349,23 +349,6 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 											echo '
 										</td>
 									</tr>'
-									# Bandbreitenbeschänkung
-									echo '
-									<tr>
-										<td style="width: 220px;">
-											'${txt_speedlimit_label}'
-										</td>
-										<td style="width: auto;">
-											<span class="text-secondary">'
-												if [ -f /usr/local/bin/ionice ] && [ -z "${switch_off_ionice}" ]; then
-													echo ''${txt_speedlimit_active}''
-												else
-													echo ''${var[speedlimit]}' kB/s'
-												fi
-											echo '
-											</span>
-										</td>
-									</tr>'
 									# Versionsstände
 									echo '
 									<tr>
@@ -411,55 +394,21 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 										fi
 										echo '
 									</tr>'
-									# Auftragsausführung
+									# Bandbreitenbeschänkung
 									echo '
 									<tr>
-										<td class="pt-2" style="width: 220px;">
-											<span>'${txt_help_job_title}'
-												<span class="float-end">
-													<a class="btn btn-sm text-dark text-decoration-none py-0" data-bs-toggle="collapse" href="#collapseJob" role="button" aria-expanded="false" aria-controls="collapseJob" style="background-color: #e6e6e6;" title="'${txt_link_note}'">
-														<i class="bi bi-info-square text-primary" style="font-size: 1.2rem;"></i><i class="bi bi-caret-down-fill align-middle pb-1 ps-2" style="font-size: 0.5rem;" title=""></i>
-													</a>
-												</span>
-											</span>
-										</td>'
-										# Befehl
-										echo '
+										<td style="width: 220px;">
+											'${txt_speedlimit_title}'
+										</td>
 										<td style="width: auto;">
-											<div class="card">
-												<div class="card-body font-monospace" style="font-size: 0.9rem;">
-													/usr/syno/synoman'${app_link}'/rsync.sh --job-name="'${backupjob}'"'
-													if [ -n "${var[sshpush]}" ]; then
-														echo ' --chmod=ugo=rwX'
-													fi
-													echo '
-												</div>
-											</div>'
-											# Auftrag über Konsole bzw. Aufgabenplaner ausführen
+											<span class="text-secondary">'
+												if [ -f /usr/local/bin/ionice ] && [ -z "${switch_off_ionice}" ]; then
+													echo ''${txt_speedlimit_active}''
+												else
+													echo ''${txt_speedlimit_limited_info_step_1}' <span class="text-danger">'${var[speedlimit]}' kB/s</span> '${txt_speedlimit_limited_info_step_2}''
+												fi
 											echo '
-											<div class="collapse mt-2" id="collapseJob">
-												<div class="card card-body ps-1">
-													<small>
-														<span class="text-secondary">'${txt_help_job_info}'</span>
-														<br /><br />
-														<strong class="ps-1">'${txt_help_job_title_terminal}'</strong>
-														<ol class="text-secondary">
-															<li>'${txt_help_job_step_1}'</li>
-														</ol>
-														<strong class="ps-1">'${txt_help_job_title_dsm}'</strong>
-														<ol class="text-secondary">
-															<li>'${txt_help_job_step_2}'</li>
-															<li>'${txt_help_job_step_3}'</li>
-															<li>'${txt_help_job_step_4}'</li>
-															<li>'${txt_help_job_step_5}'</li>
-															<li>'${txt_help_job_step_6}'</li>
-															<li>'${txt_help_job_step_7}'</li>
-															<li>'${txt_help_job_step_8}'</li>
-															<li>'${txt_help_job_step_9}'</li>
-														</ol>
-													</small>
-												</div>
-											</div>
+											</span>
 										</td>
 									</tr>'
 									# Optionsschalter
@@ -519,6 +468,103 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 															</dl>
 														</small>
 													</div>
+												</div>
+											</div>
+										</td>
+									</tr>'
+									# Auftragsausführung
+									echo '
+									<tr>
+										<td class="pt-2" style="width: 220px;">
+											<span>'${txt_help_job_title}'
+												<span class="float-end">
+													<a class="btn btn-sm text-dark text-decoration-none py-0" data-bs-toggle="collapse" href="#collapseJob" role="button" aria-expanded="false" aria-controls="collapseJob" style="background-color: #e6e6e6;" title="'${txt_link_note}'">
+														<i class="bi bi-info-square text-primary" style="font-size: 1.2rem;"></i><i class="bi bi-caret-down-fill align-middle pb-1 ps-2" style="font-size: 0.5rem;" title=""></i>
+													</a>
+												</span>
+											</span>
+										</td>'
+										# Befehl
+										echo '
+										<td style="width: auto;">
+											<div class="card">
+												<div class="card-body font-monospace" style="font-size: 0.9rem;">
+													/usr/syno/synoman'${app_link}'/rsync.sh --job-name="'${backupjob}'"'
+													if [ -n "${var[sshpush]}" ]; then
+														echo ' --chmod=ugo=rwX'
+													fi
+													echo '
+												</div>
+											</div>'
+											# Auftrag über Konsole bzw. Aufgabenplaner ausführen
+											echo '
+											<div class="collapse mt-2" id="collapseJob">
+												<div class="card card-body ps-1">
+													<small>
+														<span class="text-secondary">'${txt_help_job_info}'</span>
+														<br /><br />
+														<strong class="ps-1">'${txt_help_job_title_terminal}'</strong>
+														<ol class="text-secondary">
+															<li>'${txt_help_job_step_1}'</li>
+														</ol>
+														<strong class="ps-1">'${txt_help_job_title_dsm}'</strong>
+														<ol class="text-secondary">
+															<li>'${txt_help_job_step_2}'</li>
+															<li>'${txt_help_job_step_3}'</li>
+															<li>'${txt_help_job_step_4}'</li>
+															<li>'${txt_help_job_step_5}'</li>
+															<li>'${txt_help_job_step_6}'</li>
+															<li>'${txt_help_job_step_7}'</li>
+															<li>'${txt_help_job_step_8}'</li>
+															<li>'${txt_help_job_step_9}'</li>
+														</ol>
+													</small>
+												</div>
+											</div>
+										</td>
+									</tr>'
+									# Auftragsabbruch
+									echo '
+									<tr>
+										<td class="pt-2" style="width: 220px;">
+											<span>'${txt_kill_job_title}'
+												<span class="float-end">
+													<a class="btn btn-sm text-dark text-decoration-none py-0" data-bs-toggle="collapse" href="#collapseKill" role="button" aria-expanded="false" aria-controls="collapseKill" style="background-color: #e6e6e6;" title="'${txt_link_note}'">
+														<i class="bi bi-info-square text-primary" style="font-size: 1.2rem;"></i><i class="bi bi-caret-down-fill align-middle pb-1 ps-2" style="font-size: 0.5rem;" title=""></i>
+													</a>
+												</span>
+											</span>
+										</td>'
+										# Befehl
+										echo '
+										<td style="width: auto;">
+											<div class="card">
+												<div class="card-body font-monospace" style="font-size: 0.9rem;">
+													pkill rsync | rm -f /var/packages/BasicBackup/tmp/pid
+												</div>
+											</div>'
+											# Auftrag über Konsole bzw. Aufgabenplaner ausführen
+											echo '
+											<div class="collapse mt-2" id="collapseKill">
+												<div class="card card-body ps-1">
+													<small>
+														<span class="text-secondary">'${txt_kill_job_info}'</span>
+														<br /><br />
+														<strong class="ps-1">'${txt_kill_job_title_terminal}'</strong>
+														<ol class="text-secondary">
+															<li>'${txt_kill_job_step_1}'</li>
+														</ol>
+														<strong class="ps-1">'${txt_kill_job_title_dsm}'</strong>
+														<ol class="text-secondary">
+															<li>'${txt_help_job_step_2}'</li>
+															<li>'${txt_help_job_step_3}'</li>
+															<li>'${txt_kill_job_step_4}'</li>
+															<li>'${txt_kill_job_step_6}'</li>
+															<li>'${txt_help_job_step_7}'</li>
+															<li>'${txt_help_job_step_8}'</li>
+															<li>'${txt_help_job_step_9}'</li>
+														</ol>
+													</small>
 												</div>
 											</div>
 										</td>
