@@ -7,6 +7,8 @@ Previously unpublished release 0.8-400
     - Update Bootsrap Icons auf 1.11.3
     - Bei der Synchronisierung großer Datenmengen kann die, durch den rsync-Prozess ausgelöste hohe Lese- und Schreiblast, Verfügbarkeit deines Synology NAS sowie an diesem Prozess beteiligte Remote-Server für die Dauer des Auftrags stark einschränken. Dieses Verhalten kann durch die Reduzierung der Bandbreite und unter Berücksichtigung der Lese- und Schreibgeschwindigkeit der verwendeten Datenträger spürbar verbessert werden. Aus diesem Grund wurde eine Bandbreiten- bzw. Geschwindigkeitsbegrenzung zwischen 1 kB/s bis maximal 1250000 kB/s als frei einstellbarer Wert definiert werden.
     - Wenn das 3rd-Party-Paket -SynoCli Monitor Tools- der -SynoCommunity- installiert ist, verwendet Basic Backup automatisch das darin enthaltene Programm ionice. ionice kann die hohe Lese- und Schreiblast, die normalerweise durch den rsync-Prozess ausgelöst wird, soweit optimieren, dass die Verfügbarkeit deines Synology NAS und der an diesem Prozess beteiligten Remote-Server jederzeit gewährleistet ist.
+    - Zu Testzwecken kann das im Vorfeld installierte ionice-Programm über das Debug-Menü vorübergehend abgeschaltet werden.
+    - Das Kaufmännische &, welches bisher am Ende des Befehls eines jeden Auftrages angehangen wurde, wurde zurückgenommen. Durch die Bandbreitenbeschränkung ist das Ausführen eines Auftrages als eigenständiger Hintergrundprozess nicht mehr nötig. 
     - Mit der Installation dieser Version wurde die Array-Deklaration [var] aus allen Backupkonfigurationen in die rsync.sh verschoben.
     - Es wurden Probleme bei der Erkennung und Verarbeitung externer USB/SATA-Datenträger behoben.
     - Die Ermittlung der UUID, GUID bzw. VSN externer Datenträger wurde verbessert. 
@@ -24,6 +26,8 @@ Previously unpublished release 0.8-400
     - Update Bootsrap Icons to 1.11.3
     - When synchronizing large amounts of data, the high read and write load triggered by the rsync process can severely limit the availability of your Synology NAS and remote servers involved in this process for the duration of the job. This behavior can be noticeably improved by reducing the bandwidth and taking into account the read and write speed of the data carriers used. For this reason, a bandwidth or speed limit between 1 kB/s and a maximum of 1250000 kB/s has been defined as a freely adjustable value.
     - If the 3rd party package -SynoCli Monitor Tools- of -SynoCommunity- is installed, Basic Backup automatically uses the included program ionice. ionice can optimize the high read and write load normally triggered by the rsync process to ensure the availability of your Synology NAS and the remote servers involved in this process at all times.
+    - For test purposes, the ionice program installed in advance can be temporarily switched off via the debug menu.
+    - The commercial &, which was previously appended to the end of the command of each order, has been removed. Due to the bandwidth restriction, it is no longer necessary to execute an order as an independent background process. 
     - With the installation of this version, the array declaration [var] was moved from all backup configurations to rsync.sh
     - Problems with the recognition and processing of external USB/SATA disks have been fixed.
     - The determination of the UUID, GUID or VSN of external disks has been improved. 

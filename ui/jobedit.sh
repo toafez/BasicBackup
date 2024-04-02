@@ -1343,7 +1343,7 @@ sed -e "s/___TXT_BACKUPTARGET_LABEL___/${txt_backuptarget_label}/g" \
 								<label for="syncopt" class="form-label text-dark">'${txt_syncopt_label}'</label>
 								<input type="text" class="form-control form-control-sm" name="syncopt" id="syncopt" value="'${var[syncopt]:--ah}'" placeholder="'${txt_syncopt_format}'" required />
 							</div>'
-							if [ -f /usr/local/bin/ionice ]; then
+							if [ -f /usr/local/bin/ionice ] && [ -z "${switch_off_ionice}" ]; then
 								"${set_keyvalue}" "${post_request}" "var[speedlimit]" "62500"
 								echo '
 								<div class="col">

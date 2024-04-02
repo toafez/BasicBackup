@@ -357,7 +357,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 										</td>
 										<td style="width: auto;">
 											<span class="text-secondary">'
-												if [ -f /usr/local/bin/ionice ]; then
+												if [ -f /usr/local/bin/ionice ] && [ -z "${switch_off_ionice}" ]; then
 													echo ''${txt_speedlimit_active}''
 												else
 													echo ''${var[speedlimit]}' kB/s'

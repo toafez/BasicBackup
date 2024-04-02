@@ -159,6 +159,33 @@ if [[ "${get[page]}" == "debug" && "${get[section]}" == "start" ]]; then
 											fi
 											echo '
 										</tr>
+										<tr>'
+											# If installed, use or do not use ionice
+											if [ -f /usr/local/bin/ionice ]; then
+												if [[ "${switch_off_ionice}" == "on" ]]; then
+													echo '
+													<td scope="row" class="row-sm-auto">
+														'${txt_debug_ionice_off}'
+													</td>
+													<td class="text-end">
+														<a class="material-icons text-success" href="index.cgi?page=debug&section=save&option=switch_off_ionice&query=">
+															<i style="font-size: 1.1rem;" class="bi bi-check-square text-secondary"></i>
+														</a>
+													</td>'
+												else
+													echo '
+													<td scope="row" class="row-sm-auto">
+														'${txt_debug_ionice}'
+													</td>
+													<td class="text-end">
+														<a class="material-icons text-success" href="index.cgi?page=debug&section=save&option=switch_off_ionice&query=on">
+															<i style="font-size: 1.1rem;" class="bi bi-square text-secondary"></i>
+														</a>
+													</td>'
+												fi
+											fi
+											echo '
+										</tr>
 									</tbody>
 								</table>'
 						elif [[ "${debugging}" == "off" ]]; then
@@ -183,5 +210,6 @@ if [[ "${get[page]}" == "debug" && "${get[section]}" == "save" ]]; then
 	[[ "${get[option]}" == "http_requests" ]] && "${set_keyvalue}" "${usr_debugfile}" "http_requests" "${get[query]}"
 	[[ "${get[option]}" == "group_membership" ]] && "${set_keyvalue}" "${usr_debugfile}" "group_membership" "${get[query]}"
 	[[ "${get[option]}" == "global_enviroment" ]] && "${set_keyvalue}" "${usr_debugfile}" "global_enviroment" "${get[query]}"
+	[[ "${get[option]}" == "switch_off_ionice" ]] && "${set_keyvalue}" "${usr_debugfile}" "switch_off_ionice" "${get[query]}"
 	echo '<meta http-equiv="refresh" content="0; url=index.cgi?page=debug&section=start">'
 fi

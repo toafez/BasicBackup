@@ -353,7 +353,7 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 									<span class="text-secondary">&nbsp;&nbsp;<b>Debug</b></span>
 								</div>
 								<div class="card-body pb-0">'
-									if [ -z "${group_membership}" ] && [ -z "${http_requests}" ] && [ -z "${global_enviroment}" ]; then
+									if [ -z "${group_membership}" ] && [ -z "${http_requests}" ] && [ -z "${global_enviroment}" ] && [ -z "${switch_off_ionice}" ]; then
 										echo '<p>'${txt_debug_select}'</p>'
 									fi
 
@@ -407,6 +407,14 @@ if [ $(synogetkeyvalue /etc.defaults/VERSION majorversion) -ge 7 ]; then
 													<pre>'; (set -o posix ; set | sed '/txt.*/d;'); echo '</pre>
 												</ul>
 											</li>
+										</ul>'
+									fi
+
+									# Programm ionice
+									if [[ "${switch_off_ionice}" == "on" ]]; then
+										echo '
+										<ul class="list-unstyled">
+											<li class="text-dark list-style-square"><strong>'${txt_debug_ionice_off}'</strong></li>
 										</ul>'
 									fi
 									echo '

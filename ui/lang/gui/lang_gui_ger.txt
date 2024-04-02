@@ -104,6 +104,8 @@ txt_debug_requests="GET & POST Anfragemethoden"
 txt_debug_get="GET Request Methode"
 txt_debug_post="POST Request Methode"
 txt_debug_global="Globale Umgebungsvariablen"
+txt_debug_ionice="Das Programm <strong>ionice</strong> vorübergehend ausschalten"
+txt_debug_ionice_off="Das Programm <strong>ionice</strong> wurde vorübergehend ausgeschaltet"
 
 # main.sh
 # --------------------------------------------------------------
@@ -359,6 +361,7 @@ txt_import_false_note="Die Datensicherungsaufträge konnten nicht importiert wer
 txt_folder_not_create_info="Der Speicherort konnte nicht erstellt werden"
 txt_folder_not_found_info="Der Ordner für die Datensicherungsaufträge konnte nicht gefunden werden"
 txt_share_not_found_note="Der freigegebene Ordner konnte nicht gefunden werden"
+
 
 
 

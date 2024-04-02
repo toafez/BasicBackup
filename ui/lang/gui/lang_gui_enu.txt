@@ -104,6 +104,8 @@ txt_debug_requests="GET & POST request methods"
 txt_debug_get="GET Request Method"
 txt_debug_post="POST Request Method"
 txt_debug_global="Global Environment Variables"
+txt_debug_ionice="Temporarily deactivate the <strong>ionice</strong> program"
+txt_debug_ionice_off="The <strong>ionice</strong> program has been temporarily switched off"
 
 # main.sh
 # --------------------------------------------------------------
@@ -359,6 +361,7 @@ txt_import_false_note="The backup jobs could not be imported"
 txt_folder_not_create_info="The location could not be created"
 txt_folder_not_found_info="The folder for the backup jobs could not be found"
 txt_share_not_found_note="The shared folder could not be found"
+
 
 
 

@@ -525,13 +525,16 @@ if [[ ${exit_code} -eq 0 ]]; then
 	# Configure RSync options
 	#---------------------------------------------------------------------
 	dirdate=$(date "+%Y-%m-%d_%Hh-%Mm-%Ss")
-	# If the 3rd party package -SynoCli Monitor Tools- of the -SynoCommunity- is installed, then use the tool ionice...
-	if [ -f /usr/local/bin/ionice ]; then
+
+	# If the 3rd party package -SynoCli Monitor Tools- of the -SynoCommunity- is installed and debug is off, then use the tool ionice...
+	debug_ionice=$(synogetkeyvalue ${dir}/usersettings/system/debug.config switch_off_ionice)
+	if [ -f /usr/local/bin/ionice ] && [ -z "${debug_ionice}" ]; then
 		ionice="/usr/local/bin/ionice -c 3"
 	# ...else... use Bandwidth speed limit
 	elif [ -n "${var[speedlimit]}" ] && [[ "${var[speedlimit]}" -gt 0 ]]; then
 		speedlimit="--bwlimit=${var[speedlimit]}"
 	fi
+
 	excluded="--delete-excluded --exclude=@eaDir/*** --exclude=@Logfiles/*** --exclude=#recycle/*** --exclude=#snapshot/*** --exclude=.DS_Store/***"
 
 	#---------------------------------------------------------------------
