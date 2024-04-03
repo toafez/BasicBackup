@@ -615,7 +615,7 @@ sed -e "s/___TXT_BACKUPTARGET_LABEL___/${txt_backuptarget_label}/g" \
 								echo '
 								<div class="row mb-3 px-4">
 									<div class="col">
-										<label for="uuidcheck" class="form-label text-dark">'${txt_uuidcheck_label}' '${new}'</label>
+										<label for="uuidcheck" class="form-label text-dark">'${txt_uuidcheck_label}'</label>
 										<select id="uuidcheck" name="uuidcheck" class="form-select form-select-sm">'
 											echo -n '<option value="false"'; \
 											[[ "${var[uuidcheck]}" == "false" || -z "${var[uuidcheck]}" ]] && echo -n ' selected>' || echo -n '>'
@@ -1347,7 +1347,7 @@ sed -e "s/___TXT_BACKUPTARGET_LABEL___/${txt_backuptarget_label}/g" \
 								"${set_keyvalue}" "${post_request}" "var[speedlimit]" "62500"
 								echo '
 								<div class="col">
-									<label for="speedlimit" class="form-label text-dark">'${txt_speedlimit_label}' <sup class="text-danger align-middle">New</sup>
+									<label for="speedlimit" class="form-label text-dark">'${txt_speedlimit_label}' '${new}'
 										<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#speedlimit-note" role="button" aria-expanded="false" aria-controls="speedlimit-note">'${note}'</a>
 											<div class="collapse" id="speedlimit-note">
 												<div class="card card-body border-0">
@@ -1365,7 +1365,7 @@ sed -e "s/___TXT_BACKUPTARGET_LABEL___/${txt_backuptarget_label}/g" \
 							else
 								echo '
 								<div class="col">
-									<label for="speedlimit" class="form-label text-dark">'${txt_speedlimit_label}' <sup class="text-danger align-middle">New</sup>
+									<label for="speedlimit" class="form-label text-dark">'${txt_speedlimit_label}' '${new}'
 										<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#speedlimit-note" role="button" aria-expanded="false" aria-controls="speedlimit-note">'${note}'</a>
 										<div class="collapse" id="speedlimit-note">
 											<div class="card card-body border-0">
