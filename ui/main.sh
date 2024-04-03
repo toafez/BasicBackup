@@ -159,7 +159,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 								fi
 							elif [ -n "${var[sshpush]}" ]; then
 								if [[ "${var[sources]}" == /volume[[:digit:]]* ]]; then
-									backuptype="share-push-server"
+									backuptype="push-to-share"
 									backupsource="${txt_local_diskstation}"
 									if [[ "${var[target]}" == /volume* ]]; then
 										backuptarget="${txt_remote_diskstation}"
@@ -170,7 +170,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 									targeticon="bi bi-hdd-network"
 								fi
 								if [[ "${var[sources]}" == /volumeUSB* || "${var[sources]}" == /volumeSATA* ]]; then
-									backuptype="usb-push-server"
+									backuptype="push-to-usb"
 									backupsource="${txt_external_disk}"
 									if [[ "${var[target]}" == /volume* ]]; then
 										backuptarget="${txt_remote_diskstation}"
@@ -182,7 +182,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 								fi
 							elif [ -n "${var[sshpull]}" ]; then 
 								if [[ "${var[target]}" == /volume[[:digit:]]* ]]; then
-									backuptype="share-pull-server"
+									backuptype="pull-to-share"
 									if [[ "${var[sources]}" == /volume* ]]; then
 										backupsource="${txt_remote_diskstation}"
 									else
@@ -192,8 +192,8 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 									sourceicon="bi bi-hdd-network"
 									targeticon="bi bi-hdd"
 								fi
-								if [[ "${var[sources]}" == /volumeUSB* || "${var[sources]}" == /volumeSATA* ]]; then
-									backuptype="usb-pull-server"
+								if [[ "${var[target]}" == /volumeUSB* || "${var[target]}" == /volumeSATA* ]]; then
+									backuptype="pull-to-usb"
 									if [[ "${var[sources]}" == /volume* ]]; then
 										backupsource="${txt_remote_diskstation}"
 									else
@@ -232,29 +232,29 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 									<i class="bi bi-arrow-right-short text-success pe-1" style="font-size: 1.2rem;"></i>
 									<i class="'${targeticon}' pe-1" style="font-size: 1.2rem;" title="'${backuptarget}'"></i>'
 								fi
-								if [[ "${backuptype}" == "share-push-server" ]]; then
+								if [[ "${backuptype}" == "push-to-share" ]]; then
 									echo '
 									<i class="'${sourceicon}' pe-1" style="font-size: 1.2rem;" title="'${backupsource}'"></i>
 									<i class="bi bi-arrow-right-short text-success pe-1" style="font-size: 1.2rem;"></i>
 									<i class="'${targeticon}' pe-1" style="font-size: 1.2rem;" title="'${backuptarget}'"></i>'
 								fi
-								if [[ "${backuptype}" == "usb-push-server" ]]; then
+								if [[ "${backuptype}" == "push-to-usb" ]]; then
 									echo '
 									<i class="'${sourceicon}' pe-1" style="font-size: 1.2rem;" title="'${backupsource}'"></i>
 									<i class="bi bi-arrow-right-short text-success pe-1" style="font-size: 1.2rem;"></i>
 									<i class="'${targeticon}' pe-1" style="font-size: 1.2rem;" title="'${backuptarget}'"></i>'
 								fi
-								if [[ "${backuptype}" == "share-pull-server" ]]; then
+								if [[ "${backuptype}" == "pull-to-share" ]]; then
 									echo '
 									<i class="'${targeticon}' pe-1" style="font-size: 1.2rem;" title="'${backuptarget}'"></i>
 									<i class="bi bi-arrow-left-short text-success pe-1" style="font-size: 1.2rem;"></i>
 									<i class="'${sourceicon}' pe-1" style="font-size: 1.2rem;" title="'${backupsource}'"></i>'
 								fi
-								if [[ "${backuptype}" == "usb-pull-server" ]]; then
+								if [[ "${backuptype}" == "pull-to-usb" ]]; then
 									echo '
-									<i class="'${sourceicon}' pe-1" style="font-size: 1.2rem;" title="'${backupsource}'"></i>
+									<i class="'${targeticon}' pe-1" style="font-size: 1.2rem;" title="'${backuptarget}'"></i>
 									<i class="bi bi-arrow-left-short text-success pe-1" style="font-size: 1.2rem;"></i>
-									<i class="'${targeticon}' pe-1" style="font-size: 1.2rem;" title="'${backuptarget}'"></i>'
+									<i class="'${sourceicon}' pe-1" style="font-size: 1.2rem;" title="'${backupsource}'"></i>'
 								fi
 								echo '
 							</span>
@@ -317,7 +317,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 									# Datensicherungsziel
 									echo '
 									<tr>
-										<td style="width: 220px;">
+										<td style="width: 230px;">
 											'${txt_backup_target}'
 										</td>
 										<td style="width: auto;">
@@ -330,7 +330,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 									# Datensicherungsquelle
 									echo '
 									<tr>
-										<td style="width: 220px;">
+										<td style="width: 230px;">
 											'${txt_backup_sources}'
 										</td>
 										<td style="width: auto;">
@@ -352,7 +352,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 									# Versionsstände
 									echo '
 									<tr>
-										<td style="width: 220px;">
+										<td style="width: 230px;">
 											'${txt_versioning}'
 										</td>'
 										if [[ "${var[versioning]}" == "true" ]]; then
@@ -371,7 +371,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 									# Papierkorb
 									echo '
 									<tr>
-										<td style="width: 220px;">
+										<td style="width: 230px;">
 											'${txt_recycling}'
 										</td>'
 										if [[ "${var[versioning]}" == "true" ]]; then
@@ -394,27 +394,10 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 										fi
 										echo '
 									</tr>'
-									# Bandbreitenbeschänkung
-									echo '
-									<tr>
-										<td style="width: 220px;">
-											'${txt_speedlimit_title}'
-										</td>
-										<td style="width: auto;">
-											<span class="text-secondary">'
-												if [ -f /usr/local/bin/ionice ] && [ -z "${switch_off_ionice}" ]; then
-													echo ''${txt_speedlimit_active}''
-												else
-													echo ''${txt_speedlimit_limited_info_step_1}' <span class="text-danger">'${var[speedlimit]}' kB/s</span> '${txt_speedlimit_limited_info_step_2}''
-												fi
-											echo '
-											</span>
-										</td>
-									</tr>'
 									# Optionsschalter
 									echo '
 									<tr>
-										<td class="pt-2" style="width: 220px;">
+										<td class="pt-2" style="width: 230px;">
 											<span>'${txt_bash_code_option}'
 												<span class="float-end">
 													<a class="btn btn-sm text-dark text-decoration-none py-0" data-bs-toggle="collapse" href="#collapseOpt" role="button" aria-expanded="false" aria-controls="collapseOpt" style="background-color: #e6e6e6;" title="'${txt_link_note}'">
@@ -475,7 +458,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 									# Auftragsausführung
 									echo '
 									<tr>
-										<td class="pt-2" style="width: 220px;">
+										<td class="pt-2" style="width: 230px;">
 											<span>'${txt_help_job_title}'
 												<span class="float-end">
 													<a class="btn btn-sm text-dark text-decoration-none py-0" data-bs-toggle="collapse" href="#collapseJob" role="button" aria-expanded="false" aria-controls="collapseJob" style="background-color: #e6e6e6;" title="'${txt_link_note}'">
@@ -526,7 +509,7 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 									# Auftragsabbruch
 									echo '
 									<tr>
-										<td class="pt-2" style="width: 220px;">
+										<td class="pt-2" style="width: 230px;">
 											<span>'${txt_kill_job_title}'
 												<span class="float-end">
 													<a class="btn btn-sm text-dark text-decoration-none py-0" data-bs-toggle="collapse" href="#collapseKill" role="button" aria-expanded="false" aria-controls="collapseKill" style="background-color: #e6e6e6;" title="'${txt_link_note}'">
@@ -567,6 +550,23 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 													</small>
 												</div>
 											</div>
+										</td>
+									</tr>'
+									# Geschwindigkeitseinschränkung
+									echo '
+									<tr>
+										<td style="width: 230px;">
+											'${txt_speedlimit_label}'
+										</td>
+										<td style="width: auto;">
+											<span class="text-secondary">'
+												if [ -f /usr/local/bin/ionice ] && [ -z "${switch_off_ionice}" ]; then
+													echo ''${txt_speedlimit_active}''
+												else
+													echo ''${txt_speedlimit_limited_info_step_1}' <span class="text-danger">'${var[speedlimit]}' kB/s</span> '${txt_speedlimit_limited_info_step_2}''
+												fi
+											echo '
+											</span>
 										</td>
 									</tr>
 								</tbody>

@@ -54,6 +54,11 @@ Download the **most recent version** of Basic Backup from the [Releases](https:/
       - Mark the task you have just created in the overview of the task planner, but **do not** activate it (the line should be highlighted in blue after marking).
       - Execute the task once by pressing the **Execute** button.
 
+  - ## Limitation of the data transfer rate
+    When synchronizing large amounts of data, the availability of your Synology NAS and remote servers involved in this process may be severely limited for the duration of the job due to the high read and write load triggered by the rsync process. This behavior can be noticeably improved by reducing the bandwidth and taking into account the read and write speed of the data carriers used. For this reason, it is possible within Basic Backup to define a limitation of the data transfer rate as a freely adjustable value between 1 kB/s and a maximum of 1250000 kB/s.
+
+If the 3rd party package [SynoCli Monitor Tools](https://synocommunity.com/package/synocli-monitor) of the [SynoCommunity](https://synocommunity.com/) is installed, Basic Backup automatically uses the [ionice](https://linux.die.net/man/1/ionice) program contained therein. ionice can optimize the high read and write load that is normally triggered by the rsync process to such an extent that the availability of your Synology NAS and the remote servers involved in this process is guaranteed at all times.
+
 # Version history
 - Details of the version history can be found in the file [CHANGELOG](CHANGELOG).
 

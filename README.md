@@ -54,6 +54,11 @@ Laden Sie sich die **jeweils aktuellste Version** von Basic Backup aus dem Berei
       - Die grade erstellte Aufgabe in der Übersicht des Aufgabenplaners markieren, jedoch **nicht** aktivieren (die Zeile sollte nach dem markieren blau hinterlegt sein).
       - Führen Sie die Aufgabe durch Betätigen Sie Schaltfläche **Ausführen** einmalig aus.
 
+  - ## Begrenzung der Datenübertragungsrate
+    Bei der Synchronisierung großer Datenmengen kann, bedingt durch die ausgelöste hohe Lese- und Schreiblast des rsync-Prozesses, die Verfügbarkeit deines Synology NAS sowie an diesem Prozess beteiligte Remote-Server für die Dauer des Auftrags stark einschränkt sein. Dieses Verhalten kann durch die Reduzierung der Bandbreite und unter Berücksichtigung der Lese- und Schreibgeschwindigkeit der verwendeten Datenträger spürbar verbessert werden. Aus diesem Grund besteht innerhalb Basic Backup die Möglichkeit, eine Begrenzung der Datenübertragungsrate als frei einstellbaren Wert zwischen 1 kB/s und maximal 1250000 kB/s zu definieren.
+
+Wenn das 3rd-Party-Paket [SynoCli Monitor Tools](https://synocommunity.com/package/synocli-monitor) der [SynoCommunity](https://synocommunity.com/) installiert ist, verwendet Basic Backup automatisch das darin enthaltene Programm [ionice](https://linux.die.net/man/1/ionice). ionice kann die hohe Lese- und Schreiblast, die normalerweise durch den rsync-Prozess ausgelöst wird, soweit optimieren, dass die Verfügbarkeit deines Synology NAS und der an diesem Prozess beteiligten Remote-Server jederzeit gewährleistet ist.
+
 # Versionsgeschichte
 - Details zur Versionsgeschichte finden Sie in der Datei [CHANGELOG](CHANGELOG).
 

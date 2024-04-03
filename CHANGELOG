@@ -5,11 +5,11 @@ Previously unpublished release 0.8-400
   - Deutsch
     - Update Bootstrap Framework auf 5.3.3
     - Update Bootsrap Icons auf 1.11.3
-    - Bei der Synchronisierung großer Datenmengen kann die, durch den rsync-Prozess ausgelöste hohe Lese- und Schreiblast, Verfügbarkeit deines Synology NAS sowie an diesem Prozess beteiligte Remote-Server für die Dauer des Auftrags stark einschränken. Dieses Verhalten kann durch die Reduzierung der Bandbreite und unter Berücksichtigung der Lese- und Schreibgeschwindigkeit der verwendeten Datenträger spürbar verbessert werden. Aus diesem Grund wurde eine Bandbreiten- bzw. Geschwindigkeitsbegrenzung zwischen 1 kB/s bis maximal 1250000 kB/s als frei einstellbarer Wert definiert werden.
+    - Bei der Synchronisierung großer Datenmengen kann, bedingt durch die ausgelöste hohe Lese- und Schreiblast des rsync-Prozesses, die Verfügbarkeit deines Synology NAS sowie an diesem Prozess beteiligte Remote-Server für die Dauer des Auftrags stark einschränkt sein. Dieses Verhalten kann durch die Reduzierung der Bandbreite und unter Berücksichtigung der Lese- und Schreibgeschwindigkeit der verwendeten Datenträger spürbar verbessert werden. Aus diesem Grund wurde eine Begrenzung der Datenübertragungsrate hinzugefügt, die als frei einstellbarer Wert zwischen 1 kB/s und maximal 1250000 kB/s definiert werden kann.
     - Wenn das 3rd-Party-Paket -SynoCli Monitor Tools- der -SynoCommunity- installiert ist, verwendet Basic Backup automatisch das darin enthaltene Programm ionice. ionice kann die hohe Lese- und Schreiblast, die normalerweise durch den rsync-Prozess ausgelöst wird, soweit optimieren, dass die Verfügbarkeit deines Synology NAS und der an diesem Prozess beteiligten Remote-Server jederzeit gewährleistet ist.
     - Zu Testzwecken kann das im Vorfeld installierte ionice-Programm über das Debug-Menü vorübergehend abgeschaltet werden.
     - Das Kaufmännische &, welches bisher am Ende des Befehls eines jeden Auftrages angehangen wurde, wurde zurückgenommen. Durch die Bandbreitenbeschränkung ist das Ausführen eines Auftrages als eigenständiger Hintergrundprozess nicht mehr nötig.
-    - Es wurde eine Option eingebaut um laufende Aufträge, über den Aufgabenplaner oder über die Konsole vorzeitig abbrechen zu können. 
+    - Es wurde eine Option eingebaut um laufende Aufträge über den Aufgabenplaner oder über die Konsole vorzeitig abbrechen zu können. 
     - Mit der Installation dieser Version wurde die Array-Deklaration [var] aus allen Backupkonfigurationen in die rsync.sh verschoben.
     - Es wurden Probleme bei der Erkennung und Verarbeitung externer USB/SATA-Datenträger behoben.
     - Die Ermittlung der UUID, GUID bzw. VSN externer Datenträger wurde verbessert. 
@@ -18,17 +18,17 @@ Previously unpublished release 0.8-400
       - 64 bit VSN (Windows NTFS)
       - 32 bit VSN (Windows FAT12, FAT16, FAT32 und exFAT) zusammengefasst als vFAT
     - Wird beim Anlegen oder Bearbeiten eines Auftrags die lokale Synology NAS als Zielserver angegeben, werden künftig gemeinsame Ordner ohne Angabe des Volumes angezeigt. Außerdem entfällt die Verpflichtung, dem Zielverzeichnis ein / (Slash bzw. Schrägstrich) voranzustellen.
-    - Beim sichern und wiederherstellen von Aufträgen, werden künftig gemeinsame Ordner ohne Angabe des Volumes angezeigt. Außerdem entfällt die Verpflichtung, dem Zielverzeichnis ein / (Slash bzw. Schrägstrich) voranzustellen.
+    - Beim Sichern und Wiederherstellen von Aufträgen werden künftig gemeinsame Ordner ohne Angabe des Volumes angezeigt. Zudem entfällt die Verpflichtung, dem Zielverzeichnis ein / (Slash bzw. Schrägstrich) voranzustellen.
     - Der Begriff -DiskStation- wurde in allen Texten durch den Begriff -Synology NAS- ausgetauscht. 
     - Allgemeine Detailverbesserungen, Codeoptimierungen und Fehlerbereinigungen vorgenommen.
 
  - English
     - Update Bootstrap Framework to 5.3.3
     - Update Bootsrap Icons to 1.11.3
-    - When synchronizing large amounts of data, the high read and write load triggered by the rsync process can severely limit the availability of your Synology NAS and remote servers involved in this process for the duration of the job. This behavior can be noticeably improved by reducing the bandwidth and taking into account the read and write speed of the data carriers used. For this reason, a bandwidth or speed limit between 1 kB/s and a maximum of 1250000 kB/s has been defined as a freely adjustable value.
+    - When synchronizing large amounts of data, the availability of your Synology NAS and remote servers involved in this process may be severely limited for the duration of the job due to the high read and write load triggered by the rsync process. This behavior can be noticeably improved by reducing the bandwidth and taking into account the read and write speed of the data carriers used. For this reason, a limitation of the data transfer rate has been added, which can be defined as a freely adjustable value between 1 kB/s and a maximum of 1250000 kB/s.
     - If the 3rd party package -SynoCli Monitor Tools- of -SynoCommunity- is installed, Basic Backup automatically uses the included program ionice. ionice can optimize the high read and write load normally triggered by the rsync process to ensure the availability of your Synology NAS and the remote servers involved in this process at all times.
     - For test purposes, the ionice program installed in advance can be temporarily switched off via the debug menu.
-    - The commercial &, which was previously appended to the end of the command of each order, has been removed. Due to the bandwidth restriction, it is no longer necessary to execute an order as an independent background process.
+    - The commercial &, which was previously appended to the end of the command of each order, has been removed. By limiting the data transfer rate, it is no longer necessary to execute a job as an independent background process.
     - An option has been added to cancel running jobs prematurely via the task planner or the console.
     - With the installation of this version, the array declaration [var] was moved from all backup configurations to rsync.sh
     - Problems with the recognition and processing of external USB/SATA disks have been fixed.
