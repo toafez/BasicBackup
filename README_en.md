@@ -1,6 +1,7 @@
 English | [Deutsch](README.md)
 
 # ![Package icon](/ui/images/icon_24.png) Basic Backup - Package for Synology NAS (DSM 7)
+![GitHub Release](https://img.shields.io/github/v/release/toafez/BasicBackup?link=https%3A%2F%2Fgithub.com%2Ftoafez%2FBasicBackup%2Freleases)
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Ftoafez%2FBasicBackup&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
 Basic Backup enables GUI-supported, file-based data backup based on rsync, as well as version backup according to the generation principle using hard links. Possible backup sources and destinations are internal volumes and USB/SATA data carriers connected externally to a Synology NAS, as well as rsync-capable remote servers connected via SSH.
