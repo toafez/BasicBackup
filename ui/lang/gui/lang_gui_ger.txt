@@ -205,7 +205,7 @@ txt_button_system_log_delete="Protokoll löschen"
 # jobedit.sh
 # --------------------------------------------------------------
 txt_language_label="Ausgabesprache"
-txt_note_mountpoint="<span class=\"text-danger\">Wichtiger Hinweis:</span> Der Einhängepunkt (Mountpoint) dieses externen Datenträgers ist variabel und kann sich bei einem späteren neu verbinden durchaus ändern. Stelle daher bitte im Vorfeld sicher, das der aktuelle Einhängepunkt dieses Datenträgers mit dem hinterlegten Einhängepunkt des Datensicherungsauftrages übereinstimmt."
+txt_note_mountpoint="<span class=\"text-danger\">Wichtiger Hinweis:</span> Der Einhängepunkt (Mountpoint) eines externen Datenträgers ist variabel und kann sich bei einem späteren neu verbinden durchaus ändern. Stelle daher bitte im Vorfeld sicher, das der aktuelle Einhängepunkt des externen Datenträgers stets mit dem hinterlegten Einhängepunkt des Datensicherungsauftrages übereinstimmt, oder nutze die Funktion der automatischen Anpssung des Einhängepunktes unter \"Datensicherungsziel auswählen/bearbeiten\" dieser Konfiguration."
 
 # Seite 1
 txt_job_title="Auftrag"
@@ -215,7 +215,7 @@ txt_job_select="auswählen"
 
 txt_jobname_label="Auftrags- bzw. Scriptname"
 txt_jobname_format="Erlaubte Zeichen - und _ sowie Leerzeichen"
-txt_jobname_regex="^[0-9a-zA-Z _-]+$"
+txt_jobname_regex="^[0-9a-zA-ZäöüÄÖÜ _-]+$"
 
 txt_sendemail_label="E-Mail Benachrichtigung"
 txt_sendemail_true="Protokoll immer senden"
@@ -259,12 +259,12 @@ txt_uuidcheck_opt_false="Einhängepunkt nicht anpassen auch wenn sich dieser zwi
 txt_localfolder_label="Zielverzeichnis"
 txt_localfolder_note="Es muss ein Zielverzeichnis angegeben werden. Die Verwendung von weiteren Unterverzeichnissen, jeweils durch einen <span class=\"text-blue\">/</span> (Slash bzw. Schrägstrich) getrennt, ist möglich. Ist das Zielverzeichnis nicht vorhanden, wird es während der ersten Datensicherung angelegt. Ungültige Zeichen in Datei- oder Verzeichnisnamen sind <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
 txt_localfolder_format="z.B. /Basic Backup/Mein erstes Backup"
-txt_localfolder_regex="^\([a-zA-Z0-9 _\-\.\/]+)+$"
+txt_localfolder_regex="^\([0-9a-zA-ZäöüÄÖÜ _\-\.\/]+)+$"
 
 txt_remotetarget_label="Zielverzeichnis"
 txt_remotetarget_note="Es muss ein Zielverzeichnis angegeben werden, das von einem <span class=\"text-blue\">/</span> (Slash bzw. Schrägstrich) angeführt wird. Die Verwendung weiterer Unterverzeichnisse ist möglich. Befindet sich das Zielverzeichnis auf einer Synology NAS, so muss zusätzlich noch der gewünschte freigegebene Ordner angegeben werden wie z.B. <span class=\"text-blue\">/volume1/NetBackup</span>. Ist das Zielverzeichnis nicht vorhanden, wird es während der ersten Datensicherung angelegt. Ungültige Zeichen in Datei- oder Verzeichnisnamen sind <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
 txt_remotetarget_format="z.B. /volume1/NetBackup/Mein erstes Backup"
-txt_remotetarget_regex="^\/([a-zA-Z0-9 _\-\.\/]+)+$"
+txt_remotetarget_regex="^\/([0-9a-zA-ZäöüÄÖÜ _\-\.\/]+)+$"
 
 # Seite 2b und Seite 3b
 txt_sshbuild_note="Hinweise zur Einrichtung einer SSH-Verbindung"
@@ -287,7 +287,7 @@ txt_ssh_regex_mac="^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$"
 txt_privatekey_label="Dateiname des zu verwendenden privaten SSH-Schlüssels"
 txt_privatekey_note="Wurde kein alternativer Dateiname für den privaten SSH Schlüssel (private key) angegeben, wird der Standardname <strong>id_rsa</strong> verwendet. Ungültige Zeichen in Datei- oder Ordnernamen sind <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
 txt_privatekey_format="z.B. id_rsa"
-txt_privatekey_regex="^[0-9a-zA-Z _-]+$"
+txt_privatekey_regex="^[0-9a-zA-ZäöüÄÖÜ _-]+$"
 
 txt_remoteserver_script_before="Vor der Datensicherung: Wake on LAN in Sekunden (60/120/180 Sekunden oder false)"
 txt_remoteserver_label_before="Vor der Datensicherung den Remote Server..."
@@ -318,7 +318,7 @@ txt_sourceserver_opt_remote="Remote rsync-Server (Pull Backup)"
 txt_sources_label="Datensicherungsquelle(n)"
 txt_sources_label_info="Pfade durch ein & voneinander trennen"
 txt_sources_format="z.B. /volume1/music/Compilations & /volume1/photo/General & /volume2/video/Series"
-txt_sources_regex="^\/([a-zA-Z0-9 _\-\.\/&]+)+$"
+txt_sources_regex="^\/([0-9a-zA-ZäöüÄÖÜ _\-\.\/&]+)+$"
 txt_sources_rights="Basic Backup verfügt aktuell nur über eingeschränkte Systemrechte, da die App kein Mitglied in der Gruppe der Administratoren ist. Das hat zur Folge, das an dieser Stelle nur freigegebene Ordner, nicht jedoch zugehörige Unterordner auswählbar sind. Zum erweitern der Systemrechte, folge bitte den Anweisungen auf der <a href=\"index.cgi?page=jobedit&section=reset\" class=\"text-primary text-decoration-none\">Startseite</a> von Basic Backup."
 
 # Seite 4
@@ -352,7 +352,7 @@ txt_exclude_label="Muster von Sicherung ausschließen"
 txt_save_title_edit="speichern..."
 txt_save_title_new="Datensicherungsauftrag speichern..."
 txt_save_note_true="Der Datenscherungsauftrag wurde erstellt."
-txt_save_note_edit="Die Änderungen am Datenscherungsauftrag wurden übernommen."
+txt_save_note_edit="Die Änderungen am Datensicherungsauftrag wurden übernommen."
 txt_save_note_failed="Ein Problem ist aufgetreten! Der Datenscherungsauftrag konnte nicht erstellt werden."
 
 # system.sh
@@ -372,7 +372,4 @@ txt_import_false_note="Die Datensicherungsaufträge konnten nicht importiert wer
 txt_folder_not_create_info="Der Speicherort konnte nicht erstellt werden"
 txt_folder_not_found_info="Der Ordner für die Datensicherungsaufträge konnte nicht gefunden werden"
 txt_share_not_found_note="Der freigegebene Ordner konnte nicht gefunden werden"
-
-
-
 

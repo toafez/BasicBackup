@@ -1,6 +1,6 @@
 #!/bin/bash
 # Filename: jobedit.sh - coded in utf-8
-job_version="0.8-400"
+job_version="0.8-500"
 
 #                       Basic Backup
 #
@@ -28,6 +28,26 @@ pageview="off"
 # --------------------------------------------------------------
 mainnav
 
+# Funktion: Überprüfung auf gültige UUID
+# --------------------------------------------------------------
+function uuid_check()
+{
+	uuid="${1}"
+
+	# Determine the file system if there is a 128-bit UUID (LINUX/UNIX)
+	if [[ "${uuid}" =~ ^\{?[A-F0-9a-f]{8}-[A-F0-9a-f]{4}-[A-F0-9a-f]{4}-[A-F0-9a-f]{4}-[A-F0-9a-f]{12}\}?$ ]]; then
+		uuid="${uuid}"
+	# Determine the file system if there is a 64 bit VSN (Windows NTFS)
+	elif [[ "${uuid}" =~ ^\{?[A-F0-9a-f]{16}\}?$ ]]; then
+		uuid="${uuid}"
+	# Determine the file system if there is a 32 bit VSN (Windows FAT12, FAT16, FAT32 and exFAT) combined as vFAT
+	elif [[ "${uuid}" =~ ^\{?[A-F0-9a-f]{4}-[A-F0-9a-f]{4}\}?$ ]] || [[ "${uuid}" =~ ^\{?[A-F0-9a-f]{8}\}?$ ]]; then
+		uuid="${uuid}"
+	else
+		uuid=
+	fi
+}
+
 # Funktion: Lokale Datensicherungsquelle(n) auswählen
 # --------------------------------------------------------------
 function local_sources()
@@ -35,66 +55,73 @@ function local_sources()
 	while IFS= read -r volume; do
 		IFS="${backupIFS}"
 		[[ -z "${volume}" ]] && continue
-		mountpoint=$(mount | grep -E "${volume}")
-		dev=$(echo "${mountpoint}" | awk '{print $1}')
-		[[ -z "${dev}" ]] && continue
-		echo -n '<span class="text-secondary ps-2"><strong>'${volume}'</strong></span><br />'
-		if [[ "${volume}" == /volumeUSB* || "${volume}" == /volumeSATA* ]]; then
-			echo -n '<div class="text-secondary ps-4 pb-1"><small>'${txt_note_mountpoint}'</small></div>'
-		fi
+
 		# Vertikales Dropdownmenü (checktree.js, fadetree.js, stylesheet.css)
-		echo '
-		<ul class="checktree" style="list-style-type: none">'
-			while IFS= read -r share; do
-				IFS="${backupIFS}"
-				[[ -z "${share}" ]] && continue
+		while IFS= read -r share; do
+			IFS="${backupIFS}"
+			[[ -z "${share}" ]] && continue
 
-				IFS='&'
-				read -r -a shares <<< "${var[sources]}"
-				for dir in "${shares[@]}"; do
-					dir=$(echo "${dir}" | sed 's/^[ \t]*//;s/[ \t]*$//')
-					[[ "${share}" == "${dir}" ]] && break
-				done
-				IFS="${backupIFS}"
-				unset shares
+			if [[ "${share}" == /volumeUSB* || "${share}" == /volumeSATA* ]]; then
+				mountpoint=$(mount | grep -E "${volume}/${share##*/}")
+				disknumber=$(echo "${share%/*}" | sed 's/[^0-9]*//g')
+				dev=$(echo "${mountpoint}" | awk '{print $1}')
+				uuid=$(blkid -s UUID -o value ${dev})
+				[ -z "${dev}" ] && continue
+				uuid_check "${uuid}"
+				[ -z "${uuid}" ] && continue
+			fi
 
-				echo -n '
-				<li>
-					<!-- <a href="#" class="a_toggle text-secondary" style="text-decoration: none;">+</a> -->
-					<input type="checkbox" class="form-check-input" id="share_'${count}'" name="share_'${count}'" value="'${share}'"'; \
-						[[ "${share}" == "${dir}" ]] && echo -n ' checked />' || echo -n ' />'; echo -n '
-					<label for="share_'${count}'" class="form-check-label text-dark">'${share##*/}'</label>'
-					count=$[${count}+1]
+			IFS='&'
+			read -r -a shares <<< "${var[sources]}"
+			for dir in "${shares[@]}"; do
+				dir=$(echo "${dir}" | sed 's/^[ \t]*//;s/[ \t]*$//')
+				[[ "${share}" == "${dir}" ]] && break
+			done
+			IFS="${backupIFS}"
+			unset shares
 
+			echo -n '
+			<li>
+				<!-- <a href="#" class="a_toggle text-secondary" style="text-decoration: none;">+</a> -->
+				<input type="checkbox" class="form-check-input" id="share_'${count}'" name="share_'${count}'" value="'${share}'"'; \
+					[[ "${share}" == "${dir}" ]] && echo -n ' checked />' || echo -n ' />'; echo -n '
+				<label for="share_'${count}'" class="form-check-label text-dark">'
+					if [[ "${share##*/}${disknumber}" == usbshare[1-99] || "${share##*/}${disknumber}" == satashare[1-99] ]]; then
+						echo ''${share##*/}${disknumber}''
+					else
+						echo ''${share##*/}''
+					fi
 					echo '
-					<ul class="show" style="list-style-type: none">'
-						while IFS= read -r folder; do
-							IFS="${backupIFS}"
-							[[ -z "${folder}" ]] && continue
+				</label>'
+				count=$[${count}+1]
+				echo '
+				<ul class="show" style="list-style-type: none">'
+					while IFS= read -r folder; do
+						IFS="${backupIFS}"
+						[[ -z "${folder}" ]] && continue
 
-							IFS='&'
-							read -r -a folders <<< "${var[sources]}"
-							for sub in "${folders[@]}"; do
-								sub=$(echo "${sub}" | sed 's/^[ \t]*//;s/[ \t]*$//')
-								[[ "${folder}" == "${sub}" ]] && break
-							done
-							IFS="${backupIFS}"
+						IFS='&'
+						read -r -a folders <<< "${var[sources]}"
+						for sub in "${folders[@]}"; do
+							sub=$(echo "${sub}" | sed 's/^[ \t]*//;s/[ \t]*$//')
+							[[ "${folder}" == "${sub}" ]] && break
+						done
+						IFS="${backupIFS}"
 
-							echo -n '
-							<li>
-								<input type="checkbox" class="form-check-input" id="folder_'${count}'" name="folder_'${count}'" value="'${folder}'"'; \
-									[[ "${folder}" == "${sub}" ]] && echo -n ' checked />' || echo -n ' />'; echo -n '
-								<label for="folder_'${count}'" class="form-check-label text-secondary">'${folder##*/}'</label>
-							</li>'
-							count=$[${count}+1]
-
-						done <<< "$( find ${share}/* -maxdepth 0 -type d ! -path '*/lost\+found' ! -path '*/\@*' ! -path '*/\#recycle' ! -path '*/\$RECYCLE.BIN' )"
 						echo -n '
-					</ul>
-				</li>'
-			done <<< "$( find ${volume}/* -maxdepth 0 -type d ! -path '*/lost\+found' ! -path '*/\@*' ! -path '*/\$RECYCLE.BIN' ! -path '*/Repair' ! -path '*/System Volume Information' )"
-			echo '
-		</ul>
+						<li>
+							<input type="checkbox" class="form-check-input" id="folder_'${count}'" name="folder_'${count}'" value="'${folder}'"'; \
+								[[ "${folder}" == "${sub}" ]] && echo -n ' checked />' || echo -n ' />'; echo -n '
+							<label for="folder_'${count}'" class="form-check-label text-secondary">'${folder##*/}'</label>
+						</li>'
+						count=$[${count}+1]
+
+					done <<< "$( find ${share}/* -maxdepth 0 -type d ! -path '*/lost\+found' ! -path '*/\@*' ! -path '*/\#recycle' ! -path '*/\$RECYCLE.BIN' )"
+					echo -n '
+				</ul>
+			</li>'
+		done <<< "$( find ${volume}/* -maxdepth 0 -type d ! -path '*/lost\+found' ! -path '*/\@*' ! -path '*/\$RECYCLE.BIN' ! -path '*/Repair' ! -path '*/System Volume Information' )"
+		echo '
 		<script>
 			$(function(){
 				$("ul.checktree").checktree();
@@ -111,15 +138,33 @@ function local_target()
 	while IFS= read -r volume; do
 		IFS="${backupIFS}"
 		[[ -z "${volume}" ]] && continue
-		mountpoint=$(mount | grep -E "${volume}")
-		dev=$(echo "${mountpoint}" | awk '{print $1}')
-		[[ -z "${dev}" ]] && continue
+
 		while IFS= read -r share; do
 			IFS="${backupIFS}"
 			[[ -z "${share}" ]] && continue
-			echo -n '<option value="'${share}'"'; \
-				[[ "${var[${2}]}" == "${share}" ]] && echo -n ' selected>' || echo -n '>'
-			echo ''${share##*/}'</option>'
+
+			if [[ "${share}" == /volumeUSB* || "${share}" == /volumeSATA* ]]; then
+				mountpoint=$(mount | grep -E "${volume}/${share##*/}")
+				disknumber=$(echo "${share%/*}" | sed 's/[^0-9]*//g')
+				dev=$(echo "${mountpoint}" | awk '{print $1}')
+				uuid=$(blkid -s UUID -o value ${dev})
+				[ -z "${dev}" ] && continue
+				uuid_check "${uuid}"
+				[ -z "${uuid}" ] && continue
+
+				echo -n '<option value="'${share}'"'; \
+					[[ "${var[${2}]}" == "${share}" ]] && echo -n ' selected>' || echo -n '>'
+					if [[ "${share##*/}${disknumber}" == usbshare[1-99] || "${share##*/}${disknumber}" == satashare[1-99] ]]; then
+						echo ''${share##*/}${disknumber}'</option>'
+					else
+						echo ''${share##*/}'</option>'
+					fi
+			else
+				echo -n '<option value="'${share}'"'; \
+					[[ "${var[${2}]}" == "${share}" ]] && echo -n ' selected>' || echo -n '>'
+				echo ''${share##*/}'</option>'
+			fi
+
 		done <<< "$( find ${volume}/* -type d ! -path '*/lost\+found' ! -path '*/\@*' ! -path '*/\$RECYCLE.BIN' ! -path '*/Repair' ! -path '*/System Volume Information' -maxdepth 0 )"
 	done <<< "$( find ${1} -maxdepth 0 -type d )"
 	unset volume share
@@ -268,7 +313,8 @@ echo '
 				fi
 
 				# Auftrag laden
-				[ -n "${get[jobname]}" ] && get[jobname]=$(echo ${get[jobname]} |sed 's/%20/ /g')
+				#[ -n "${get[jobname]}" ] && get[jobname]=$(echo ${get[jobname]} | sed 's/%20/ /g')
+				[ -n "${get[jobname]}" ] && get[jobname]=$(urldecode ${get[jobname]})
 				if [[ "${get[edit]}" == "true" ]] && [ -f "${usr_backupjobs}/${get[jobname]}.config" ]; then
 					declare -A var
 					source "${usr_backupjobs}/${get[jobname]}.config"
@@ -446,12 +492,6 @@ echo '
 				# ---------------------------------------------------------------------------
 				if [[ "${var[section]}" == "2" ]]; then
 					[[ "${pageview}" == "on" ]] && echo "Seite (page-2) - Primäre Ansicht"
-
-output="/var/packages/BasicBackup/target/ui/modules/backupjob.output"
-chmod 775 "${output}"
-sed -e "s/___TXT_BACKUPTARGET_LABEL___/${txt_backuptarget_label}/g" \
-	-e "s/___VAR_TARGET___/${var[target]}/g" \
-	/var/packages/BasicBackup/target/ui/modules/backupjob.template > "${output}"
 
 					[ -f "${post_request}" ] && source "${post_request}"
 
@@ -968,14 +1008,14 @@ sed -e "s/___TXT_BACKUPTARGET_LABEL___/${txt_backuptarget_label}/g" \
 													</div>'
 												fi
 												echo '
-											</label><br />'
-											count=1
-											local_sources "/volume[[:digit:]]"
-											local_sources "/volumeUSB[[:digit:]]"
-											local_sources "/volumeSATA[[:digit:]]"
-											local_sources "/volumeSATA"
-											unset count
-											echo '
+											</label><br />
+											<ul class="checktree" style="list-style-type: none">'
+												count=1
+												local_sources "/volume*"
+												unset count
+												echo '
+											</ul>
+											<div class="text-secondary ps-4 pb-1"><small>'${txt_note_mountpoint}'</small></div>
 										</div>
 									</div>'
 								fi
@@ -1181,14 +1221,14 @@ sed -e "s/___TXT_BACKUPTARGET_LABEL___/${txt_backuptarget_label}/g" \
 											</div>'
 										fi
 										echo '
-									</label><br />'
-									count=1
-									local_sources "/volume[[:digit:]]"
-									local_sources "/volumeUSB[[:digit:]]"
-									local_sources "/volumeSATA[[:digit:]]"
-									local_sources "/volumeSATA"
-									unset count
-									echo '
+									</label><br />
+									<ul class="checktree" style="list-style-type: none">'
+										count=1
+										local_sources "/volume*"
+										unset count
+										echo '
+									</ul>
+									<div class="text-secondary ps-4 pb-1"><small>'${txt_note_mountpoint}'</small></div>
 								</div>
 							</div>'
 
@@ -1347,7 +1387,7 @@ sed -e "s/___TXT_BACKUPTARGET_LABEL___/${txt_backuptarget_label}/g" \
 								"${set_keyvalue}" "${post_request}" "var[speedlimit]" "62500"
 								echo '
 								<div class="col">
-									<label for="speedlimit" class="form-label text-dark">'${txt_speedlimit_label}' '${new}'
+									<label for="speedlimit" class="form-label text-dark">'${txt_speedlimit_label}'
 										<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#speedlimit-note" role="button" aria-expanded="false" aria-controls="speedlimit-note">'${note}'</a>
 											<div class="collapse" id="speedlimit-note">
 												<div class="card card-body border-0">
@@ -1365,7 +1405,7 @@ sed -e "s/___TXT_BACKUPTARGET_LABEL___/${txt_backuptarget_label}/g" \
 							else
 								echo '
 								<div class="col">
-									<label for="speedlimit" class="form-label text-dark">'${txt_speedlimit_label}' '${new}'
+									<label for="speedlimit" class="form-label text-dark">'${txt_speedlimit_label}'
 										<a class="text-danger text-decoration-none" data-bs-toggle="collapse" href="#speedlimit-note" role="button" aria-expanded="false" aria-controls="speedlimit-note">'${note}'</a>
 										<div class="collapse" id="speedlimit-note">
 											<div class="card card-body border-0">

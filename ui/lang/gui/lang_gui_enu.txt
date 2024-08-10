@@ -205,7 +205,7 @@ txt_button_system_log_delete="Delete Log"
 # jobedit.sh
 # --------------------------------------------------------------
 txt_language_label="Output language"
-txt_note_mountpoint="<span class=\"text-danger\">Important note:</span> The mount point of this external data carrier is variable and may well change during a later reconnection. Therefore, please make sure in advance that the current mount point of this data carrier corresponds to the stored mount point of the data backup job."
+txt_note_mountpoint="<span class=\"text-danger\">Important note:</span> The mount point of an external data carrier is variable and may well change when it is reconnected later. Therefore, please ensure in advance that the current mount point of the external data carrier always matches the stored mount point of the data backup task, or use the function for automatic adjustment of the mount point under \"Select/edit backup target\" of this configuration."
 
 # Page 1
 txt_job_title="Job"
@@ -215,7 +215,7 @@ txt_job_select="select"
 
 txt_jobname_label="Job or script name"
 txt_jobname_format="Permitted characters - and _ as well as spaces"
-txt_jobname_regex="^[0-9a-zA-Z _-]+$"
+txt_jobname_regex="^[0-9a-zA-ZäöüÄÖÜ _-]+$"
 
 txt_sendemail_label="Email Notification"
 txt_sendemail_true="Always send protocol"
@@ -259,12 +259,12 @@ txt_uuidcheck_opt_false="Do not adjust mount point even if it has changed in the
 txt_localfolder_label="Target directory"
 txt_localfolder_note="A target directory must be specified. The use of further subdirectories, each separated by a <span class=\"text-blue\">/</span> (slash), is possible.  If the target directory does not exist, it will be created during the first backup. Invalid characters in file or directory names are <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
 txt_localfolder_format="z.B. /Basic Backup/My first backup"
-txt_localfolder_regex="^\([a-zA-Z0-9 _\-\.\/]+)+$"
+txt_localfolder_regex="^\([0-9a-zA-ZäöüÄÖÜ _\-\.\/]+)+$"
 
 txt_remotetarget_label="Target directory"
 txt_remotetarget_note="A target directory must be specified, headed by a <span class=\"text-blue\">/</span> (Slash). The use of further subdirectories is possible. If the target directory is on a Synology NAS, the desired shared folder must also be specified, e.g. <span class=\"text-blue\">/volume1/NetBackup</span>. If the target directory does not exist, it will be created during the first backup. Invalid characters in file or directory names are <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
 txt_remotetarget_format="z.B. /volume1/NetBackup/My first backup"
-txt_remotetarget_regex="^\/([a-zA-Z0-9 _\-\.\/]+)+$"
+txt_remotetarget_regex="^\/([0-9a-zA-ZäöüÄÖÜ _\-\.\/]+)+$"
 
 # Page 2b and page 3b
 txt_sshbuild_note="Hints for setting up an SSH connection"
@@ -287,7 +287,7 @@ txt_ssh_regex_mac="^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$"
 txt_privatekey_label="File name of the private SSH key to be used"
 txt_privatekey_note="If no alternative file name for the private key has been specified, the default name <strong>id_rsa</strong> is used. Invalid characters in file or folder names are <span class=\"text-blue\">~ &#34; &#35; &#37; &#38; &#42; &#58; &#60; &#62; &#63; &#47; &#92; &#123; &#124; &#125;</span>"
 txt_privatekey_format="e.g. /root/.ssh/id_rsa"
-txt_privatekey_regex="^[0-9a-zA-Z _-]+$"
+txt_privatekey_regex="^[0-9a-zA-ZäöüÄÖÜ _-]+$"
 
 txt_remoteserver_script_before="Before backup: Wake on LAN in seconds (60/120/180 seconds or false)"
 txt_remoteserver_label_before="Before backup the remote server..."
@@ -318,7 +318,7 @@ txt_sourceserver_opt_remote="Remote rsync-Server (Pull Backup)"
 txt_sources_label="Data Backup Source(s)"
 txt_sources_label_info="Separate paths with a &"
 txt_sources_format="z.B. /volume1/music/Compilations & /volume1/photo/General & /volume2/video/Series"
-txt_sources_regex="^\/([a-zA-Z0-9 _\-\.\/&]+)+$"
+txt_sources_regex="^\/([0-9a-zA-ZäöüÄÖÜ _\-\.\/&]+)+$"
 txt_sources_rights="Basic Backup currently has only limited system rights, as the app is not a member of the administrators group. As a result, only shared folders can be selected at this point, but not associated subfolders. To extend the system rights, please follow the instructions on the <a href=\"index.cgi?page=jobedit&section=reset\" class=\"text-primary text-decoration-none\">start page</a> of Basic Backup."
 
 # Page 4
@@ -352,7 +352,7 @@ txt_exclude_label="Exclude samples from backup"
 txt_save_title_edit="save..."
 txt_save_title_new="Save Backup Job..."
 txt_save_note_true="The data backup job has been created."
-txt_save_note_edit="The changes to the data shear job have been applied."
+txt_save_note_edit="The changes to the data backup job have been adopted."
 txt_save_note_failed="A problem has occurred! The data shear job could not be created."
 
 # system.sh
@@ -372,8 +372,4 @@ txt_import_false_note="The backup jobs could not be imported"
 txt_folder_not_create_info="The location could not be created"
 txt_folder_not_found_info="The folder for the backup jobs could not be found"
 txt_share_not_found_note="The shared folder could not be found"
-
-
-
-
 

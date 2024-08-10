@@ -117,14 +117,16 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 				<div class="accordion-item border-0 mb-3">
 					<div class="accordion-header bg-light p-2">'
 
+						# Wenn Aufträge aktuell ausgeführt werden, dann Seite alle 10 Sekunden aktualisieren
+						# --------------------------------------------------------------
 						process="false"
-						is_active=$(synogetkeyvalue /var/packages/${app_name}/tmp/pid job)
-						if [[ "${backupjob}" == "${is_active}" ]]; then
+						if [ -n "${active_pid}" ]; then
 							process="true"
 							echo '<meta http-equiv="refresh" content="10">'
 						else
 							process="false"
 						fi
+
 
 						echo '
 						<a href="#edit'${id}'" class="text-dark text-decoration-none" data-bs-toggle="collapse" data-bs-target="#collapse'${id}'" aria-expanded="true" aria-controls="collapse'${id}'">'
@@ -259,7 +261,11 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 								echo '
 							</span>
 						</a>'
-						if [[ "${process}" == "true" ]]; then
+
+						# Prozess ID ermitteln und aktiv laufende Aufträge markieren
+						# --------------------------------------------------------------
+						active_pid=$(ps aux | grep -v "grep" | grep -E "/usr/syno/synoman/webman/3rdparty/${app_name}/rsync.sh.*--job-name=${backupjob}" | awk -F' ' '{print $2}')
+						if [ -n "${active_pid}" ]; then
 							echo '
 							<div class="spinner-grow" style="width: 1rem; height: 1rem; color: #FF8C00;" role="status">
 								<span class="visually-hidden">Loading...</span>
@@ -278,6 +284,8 @@ if [[ "${get[page]}" == "main" && "${get[section]}" == "start" ]]; then
 							if dpkg --compare-versions ${job_version} gt ${jobconfig_version}; then
 								if dpkg --compare-versions ${jobconfig_version} eq "0.7-000"; then
 									find ${usr_backupjobs}/ -type f -print0 | xargs -0 -n 1 sed -i -e 's/'"0.7-000"'/'"${job_version}"'/g'
+								elif dpkg --compare-versions ${jobconfig_version} eq "0.8-400"; then
+									find ${usr_backupjobs}/ -type f -print0 | xargs -0 -n 1 sed -i -e 's/'"0.8-400"'/'"${job_version}"'/g'
 								else
 									echo '
 									<a class="btn btn-sm text-dark btn-outline-danger bg-danger-subtle text-decoration-none me-1" role="button" href="index.cgi?page=jobedit&section=1&edit=true&jobname='${backupjob}'">
